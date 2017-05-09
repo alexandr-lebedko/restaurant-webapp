@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS invoices;
+DROP PROCEDURE IF EXISTS update_order_items_sp;
+DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS menu_items;
+DROP TABLE IF EXISTS dishes;
+DROP TABLE IF EXISTS users;

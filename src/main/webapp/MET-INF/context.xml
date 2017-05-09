@@ -1,0 +1,13 @@
+<Context>
+    <Resource name="jdbc/db"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="100"
+              maxIdle="30"
+              maxWaitMillis="10000"
+              username="Я не указал username"
+              password="Я не указал password"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/restaurant-2.0"
+    />
+</Context>
