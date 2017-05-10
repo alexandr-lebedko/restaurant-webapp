@@ -2,10 +2,10 @@ package net.lebedko.dao.factory;
 
 import net.lebedko.dao.*;
 import net.lebedko.dao.jdbc.*;
-import net.lebedko.dao.jdbc.connection.ConnectionProvider;
-import net.lebedko.dao.jdbc.connection.JndiConnectionProvider;
-import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
-import net.lebedko.dao.jdbc.template.QueryTemplate;
+import net.lebedko.dao.connection.ConnectionProvider;
+import net.lebedko.dao.connection.JndiConnectionProvider;
+import net.lebedko.dao.connection.ThreadLocalConnectionProvider;
+import net.lebedko.dao.template.QueryTemplate;
 import net.lebedko.dao.transaction.TransactionManager;
 import net.lebedko.dao.transaction.TransactionManagerImpl;
 
