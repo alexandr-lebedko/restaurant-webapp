@@ -1,8 +1,8 @@
 package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.jdbc.connection.TestConnectionProvider;
-import net.lebedko.dao.jdbc.template.QueryTemplate;
+import net.lebedko.dao.connection.TestConnectionProvider;
+import net.lebedko.dao.template.QueryTemplate;
 import net.lebedko.entity.dish.Dish;
 import net.lebedko.entity.general.Title;
 import org.junit.After;
@@ -81,17 +81,26 @@ public class JdbcDishDaoTest {
                 dishDao.findById(dish.getId()), equalTo(dish));
     }
 
-    @Test(expected = DataAccessException.class)
+//    @Test(expected = DataAccessException.class)
+    @Test
     public void insertSameDishWithSameTitleAndCategoryTwice() throws Exception {
-        Title title = getTitle();
-        DishCategory category = getDishCategory();
 
-        Dish dishOne = new Dish(title, getDescription(), category);
-        Dish dishTwo = new Dish(title, getDescription(), category);
+try{
 
-        dishDao.insert(dishOne);
-        dishDao.insert(dishTwo);
-    }
+    Title title = getTitle();
+    DishCategory category = getDishCategory();
+
+    Dish dishOne = new Dish(title, getDescription(), category);
+    Dish dishTwo = new Dish(title, getDescription(), category);
+
+    dishDao.insert(dishOne);
+    dishDao.insert(dishTwo);
+}catch (DataAccessException e){
+    Throwable cause = e.getCause();
+    ((SQLException)cause).printStackTrace();
+}
+
+}
 
     @Test
     public void deleteTest() throws Exception {

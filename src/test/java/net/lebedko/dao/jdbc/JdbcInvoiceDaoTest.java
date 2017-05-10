@@ -1,9 +1,8 @@
 package net.lebedko.dao.jdbc;
 
-import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.exception.EntityExistsException;
-import net.lebedko.dao.jdbc.connection.TestConnectionProvider;
-import net.lebedko.dao.jdbc.template.QueryTemplate;
+import net.lebedko.dao.connection.TestConnectionProvider;
+import net.lebedko.dao.template.QueryTemplate;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceView;
 import net.lebedko.entity.order.Order;

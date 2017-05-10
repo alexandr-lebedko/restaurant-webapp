@@ -3,7 +3,7 @@ package net.lebedko.dao.jdbc;
 import com.github.benoitduffezz.ScriptRunner;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
-import net.lebedko.dao.jdbc.connection.TestConnectionProvider;
+import net.lebedko.dao.connection.TestConnectionProvider;
 import org.junit.rules.ExternalResource;
 
 import java.io.IOException;
