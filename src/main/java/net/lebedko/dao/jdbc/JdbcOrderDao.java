@@ -2,8 +2,8 @@ package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.OrderDao;
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.jdbc.template.QueryTemplate;
-import net.lebedko.dao.jdbc.template.Mapper;
+import net.lebedko.dao.template.QueryTemplate;
+import net.lebedko.dao.template.Mapper;
 import net.lebedko.entity.menu.MenuItem;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;

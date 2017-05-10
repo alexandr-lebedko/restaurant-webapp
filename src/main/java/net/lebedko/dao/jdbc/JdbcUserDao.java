@@ -2,8 +2,8 @@ package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.UserDao;
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.jdbc.template.QueryTemplate;
-import net.lebedko.dao.jdbc.template.Mapper;
+import net.lebedko.dao.template.QueryTemplate;
+import net.lebedko.dao.template.Mapper;
 import net.lebedko.entity.user.*;
 import net.lebedko.entity.user.User.UserRole;
 
