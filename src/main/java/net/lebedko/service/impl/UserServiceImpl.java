@@ -2,6 +2,7 @@ package net.lebedko.service.impl;
 
 import net.lebedko.dao.UserDao;
 import net.lebedko.dao.exception.DataAccessException;
+import net.lebedko.dao.exception.EntityExistsException;
 import net.lebedko.dao.transaction.TransactionManager;
 import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.entity.user.User;
@@ -24,19 +25,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(User user) throws DataAccessException{
-
-        txManager.tx(() -> {});
+    public void registerUser(User user) throws EntityExistsException, DataAccessException {
+        txManager.tx(() -> {
+        });
     }
 
     @Override
-    public boolean authenticate(UserView user) {
-
-
+    public boolean authenticate(final UserView user) {
         return false;
     }
 
-    private User findByEmail(final EmailAddress emailAddress) throws Exception{
-        return txManager.tx(()-> userDao.findByEmail(emailAddress));
+    private User findByEmail(final EmailAddress emailAddress) throws Exception {
+        return txManager.tx(() -> userDao.findByEmail(emailAddress));
     }
 }
