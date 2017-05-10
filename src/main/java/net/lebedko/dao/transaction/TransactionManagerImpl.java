@@ -1,7 +1,7 @@
 package net.lebedko.dao.transaction;
 
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.jdbc.connection.ConnectionProvider;
+import net.lebedko.dao.connection.ConnectionProvider;
 
 import java.sql.Connection;
 import java.sql.SQLException;
