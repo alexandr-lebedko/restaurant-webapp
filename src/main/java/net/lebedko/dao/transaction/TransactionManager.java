@@ -2,6 +2,7 @@ package net.lebedko.dao.transaction;
 
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.exception.TransactionException;
+import net.lebedko.util.VoidCallable;
 
 import java.util.concurrent.Callable;
 
@@ -12,30 +13,20 @@ import java.util.concurrent.Callable;
 public interface TransactionManager {
 
 
-    void begin() throws TransactionException, DataAccessException;
+    void begin() throws  DataAccessException;
 
-    void commit() throws TransactionException, DataAccessException;
+    void commit() throws DataAccessException;
 
-    void rollback() throws TransactionException, DataAccessException;
+    void rollback() throws DataAccessException;
 
 
-    default void tx(Runnable runnable) throws TransactionException, DataAccessException{
-        try {
-            begin();
-            runnable.run();
-        } catch (Exception e) {
-            rollback();
-            throw new TransactionException(e);
-        } finally {
-            commit();
-        }
-    }
-
-    default <T> T tx(Callable<T> callable) throws TransactionException, DataAccessException{
+    default <T> T tx(Callable<T> callable) throws  DataAccessException {
         T result;
         try {
             begin();
             result = callable.call();
+        } catch (DataAccessException e) {
+            throw e;
         } catch (Exception e) {
             rollback();
             throw new TransactionException(e);
@@ -43,5 +34,19 @@ public interface TransactionManager {
             commit();
         }
         return result;
+    }
+
+    default void tx(VoidCallable callable) throws DataAccessException{
+        try {
+            begin();
+            callable.call();
+        } catch (DataAccessException e) {
+            throw e;
+        } catch (Exception e) {
+            rollback();
+            throw new TransactionException(e);
+        } finally {
+            commit();
+        }
     }
 }
