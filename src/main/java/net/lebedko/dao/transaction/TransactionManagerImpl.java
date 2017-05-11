@@ -2,6 +2,7 @@ package net.lebedko.dao.transaction;
 
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.connection.ConnectionProvider;
+import net.lebedko.dao.exception.TransactionException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import static java.util.Objects.requireNonNull;
  */
 
 public class TransactionManagerImpl implements TransactionManager {
+
     private ConnectionProvider connectionProvider;
     private Connection connection;
 
@@ -21,34 +23,34 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
 
-    public void begin() throws DataAccessException {
+    public void begin() throws TransactionException {
         try {
             getConnection().setAutoCommit(true);
-        } catch (SQLException e) {
-            throw new DataAccessException("Failed to begin transaction!", e);
+        } catch (DataAccessException | SQLException e) {
+            throw new TransactionException("Failed to begin transaction!", e);
         }
     }
 
-    public void rollback() throws DataAccessException {
+    public void rollback() throws TransactionException {
         try {
             connection.rollback();
         } catch (SQLException e) {
-            throw new DataAccessException("Failed to rollback transaction!", e);
+            throw new TransactionException("Failed to rollback transaction!", e);
         }
     }
 
-    public void commit() throws DataAccessException {
+    public void commit() throws TransactionException, DataAccessException {
         try {
             connection.commit();
             connection.setAutoCommit(true);
         } catch (SQLException e) {
-            throw new DataAccessException("Failed to commit transaction!", e);
+            throw new TransactionException("Failed to commit transaction!", e);
         } finally {
             try {
                 connection.close();
                 connection = null;
             } catch (SQLException e) {
-                throw new DataAccessException(e.getSuppressed()[0]);
+                throw new DataAccessException("Failed to close connection", e);
             }
         }
     }
@@ -64,6 +66,4 @@ public class TransactionManagerImpl implements TransactionManager {
         }
         return connection;
     }
-
-
 }

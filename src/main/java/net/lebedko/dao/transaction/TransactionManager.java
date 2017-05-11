@@ -12,14 +12,14 @@ import java.util.concurrent.Callable;
 public interface TransactionManager {
 
 
-    void begin() throws TransactionException;
+    void begin() throws TransactionException, DataAccessException;
 
-    void commit() throws TransactionException;
+    void commit() throws TransactionException, DataAccessException;
 
-    void rollback() throws TransactionException;
+    void rollback() throws TransactionException, DataAccessException;
 
 
-    default void tx(Runnable runnable) throws TransactionException{
+    default void tx(Runnable runnable) throws TransactionException, DataAccessException{
         try {
             begin();
             runnable.run();
@@ -31,7 +31,7 @@ public interface TransactionManager {
         }
     }
 
-    default <T> T tx(Callable<T> callable) throws TransactionException{
+    default <T> T tx(Callable<T> callable) throws TransactionException, DataAccessException{
         T result;
         try {
             begin();
