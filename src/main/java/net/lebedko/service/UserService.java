@@ -3,6 +3,7 @@ package net.lebedko.service;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserView;
+import net.lebedko.service.exception.ServiceException;
 
 /**
  * alexandr.lebedko : 05.05.2017.
@@ -10,8 +11,8 @@ import net.lebedko.entity.user.UserView;
 
 public interface UserService {
 
-    void registerUser(User user) throws DataAccessException;
+    void registerUser(User user) throws ServiceException;
 
-    boolean authenticate(UserView user) throws DataAccessException;
+    boolean authenticate(UserView user) throws ServiceException;
 
 }
