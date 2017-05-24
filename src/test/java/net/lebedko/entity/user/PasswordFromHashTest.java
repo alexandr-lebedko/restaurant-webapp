@@ -1,6 +1,6 @@
 package net.lebedko.entity.user;
 
-import net.lebedko.entity.user.Password;
+import net.lebedko.entity.general.Password;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

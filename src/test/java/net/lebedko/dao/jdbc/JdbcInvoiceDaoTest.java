@@ -1,6 +1,6 @@
 package net.lebedko.dao.jdbc;
 
-import net.lebedko.dao.exception.EntityExistsException;
+import net.lebedko.dao.exception.UniqueViolationException;
 import net.lebedko.dao.connection.TestConnectionProvider;
 import net.lebedko.dao.template.QueryTemplate;
 import net.lebedko.entity.invoice.Invoice;
@@ -111,7 +111,7 @@ public class JdbcInvoiceDaoTest {
         invoiceDao.update(invoice);
     }
 
-    @Test(expected = EntityExistsException.class)
+    @Test(expected = UniqueViolationException.class)
     public void insertInvoicesWithSameOrderTest() throws Exception {
         Invoice invoiceOne = new Invoice(orderOne, true);
         Invoice invoiceTwo = new Invoice(orderOne, false);

@@ -2,10 +2,10 @@
 package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.exception.EntityExistsException;
+import net.lebedko.dao.exception.UniqueViolationException;
 import net.lebedko.dao.connection.TestConnectionProvider;
 import net.lebedko.dao.template.QueryTemplate;
-import net.lebedko.entity.user.EmailAddress;
+import net.lebedko.entity.general.EmailAddress;
 import net.lebedko.entity.user.User;
 import org.junit.After;
 import org.junit.Before;
@@ -81,7 +81,7 @@ public class JdbcUserDaoTest {
         userDao.insert(user);
     }
 
-    @Test(expected = EntityExistsException.class)
+    @Test(expected = UniqueViolationException.class)
     public void insertUserWithSameEmail()throws Exception {
         User user = getUser();
         userDao.insert(user);

@@ -4,9 +4,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import net.lebedko.entity.general.Price;
-import net.lebedko.entity.general.Description;
+import net.lebedko.entity.general.Text;
 import net.lebedko.entity.general.Title;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,8 +21,8 @@ public class DishTest {
     private static Price invalidPrice;
     private static Title validTitle;
     private static Title invalidTitle;
-    private static Description validDescription;
-    private static Description invalidDescription;
+    private static Text validDescription;
+    private static Text invalidDescription;
     private static DishCategory dishType = DishCategory.SOUP;
 
     @BeforeClass
@@ -32,8 +31,8 @@ public class DishTest {
             invalidPrice = mock(Price.class);
             invalidTitle = mock(Title.class);
             validTitle = mock(Title.class);
-            validDescription = mock(Description.class);
-            invalidDescription = mock(Description.class);
+            validDescription = mock(Text.class);
+            invalidDescription = mock(Text.class);
 
             when(validPrice.isValid()).thenReturn(true);
             when(invalidPrice.isValid()).thenReturn(false);

@@ -2,10 +2,7 @@ package net.lebedko;
 
 import net.lebedko.entity.dish.Dish;
 import net.lebedko.entity.dish.Dish.DishCategory;
-import net.lebedko.entity.general.Description;
-import net.lebedko.entity.general.Price;
-import net.lebedko.entity.general.Title;
-import net.lebedko.entity.order.Order;
+import net.lebedko.entity.general.*;
 import net.lebedko.entity.order.Order.OrderStatus;
 import net.lebedko.entity.user.*;
 
@@ -49,7 +46,7 @@ public class EntityGenerator {
         return getRandom(titles);
     }
 
-    public static Description getDescription() {
+    public static Text getDescription() {
         return getRandom(descriptions);
     }
 
@@ -124,10 +121,10 @@ public class EntityGenerator {
     };
 
 
-    private static Description[] descriptions = {
-            new Description("Such a delicious dish!"),
-            new Description("Fantastic flavour!"),
-            new Description("Chefs favourite dish!")
+    private static Text[] descriptions = {
+            new Text("Such a delicious dish!"),
+            new Text("Fantastic flavour!"),
+            new Text("Chefs favourite dish!")
     };
 
     private EntityGenerator() {

@@ -1,7 +1,7 @@
 package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.exception.EntityExistsException;
+import net.lebedko.dao.exception.UniqueViolationException;
 import net.lebedko.dao.connection.TestConnectionProvider;
 import net.lebedko.dao.template.QueryTemplate;
 import net.lebedko.entity.dish.Dish;
@@ -79,7 +79,7 @@ public class JdbcMenuDaoTest {
     }
 
 
-    @Test(expected = EntityExistsException.class)
+    @Test(expected = UniqueViolationException.class)
     public void insertMenuItemsWithSameDish() throws Exception {
 
         MenuItem menuItem = new MenuItem(dishOne, getPrice(), getBoolean());
