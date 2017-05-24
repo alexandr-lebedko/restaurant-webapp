@@ -10,26 +10,27 @@ import static net.lebedko.util.Util.removeExtraSpaces;
 /**
  * alexandr.lebedko : 21.03.2017.
  */
-public class Description implements Validatable {
-    public final static int MAX_TEXT_LENGTH = 520;
+
+public class Text implements Validatable {
+    private  final static int max_length = 520;
 
     private final String textString;
 
-    public Description(String textString) {
+    public Text(String textString) {
         requireNonNull(textString, "Argument cannot be null");
         this.textString = removeExtraSpaces(textString);
     }
 
     @Override
     public boolean isValid() {
-        return textString.length() <= MAX_TEXT_LENGTH;
+        return textString.length() <= max_length;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Description text = (Description) o;
+        Text text = (Text) o;
         return Objects.equals(textString, text.textString);
     }
 
