@@ -1,5 +1,8 @@
 package net.lebedko.entity.user;
 
+import net.lebedko.entity.general.EmailAddress;
+import net.lebedko.entity.general.Password;
+
 /**
  * alexandr.lebedko : 08.05.2017.
  */
