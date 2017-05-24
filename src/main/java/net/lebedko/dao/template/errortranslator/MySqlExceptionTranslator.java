@@ -1,7 +1,7 @@
 package net.lebedko.dao.template.errortranslator;
 
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.exception.EntityExistsException;
+import net.lebedko.dao.exception.UniqueViolationException;
 
 import java.sql.SQLException;
 
@@ -16,9 +16,9 @@ public class MySqlExceptionTranslator implements ExceptionTranslator {
     @Override
     public DataAccessException translate(SQLException e) {
         if(e.getErrorCode()==DUPLICATE_ENTRY)
-            return new EntityExistsException(e);
+            return new UniqueViolationException(e);
         if(e.getErrorCode()==DUPLICATE_KEY)
-            return new EntityExistsException(e);
+            return new UniqueViolationException(e);
 
         return new DataAccessException(e);
     }
