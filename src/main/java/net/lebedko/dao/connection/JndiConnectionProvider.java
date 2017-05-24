@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * alexandr.lebedko : 08.05.2017.
  */
-
+//TODO : change on another connection pool provider
 public class JndiConnectionProvider implements ConnectionProvider {
 
     private static final JndiConnectionProvider instance = new JndiConnectionProvider();

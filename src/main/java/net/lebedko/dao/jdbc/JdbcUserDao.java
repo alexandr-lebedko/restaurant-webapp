@@ -4,6 +4,8 @@ import net.lebedko.dao.UserDao;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.template.QueryTemplate;
 import net.lebedko.dao.template.Mapper;
+import net.lebedko.entity.general.EmailAddress;
+import net.lebedko.entity.general.Password;
 import net.lebedko.entity.user.*;
 import net.lebedko.entity.user.User.UserRole;
 

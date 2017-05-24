@@ -5,7 +5,7 @@ import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.template.Mapper;
 import net.lebedko.dao.template.QueryTemplate;
 import net.lebedko.entity.dish.Dish;
-import net.lebedko.entity.general.Description;
+import net.lebedko.entity.general.Text;
 import net.lebedko.entity.general.Title;
 
 import java.sql.ResultSet;
@@ -83,7 +83,7 @@ public class JdbcDishDao implements DishDao {
             int id = rs.getInt("d_id");
             DishCategory category = DishCategory.valueOf(rs.getString("d_category"));
             Title title = new Title(rs.getString("d_title"));
-            Description description = new Description(rs.getString("d_description"));
+            Text description = new Text(rs.getString("d_description"));
 
             return new Dish(id, title, description, category);
         }
