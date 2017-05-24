@@ -3,7 +3,7 @@ package net.lebedko.entity.dish;
 
 import net.lebedko.entity.Entity;
 import net.lebedko.entity.Validatable;
-import net.lebedko.entity.general.Description;
+import net.lebedko.entity.general.Text;
 import net.lebedko.entity.general.Title;
 
 import java.util.Objects;
@@ -22,15 +22,15 @@ public class Dish implements Entity, Validatable {
 
     private int id;
     private Title title;
-    private Description description;
+    private Text description;
 
     private DishCategory category;
 
-    public Dish(Title title, Description description, DishCategory type) {
+    public Dish(Title title, Text description, DishCategory type) {
         this(0, title, description, type);
     }
 
-    public Dish(int id, Title title, Description description, DishCategory type) {
+    public Dish(int id, Title title, Text description, DishCategory type) {
         this.id = id;
         this.title = requireNonNull(title);
         this.description = requireNonNull(description);
@@ -49,7 +49,7 @@ public class Dish implements Entity, Validatable {
         return title;
     }
 
-    public Description getDescription() {
+    public Text getDescription() {
         return description;
     }
 
