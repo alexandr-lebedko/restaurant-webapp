@@ -1,7 +1,7 @@
 package net.lebedko.dao.template;
 
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.exception.EntityExistsException;
+import net.lebedko.dao.exception.UniqueViolationException;
 import net.lebedko.dao.connection.ConnectionProvider;
 import net.lebedko.dao.template.errortranslator.ExceptionTranslator;
 import net.lebedko.dao.template.errortranslator.MySqlExceptionTranslator;
@@ -67,7 +67,7 @@ public class QueryTemplate {
     }
 
 
-    public int insertAndReturnKey(String sql, Map<Integer, Object> params) throws EntityExistsException, DataAccessException {
+    public int insertAndReturnKey(String sql, Map<Integer, Object> params) throws UniqueViolationException, DataAccessException {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             putParamsToPreparedStatement(ps, params);
             ps.executeUpdate();
