@@ -11,7 +11,7 @@ import net.lebedko.service.exception.ServiceException;
 
 public interface UserService {
 
-    void registerUser(User user) throws ServiceException;
+    void registrate(User user) throws ServiceException;
 
     boolean authenticate(UserView user) throws ServiceException;
 

@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(User user) throws ServiceException {
+    public void registrate(User user) throws ServiceException {
         template.doTxService(() -> userDao.insert(user));
     }
 
