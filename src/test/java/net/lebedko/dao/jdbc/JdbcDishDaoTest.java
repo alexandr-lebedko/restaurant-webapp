@@ -33,14 +33,14 @@ public class JdbcDishDaoTest {
     private JdbcDishDao dishDao;
 
     @Before
-    public void beforeTest() throws Exception{
+    public void beforeTest() throws Exception {
         connectionProvider = dataBaseResource.getConnectionProvider();
         template = new QueryTemplate(connectionProvider);
         dishDao = new JdbcDishDao(template);
     }
 
     @After
-    public void afterTest() throws Exception{
+    public void afterTest() throws Exception {
         template.update("DELETE FROM dishes");
         connectionProvider.closeConnection();
     }
@@ -65,7 +65,7 @@ public class JdbcDishDaoTest {
 
 
     @Test(expected = RuntimeException.class)
-    public void insertInvalidDishTest()throws Exception  {
+    public void insertInvalidDishTest() throws Exception {
         Dish dish = mock(Dish.class);
         when(dish.isValid()).thenReturn(false);
 
@@ -81,26 +81,18 @@ public class JdbcDishDaoTest {
                 dishDao.findById(dish.getId()), equalTo(dish));
     }
 
-//    @Test(expected = DataAccessException.class)
-    @Test
+    @Test(expected = DataAccessException.class)
     public void insertSameDishWithSameTitleAndCategoryTwice() throws Exception {
+            Title title = getTitle();
+            DishCategory category = getDishCategory();
 
-try{
+            Dish dishOne = new Dish(title, getDescription(), category);
+            Dish dishTwo = new Dish(title, getDescription(), category);
 
-    Title title = getTitle();
-    DishCategory category = getDishCategory();
+            dishDao.insert(dishOne);
+            dishDao.insert(dishTwo);
 
-    Dish dishOne = new Dish(title, getDescription(), category);
-    Dish dishTwo = new Dish(title, getDescription(), category);
-
-    dishDao.insert(dishOne);
-    dishDao.insert(dishTwo);
-}catch (DataAccessException e){
-    Throwable cause = e.getCause();
-    ((SQLException)cause).printStackTrace();
-}
-
-}
+    }
 
     @Test
     public void deleteTest() throws Exception {
