@@ -1,6 +1,8 @@
-package net.lebedko.entity.general;
+package net.lebedko.service.mail;
 
 import net.lebedko.entity.Validatable;
+import net.lebedko.entity.general.EmailAddress;
+import net.lebedko.entity.general.Text;
 
 /**
  * alexandr.lebedko : 24.05.2017.
@@ -13,10 +15,26 @@ public class MailMessage implements Validatable {
     private Text text;
 
 
-    public MailMessage(EmailAddress from, EmailAddress to, Text subject, Text text) {
+    public MailMessage() {
         this.from = from;
         this.to = to;
         this.subject = subject;
+        this.text = text;
+    }
+
+    public void setFrom(EmailAddress from) {
+        this.from = from;
+    }
+
+    public void setTo(EmailAddress to) {
+        this.to = to;
+    }
+
+    public void setSubject(Text subject) {
+        this.subject = subject;
+    }
+
+    public void setText(Text text) {
         this.text = text;
     }
 
