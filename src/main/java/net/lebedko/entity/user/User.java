@@ -16,7 +16,6 @@ public class User implements Entity,Validatable {
         ADMIN, CLIENT
     }
 
-    private static final String ERROR_MESSAGE = "Argument cannot be null";
 
     private int id;
     private FullName fullName;
