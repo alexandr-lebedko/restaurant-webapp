@@ -10,7 +10,7 @@ import java.util.Objects;
 import static java.util.Objects.requireNonNull;
 
 
-public class User implements Entity,Validatable {
+public class User implements Entity, Validatable {
 
     public enum UserRole {
         ADMIN, CLIENT
@@ -22,26 +22,26 @@ public class User implements Entity,Validatable {
     private EmailAddress email;
     private Password password;
     private UserRole role;
-
+    private boolean activated;
 
     public User(FullName fullName, EmailAddress email, Password password, UserRole role) {
-        this(0, fullName, email, password, role);
+        this(0, fullName, email, password, role, false);
     }
 
-    public User(int id, FullName fullName, EmailAddress email, Password password, UserRole role) {
+    public User(int id, FullName fullName, EmailAddress email, Password password, UserRole role, boolean activated) {
         this.id = id;
         this.fullName = requireNonNull(fullName, "Full name cannot be null!");
         this.email = requireNonNull(email, "Email address cannot be null!");
         this.password = requireNonNull(password, "Password cannot be null!");
         this.role = requireNonNull(role, "Role cannot be null!");
-
+        this.activated = activated;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -61,6 +61,10 @@ public class User implements Entity,Validatable {
         return role;
     }
 
+    public boolean isActivated() {
+        return activated;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,7 +73,8 @@ public class User implements Entity,Validatable {
         return Objects.equals(fullName, user.getFullName()) &&
                 Objects.equals(email, user.getEmail()) &&
                 Objects.equals(password, user.getPassword()) &&
-                Objects.equals(role, user.getRole());
+                Objects.equals(role, user.getRole()) &&
+                Objects.equals(activated, user.isActivated());
     }
 
     @Override
@@ -87,12 +92,13 @@ public class User implements Entity,Validatable {
 
     @Override
     public String toString() {
-        return "User{ id=" +
-                id +
-                ", " + fullName +
-                ", " + email +
-                ", " + password +
+        return "User{" +
+                "id=" + id +
+                ", fullName=" + fullName +
+                ", email=" + email +
+                ", password=" + password +
+                ", role=" + role +
+                ", activated=" + activated +
                 '}';
     }
-
 }
