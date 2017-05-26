@@ -13,8 +13,10 @@ public interface UserDao extends GenericDao<User> {
 
     User findByEmail(EmailAddress email) throws DataAccessException;
 
-    void insertRegistrationKey(User user, UUID key);
+    User findActivatedByEmail(EmailAddress email) throws DataAccessException;
 
-    User findByRegistrationKey(UUID key);
+    void insertRegistrationKey(User user, UUID key) throws DataAccessException;
+
+    User findByRegistrationKey(UUID key) throws DataAccessException;
 
 }
