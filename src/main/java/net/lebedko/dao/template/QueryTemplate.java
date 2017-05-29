@@ -6,6 +6,7 @@ import net.lebedko.dao.connection.ConnectionProvider;
 import net.lebedko.dao.template.errortranslator.ExceptionTranslator;
 import net.lebedko.dao.template.errortranslator.MySqlExceptionTranslator;
 
+import javax.xml.crypto.Data;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,7 +68,7 @@ public class QueryTemplate {
     }
 
 
-    public int insertAndReturnKey(String sql, Map<Integer, Object> params) throws UniqueViolationException, DataAccessException {
+    public int insertAndReturnKey(String sql, Map<Integer, Object> params) throws DataAccessException {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             putParamsToPreparedStatement(ps, params);
             ps.executeUpdate();
@@ -77,6 +78,16 @@ public class QueryTemplate {
         } catch (SQLException e) {
             throw exceptionTranslator.translate(e);
         }
+    }
+
+    public boolean insert(String sql, Map<Integer, Object> params) throws DataAccessException {
+        try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
+            putParamsToPreparedStatement(ps, params);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw exceptionTranslator.translate(e);
+        }
+
     }
 
     private <T> T getOne(ResultSet rs, Mapper<T> mapper) throws SQLException {
