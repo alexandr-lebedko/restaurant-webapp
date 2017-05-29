@@ -5,14 +5,12 @@ import net.lebedko.entity.general.EmailAddress;
 import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserView;
 import net.lebedko.service.UserService;
-import net.lebedko.service.exception.NoSuchEntityException;
 import net.lebedko.service.exception.ServiceException;
 
 
-import java.util.Optional;
+import java.util.UUID;
 
 import static java.util.Objects.*;
-import static java.util.Optional.ofNullable;
 
 /**
  * alexandr.lebedko : 11.05.2017.
@@ -28,13 +26,37 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(User user) throws ServiceException {
-        template.doTxService(() -> userDao.insert(user));
+    public UUID register(User user) throws ServiceException {
+        UUID uniqueKey = UUID.randomUUID();
+        template.doTxService(() -> {
+            User newUser = userDao.insert(user);
+            userDao.insertRegistrationKey(newUser, uniqueKey);
+        });
+        return uniqueKey;
     }
 
     @Override
     public boolean authenticate(UserView userView) throws ServiceException {
-        return false;
+        User user = template.doTxService(() -> userDao.findByEmail(userView.getEmailAddress()));
+        return nonNull(user) && user.getPassword().equals(userView.getPassword());
+    }
+
+    @Override
+    public boolean activateUser(UUID key) throws ServiceException {
+        return template.doTxService(() -> {
+            User user = userDao.findByRegistrationKey(key);
+            if (isNull(user))
+                return false;
+
+            userDao.deleteRegistrationKey(key);
+            userDao.update(new User(user.getId(),
+                    user.getFullName(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    user.getRole(),
+                    true));
+            return true;
+        });
     }
 
     public User findByEmail(EmailAddress address) throws ServiceException {
