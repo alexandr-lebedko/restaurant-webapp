@@ -35,14 +35,14 @@ public class JdbcUserDaoTest {
 
 
     @Before
-    public void beforeTest() throws Exception{
+    public void beforeTest() throws Exception {
         connectionProvider = dataBaseResource.getConnectionProvider();
         template = new QueryTemplate(connectionProvider);
         userDao = new JdbcUserDao(template);
     }
 
     @After
-    public void afterTest() throws Exception{
+    public void afterTest() throws Exception {
         template.update("DELETE FROM users");
         connectionProvider.closeConnection();
     }
@@ -74,7 +74,7 @@ public class JdbcUserDaoTest {
 
 
     @Test(expected = RuntimeException.class)
-    public void insertInvalidUserTest()throws Exception {
+    public void insertInvalidUserTest() throws Exception {
         User user = mock(User.class);
         when(user.isValid()).thenReturn(false);
 
@@ -82,7 +82,7 @@ public class JdbcUserDaoTest {
     }
 
     @Test(expected = UniqueViolationException.class)
-    public void insertUserWithSameEmail()throws Exception {
+    public void insertUserWithSameEmail() throws Exception {
         User user = getUser();
         userDao.insert(user);
         userDao.insert(user);
@@ -98,7 +98,7 @@ public class JdbcUserDaoTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void updateWithInvalidUserArgument() throws Exception{
+    public void updateWithInvalidUserArgument() throws Exception {
         User user = mock(User.class);
         when(user.isValid()).thenReturn(false);
 
@@ -122,7 +122,7 @@ public class JdbcUserDaoTest {
     }
 
     @Test(expected = DataAccessException.class)
-    public void updateOnTakenEmailAddress() throws Exception{
+    public void updateOnTakenEmailAddress() throws Exception {
 
         EmailAddress initialEmail = new EmailAddress("initial@gmail.com");
         User user = new User(getFullName(), initialEmail, getPassword(), getUserRole());
@@ -151,4 +151,15 @@ public class JdbcUserDaoTest {
     }
 
 
+    public void findByRegistrationKey() throws Exception {
+        //TODO
+    }
+
+    public void insertRegistrationKey() throws Exception {
+        //TODO
+    }
+
+    public void findActivatedByEmail() throws Exception {
+        //TODO
+    }
 }
