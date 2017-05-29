@@ -22,12 +22,15 @@ public class Mailer {
         this.sessionFactory = sessionFactory;
     }
 
-    public void sendMessage(MailMessage mailMessage) throws MessagingException{
-            Message message = new MimeMessage(sessionFactory.getSession());
-            message.setFrom(new InternetAddress(mailMessage.getFrom().toString()));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(mailMessage.getTo().toString()));
-            message.setSubject(mailMessage.getSubject().toString());
-            message.setText(mailMessage.getText().toString());
-            Transport.send(message);
+    public void sendMessage(MailMessage mailMessage) throws MessagingException {
+        Message message;
+        synchronized (this) {
+            message = new MimeMessage(sessionFactory.getSession());
+        }
+        message.setFrom(new InternetAddress(mailMessage.getFrom().toString()));
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(mailMessage.getTo().toString()));
+        message.setSubject(mailMessage.getSubject().toString());
+        message.setText(mailMessage.getText().toString());
+        Transport.send(message);
     }
 }
