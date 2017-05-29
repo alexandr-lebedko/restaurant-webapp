@@ -19,4 +19,6 @@ public interface UserDao extends GenericDao<User> {
 
     User findByRegistrationKey(UUID key) throws DataAccessException;
 
+    void deleteRegistrationKey(UUID key) throws DataAccessException;
+
 }

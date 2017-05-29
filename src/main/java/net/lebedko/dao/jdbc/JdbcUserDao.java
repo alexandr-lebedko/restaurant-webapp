@@ -34,6 +34,7 @@ public class JdbcUserDao implements UserDao {
     private static final String insert = props.getProperty("user.insert");
     private static final String update = props.getProperty("user.update");
     private static final String delete = props.getProperty("user.delete");
+    private static final String delete_registry_key = props.getProperty("user.deleteRegistryKey");
     private static final UserMapper mapper = new UserMapper();
 
     private QueryTemplate template;
@@ -77,6 +78,13 @@ public class JdbcUserDao implements UserDao {
         params.put(1, key.toString());
 
         return template.queryOne(find_by_registration_key, params, mapper);
+    }
+
+    @Override
+    public void deleteRegistrationKey(UUID key) throws DataAccessException {
+        HashMap<Integer, Object> props = new HashMap<>();
+        props.put(1, key.toString());
+        template.update(delete_registry_key, props);
     }
 
     @Override

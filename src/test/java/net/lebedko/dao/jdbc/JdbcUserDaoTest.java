@@ -162,4 +162,8 @@ public class JdbcUserDaoTest {
     public void findActivatedByEmail() throws Exception {
         //TODO
     }
+
+    public void deleteRegistrationKey() throws Exception {
+        //TODO
+    }
 }
