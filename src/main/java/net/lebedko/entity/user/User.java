@@ -22,17 +22,19 @@ public class User implements Entity, Validatable {
     private EmailAddress email;
     private Password password;
     private UserRole role;
+    private boolean activated;
 
     public User(FullName fullName, EmailAddress email, Password password, UserRole role) {
-        this(0, fullName, email, password, role);
+        this(0, fullName, email, password, role, false);
     }
 
-    public User(int id, FullName fullName, EmailAddress email, Password password, UserRole role) {
+    public User(int id, FullName fullName, EmailAddress email, Password password, UserRole role, boolean activated) {
         this.id = id;
         this.fullName = requireNonNull(fullName, "Full name cannot be null!");
         this.email = requireNonNull(email, "Email address cannot be null!");
         this.password = requireNonNull(password, "Password cannot be null!");
         this.role = requireNonNull(role, "Role cannot be null!");
+        this.activated = activated;
     }
 
     public int getId() {
