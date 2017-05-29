@@ -133,18 +133,14 @@ public class JdbcUserDao implements UserDao {
 
 
     public static final class UserMapper implements Mapper<User> {
-
         @Override
         public User map(ResultSet rs) throws SQLException {
-            int id = rs.getInt("u_id");
-            UserRole role = UserRole.valueOf(rs.getString("u_role"));
-            EmailAddress emailAddress = new EmailAddress(rs.getString("u_email"));
-            FirstName firstName = new FirstName(rs.getString("u_first_name"));
-            FamilyName familyName = new FamilyName(rs.getString("u_last_name"));
-            Password password = Password.createPasswordFromHash(rs.getString("u_password_hash"));
-            FullName fullName = new FullName(firstName, familyName);
-
-            return new User(id, fullName, emailAddress, password, role);
+            return new User(rs.getInt("u_id"),
+                    new FullName(new FirstName(rs.getString("u_first_name")), new FamilyName(rs.getString("u_last_name"))),
+                    new EmailAddress(rs.getString("u_email")),
+                    Password.createPasswordFromHash(rs.getString("u_password_hash")),
+                    UserRole.valueOf(rs.getString("u_role")),
+                    rs.getBoolean("u_activated"));
         }
     }
 
