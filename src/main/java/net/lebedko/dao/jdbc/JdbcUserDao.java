@@ -94,7 +94,7 @@ public class JdbcUserDao implements UserDao {
         params.put(1, user.getRole().name());
         params.put(2, user.getEmail().toString());
         params.put(3, user.getFullName().getFirstName().toString());
-        params.put(4, user.getFullName().getFamilyName().toString());
+        params.put(4, user.getFullName().getLastName().toString());
         params.put(5, user.getPassword().getPasswordHash());
 
         user.setId(template.insertAndReturnKey(insert, params));
@@ -116,7 +116,7 @@ public class JdbcUserDao implements UserDao {
         params.put(1, user.getRole().name());
         params.put(2, user.getEmail().toString());
         params.put(3, user.getFullName().getFirstName().toString());
-        params.put(4, user.getFullName().getFamilyName().toString());
+        params.put(4, user.getFullName().getLastName().toString());
         params.put(5, user.getPassword().getPasswordHash());
         params.put(6, user.getId());
 
@@ -136,7 +136,7 @@ public class JdbcUserDao implements UserDao {
         @Override
         public User map(ResultSet rs) throws SQLException {
             return new User(rs.getInt("u_id"),
-                    new FullName(new FirstName(rs.getString("u_first_name")), new FamilyName(rs.getString("u_last_name"))),
+                    new FullName(new FirstName(rs.getString("u_first_name")), new LastName(rs.getString("u_last_name"))),
                     new EmailAddress(rs.getString("u_email")),
                     Password.createPasswordFromHash(rs.getString("u_password_hash")),
                     UserRole.valueOf(rs.getString("u_role")),

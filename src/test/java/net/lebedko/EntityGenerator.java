@@ -26,7 +26,7 @@ public class EntityGenerator {
 
     public static FullName getFullName() {
         FirstName firstName = getRandom(firstNames);
-        FamilyName familyName = getRandom(familyNames);
+        LastName familyName = getRandom(familyNames);
         return new FullName(firstName, familyName);
     }
 
@@ -103,13 +103,13 @@ public class EntityGenerator {
             new FirstName("Dart"),
             new FirstName("Aya")
     };
-    private static FamilyName[] familyNames = {
-            new FamilyName("Smith"),
-            new FamilyName("O'Neel"),
-            new FamilyName("Jones"),
-            new FamilyName("Brooks"),
-            new FamilyName("Joshua"),
-            new FamilyName("Silva")
+    private static LastName[] familyNames = {
+            new LastName("Smith"),
+            new LastName("O'Neel"),
+            new LastName("Jones"),
+            new LastName("Brooks"),
+            new LastName("Joshua"),
+            new LastName("Silva")
     };
 
     private static Title[] titles = {
