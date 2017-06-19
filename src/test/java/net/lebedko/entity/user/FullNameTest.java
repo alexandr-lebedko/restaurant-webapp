@@ -1,8 +1,5 @@
 package net.lebedko.entity.user;
 
-import net.lebedko.entity.user.FamilyName;
-import net.lebedko.entity.user.FirstName;
-import net.lebedko.entity.user.FullName;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,14 +15,14 @@ public class FullNameTest {
 
     private static FirstName validFirstName;
     private static FirstName invalidFirstName;
-    private static FamilyName validFamilyName;
-    private static FamilyName invalidFamilyName;
+    private static LastName validFamilyName;
+    private static LastName invalidFamilyName;
 
     @Before
     public void setUp() {
         if (!setUpIsDone) {
-            validFamilyName = mock(FamilyName.class);
-            invalidFamilyName = mock(FamilyName.class);
+            validFamilyName = mock(LastName.class);
+            invalidFamilyName = mock(LastName.class);
             validFirstName = mock(FirstName.class);
             invalidFirstName = mock(FirstName.class);
 

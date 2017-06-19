@@ -13,22 +13,22 @@ import static java.util.Objects.requireNonNull;
 public class FullName implements Validatable {
 
     private final FirstName firstName;
-    private final FamilyName familyName;
+    private final LastName lastName;
 
-    public FullName(FirstName firstName, FamilyName familyName) {
+    public FullName(FirstName firstName, LastName lastName) {
         requireNonNull(firstName, "First Name cannot be null");
-        requireNonNull(familyName, "Family Name cannot be null");
+        requireNonNull(lastName, "Last Name cannot be null");
 
         this.firstName = firstName;
-        this.familyName = familyName;
+        this.lastName = lastName;
     }
 
     public FirstName getFirstName() {
         return firstName;
     }
 
-    public FamilyName getFamilyName() {
-        return familyName;
+    public LastName getLastName() {
+        return lastName;
     }
 
     @Override
@@ -37,26 +37,26 @@ public class FullName implements Validatable {
         if (o == null || getClass() != o.getClass()) return false;
         FullName fullName = (FullName) o;
         return Objects.equals(firstName, fullName.firstName) &&
-                Objects.equals(familyName, fullName.familyName);
+                Objects.equals(lastName, fullName.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, familyName);
+        return Objects.hash(firstName, lastName);
     }
 
 
     @Override
     public boolean isValid() {
         return firstName.isValid() &&
-                familyName.isValid();
+                lastName.isValid();
     }
 
     @Override
     public String toString() {
         return "FullName{" +
                 "firstName=" + firstName +
-                ", familyName=" + familyName +
+                ", lastName=" + lastName +
                 '}';
     }
 

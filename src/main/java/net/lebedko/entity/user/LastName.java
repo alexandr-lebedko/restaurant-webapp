@@ -10,12 +10,12 @@ import static net.lebedko.util.Util.removeExtraSpaces;
 /**
  * Created by alexandr.lebedko on 18.03.2017.
  */
-public class FamilyName implements Validatable {
+public class LastName implements Validatable {
 
     private FirstName name;
 
-    public FamilyName(String name) {
-        requireNonNull(name, "Family Name cannot be null!");
+    public LastName(String name) {
+        requireNonNull(name, "Last Name cannot be null!");
         this.name = new FirstName(removeExtraSpaces(name));
     }
 
@@ -23,7 +23,7 @@ public class FamilyName implements Validatable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FamilyName that = (FamilyName) o;
+        LastName that = (LastName) o;
         return Objects.equals(name, that.name);
     }
 

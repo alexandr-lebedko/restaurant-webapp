@@ -14,8 +14,8 @@ import static net.lebedko.util.Util.removeExtraSpaces;
  * Created by alexandr.lebedko on 18.03.2017.
  */
 public class FirstName implements Validatable {
-    private static final int max_length = 20;
-    private static final Pattern pattern = Pattern.compile("([a-zA-Z]+([- ']?[a-zA-Z]+)+)|([а-яА-Я]+([- ']?[а-яА-Я]+)+)");
+    public static final int max_length = 20;
+    public static final Pattern pattern = Pattern.compile("([a-zA-Z]+([- ']?[a-zA-Z]+)+)|([а-яА-Я]+([- ']?[а-яА-Я]+)+)");
 
     private final Matcher matcher;
     private final String name;

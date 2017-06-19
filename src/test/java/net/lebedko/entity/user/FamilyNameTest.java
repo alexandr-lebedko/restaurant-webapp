@@ -1,6 +1,5 @@
 package net.lebedko.entity.user;
 
-import net.lebedko.entity.user.FamilyName;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -15,13 +14,13 @@ public class FamilyNameTest {
 
     @Test(expected = NullPointerException.class)
     public void nullArgumentTest() {
-        new FamilyName(null);
+        new LastName(null);
     }
 
     @Test
     public void withDigitsArgumentTest() {
         String digits = "6484";
-        FamilyName familyName = new FamilyName(digits);
+        LastName familyName = new LastName(digits);
 
         assertFalse(familyName.isValid());
     }
@@ -29,7 +28,7 @@ public class FamilyNameTest {
     @Test
     public void withEmptyStringArgumentTest() {
         String empty = "";
-        FamilyName familyName = new FamilyName(empty);
+        LastName familyName = new LastName(empty);
 
         assertFalse(familyName.isValid());
     }
@@ -37,7 +36,7 @@ public class FamilyNameTest {
     @Test
     public void withStringWithSpacesArgumentTest() {
         String spaces = "     ";
-        FamilyName familyName = new FamilyName(spaces);
+        LastName familyName = new LastName(spaces);
 
         assertFalse(familyName.isValid());
     }
@@ -45,7 +44,7 @@ public class FamilyNameTest {
     @Test
     public void withDigitsAndLettersArgumentTest() {
         String invalid = "123ada A";
-        FamilyName familyName = new FamilyName(invalid);
+        LastName familyName = new LastName(invalid);
 
         assertFalse(familyName.isValid());
     }
@@ -53,7 +52,7 @@ public class FamilyNameTest {
     @Test
     public void differentLanguagesArgumentTest() {
         String invalid = "Zs Яы";
-        FamilyName familyName = new FamilyName(invalid);
+        LastName familyName = new LastName(invalid);
 
         assertFalse(familyName.isValid());
     }
@@ -61,7 +60,7 @@ public class FamilyNameTest {
     @Test
     public void longNameArgumentTest() {
         String longFamilyName = "VeryVeryLooooongFamilyName";
-        FamilyName familyName = new FamilyName(longFamilyName);
+        LastName familyName = new LastName(longFamilyName);
 
         assertFalse(familyName.isValid());
     }
@@ -71,7 +70,7 @@ public class FamilyNameTest {
         String familyNameWithExtraSpaces = "Mac           Gregor";
         String trimmedOfFamilyName = "Mac Gregor";
 
-        FamilyName familyName = new FamilyName(familyNameWithExtraSpaces);
+        LastName familyName = new LastName(familyNameWithExtraSpaces);
 
         assertEquals(trimmedOfFamilyName, familyName.toString());
 
@@ -80,7 +79,7 @@ public class FamilyNameTest {
     @Test
     public void apostrophesArgumentTest() {
         String apostrophes = "'''";
-        FamilyName familyName = new FamilyName(apostrophes);
+        LastName familyName = new LastName(apostrophes);
 
         assertFalse(familyName.isValid());
 
@@ -89,7 +88,7 @@ public class FamilyNameTest {
     @Test
     public void symbolsArgumentTest() {
         String symbols = "@#$%^*/-";
-        FamilyName familyName = new FamilyName(symbols);
+        LastName familyName = new LastName(symbols);
 
         assertFalse(familyName.isValid());
 
@@ -98,7 +97,7 @@ public class FamilyNameTest {
     @Test
     public void oneWordFamilyNameTest() {
         String familyNameString = "Lebedko";
-        FamilyName familyName = new FamilyName(familyNameString);
+        LastName familyName = new LastName(familyNameString);
 
         assertTrue(familyName.isValid());
     }
@@ -106,7 +105,7 @@ public class FamilyNameTest {
     @Test
     public void twoWordsArgumentTest() {
         String familyNameString = "Van Buren";
-        FamilyName familyName = new FamilyName(familyNameString);
+        LastName familyName = new LastName(familyNameString);
 
         assertTrue(familyName.isValid());
 
@@ -115,7 +114,7 @@ public class FamilyNameTest {
     @Test
     public void threeWordArgumentTest() {
         String familyNameString = "Lon Chaney III";
-        FamilyName familyName = new FamilyName(familyNameString);
+        LastName familyName = new LastName(familyNameString);
 
         assertTrue(familyName.isValid());
     }
@@ -123,7 +122,7 @@ public class FamilyNameTest {
     @Test
     public void prefixedFamilyName() {
         String familyNameString = "O'Neal";
-        FamilyName familyName = new FamilyName(familyNameString);
+        LastName familyName = new LastName(familyNameString);
 
         assertTrue(familyName.isValid());
     }
