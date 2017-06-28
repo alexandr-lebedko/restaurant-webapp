@@ -28,13 +28,10 @@ public class JdbcUserDao implements UserDao {
     private static final Properties props = loadProperties("sql-queries.properties");
     private static final String find_by_email = props.getProperty("user.getByEmail");
     private static final String find_active_by_email = props.getProperty("user.getActiveByEmail");
-    private static final String insert_registration_key = props.getProperty("user.insertRegistrationKey");
-    private static final String find_by_registration_key = props.getProperty("user.findByRegistrationKey");
     private static final String find_by_id = props.getProperty("user.getById");
     private static final String insert = props.getProperty("user.insert");
     private static final String update = props.getProperty("user.update");
     private static final String delete = props.getProperty("user.delete");
-    private static final String delete_registry_key = props.getProperty("user.deleteRegistryKey");
     private static final UserMapper mapper = new UserMapper();
 
     private QueryTemplate template;
@@ -58,33 +55,6 @@ public class JdbcUserDao implements UserDao {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, email.toString());
         return template.queryOne(find_active_by_email, params, mapper);
-    }
-
-    @Override
-    public void insertRegistrationKey(User user, UUID key) throws DataAccessException {
-        checkValidity(user);
-        requireNonNull(key, "UUID cannot be null");
-
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, key.toString());
-        params.put(2, user.getId());
-        template.insert(insert_registration_key, params);
-    }
-
-    @Override
-    public User findByRegistrationKey(UUID key) throws DataAccessException {
-        requireNonNull(key, "UUID cannot be null");
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, key.toString());
-
-        return template.queryOne(find_by_registration_key, params, mapper);
-    }
-
-    @Override
-    public void deleteRegistrationKey(UUID key) throws DataAccessException {
-        HashMap<Integer, Object> props = new HashMap<>();
-        props.put(1, key.toString());
-        template.update(delete_registry_key, props);
     }
 
     @Override
