@@ -7,4 +7,6 @@ package net.lebedko.web.util.constant;
 public class Views {
     public static final String LOGIN = "login";
     public static final String REGISTRATION = "registration";
+    public static final String MAIN_GUEST = "user/main";
+    public static final String ERROR_500 = "error500";
 }
