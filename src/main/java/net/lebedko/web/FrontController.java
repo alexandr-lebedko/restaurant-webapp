@@ -36,6 +36,8 @@ public class FrontController extends HttpServlet {
         final IResponseAction responseAction = command.execute(new WebContext(req, resp));
 
         responseAction.executeResponse(req, resp);
+
+        logger.info("CMD: " + cmd + " EXECUTED");
     }
 
 
