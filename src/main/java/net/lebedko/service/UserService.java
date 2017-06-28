@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public interface UserService {
 
-    void register(User user) throws ServiceException;
+    User register(User user) throws ServiceException;
 
     boolean authenticate(UserView user) throws ServiceException;
 
