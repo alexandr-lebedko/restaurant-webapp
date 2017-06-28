@@ -8,7 +8,7 @@ import javax.mail.Session;
 /**
  * alexandr.lebedko : 25.05.2017.
  */
-public interface ISessionFactory {
+public interface SessionProvider {
 
     public abstract Session getSession() throws MessagingException;
 

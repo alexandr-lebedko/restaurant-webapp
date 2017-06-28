@@ -9,12 +9,11 @@ import javax.naming.NamingException;
 /**
  * alexandr.lebedko : 25.05.2017.
  */
-
-public class JNDISessionFactory implements SessionFactory {
+public class JNDISessionProvider implements SessionProvider {
 
     private Context envCtx;
 
-    private JNDISessionFactory() {
+    private JNDISessionProvider() {
         try {
             Context initCtx = new InitialContext();
             envCtx = (Context) initCtx.lookup("java:comp/env");
@@ -24,10 +23,10 @@ public class JNDISessionFactory implements SessionFactory {
     }
 
     private static class InstanceHolder {
-        private static JNDISessionFactory instance = new JNDISessionFactory();
+        private static JNDISessionProvider instance = new JNDISessionProvider();
     }
 
-    public static SessionFactory getInstance() {
+    public static SessionProvider getInstance() {
         return InstanceHolder.instance;
     }
 
