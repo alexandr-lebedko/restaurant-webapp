@@ -4,27 +4,27 @@ import net.lebedko.entity.general.EmailAddress;
 import net.lebedko.entity.general.Password;
 import net.lebedko.entity.user.*;
 import net.lebedko.service.UserService;
+import net.lebedko.service.exception.EntityExistsException;
 import net.lebedko.service.exception.ServiceException;
-import net.lebedko.service.mail.MailMessage;
-import net.lebedko.service.mail.Mailer;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
+import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.constant.Pages;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.UserValidator;
 
-import java.util.Locale;
-import java.util.UUID;
 
 import static java.util.Optional.*;
+import static net.lebedko.web.util.constant.PageErrorNames.USER_EXISTS;
 
 /**
  * alexandr.lebedko : 15.06.2017
  */
-public class RegistrationPostCommand implements ICommand {
-    private static ThreadLocal<Locale> userLocale = new ThreadLocal<>();
+public class RegistrationPostCommand extends AbstractCommand implements ICommand {
+    private static final IResponseAction MAIN_PAGE_REDIRECT = new RedirectAction(Pages.MAIN_GUEST);
+    private static final IResponseAction REGISTRATION_PAGE_FORWARD = new ForwardAction(Pages.REGISTRATION);
 
     private UserService userService;
     private UserValidator userValidator;
@@ -35,21 +35,31 @@ public class RegistrationPostCommand implements ICommand {
     }
 
     @Override
-    public IResponseAction execute(IContext context) {
+    protected IResponseAction doExecute(IContext context) throws ServiceException {
         User user = retrieveUser(context);
 
-        Errors errors = new Errors();
+        final Errors errors = new Errors();
         userValidator.validate(user, errors);
 
         if (errors.hasErrors()) {
             context.addRequestAttribute("errors", errors);
-            return new ForwardAction(Pages.REGISTRATION);
+            logger.info("Attempt to register invalid user: " + user);
+
+            return REGISTRATION_PAGE_FORWARD;
         }
 
-        userLocale.set(context.getLocale());
+        try {
+            userService.register(user);
+            context.addSessionAttribute("user", user);
 
+            return MAIN_PAGE_REDIRECT;
 
-        return null;
+        } catch (EntityExistsException eex) {
+            logger.info("Attempt to insert existent user: " + user);
+            errors.register("user exists", USER_EXISTS);
+        }
+
+        return REGISTRATION_PAGE_FORWARD;
     }
 
 
