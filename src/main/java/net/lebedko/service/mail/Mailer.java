@@ -1,13 +1,9 @@
 package net.lebedko.service.mail;
 
-import net.lebedko.service.exception.ServiceException;
-import net.lebedko.service.mail.MailMessage;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -16,18 +12,16 @@ import javax.mail.internet.MimeMessage;
  */
 public class Mailer {
 
-    private SessionFactory sessionFactory;
+    private SessionProvider sessionProvider;
 
-    public Mailer(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public Mailer(SessionProvider sessionProvider) {
+        this.sessionProvider = sessionProvider;
     }
 
     public void sendMessage(MailMessage mailMessage) throws MessagingException {
-        Message message;
-        synchronized (this) {
-            message = new MimeMessage(sessionFactory.getSession());
-        }
-        message.setFrom(new InternetAddress(mailMessage.getFrom().toString()));
+        Session session = sessionProvider.getSession();
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(session.getProperty("mail.user")));
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(mailMessage.getTo().toString()));
         message.setSubject(mailMessage.getSubject().toString());
         message.setText(mailMessage.getText().toString());

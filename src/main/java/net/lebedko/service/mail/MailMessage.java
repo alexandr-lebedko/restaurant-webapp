@@ -9,22 +9,14 @@ import net.lebedko.entity.general.Text;
  */
 public class MailMessage implements Validatable {
 
-    private EmailAddress from;
     private EmailAddress to;
     private Text subject;
     private Text text;
 
 
     public MailMessage() {
-        this.from = from;
-        this.to = to;
-        this.subject = subject;
-        this.text = text;
     }
 
-    public void setFrom(EmailAddress from) {
-        this.from = from;
-    }
 
     public void setTo(EmailAddress to) {
         this.to = to;
@@ -36,10 +28,6 @@ public class MailMessage implements Validatable {
 
     public void setText(Text text) {
         this.text = text;
-    }
-
-    public EmailAddress getFrom() {
-        return from;
     }
 
     public EmailAddress getTo() {
@@ -58,7 +46,6 @@ public class MailMessage implements Validatable {
     @Override
     public boolean isValid() {
         return to.isValid()
-                && from.isValid()
                 && subject.isValid()
                 && text.isValid();
     }
@@ -66,8 +53,7 @@ public class MailMessage implements Validatable {
     @Override
     public String toString() {
         return "MailMessage{" +
-                "from=" + from +
-                ", to=" + to +
+                "to=" + to +
                 ", subject=" + subject +
                 ", text=" + text +
                 '}';

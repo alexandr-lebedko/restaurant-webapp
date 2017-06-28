@@ -10,6 +10,6 @@ import javax.mail.Session;
  */
 public interface SessionProvider {
 
-    public abstract Session getSession() throws MessagingException;
+    Session getSession() throws MessagingException;
 
 }
