@@ -38,4 +38,12 @@ public class UserView implements Validatable {
         return emailAddress.isValid()
                 && password.isValid();
     }
+
+    @Override
+    public String toString() {
+        return "UserView{" +
+                "emailAddress=" + emailAddress +
+                ", password=" + password +
+                '}';
+    }
 }
