@@ -13,6 +13,7 @@ import net.lebedko.web.command.IContext;
 import net.lebedko.web.util.constant.Pages;
 import net.lebedko.web.validator.Errors;
 
+import static java.util.Objects.isNull;
 import static java.util.Optional.*;
 import static net.lebedko.service.UserService.authenticate;
 import static net.lebedko.web.util.constant.PageErrorNames.USER_NOT_EXISTS;
@@ -40,7 +41,7 @@ public class LoginPostCommand extends AbstractCommand {
 
         Errors errors = new Errors();
 
-        if (user == null) {
+        if (isNull(user)) {
             errors.register("user not exists", USER_NOT_EXISTS);
             context.addErrors(errors);
             logger.warn("Entered data for not registered account: " + userView.getEmailAddress());
@@ -49,7 +50,7 @@ public class LoginPostCommand extends AbstractCommand {
 
         if (authenticate(userView, user)) {
             context.addSessionAttribute("user", user);
-            return toMainPageAction(user);
+            return mainPageRedirectAction(user);
         } else {
             errors.register("wrong password", WRONG_PASSWORD);
             logger.warn("Entered wrong password for account: " + userView.getEmailAddress());
@@ -57,7 +58,7 @@ public class LoginPostCommand extends AbstractCommand {
         }
     }
 
-    private IResponseAction toMainPageAction(User user) {
+    private IResponseAction mainPageRedirectAction(User user) {
         if (user.getRole() == User.UserRole.CLIENT)
             return MAIN_CLIENT_PAGE_REDIRECT;
         else
