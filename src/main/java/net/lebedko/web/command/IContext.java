@@ -1,5 +1,7 @@
 package net.lebedko.web.command;
 
+import net.lebedko.web.validator.Errors;
+
 import java.util.Locale;
 
 /**
@@ -16,4 +18,6 @@ public interface IContext {
     String getRequestAttribute(String key);
 
     <T> T getSessionAttribute(T t, String key);
+
+    void addErrors(Errors errors);
 }
