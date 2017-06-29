@@ -19,7 +19,7 @@ public class CommandFactoryImpl implements ICommandFactory {
     public CommandFactoryImpl() {
         commandMap.put(GET_LOGIN, new LoginGetCommand());
         commandMap.put(GET_REGISTRATION, new RegistrationGetCommand());
-        commandMap.put(POST_LOGIN, new DumbLoginPostCommand());
+        commandMap.put(POST_LOGIN, new LoginPostCommand());
     }
 
     @Override
