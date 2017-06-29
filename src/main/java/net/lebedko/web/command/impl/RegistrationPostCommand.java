@@ -23,7 +23,7 @@ import static net.lebedko.web.util.constant.PageErrorNames.USER_EXISTS;
  * alexandr.lebedko : 15.06.2017
  */
 public class RegistrationPostCommand extends AbstractCommand implements ICommand {
-    private static final IResponseAction MAIN_PAGE_REDIRECT = new RedirectAction(Pages.MAIN_GUEST);
+    private static final IResponseAction MAIN_PAGE_REDIRECT = new RedirectAction(Pages.MAIN_CLIENT);
     private static final IResponseAction REGISTRATION_PAGE_FORWARD = new ForwardAction(Pages.REGISTRATION);
 
     private UserService userService;
