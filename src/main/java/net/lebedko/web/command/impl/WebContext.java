@@ -1,6 +1,7 @@
 package net.lebedko.web.command.impl;
 
 import net.lebedko.web.command.IContext;
+import net.lebedko.web.validator.Errors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,11 @@ public class WebContext implements IContext {
     @Override
     public <T> T getSessionAttribute(T t, String key) {
         return (T) request.getSession().getAttribute(key);
+    }
+
+    @Override
+    public void addErrors(Errors errors) {
+        request.setAttribute("errors", errors);
     }
 
     @Override
