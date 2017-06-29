@@ -21,7 +21,11 @@ public abstract class AbstractCommand implements ICommand {
     public final IResponseAction execute(IContext context) {
         Errors errors = new Errors();
         try {
-            return doExecute(context);
+            logger.info("Starting to executing command");
+            IResponseAction responseAction = doExecute(context);
+            logger.info("Command executing finished");
+            return responseAction;
+
         } catch (ServiceException e) {
             logger.error("Exception executing command", e);
             errors.register("Service failure", e.getCause().getMessage());
