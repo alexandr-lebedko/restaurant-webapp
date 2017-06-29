@@ -1,5 +1,6 @@
 package net.lebedko.entity.user;
 
+import net.lebedko.entity.Validatable;
 import net.lebedko.entity.general.EmailAddress;
 import net.lebedko.entity.general.Password;
 
@@ -7,7 +8,7 @@ import net.lebedko.entity.general.Password;
  * alexandr.lebedko : 08.05.2017.
  */
 
-public class UserView {
+public class UserView implements Validatable {
     private EmailAddress emailAddress;
     private Password password;
 
@@ -30,5 +31,11 @@ public class UserView {
 
     public void setPassword(Password password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean isValid() {
+        return emailAddress.isValid()
+                && password.isValid();
     }
 }
