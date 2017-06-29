@@ -3,7 +3,6 @@ package net.lebedko.service.impl;
 import net.lebedko.dao.UserDao;
 import net.lebedko.entity.general.EmailAddress;
 import net.lebedko.entity.user.User;
-import net.lebedko.entity.user.UserView;
 import net.lebedko.service.UserService;
 import net.lebedko.service.exception.ServiceException;
 
@@ -28,12 +27,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean authenticate(UserView userView) throws ServiceException {
-        User user = template.doTxService(() -> userDao.findByEmail(userView.getEmailAddress()));
-        return nonNull(user) && user.getPassword().equals(userView.getPassword());
-    }
-
-
     public User findByEmail(EmailAddress address) throws ServiceException {
         return template.doTxService(() -> userDao.findByEmail(address));
     }
