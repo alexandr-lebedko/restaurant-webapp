@@ -13,6 +13,4 @@ public interface UserDao extends GenericDao<User> {
 
     User findByEmail(EmailAddress email) throws DataAccessException;
 
-    User findActivatedByEmail(EmailAddress email) throws DataAccessException;
-
 }

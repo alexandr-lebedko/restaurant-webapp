@@ -48,15 +48,6 @@ public class JdbcUserDao implements UserDao {
         return template.queryOne(find_by_email, params, mapper);
     }
 
-
-    @Override
-    public User findActivatedByEmail(EmailAddress email) throws DataAccessException {
-        requireNonNull(email, "Email Address cannot be null");
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, email.toString());
-        return template.queryOne(find_active_by_email, params, mapper);
-    }
-
     @Override
     public User insert(User user) throws DataAccessException {
         checkValidity(user);
