@@ -19,9 +19,4 @@ public class Util {
         return value.replaceAll("[\\s]{2,}", " ");
     }
 
-    public static void main(String[] args) {
-        boolean b = !true;
-        System.out.println(b);
-    }
-
 }
