@@ -111,7 +111,7 @@ public class JdbcUserDaoTest {
 
         assertThat("Inserted and retrieved users should be equal!", userDao.findByEmail(initialUser.getEmail()), is(initialUser));
 
-        User updatedUser = new User(initialUser.getId(), getFullName(), getEmailAddress(), getPassword(), getUserRole(), false);
+        User updatedUser = new User(initialUser.getId(), getFullName(), getEmailAddress(), getPassword(), getUserRole());
         userDao.update(updatedUser);
 
         assertThat("Retrieved user should be equal to updatedUser and not to initial",
@@ -132,7 +132,7 @@ public class JdbcUserDaoTest {
         userDao.insert(user);
         userDao.insert(otherUser);
 
-        User updatedUser = new User(user.getId(), user.getFullName(), takenEmail, user.getPassword(), user.getRole(), false);
+        User updatedUser = new User(user.getId(), user.getFullName(), takenEmail, user.getPassword(), user.getRole());
         userDao.update(updatedUser);
     }
 
@@ -149,20 +149,4 @@ public class JdbcUserDaoTest {
         assertNull("User should be equal to null", userDao.findByEmail(user.getEmail()));
     }
 
-
-    public void findByRegistrationKey() throws Exception {
-        //TODO
-    }
-
-    public void insertRegistrationKey() throws Exception {
-        //TODO
-    }
-
-    public void findActivatedByEmail() throws Exception {
-        //TODO
-    }
-
-    public void deleteRegistrationKey() throws Exception {
-        //TODO
-    }
 }

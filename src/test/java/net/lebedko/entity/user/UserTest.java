@@ -75,7 +75,7 @@ public class UserTest {
 
     @Test
     public void getterMethodsTest() {
-        User user = new User(id, validFullName, validEmail, validPassword, role, false);
+        User user = new User(id, validFullName, validEmail, validPassword, role);
 
         assertEquals(id, user.getId());
         assertEquals(validFullName, user.getFullName());

@@ -21,16 +21,7 @@ CREATE TABLE users (
   u_email         VARCHAR(30) NOT NULL UNIQUE,
   u_first_name    VARCHAR(20) NOT NULL,
   u_last_name     VARCHAR(20) NOT NULL,
-  u_password_hash CHAR(32)    NOT NULL,
-  u_activated     BOOLEAN     NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE users_activation (
-  a_key     CHAR(36) PRIMARY KEY,
-  a_user_id INT NOT NULL,
-  CONSTRAINT FOREIGN KEY (a_user_id) REFERENCES users (u_id)
-    ON DELETE CASCADE
-);
+  u_password_hash CHAR(32)    NOT NULL);
 
 CREATE TABLE menu_items (
   m_id        INT PRIMARY KEY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            AUTO_INCREMENT,

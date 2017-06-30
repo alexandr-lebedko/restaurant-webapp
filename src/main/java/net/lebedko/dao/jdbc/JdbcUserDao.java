@@ -100,8 +100,7 @@ public class JdbcUserDao implements UserDao {
                     new FullName(new FirstName(rs.getString("u_first_name")), new LastName(rs.getString("u_last_name"))),
                     new EmailAddress(rs.getString("u_email")),
                     Password.createPasswordFromHash(rs.getString("u_password_hash")),
-                    UserRole.valueOf(rs.getString("u_role")),
-                    rs.getBoolean("u_activated"));
+                    UserRole.valueOf(rs.getString("u_role")));
         }
     }
 
