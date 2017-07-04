@@ -1,57 +1,51 @@
 package net.lebedko.dao.transaction;
 
-import net.lebedko.dao.connection.ConnectionProvider;
+import net.lebedko.dao.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.exception.TransactionException;
 import net.lebedko.util.VoidCallable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.Callable;
 
 /**
- * alexandr.lebedko : 08.05.2017.
+ * alexandr.lebedko : 04.07.2017.
  */
+public abstract class TransactionManager {
 
-public interface TransactionManager {
+    protected static final Logger LOG = LogManager.getLogger();
 
+    protected abstract void begin() throws DataAccessException;
 
-    void begin() throws DataAccessException;
+    protected abstract void rollback() throws DataAccessException;
 
-    void commit() throws DataAccessException;
+    protected abstract void commit() throws DataAccessException;
 
-    void rollback() throws DataAccessException;
-
-
-    default <T> T tx(Callable<T> callable) throws DataAccessException {
-        T result;
+    public final <T> T tx(Callable<T> work) throws DataAccessException {
+        T result = null;
         try {
             begin();
-            result = callable.call();
-        } catch (DataAccessException e) {
-            throw e;
-        } catch (Exception e) {
-            rollback();
-            throw new TransactionException(e);
-        } finally {
+            result = work.call();
             commit();
+        } catch (Exception e) {
+            LOG.error("Exception occurred during transaction: " + e);
+            rollback();
         }
         return result;
     }
 
-    default void tx(VoidCallable callable) throws DataAccessException {
+    public final void tx(VoidCallable work) throws DataAccessException {
         try {
             begin();
-            callable.call();
-        } catch (DataAccessException e) {
-            throw e;
-        } catch (Exception e) {
-            rollback();
-            throw new TransactionException(e);
-        } finally {
+            work.call();
             commit();
+        } catch (Exception e) {
+            LOG.error("Exception occurred during transaction: " + e);
+            rollback();
         }
     }
 
-    static TransactionManager getTxManager() {
-        return new TransactionManagerImpl(ConnectionProvider.getProvider());
+    public static TransactionManager getTxManager() {
+        return new JdbcThreadLocalTransactionManager(new ThreadLocalConnectionProvider());
     }
 }
