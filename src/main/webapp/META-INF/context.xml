@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context crossContext="true" reloadable="true">
+    <Resource name="jdbc/restaurant"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/restaurant-2.0?autoReconnect=true&amp;useSSL=false&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
+              maxActive="32"
+              maxIdle="20"
+              maxWait="10000"
+              username="root"
+              password="root"/>
+</Context>
