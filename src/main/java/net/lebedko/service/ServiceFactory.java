@@ -1,6 +1,5 @@
 package net.lebedko.service;
 
-import net.lebedko.dao.DaoFactory;
 import net.lebedko.dao.UserDao;
 import net.lebedko.dao.transaction.TransactionManager;
 import net.lebedko.service.impl.ServiceTemplate;
@@ -23,7 +22,7 @@ public abstract class ServiceFactory {
         services.put(UserService.class, new UserServiceImpl(serviceTemplate, getDao(UserDao.class)));
     }
 
-   public static <T> T getService(Class<T> clazz) {
+    public static <T> T getService(Class<T> clazz) {
         return (T) services.get(clazz);
     }
 }
