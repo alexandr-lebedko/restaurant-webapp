@@ -1,12 +1,9 @@
 package net.lebedko.dao;
 
-import net.lebedko.dao.connection.BoneCPConnectionProvider;
 import net.lebedko.dao.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.jdbc.*;
 import net.lebedko.dao.template.QueryTemplate;
 import net.lebedko.dao.template.errortranslator.MySqlExceptionTranslator;
-import net.lebedko.entity.dish.Dish;
-import net.lebedko.service.impl.UserServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +15,9 @@ public abstract class DaoFactory {
     private static final Map<Class, Object> daos = new HashMap<>();
 
     static {
-        QueryTemplate template = new QueryTemplate(new ThreadLocalConnectionProvider(new BoneCPConnectionProvider()),
-                new MySqlExceptionTranslator());
+        ThreadLocalConnectionProvider connectionProvider = new ThreadLocalConnectionProvider();
+
+        QueryTemplate template = new QueryTemplate(connectionProvider,new MySqlExceptionTranslator());
 
         daos.put(UserDao.class, new JdbcUserDao(template));
         daos.put(DishDao.class, new JdbcDishDao(template));
