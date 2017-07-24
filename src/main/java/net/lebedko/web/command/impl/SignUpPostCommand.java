@@ -43,7 +43,7 @@ public class RegistrationPostCommand extends AbstractCommand implements ICommand
 
         if (errors.hasErrors()) {
             context.addRequestAttribute("errors", errors);
-            logger.info("Attempt to register invalid user: " + user);
+            LOG.info("Attempt to register invalid user: " + user);
 
             return REGISTRATION_PAGE_FORWARD;
         }
@@ -55,7 +55,7 @@ public class RegistrationPostCommand extends AbstractCommand implements ICommand
             return MAIN_PAGE_REDIRECT;
 
         } catch (EntityExistsException eex) {
-            logger.info("Attempt to insert existent user: " + user);
+            LOG.info("Attempt to insert existent user: " + user);
             errors.register("user exists", USER_EXISTS);
         }
 

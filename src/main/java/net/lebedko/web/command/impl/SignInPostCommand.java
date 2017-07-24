@@ -6,6 +6,7 @@ import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserView;
 import net.lebedko.service.UserService;
 import net.lebedko.service.exception.ServiceException;
+import net.lebedko.util.Util;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
@@ -16,6 +17,8 @@ import net.lebedko.web.validator.Errors;
 import static java.util.Objects.isNull;
 import static java.util.Optional.*;
 import static net.lebedko.service.UserService.authenticate;
+import static net.lebedko.util.Util.*;
+import static net.lebedko.web.util.constant.PageErrorNames.INVALID_USER;
 import static net.lebedko.web.util.constant.PageErrorNames.USER_NOT_EXISTS;
 import static net.lebedko.web.util.constant.PageErrorNames.WRONG_PASSWORD;
 
@@ -34,26 +37,33 @@ public class LoginPostCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) throws ServiceException {
+    protected IResponseAction doExecute(final IContext context) throws ServiceException {
 
         final UserView userView = getUserView(context);
         final User user = userService.findByEmail(userView.getEmailAddress());
 
-        Errors errors = new Errors();
+        final Errors errors = new Errors();
+
+        if (isInvalid(userView)) {
+            errors.register("invalid user", INVALID_USER);
+            return LOGIN_PAGE_FORWARD;
+        }
 
         if (isNull(user)) {
             errors.register("user not exists", USER_NOT_EXISTS);
             context.addErrors(errors);
-            logger.warn("Entered data for not registered account: " + userView.getEmailAddress());
+            LOG.warn("Entered data for not registered account: " + userView.getEmailAddress());
             return LOGIN_PAGE_FORWARD;
         }
 
         if (authenticate(userView, user)) {
             context.addSessionAttribute("user", user);
+
             return mainPageRedirectAction(user);
         } else {
             errors.register("wrong password", WRONG_PASSWORD);
-            logger.warn("Entered wrong password for account: " + userView.getEmailAddress());
+            LOG.warn("Entered wrong password for account: " + userView.getEmailAddress());
+
             return LOGIN_PAGE_FORWARD;
         }
     }
