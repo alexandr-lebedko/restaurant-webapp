@@ -17,6 +17,8 @@ public interface IContext {
 
     String getRequestAttribute(String key);
 
+    String getRequestParameter(String key);
+
     <T> T getSessionAttribute(T t, String key);
 
     void addErrors(Errors errors);
