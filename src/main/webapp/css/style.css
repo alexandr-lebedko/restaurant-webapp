@@ -1,0 +1,138 @@
+body {
+    padding: 0;
+}
+
+header {
+    height: 60px;
+}
+
+header div.container {
+    padding: 0;
+    width: 100%;
+    background-color: silver;
+    height: 100%;
+}
+
+header div.container div.row {
+    background-color: #43a290;
+    font-family: "Century Gothic";
+    width: 100%;
+    margin: 0;
+    height: 100%;
+}
+
+div.container div.row div#header-title {
+    background-color: rgba(19, 25, 53, 0.95);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+div.container div.row div#header-title div {
+    align-self: center;
+}
+
+div.container div.row div#header-title div a {
+    color: silver;
+    font-size: 140%;
+}
+
+div.container div.row div#page-title {
+    background-color: inherit;
+    color: white;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+div.container div.row div#page-title div {
+    align-self: center;
+    text-align: center;
+}
+
+div.container div.row div#page-title div h2 {
+    color: white;
+    font-family: "Century Gothic";
+    font-weight: 500;
+    margin: 0 auto;
+}
+
+div.container div.row div#button-area {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: inherit;
+}
+
+div.row div#button-area div.dropdown {
+    align-self: center;
+    text-align: center;
+}
+
+div.row div#button-area div.button {
+    align-self: center;
+}
+
+div.container div.row div#button-area div.button a {
+    text-align: center;
+    align-self: center;
+}
+
+div.container div.row div#button-area div.dropdown button,
+div.container div.row div#button-area div.button a {
+    background-color: #42beac;
+    width: 60px;
+    height: 40px;
+    border: none;
+    color: white;
+    margin-left: 7px;
+}
+
+div.container div.row div#button-area div.button a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: auto;
+}
+
+section#middle-section {
+    height: 500px;
+    background-color: rebeccapurple;
+    margin-bottom: 30px;
+}
+
+section#middle-section div.container {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+div#picture-area img {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #183743;
+    margin-left: 30px;
+}
+
+section#middle-section div.container div.row div#sign-in-form {
+    background-color: rgba(66, 194, 177, 0.16);
+    padding: 25px;
+}
+
+section#middle-section div.container div.row div#sign-in-form form button {
+    float: right;
+}
+
+footer {
+    background-color: #15313b;
+    height: 80px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    color: white;
+    padding: 30px 0 20px 0;
+    font-family: "Century Gothic";
+    font-stretch: ultra-expanded;
+}
