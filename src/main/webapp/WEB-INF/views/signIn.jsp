@@ -60,7 +60,7 @@
     </div>
 </header>
 
-<section id="middle-section">
+<section class="form-section">
     <div class="container">
         <div class="row">
 
