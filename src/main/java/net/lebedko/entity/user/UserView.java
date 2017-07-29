@@ -4,6 +4,8 @@ import net.lebedko.entity.Validatable;
 import net.lebedko.entity.general.EmailAddress;
 import net.lebedko.entity.general.Password;
 
+import static java.util.Objects.nonNull;
+
 /**
  * alexandr.lebedko : 08.05.2017.
  */
@@ -35,7 +37,9 @@ public class UserView implements Validatable {
 
     @Override
     public boolean isValid() {
-        return emailAddress.isValid()
+        return nonNull(emailAddress)
+                && nonNull(password)
+                && emailAddress.isValid()
                 && password.isValid();
     }
 
