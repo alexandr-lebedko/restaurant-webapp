@@ -80,9 +80,16 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
 
     }
 
-    private void cleanUp() {
+    private void cleanUp() throws DataAccessException{
         LOG.debug("Cleaning up thread local resources: TransactionCounter and ThreadLocalConnectionProvider");
-        transactionCounter.remove();
+        try {
+            LOG.debug("Closing connection");
+            connectionProvider.getConnection().close();
+        } catch (SQLException e) {
+            throw new DataAccessException("Failed to close connection");
+        }
+
         connectionProvider.clearStorage();
+        transactionCounter.remove();
     }
 }
