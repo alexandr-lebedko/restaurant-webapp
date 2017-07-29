@@ -13,6 +13,6 @@ public class LastNameValidator implements IValidator<LastName> {
         if (familyName.isValid())
             return;
 
-        errors.register("familyName", "page.error.lastName");
+        errors.register("lastName", "page.error.lastName");
     }
 }
