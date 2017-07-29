@@ -1,18 +1,17 @@
 package net.lebedko.web.command.impl;
 
-import net.lebedko.service.ServiceFactory;
 import net.lebedko.service.UserService;
-import net.lebedko.service.impl.UserServiceImpl;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
+import net.lebedko.web.command.impl.admin.AdminMainGetCommand;
+import net.lebedko.web.validator.IValidator;
+import net.lebedko.web.validator.UserValidator;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static net.lebedko.service.ServiceFactory.*;
-import static net.lebedko.web.util.constant.Commands.GET_LOGIN;
-import static net.lebedko.web.util.constant.Commands.GET_REGISTRATION;
-import static net.lebedko.web.util.constant.Commands.POST_LOGIN;
+import static net.lebedko.web.util.constant.Commands.*;
 
 /**
  * alexandr.lebedko : 12.06.2017
@@ -21,9 +20,13 @@ public class CommandFactoryImpl implements ICommandFactory {
     private Map<String, ICommand> commandMap = new HashMap<>();
 
     public CommandFactoryImpl() {
-        commandMap.put(GET_LOGIN, new LoginGetCommand());
-        commandMap.put(GET_REGISTRATION, new RegistrationGetCommand());
-        commandMap.put(POST_LOGIN, new LoginPostCommand(getService(UserService.class)));
+        commandMap.put(POST_SIGN_IN, new SignInPostCommand(getService(UserService.class)));
+        commandMap.put(GET_SIGN_IN, new SignInGetCommand());
+
+        commandMap.put(GET_SIGN_UP, new SignUpGetCommand());
+        commandMap.put(POST_SIGN_UP, new SignUpPostCommand(getService(UserService.class), new UserValidator()));
+
+        commandMap.put(GET_ADMIN_MAIN, new AdminMainGetCommand());
     }
 
     @Override
