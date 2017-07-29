@@ -14,6 +14,10 @@ public class UserValidator implements IValidator<User> {
     private EmailAddressValidator emailAddressValidator;
     private PasswordValidator passwordValidator;
 
+    public UserValidator() {
+        this(new FullNameValidator(), new EmailAddressValidator(), new PasswordValidator());
+    }
+
     public UserValidator(FullNameValidator fullNameValidator, EmailAddressValidator emailAddressValidator, PasswordValidator passwordValidator) {
         this.fullNameValidator = requireNonNull(fullNameValidator, "FullNameValidator is required and cannot be null!");
         this.emailAddressValidator = requireNonNull(emailAddressValidator, "EmailAddressValidator is required and cannot be null!");

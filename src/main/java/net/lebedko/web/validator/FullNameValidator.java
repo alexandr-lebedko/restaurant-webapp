@@ -14,6 +14,10 @@ public class FullNameValidator implements IValidator<FullName> {
     private FirstNameValidator firstNameValidator;
     private LastNameValidator lastNameValidator;
 
+    public FullNameValidator() {
+        this(new FirstNameValidator(), new LastNameValidator());
+    }
+
     public FullNameValidator(FirstNameValidator firstNameValidator, LastNameValidator lastNameValidator) {
         this.firstNameValidator = requireNonNull(firstNameValidator, "FirstNameValidator is required and cannot be null!");
         this.lastNameValidator = requireNonNull(lastNameValidator, "LastNameValidator is required and cannot be null!");
