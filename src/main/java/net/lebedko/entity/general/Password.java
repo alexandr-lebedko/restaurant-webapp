@@ -10,11 +10,8 @@ import static java.util.Objects.requireNonNull;
 import static java.util.Objects.nonNull;
 import static net.lebedko.util.Util.removeExtraSpaces;
 
-/**
- * Created by alexandr.lebedko on 18.03.2017.
- */
 public abstract class Password implements Validatable {
-    protected static final int min_length= 8;
+    protected static final int min_length = 8;
 
     String passwordString;
     String passwordHash;
@@ -34,7 +31,7 @@ public abstract class Password implements Validatable {
     }
 
     public String toString() {
-        return "Password{ Hash=" + getPasswordHash() + "}";
+        return "Password{String=" + passwordString + ", Hash=" + getPasswordHash() + "}";
     }
 
     public static Password createPasswordFromString(String password) {
@@ -46,12 +43,12 @@ public abstract class Password implements Validatable {
     }
 
     private static class PasswordImpl extends Password {
-      protected static final String MD_ALGORITHM = "MD5";
+        protected static final String MD_ALGORITHM = "MD5";
 
 
         private PasswordImpl(String passwordString) {
             requireNonNull(passwordString, "Argument cannot be null");
-            this.passwordString =removeExtraSpaces(passwordString).trim();
+            this.passwordString = removeExtraSpaces(passwordString).trim();
         }
 
         @Override
