@@ -10,4 +10,5 @@ public class PageErrorNames {
     public static final String USER_EXISTS = "page.error.userExists";
     public static final String USER_NOT_EXISTS = "page.error.userNotExists";
     public static final String WRONG_PASSWORD = "page.error.wrongPassword";
+    public static final String INVALID_USER = "page.error.invalidUser";
 }

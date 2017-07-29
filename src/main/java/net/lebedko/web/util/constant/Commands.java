@@ -9,12 +9,15 @@ public class Commands {
     private Commands() {
     }
 
-    public static final String CONTROLLER = "/app";
-    public static final String GET_PREFIX = "GET:" + CONTROLLER + "/";
-    public static final String POST_PREFIX = "POST:" + CONTROLLER + "/";
-    public static final String GET_LOGIN = GET_PREFIX + Views.LOGIN;
-    public static final String POST_LOGIN = POST_PREFIX + Views.LOGIN;
-    public static final String GET_REGISTRATION = GET_PREFIX + Views.REGISTRATION;
-    public static final String POST_REGISTRATION = POST_PREFIX + Views.REGISTRATION;
+    private static final String GET_PREFIX = "GET:/";
+    private static final String POST_PREFIX = "POST:/";
+
+    public static final String GET_SIGN_IN = GET_PREFIX + RelationalURI.SIGN_IN;
+    public static final String POST_SIGN_IN = POST_PREFIX + RelationalURI.SIGN_IN;
+
+    public static final String GET_SIGN_UP = GET_PREFIX + RelationalURI.SIGN_UP;
+    public static final String POST_SIGN_UP = POST_PREFIX + RelationalURI.SIGN_UP;
+
+    public static final String GET_ADMIN_MAIN = GET_PREFIX + RelationalURI.ADMIN_MAIN;
 
 }
