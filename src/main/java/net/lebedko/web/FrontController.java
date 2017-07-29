@@ -5,6 +5,7 @@ import net.lebedko.web.command.impl.CommandFactoryImpl;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.WebContext;
+import net.lebedko.web.util.constant.RelationalURI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,12 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static net.lebedko.web.util.constant.Commands.CONTROLLER;
-
 /**
  * alexandr.lebedko : 10.06.2017
  */
-@WebServlet(CONTROLLER + "/*")
+@WebServlet(RelationalURI.CONTROLLER_URL_PATTERN)
 public class FrontController extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
     private static final ICommandFactory commandFactory = new CommandFactoryImpl();
