@@ -1,17 +1,18 @@
 package net.lebedko.web.command.impl;
 
-import net.lebedko.web.response.ForwardAction;
-import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
+import net.lebedko.web.response.ForwardAction;
+import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.constant.PageLocations;
 
+
 /**
- * alexandr.lebedko : 12.06.2017
+ * alexandr.lebedko : 22.07.2017.
  */
-public class SignUpGetCommand implements ICommand {
+public class SignInGetCommand implements ICommand {
     @Override
     public IResponseAction execute(IContext context) {
-        return new ForwardAction(PageLocations.SIGN_UP);
+        return new ForwardAction(PageLocations.SIGN_IN);
     }
 }
