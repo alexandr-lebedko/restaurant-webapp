@@ -18,8 +18,8 @@ public interface UserService {
 
     User findByEmail(EmailAddress emailAddress) throws ServiceException;
 
-    static boolean authenticate(UserView userView, User user) {
+  static boolean authenticate(UserView userView, User user) {
         return userView.getEmailAddress().equals(user.getEmail())
-                && userView.getPassword().equals(user.getEmail());
+                && userView.getPassword().equals(user.getPassword());
     }
 }
