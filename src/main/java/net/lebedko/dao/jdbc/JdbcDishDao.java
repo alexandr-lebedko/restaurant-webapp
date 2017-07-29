@@ -44,6 +44,7 @@ public class JdbcDishDao implements DishDao {
         params.put(1, dish.getCategory().name());
         params.put(2, dish.getTitle().toString());
         params.put(3, dish.getDescription().toString());
+        params.put(4, dish.getPictureId());
         int pk = template.insertAndReturnKey(insert, params);
         dish.setId(pk);
         return dish;
@@ -84,8 +85,8 @@ public class JdbcDishDao implements DishDao {
             DishCategory category = DishCategory.valueOf(rs.getString("d_category"));
             Title title = new Title(rs.getString("d_title"));
             Text description = new Text(rs.getString("d_description"));
-
-            return new Dish(id, title, description, category);
+            String pictureId = rs.getString("d_pictureId");
+            return new Dish(id, title, description, category, pictureId);
         }
     }
 }

@@ -23,8 +23,16 @@ public class Dish implements Entity, Validatable {
     private int id;
     private Title title;
     private Text description;
-
     private DishCategory category;
+    private String pictureId;
+
+    public Dish(int id, Title title, Text description, DishCategory category, String pictureId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.pictureId = pictureId;
+    }
 
     public Dish(Title title, Text description, DishCategory type) {
         this(0, title, description, type);
@@ -55,6 +63,11 @@ public class Dish implements Entity, Validatable {
 
     public DishCategory getCategory() {
         return category;
+    }
+
+
+    public String getPictureId() {
+        return pictureId;
     }
 
     @Override
