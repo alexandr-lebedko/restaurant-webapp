@@ -18,5 +18,7 @@ public class PageLocations {
     public static final String MAIN_ADMIN = PREFIX + Views.ADMIN_MAIN + SUFFIX;
     public static final String MAIN_CLIENT = PREFIX + Views.CLIENT_MAIN + SUFFIX;
 
+    public static final String MENU_NEW_DISH = PREFIX + Views.NEW_DISH + SUFFIX;
+
     public static final String ERROR_500 = PREFIX + Views.ERROR_500 + SUFFIX;
 }

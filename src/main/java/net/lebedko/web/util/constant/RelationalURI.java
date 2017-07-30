@@ -17,5 +17,6 @@ public class RelationalURI {
     public static final String ADMIN_MAIN = PREFIX + Views.ADMIN_MAIN;
     public static final String CLIENT_MAIN = PREFIX + Views.CLIENT_MAIN;
 
+    public static final String NEW_DISH = PREFIX + Views.NEW_DISH;
 
 }

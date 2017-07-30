@@ -19,5 +19,6 @@ public class Commands {
     public static final String POST_SIGN_UP = POST_PREFIX + RelationalURI.SIGN_UP;
 
     public static final String GET_ADMIN_MAIN = GET_PREFIX + RelationalURI.ADMIN_MAIN;
+    public static final String GET_NEW_DISH = GET_PREFIX + RelationalURI.NEW_DISH;
 
 }

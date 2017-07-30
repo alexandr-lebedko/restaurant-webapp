@@ -11,4 +11,6 @@ public class Views {
     static final String ERROR_500 = "error500";
     static final String SIGN_IN = "signIn";
     static final String SIGN_UP = "signUp";
+
+    static final String NEW_DISH="admin/menu/new";
 }
