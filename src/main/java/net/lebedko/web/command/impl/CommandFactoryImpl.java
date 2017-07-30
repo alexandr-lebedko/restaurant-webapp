@@ -4,7 +4,7 @@ import net.lebedko.service.UserService;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.AdminMainGetCommand;
-import net.lebedko.web.validator.IValidator;
+import net.lebedko.web.command.impl.admin.NewDishGetCommand;
 import net.lebedko.web.validator.UserValidator;
 
 import java.util.HashMap;
@@ -27,6 +27,7 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(POST_SIGN_UP, new SignUpPostCommand(getService(UserService.class), new UserValidator()));
 
         commandMap.put(GET_ADMIN_MAIN, new AdminMainGetCommand());
+        commandMap.put(GET_NEW_DISH, new NewDishGetCommand());
     }
 
     @Override
