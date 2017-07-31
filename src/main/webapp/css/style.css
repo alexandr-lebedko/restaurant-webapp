@@ -37,6 +37,10 @@ div.container div.row div#header-title div a {
     font-size: 140%;
 }
 
+div#page-title div h2 i.glyphicon {
+    font-size: 80%;
+}
+
 div.container div.row div#page-title {
     background-color: inherit;
     color: white;
@@ -148,8 +152,7 @@ section div.container#admin-middle-section div.row {
 }
 
 section div.container#admin-middle-section div.row div#side-bar {
-    background-color: #1d2f3f
-;
+    background-color: #1d2f3f;
     height: 100%;
     padding-left: 0;
     padding-right: 0;
@@ -190,22 +193,33 @@ div.container#admin-middle-section div.row div#side-bar ul li a.navbar-header:fo
     background-color: inherit;
 }
 
-div.container#admin-middle-section div.row div#side-bar ul li a.side-bar-item:hover,
-div.container#admin-middle-section div.row div#side-bar ul li a.side-bar-item:focus {
+div.container#admin-middle-section div.row div#side-bar ul li a.side-bar-item:hover {
     background-color: #25415b;
 }
 
-div.container#admin-middle-section div.row div#side-bar ul li a.side-bar-item:focus {
+div.container#admin-middle-section div.row div#side-bar ul li a.active-pill {
     border-left: solid 5px #42beac;
+    background-color: #25415b;
 }
 
-div.container#admin-middle-section div.row div#page-content {
+div.container#admin-middle-section div.row div.page-content {
     height: 100%;
     border: solid 40px #25415b;
-    /*border: solid 40px #2a465f;*/
+    background-color: #f2f2f2;
+    font-family: "Century Gothic";
 }
 
+/*admin main new */
 
+div.page-content div.page-content-header {
+    height: 80px !important;
+    border-bottom: solid 1px grey;
+}
+
+div.page-content div.page-content-header div {
+    padding-top: 15px;
+    padding-left: 50px;
+}
 
 
 

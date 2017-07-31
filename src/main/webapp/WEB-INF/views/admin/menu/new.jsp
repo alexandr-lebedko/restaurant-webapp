@@ -1,9 +1,3 @@
-<%--
-  alexandr.lebedko : 30.07.2017
---%>
-<%--
-  alexandr.lebedko : 29.06.2017
---%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,8 +7,9 @@
        scope="session"/>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="localization"/>
-<c:set var="pageUri" value="app/admin/main" scope="page"/>
 
+<c:set var="pageUri" value="app/admin/menu/new" scope="page"/>
+<c:set var="contextUri" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
 <html>
@@ -41,7 +36,8 @@
             </div>
             <div class="col-md-3 col-sm-6" id="page-title">
                 <div>
-                    <h2><fmt:message key="page.administration.main"/></h2>
+                    <h2><i class="glyphicon glyphicon-th-list"></i>
+                        <fmt:message key="page.admin.menu"/></h2>
                 </div>
             </div>
             <div class=" col-md-2 col-md-offset-4" id="button-area">
@@ -73,13 +69,13 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" id="sidebar-header"></li>
 
-                    <li role="presentation">
-                        <a href="" class="side-bar-item">
+                    <li role="navigation">
+                        <a href="${contextUri}/app/admin/main" class="side-bar-item">
                             <i class="glyphicon glyphicon-tower"></i>
                             <fmt:message key="page.admin.label.main"/>
                         </a></li>
 
-                    <li role="presentation">
+                    <li role="navigation">
                         <a href="" class="side-bar-item">
                             <i class="glyphicon glyphicon-cutlery"></i>
                             <fmt:message key="page.admin.label.orders"/>
@@ -87,7 +83,7 @@
                         </a>
                     </li>
 
-                    <li role="presentation">
+                    <li role="navigation">
                         <a href="#" class="side-bar-item">
                             <i class="glyphicon glyphicon-shopping-cart"></i>
                             <fmt:message key="page.admin.label.invoices"/>
@@ -95,14 +91,14 @@
                         </a>
                     </li>
 
-                    <li role="presentation">
-                        <a href="#" class="side-bar-item active-pill">
+                    <li role="navigation">
+                        <a href="${pageUri}" class="side-bar-item active-pill">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <fmt:message key="page.admin.label.menu"/>
                         </a>
                     </li>
 
-                    <li role="presentation">
+                    <li role="navigation">
                         <a href="#" class="side-bar-item">
                             <i class="glyphicon glyphicon-off"></i>
                             <fmt:message key="page.admin.label.logout"/>
@@ -110,8 +106,55 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-10" id="page-content">
 
+            <div class="col-md-10 page-content">
+
+                <div class="row page-content-header">
+                    <div class="col-md-12">
+                        <h2><fmt:message key="page.admin.menu.newDish"/></h2>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-3" id="new-dish-form">
+                        <form method="post">
+                            <div class="form-group">
+                                <label><fmt:message key="page.admin.newDishForm.title.label"/></label>
+                                <input type="email"
+                                       class="form-control"
+                                       placeholder="<fmt:message key="page.admin.newDishForm.title.placeholder"/>"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label><fmt:message key="page.admin.newDishForm.dishCategory.label"/></label>
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label><fmt:message key="page.admin.newDishForm.description.label"/></label>
+                                <textarea
+                                        class="form-control"
+                                        placeholder="<fmt:message key="page.admin.newDishForm.description.placeholder"/>">
+                                </textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">File input</label>
+                                <input type="file" id="exampleInputFile">
+                                <p class="help-block">Example block-level help text here.</p>
+                            </div>
+
+                            <button class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
