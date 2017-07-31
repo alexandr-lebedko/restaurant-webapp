@@ -1,4 +1,5 @@
-package net.lebedko.dao.connection;
+package net.lebedko.dao.jdbc.connection;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;

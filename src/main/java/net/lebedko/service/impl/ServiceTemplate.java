@@ -2,7 +2,7 @@ package net.lebedko.service.impl;
 
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.exception.UniqueViolationException;
-import net.lebedko.dao.transaction.TransactionManager;
+import net.lebedko.dao.TransactionManager;
 import net.lebedko.service.exception.EntityExistsException;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.service.exception.UnavailableServiceException;

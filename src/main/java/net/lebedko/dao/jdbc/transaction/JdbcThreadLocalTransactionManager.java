@@ -1,6 +1,7 @@
-package net.lebedko.dao.transaction;
+package net.lebedko.dao.jdbc.transaction;
 
-import net.lebedko.dao.connection.ThreadLocalConnectionProvider;
+import net.lebedko.dao.TransactionManager;
+import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.exception.DataAccessException;
 
 import java.sql.Connection;

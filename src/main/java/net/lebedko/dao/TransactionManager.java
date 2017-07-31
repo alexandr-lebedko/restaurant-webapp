@@ -1,6 +1,6 @@
-package net.lebedko.dao.transaction;
+package net.lebedko.dao;
 
-import net.lebedko.dao.connection.ThreadLocalConnectionProvider;
+import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.util.VoidCallable;
 import org.apache.logging.log4j.LogManager;

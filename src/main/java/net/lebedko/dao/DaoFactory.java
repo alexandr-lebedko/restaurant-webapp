@@ -1,9 +1,9 @@
 package net.lebedko.dao;
 
-import net.lebedko.dao.connection.ThreadLocalConnectionProvider;
+import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.jdbc.*;
-import net.lebedko.dao.template.QueryTemplate;
-import net.lebedko.dao.template.errortranslator.MySqlExceptionTranslator;
+import net.lebedko.dao.jdbc.template.QueryTemplate;
+import net.lebedko.dao.jdbc.template.errortranslator.MySqlExceptionTranslator;
 
 import java.util.HashMap;
 import java.util.Map;

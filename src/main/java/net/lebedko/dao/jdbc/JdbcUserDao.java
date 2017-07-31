@@ -2,8 +2,8 @@ package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.UserDao;
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.template.QueryTemplate;
-import net.lebedko.dao.template.Mapper;
+import net.lebedko.dao.jdbc.template.QueryTemplate;
+import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.entity.general.EmailAddress;
 import net.lebedko.entity.general.Password;
 import net.lebedko.entity.user.*;
@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.UUID;
 
 import static java.util.Objects.requireNonNull;
 import static net.lebedko.util.PropertyUtil.loadProperties;

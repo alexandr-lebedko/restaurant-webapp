@@ -2,8 +2,8 @@ package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.DishDao;
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.template.Mapper;
-import net.lebedko.dao.template.QueryTemplate;
+import net.lebedko.dao.jdbc.template.Mapper;
+import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.dish.Dish;
 import net.lebedko.entity.general.Text;
 import net.lebedko.entity.general.Title;

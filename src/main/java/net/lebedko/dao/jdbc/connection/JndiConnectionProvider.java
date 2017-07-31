@@ -1,5 +1,6 @@
-package net.lebedko.dao.connection;
+package net.lebedko.dao.jdbc.connection;
 
+import net.lebedko.dao.jdbc.connection.ConnectionProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,7 +1,7 @@
 package net.lebedko.service;
 
 import net.lebedko.dao.UserDao;
-import net.lebedko.dao.transaction.TransactionManager;
+import net.lebedko.dao.TransactionManager;
 import net.lebedko.service.impl.ServiceTemplate;
 import net.lebedko.service.impl.UserServiceImpl;
 

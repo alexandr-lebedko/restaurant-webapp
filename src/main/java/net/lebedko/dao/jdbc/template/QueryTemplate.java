@@ -1,12 +1,10 @@
-package net.lebedko.dao.template;
+package net.lebedko.dao.jdbc.template;
 
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.exception.UniqueViolationException;
-import net.lebedko.dao.connection.ConnectionProvider;
-import net.lebedko.dao.template.errortranslator.ExceptionTranslator;
-import net.lebedko.dao.template.errortranslator.MySqlExceptionTranslator;
+import net.lebedko.dao.jdbc.connection.ConnectionProvider;
+import net.lebedko.dao.jdbc.template.errortranslator.ExceptionTranslator;
+import net.lebedko.dao.jdbc.template.errortranslator.MySqlExceptionTranslator;
 
-import javax.xml.crypto.Data;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

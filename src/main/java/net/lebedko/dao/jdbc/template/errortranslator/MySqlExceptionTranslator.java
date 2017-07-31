@@ -1,4 +1,4 @@
-package net.lebedko.dao.template.errortranslator;
+package net.lebedko.dao.jdbc.template.errortranslator;
 
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.exception.UniqueViolationException;

@@ -1,4 +1,4 @@
-package net.lebedko.dao.template;
+package net.lebedko.dao.jdbc.template;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

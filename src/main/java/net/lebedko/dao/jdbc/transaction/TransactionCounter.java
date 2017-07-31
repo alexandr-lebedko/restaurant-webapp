@@ -1,4 +1,4 @@
-package net.lebedko.dao.transaction;
+package net.lebedko.dao.jdbc.transaction;
 
 import java.util.Stack;
 

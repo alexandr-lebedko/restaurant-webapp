@@ -2,15 +2,13 @@ package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.connection.TestConnectionProvider;
-import net.lebedko.dao.template.QueryTemplate;
+import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.dish.Dish;
 import net.lebedko.entity.general.Title;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
-
-import java.sql.SQLException;
 
 import static net.lebedko.EntityGenerator.*;
 import static net.lebedko.entity.dish.Dish.DishCategory;
