@@ -1,4 +1,4 @@
-package net.lebedko.entity.user;
+package net.lebedko.entity.demo.user;
 
 /**
  * alexandr.lebedko : 30.07.2017.
