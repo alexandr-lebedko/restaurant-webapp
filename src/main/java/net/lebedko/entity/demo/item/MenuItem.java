@@ -1,4 +1,4 @@
-package net.lebedko.entity.item;
+package net.lebedko.entity.demo.item;
 
 import net.lebedko.entity.Validatable;
 

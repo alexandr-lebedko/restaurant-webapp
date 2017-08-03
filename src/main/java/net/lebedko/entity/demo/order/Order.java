@@ -1,6 +1,6 @@
 package net.lebedko.entity.demo.order;
 
-import net.lebedko.entity.item.MenuItem;
+import net.lebedko.entity.demo.item.MenuItem;
 
 import java.time.LocalDateTime;
 import java.util.Map;
