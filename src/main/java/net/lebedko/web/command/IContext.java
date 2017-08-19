@@ -2,6 +2,9 @@ package net.lebedko.web.command;
 
 import net.lebedko.web.validator.Errors;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -22,4 +25,6 @@ public interface IContext {
     <T> T getSessionAttribute(T t, String key);
 
     void addErrors(Errors errors);
+
+    Part getPart(String name) throws IOException, ServletException;
 }

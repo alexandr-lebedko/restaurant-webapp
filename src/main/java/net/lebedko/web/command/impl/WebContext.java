@@ -3,8 +3,11 @@ package net.lebedko.web.command.impl;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.validator.Errors;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -52,5 +55,10 @@ public class WebContext implements IContext {
     @Override
     public Locale getLocale() {
         return request.getLocale();
+    }
+
+    @Override
+    public Part getPart(String name) throws IOException, ServletException {
+        return request.getPart(name);
     }
 }
