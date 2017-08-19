@@ -21,4 +21,8 @@ public class Commands {
     public static final String GET_ADMIN_MAIN = GET_PREFIX + RelationalURI.ADMIN_MAIN;
     public static final String GET_NEW_DISH = GET_PREFIX + RelationalURI.NEW_DISH;
 
+    public static final String GET_NEW_CATEGORY = GET_PREFIX + RelationalURI.NEW_CATEGORY;
+    public static final String POST_NEW_CATEGORY = POST_PREFIX + RelationalURI.NEW_CATEGORY;
+
+    public static final String GET_ADMIN_MENU = GET_PREFIX + RelationalURI.ADMIN_MENU;
 }

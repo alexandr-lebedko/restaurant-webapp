@@ -14,9 +14,14 @@ public class RelationalURI {
 
     public static final String SIGN_IN = PREFIX + Views.SIGN_IN;
     public static final String SIGN_UP = PREFIX + Views.SIGN_UP;
+
     public static final String ADMIN_MAIN = PREFIX + Views.ADMIN_MAIN;
     public static final String CLIENT_MAIN = PREFIX + Views.CLIENT_MAIN;
 
     public static final String NEW_DISH = PREFIX + Views.NEW_DISH;
+    public static final String NEW_CATEGORY = PREFIX + Views.NEW_CATEGORY;
+
+    public static final String ADMIN_MENU = PREFIX + Views.ADMIN_MENU;
+
 
 }

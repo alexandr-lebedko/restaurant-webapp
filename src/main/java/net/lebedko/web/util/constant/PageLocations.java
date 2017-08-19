@@ -1,9 +1,12 @@
 package net.lebedko.web.util.constant;
 
+import javax.swing.text.View;
+
 /**
  * alexandr.lebedko : 12.06.2017
  */
 public class PageLocations {
+
     private PageLocations() {
     }
 
@@ -19,6 +22,9 @@ public class PageLocations {
     public static final String MAIN_CLIENT = PREFIX + Views.CLIENT_MAIN + SUFFIX;
 
     public static final String MENU_NEW_DISH = PREFIX + Views.NEW_DISH + SUFFIX;
+    public static final String CATEGORY_NEW = PREFIX + "admin/newCategory"+ SUFFIX;
+    public static final String ADMIN_MENU = PREFIX + Views.ADMIN_MENU+ SUFFIX;
+
 
     public static final String ERROR_500 = PREFIX + Views.ERROR_500 + SUFFIX;
 }

@@ -12,5 +12,8 @@ public class Views {
     static final String SIGN_IN = "signIn";
     static final String SIGN_UP = "signUp";
 
-    static final String NEW_DISH="admin/menu/new";
+    static final String NEW_DISH = "admin/menu/new";
+    static final String NEW_CATEGORY = "admin/menu/category/new";
+
+    public static final String ADMIN_MENU = "admin/menu";
 }
