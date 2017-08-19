@@ -161,14 +161,14 @@
                                        placeholder="Введите Название">
                             </div>
 
-                            <%--<div class="form-group">--%>
-                                <%--<img id="img" height="200px" width="250px">--%>
-                            <%--</div>--%>
+                            <div class="form-group">
+                                <img id="img" height="200px" width="250px">
+                            </div>
 
                             <div class="form-group">
                                 <label><fmt:message key="page.image"/></label>
                                 <input type="file"
-                                       <%--onchange="previewImage(event, 'img')"--%>
+                                       onchange="previewImage(event, 'img')"
                                        name="image"
                                 >
                             </div>
