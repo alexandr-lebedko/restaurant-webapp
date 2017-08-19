@@ -1,4 +1,4 @@
-body {
+html, body {
     padding: 0;
 }
 
@@ -104,14 +104,10 @@ section.form-section {
     padding-top: 30px;
 }
 
-section.form-section div.container {
-    background-color: white;
+section.form-section div.container-fluid {
+    /*background-color: white;*/
     height: 100%;
     width: 100%;
-}
-
-header {
-    /*margin-bottom: 30px;*/
 }
 
 div#picture-area img {
@@ -134,31 +130,25 @@ footer {
     background-color: #15313b;
     height: 80px;
     margin-bottom: 0;
-    padding-bottom: 0;
     color: white;
     padding: 30px 0 20px 0;
     font-family: "Century Gothic";
     font-stretch: ultra-expanded;
 }
 
-section div.container#admin-middle-section {
-    height: 600px;
+section div#admin-middle-section {
     background-color: white;
     width: 100%;
 }
 
-section div.container#admin-middle-section div.row {
-    height: 100%;
-}
 
-section div.container#admin-middle-section div.row div#side-bar {
+section div#admin-middle-section div.row div#side-bar {
     background-color: #1d2f3f;
-    height: 100%;
     padding-left: 0;
     padding-right: 0;
 }
 
-section div.container#admin-middle-section div.row div#side-bar ul li a {
+div#admin-middle-section div#side-bar ul li a {
     padding-left: 30px;
     color: silver;
     font-family: "Century Gothic";
@@ -167,49 +157,51 @@ section div.container#admin-middle-section div.row div#side-bar ul li a {
     height: 100%;
 }
 
-section div.container#admin-middle-section div.row div#side-bar ul li {
-    margin-top: 0;
-}
+/*section div#admin-middle-section div.row div#side-bar ul li {*/
+    /*margin-top: 0;*/
+/*}*/
 
-section div.container#admin-middle-section div.row div#side-bar ul li a i {
-    margin-right: 5px;
-}
+/*section div#admin-middle-section div.row div#side-bar ul li a i {*/
+    /*margin-right: 5px;*/
+/*}*/
 
-section div.container#admin-middle-section div.row div#side-bar ul li a span {
+section div#admin-middle-section div.row div#side-bar ul li a span {
     float: right;
 }
 
-div.container#admin-middle-section div.row div#side-bar ul li#sidebar-header {
+div#admin-middle-section div.row div#side-bar ul li#sidebar-header {
     height: 60px;
-    color: silver;
-    font-family: "Century Gothic";
     border-bottom: solid 1px rgba(19, 25, 53, 0.95);
-    padding: 10px 0px 10px 0px;
-    text-align: center;
 }
 
-div.container#admin-middle-section div.row div#side-bar ul li a.navbar-header:hover,
-div.container#admin-middle-section div.row div#side-bar ul li a.navbar-header:focus {
-    background-color: inherit;
+div#admin-middle-section div.row div#side-bar ul li a.navbar-header:hover,
+div#admin-middle-section div.row div#side-bar ul li a.navbar-header:focus {
+    /*background-color: inherit;*/
 }
 
-div.container#admin-middle-section div.row div#side-bar ul li a.side-bar-item:hover {
+div#admin-middle-section div.row div#side-bar ul li a.side-bar-item:hover {
     background-color: #25415b;
 }
 
-div.container#admin-middle-section div.row div#side-bar ul li a.active-pill {
+divfluid#admin-middle-section div.row div#side-bar ul li a.active-pill {
     border-left: solid 5px #42beac;
     background-color: #25415b;
 }
 
-div.container#admin-middle-section div.row div.page-content {
+div#admin-middle-section div.row div.page-content {
     height: 100%;
-    border: solid 40px #25415b;
+    border-left:solid 40px #25415b;
+    border-top:solid 40px #25415b;
     background-color: #f2f2f2;
     font-family: "Century Gothic";
 }
 
 /*admin main new */
+
+div#admin-menu{
+    border: none!important;
+    padding: 40px 40px 100px 40px;
+}
 
 div.page-content div.page-content-header {
     height: 80px !important;
@@ -221,5 +213,35 @@ div.page-content div.page-content-header div {
     padding-left: 50px;
 }
 
+div#new-category-form div {
+    padding: 10px;
+    margin-bottom: 40px;
+}
 
+div#new-category-form div div {
+    margin: 0;
 
+}
+
+div#new-category-form button {
+    float: right;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+input.us-input, input.ukr-input, input.ru-input {
+    background-size: 12% 100% !important;
+    padding-left: 15%;
+}
+
+input.us-input {
+    background: url(/restaurant/img/us.png) no-repeat;
+}
+
+input.ukr-input {
+    background: url(/restaurant/img/ua.png) no-repeat;
+}
+
+input.ru-input {
+    background: url(/restaurant/img/ru.png) no-repeat;
+}
