@@ -4,10 +4,6 @@ package net.lebedko.web.validator;
  * alexandr.lebedko : 15.06.2017
  */
 
-import net.lebedko.entity.Validatable;
-
-import java.util.Map;
-
-public interface IValidator<T extends Validatable> {
+public interface IValidator<T> {
     void validate(T t, Errors errors);
 }
