@@ -14,10 +14,10 @@ public class ItemInfo implements Validatable {
 
     private Title title;
     private Description description;
-    private ItemCategory category;
+    private Category category;
     private Price price;
 
-    public ItemInfo(Title title, Description description, ItemCategory category, Price price) {
+    public ItemInfo(Title title, Description description, Category category, Price price) {
         this.title = requireNonNull(title);
         this.description = requireNonNull(description);
         this.category = requireNonNull(category);

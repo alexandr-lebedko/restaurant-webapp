@@ -1,9 +1,11 @@
 package net.lebedko.entity.demo.item;
 
 import net.lebedko.entity.Validatable;
+import net.lebedko.entity.demo.general.StringI18N;
 
 import java.util.Objects;
 
+import static net.lebedko.util.Util.isInRange;
 import static net.lebedko.util.Util.removeExtraSpaces;
 
 /**
@@ -13,10 +15,22 @@ public class Description implements Validatable {
     private static final int MAX_LENGTH = 255;
     private static final int MIN_LENGTH = 70;
 
-    private String value;
+    private StringI18N value;
 
-    public Description(String value) {
+    public Description(StringI18N value) {
         this.value = removeExtraSpaces(value);
+    }
+
+
+    @Override
+    public boolean isValid() {
+        return value.isValid() && isValidStringValues();
+    }
+
+    private boolean isValidStringValues() {
+        return this.value.getMap().entrySet().stream()
+                .allMatch(entry ->
+                        isInRange(entry.getValue().length(), MIN_LENGTH, MAX_LENGTH));
     }
 
 
@@ -36,13 +50,9 @@ public class Description implements Validatable {
         return Objects.hash(value);
     }
 
-    @Override
-    public boolean isValid() {
-        return (value.length() >= MIN_LENGTH) && (value.length() <= MAX_LENGTH);
-    }
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 }
