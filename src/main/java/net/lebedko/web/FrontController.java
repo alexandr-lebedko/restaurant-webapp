@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import java.io.IOException;
  * alexandr.lebedko : 10.06.2017
  */
 @WebServlet(RelationalURI.CONTROLLER_URL_PATTERN)
+@MultipartConfig
 public class FrontController extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
     private static final ICommandFactory commandFactory = new CommandFactoryImpl();
