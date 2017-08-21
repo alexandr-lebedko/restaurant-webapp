@@ -163,7 +163,7 @@
 
                             <div class="form-group">
                                 <img id="img" height="200px" width="250px">
-                            </div>
+                            </div>п
 
                             <div class="form-group">
                                 <label><fmt:message key="page.image"/></label>
