@@ -29,8 +29,6 @@ public class ServiceTemplate {
         } catch (UniqueViolationException e) {
             throw new EntityExistsException(e);
         } catch (DataAccessException e) {
-            throw new UnavailableServiceException(e);
-        } catch (Exception e) {
             throw new ServiceException(e);
         }
         return result;
@@ -42,8 +40,6 @@ public class ServiceTemplate {
         } catch (UniqueViolationException e) {
             throw new EntityExistsException(e);
         } catch (DataAccessException e) {
-            throw new UnavailableServiceException(e);
-        } catch (Exception e) {
             throw new ServiceException(e);
         }
     }
