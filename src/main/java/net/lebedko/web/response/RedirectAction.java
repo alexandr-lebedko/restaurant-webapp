@@ -12,7 +12,7 @@ import java.io.IOException;
  * alexandr.lebedko : 12.06.2017
  */
 public class RedirectAction implements IResponseAction {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOG = LogManager.getLogger();
     private String page;
 
     public RedirectAction(String page) {
@@ -21,7 +21,7 @@ public class RedirectAction implements IResponseAction {
 
     @Override
     public void executeResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("Redirecting request to: " + page);
-        response.sendRedirect(page);
+        LOG.info("Redirecting request to: " + page);
+        response.sendRedirect(request.getContextPath() +page);
     }
 }
