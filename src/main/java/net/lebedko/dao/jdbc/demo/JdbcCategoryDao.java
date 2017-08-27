@@ -5,11 +5,13 @@ import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.demo.general.StringI18N;
 import net.lebedko.entity.demo.item.Category;
+import net.lebedko.i18n.SupportedLocales;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import static net.lebedko.i18n.SupportedLocales.*;
 import static net.lebedko.util.PropertyUtil.loadProperties;
 
 /**
@@ -18,13 +20,10 @@ import static net.lebedko.util.PropertyUtil.loadProperties;
 public class JdbcCategoryDao implements CategoryDao {
     private static final String CATEGORY_ID = "c_id";
     private static final String IMAGE_ID = "c_image_id";
-    private static final String UKR_LOCALIZED_TITLE = "c_ukr_title";
-    private static final String EN_LOCALIZED_TITLE = "c_en_title";
-    private static final String RU_LOCALIZED_TITLE = "c_ru_title";
+    private static final String UKR_TITLE = "c_ukr_title";
+    private static final String EN_TITLE = "c_en_title";
+    private static final String RU_TITLE = "c_ru_title";
 
-    private static final Locale UKR = new Locale("ukr");
-    private static final Locale EN = Locale.ENGLISH;
-    private static final Locale RU = new Locale("ru");
 
     private static final Properties PROPS = loadProperties("sql-queries.properties");
     private static final String INSERT = PROPS.getProperty("category.insert");
@@ -40,9 +39,9 @@ public class JdbcCategoryDao implements CategoryDao {
 
     public Category insert(Category category) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
-        params.put(1, category.getValue().get(UKR));
-        params.put(2, category.getValue().get(EN));
-        params.put(3, category.getValue().get(RU));
+        params.put(1, category.getValue().get(UA_CODE));
+        params.put(2, category.getValue().get(EN_CODE));
+        params.put(3, category.getValue().get(RU_CODE));
         params.put(4, category.getImageId());
 
         int id = template.insertAndReturnKey(INSERT, params);
@@ -64,14 +63,13 @@ public class JdbcCategoryDao implements CategoryDao {
 
             final String imageId = rs.getString(IMAGE_ID);
 
-            final String ukrTitle = rs.getString(UKR_LOCALIZED_TITLE);
-            final String enTitle = rs.getString(EN_LOCALIZED_TITLE);
-            final String ruTitle = rs.getString(RU_LOCALIZED_TITLE);
-
+            final String ukrTitle = rs.getString(UKR_TITLE);
+            final String enTitle = rs.getString(EN_TITLE);
+            final String ruTitle = rs.getString(RU_TITLE);
             final StringI18N title = new StringI18N();
-            title.add(UKR, ukrTitle);
-            title.add(EN, enTitle);
-            title.add(UKR, ruTitle);
+            title.add(getByCode(UA_CODE), ukrTitle);
+            title.add(getByCode(EN_CODE), enTitle);
+            title.add(getByCode(RU_CODE), ruTitle);
 
             return new Category(id, title, imageId);
         }
