@@ -7,11 +7,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<c:set var="language"
-       value="${not empty param.lang ? param.lang: not empty language ? language: pageContext.request.locale}"
+<c:set var="lang"
+       value="${not empty param.lang ? param.lang: not empty lang ? lang: pageContext.request.locale}"
        scope="session"/>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
 <c:set var="pageUri" value="app/admin/menu/category/new"/>
@@ -55,7 +55,7 @@
                 <div class="dropdown">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                         <c:choose>
-                            <c:when test="${language == 'en'}">
+                            <c:when test="${lang == 'en'}">
                                 <c:out value="EN"/>
                             </c:when>
                             <c:otherwise>
@@ -65,7 +65,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="${pageUri}?lang=en">English</a></li>
-                        <li><a href="${pageUri}?lang=ru">Русский</a></li>
+                        <li><a href="${pageUri}?lang=ru_RU">Русский</a></li>
                     </ul>
                 </div>
             </div>
@@ -163,7 +163,7 @@
 
                             <div class="form-group">
                                 <img id="img" height="200px" width="250px">
-                            </div>п
+                            </div>
 
                             <div class="form-group">
                                 <label><fmt:message key="page.image"/></label>

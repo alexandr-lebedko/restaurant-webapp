@@ -2,10 +2,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<c:set var="language"
-       value="${not empty param.lang ? param.lang: not empty language ? language: pageContext.request.locale}"
+<c:set var="lang"
+       value="${not empty param.lang ? param.lang: not empty lang ? lang: pageContext.request.locale}"
        scope="session"/>
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 <c:set var="pageUri" value="app/signIn" scope="page"/>
 
@@ -42,7 +42,7 @@
                 <div class="dropdown">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                         <c:choose>
-                            <c:when test="${language == 'en'}">
+                            <c:when test="${lang == 'en'}">
                                 <c:out value="EN"/>
                             </c:when>
                             <c:otherwise>
