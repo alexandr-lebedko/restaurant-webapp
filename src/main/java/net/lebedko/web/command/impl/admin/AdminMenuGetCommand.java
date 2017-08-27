@@ -1,6 +1,7 @@
 package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.demo.item.CategoryView;
+import net.lebedko.i18n.SupportedLocales;
 import net.lebedko.service.demo.CategoryService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
@@ -11,6 +12,8 @@ import net.lebedko.web.util.constant.PageLocations;
 
 import java.util.Collection;
 import java.util.Locale;
+
+import static net.lebedko.i18n.SupportedLocales.getLocaleSessionAttributeName;
 
 /**
  * alexandr.lebedko : 05.08.2017.
@@ -26,10 +29,11 @@ public class AdminMenuGetCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        final Locale locale = context.getLocale();
+        final Locale locale = context.getSessionAttribute(Locale.class, getLocaleSessionAttributeName());
+
 
         Collection<CategoryView> categories = categoryService.getAll(locale);
-        context.addRequestAttribute("categories", categories);
+        context.addRequestAttribute("categories", categories.toArray());
 
         return ADMIN_MENU_FORWARD;
     }
