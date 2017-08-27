@@ -4,14 +4,17 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<c:set var="language"
-       value="${not empty param.lang ? param.lang: not empty language ? language: pageContext.request.locale}"
+<%@ taglib prefix="a" uri="localhost:8080/restaurant/customTagLib" %>
+<c:set var="lang"
+       value="${not empty param.lang ? param.lang: lang ne null? lang: pageContext.request.locale}"
        scope="session"/>
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
-<c:set var="pageUri" value="app/admin/menu" scope="page"/>
 
+<c:set var="pageUri" value="app/admin/menu" scope="page"/>
+<c:set var="imagesUri" value="${pageContext.request.contextPath}/images/"/>
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +26,11 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
 
+    <style>
+        #admin-middle-section {
+            min-height: 750px !important;
+        }
+    </style>
 
 </head>
 
@@ -42,10 +50,16 @@
                 </div>
             </div>
             <div class=" col-md-2 col-md-offset-4" id="button-area">
+
+                <div class="button">
+                    <a href="app/admin/menu/category/new" class="btn"><fmt:message
+                            key="page.admin.label.newCategory"/></a>
+                </div>
+
                 <div class="dropdown">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                         <c:choose>
-                            <c:when test="${language == 'en'}">
+                            <c:when test="${lang == 'en'}">
                                 <c:out value="EN"/>
                             </c:when>
                             <c:otherwise>
@@ -55,7 +69,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="${pageUri}?lang=en">English</a></li>
-                        <li><a href="${pageUri}?lang=ru">Русский</a></li>
+                        <li><a href="${pageUri}?lang=ru_RU">Русский</a></li>
                     </ul>
                 </div>
             </div>
@@ -93,7 +107,7 @@
                     </li>
 
                     <li role="presentation">
-                        <a href="#" class="side-bar-item">
+                        <a href="app/admin/menu" class="side-bar-item">
                             <i class="glyphicon glyphicon-th-list"></i>
                             <fmt:message key="page.admin.label.menu"/>
                         </a>
@@ -110,125 +124,57 @@
 
             <div class="col-md-10 page-content" id="admin-menu">
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                </div>
+                <c:set value="${fn:length(categories)}" var="numberOfCategories"/>
+                <c:set value="3" var="elementsPerRow"/>
+                <c:set value="${a:defineNumberOfRows(numberOfCategories, elementsPerRow)}" var="numberOfRows"/>
+                <c:set value="0" var="currentElement"/>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
+                <%--<c:out value="Number of categories: ${numberOfCategories}"/><br/>--%>
+                <%--<c:out value="Elements per row: ${elementsPerRow}"/><br/>--%>
+                <%--<c:out value="Number of rows: ${numberOfRows}"/><br/>--%>
+
+                <c:forEach var="currentRow" begin="1" end="${numberOfRows}" step="${currentRow = currentRow+1}">
+                    <div class="row">
+
+
+                        <c:set value="${a:defineRowLimit(numberOfCategories, elementsPerRow,currentRow ) - 1}"
+                               var="endIndex"/>
+
+
+                        <c:forEach var="category"
+                                   begin="${currentElement}"
+                                   end="${endIndex}"
+                                   items="${categories}">
+
+                            <div class="col-md-4">
+                                <div class="panel panel-default category">
+                                    <div class="panel-heading">
+                                        <a href="#" class="thumbnail">
+                                            <img src="images/${category.imageId}">
+                                        </a>
+                                    </div>
+                                    <div class="panel-body ">
+                                        <a class="category-name">${category.name}</a>
+                                        <a href=""><span class="glyphicon glyphicon-wrench"></span></a>
+                                    </div>
+                                </div>
+
+
                             </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
+
+                            <c:set var="currentElement" value="${currentElement = currentElement+1}"/>
+                        </c:forEach>
+
                     </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                            <div class="panel-footer">Panel footer</div>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
 
             </div>
         </div>
 
     </div>
-
-    </div>
-        </div>
-    </div>
-    </div>
 </section>
 
 <footer style="background-color: rgba(19, 25, 53, 0.95); height: 15px">
-
 </footer>
 
 
