@@ -5,18 +5,33 @@ package net.lebedko.entity.demo.item;
  */
 public class CategoryView {
     private long id;
-    private String value;
+    private String name;
+    private String imageId;
 
-    public CategoryView(long id, String value) {
+    public CategoryView(long id, String name, String imageId) {
         this.id = id;
-        this.value = value;
+        this.name = name;
+        this.imageId = imageId;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryView{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", imageId='" + imageId + '\'' +
+                '}';
     }
 }

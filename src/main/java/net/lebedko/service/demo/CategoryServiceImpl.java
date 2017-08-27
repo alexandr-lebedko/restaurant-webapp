@@ -39,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private CategoryView toView(final Category category, final Locale locale) {
-        return new CategoryView(category.getId(), category.getValue().get(locale));
+        return new CategoryView(category.getId(), category.getValue().get(locale), category.getImageId());
     }
 
 }
