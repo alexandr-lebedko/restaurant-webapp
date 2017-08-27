@@ -1,5 +1,5 @@
-drop table if exists categories;
 drop table if exists menu_items_demo;
+drop table if exists categories;
 
 
 drop table if exists invoices;
