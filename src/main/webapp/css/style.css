@@ -61,7 +61,7 @@ div.container div.row div#page-title div h2 {
     margin: 0 auto;
 }
 
-div.container div.row div#button-area {
+div.row div#button-area {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -77,13 +77,13 @@ div.row div#button-area div.button {
     align-self: center;
 }
 
-div.container div.row div#button-area div.button a {
+div.row div#button-area div.button a {
     text-align: center;
     align-self: center;
 }
 
-div.container div.row div#button-area div.dropdown button,
-div.container div.row div#button-area div.button a {
+div.row div#button-area div.dropdown button,
+div.row div#button-area div.button a {
     background-color: #42beac;
     width: 60px;
     height: 40px;
@@ -141,7 +141,6 @@ section div#admin-middle-section {
     width: 100%;
 }
 
-
 section div#admin-middle-section div.row div#side-bar {
     background-color: #1d2f3f;
     padding-left: 0;
@@ -158,11 +157,11 @@ div#admin-middle-section div#side-bar ul li a {
 }
 
 /*section div#admin-middle-section div.row div#side-bar ul li {*/
-    /*margin-top: 0;*/
+/*margin-top: 0;*/
 /*}*/
 
 /*section div#admin-middle-section div.row div#side-bar ul li a i {*/
-    /*margin-right: 5px;*/
+/*margin-right: 5px;*/
 /*}*/
 
 section div#admin-middle-section div.row div#side-bar ul li a span {
@@ -190,16 +189,17 @@ divfluid#admin-middle-section div.row div#side-bar ul li a.active-pill {
 
 div#admin-middle-section div.row div.page-content {
     height: 100%;
-    border-left:solid 40px #25415b;
-    border-top:solid 40px #25415b;
+    border-left: solid 40px #25415b;
+    border-top: solid 40px #25415b;
     background-color: #f2f2f2;
+    /*background-color: #d6d6d6;*/
     font-family: "Century Gothic";
 }
 
 /*admin main new */
 
-div#admin-menu{
-    border: none!important;
+div#admin-menu {
+    border: none !important;
     padding: 40px 40px 100px 40px;
 }
 
@@ -245,3 +245,26 @@ input.ukr-input {
 input.ru-input {
     background: url(/restaurant/img/ru.png) no-repeat;
 }
+
+/*category*/
+
+div.category div.panel-heading a.thumbnail img {
+    width: 100%;
+    height: 200px;
+}
+
+div.category div.panel-body {
+    text-align: center;
+    font-family: "Century Gothic";
+    font-size: 130%;
+    font-weight: 500;
+}
+
+div.category div.panel-body span.glyphicon {
+    float: right;
+}
+
+div.category div.panel-body a:hover {
+    text-decoration: none;
+}
+
