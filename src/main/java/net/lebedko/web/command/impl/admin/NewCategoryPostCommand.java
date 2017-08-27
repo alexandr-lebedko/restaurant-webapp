@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.util.Locale;
 
 import static java.util.Optional.ofNullable;
+import static net.lebedko.i18n.SupportedLocales.*;
 import static net.lebedko.web.util.constant.PageErrorNames.CATEGORY_EXISTS;
 import static net.lebedko.web.util.constant.WebConstant.*;
 
@@ -64,6 +65,7 @@ public class NewCategoryPostCommand extends AbstractCommand {
 
         if (errors.hasErrors()) {
             context.addErrors(errors);
+            context.addRequestAttribute("category", category);
             return CATEGORY_FORM_FORWARD;
         }
 
@@ -107,11 +109,11 @@ public class NewCategoryPostCommand extends AbstractCommand {
 
         StringI18N titleI18N = new StringI18N();
 
-        titleI18N.add(Locale.ENGLISH, enTitle);
-        titleI18N.add(new Locale("ukr"), ukrTitle);
-        titleI18N.add(new Locale("ru"), ruTitle);
-        //TODO: insert image id;
-        return new Category(titleI18N, null);
+        titleI18N.add(getByCode(EN_CODE), enTitle);
+        titleI18N.add(getByCode(UA_CODE), ukrTitle);
+        titleI18N.add(getByCode(RU_CODE), ruTitle);
+
+        return new Category(titleI18N);
     }
 
     private void validateImage(IContext context, String name, Errors errors) throws ServiceException {
