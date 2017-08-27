@@ -43,8 +43,13 @@ public class WebContext implements IContext {
     }
 
     @Override
-    public <T> T getSessionAttribute(T t, String key) {
+    public <T> T getSessionAttribute(Class<T> t, String key) {
         return (T) request.getSession().getAttribute(key);
+    }
+
+    @Override
+    public String getSessionAttribute(String key) {
+        return getSessionAttribute(String.class, key);
     }
 
     @Override

@@ -22,7 +22,9 @@ public interface IContext {
 
     String getRequestParameter(String key);
 
-    <T> T getSessionAttribute(T t, String key);
+    <T> T getSessionAttribute(Class<T> clazz, String key);
+
+    String getSessionAttribute(String key);
 
     void addErrors(Errors errors);
 
