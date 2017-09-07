@@ -6,15 +6,16 @@ import net.lebedko.service.demo.FileService;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.*;
-import net.lebedko.web.validator.CategoryValidator;
+import net.lebedko.web.validator.item.CategoryValidator;
 import net.lebedko.web.validator.ImageValidator;
-import net.lebedko.web.validator.UserValidator;
+import net.lebedko.web.validator.user.UserValidator;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static net.lebedko.service.ServiceFactory.*;
 import static net.lebedko.web.util.constant.Commands.*;
+import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_NEW_ITEM;
 
 /**
  * alexandr.lebedko : 12.06.2017
@@ -41,6 +42,9 @@ public class CommandFactoryImpl implements ICommandFactory {
                 new ImageValidator()));
 
         commandMap.put(GET_ADMIN_MENU, new AdminMenuGetCommand(getService(CategoryService.class)));
+
+        commandMap.put(GET_ADMIN_NEW_ITEM, new NewItemGetCommand(getService(CategoryService.class)));
+
     }
 
     @Override
