@@ -1,6 +1,7 @@
 package net.lebedko.entity.demo.item;
 
 import net.lebedko.entity.Validatable;
+import net.lebedko.entity.demo.general.Price;
 
 import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
@@ -58,6 +59,22 @@ public class MenuItem implements Validatable {
 
     public String getPictureId() {
         return pictureId;
+    }
+
+    public Title getTitle() {
+        return info.getTitle();
+    }
+
+    public Description getDescription() {
+        return info.getDescription();
+    }
+
+    public Price getPrice() {
+        return info.getPrice();
+    }
+
+    public Category getCategory() {
+        return info.getCategory();
     }
 
     @Override
