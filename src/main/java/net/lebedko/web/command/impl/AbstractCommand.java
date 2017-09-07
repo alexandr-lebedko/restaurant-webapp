@@ -10,6 +10,10 @@ import net.lebedko.web.validator.Errors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * alexandr.lebedko : 28.06.2017
  */
@@ -36,4 +40,16 @@ public abstract class AbstractCommand implements ICommand {
 
 
     protected abstract IResponseAction doExecute(IContext context) throws ServiceException;
+
+    protected InputStream getInputStream(IContext context, String name) throws ServiceException{
+        try {
+            return context.getPart(name).getInputStream();
+        } catch (IOException e) {
+            //TODO: localize message
+            throw new ServiceException(e);
+        } catch (ServletException e) {
+            //TODO: localize message
+            throw new ServiceException(e);
+        }
+    }
 }
