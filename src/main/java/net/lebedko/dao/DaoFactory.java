@@ -4,6 +4,8 @@ import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.jdbc.*;
 import net.lebedko.dao.jdbc.demo.CategoryDao;
 import net.lebedko.dao.jdbc.demo.JdbcCategoryDao;
+import net.lebedko.dao.jdbc.demo.JdbcMenuItemDao;
+import net.lebedko.dao.jdbc.demo.MenuItemDao;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.dao.jdbc.template.errortranslator.MySqlExceptionTranslator;
 
@@ -29,6 +31,8 @@ public abstract class DaoFactory {
 
 
         daos.put(CategoryDao.class, new JdbcCategoryDao(template));
+        daos.put(MenuItemDao.class, new JdbcMenuItemDao(template));
+
     }
 
     public static <T> T getDao(Class<T> clazz) {
