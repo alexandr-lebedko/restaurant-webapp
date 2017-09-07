@@ -13,7 +13,7 @@ import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.constant.PageLocations;
 import net.lebedko.web.validator.Errors;
-import net.lebedko.web.validator.UserValidator;
+import net.lebedko.web.validator.user.UserValidator;
 
 import static java.util.Optional.*;
 import static net.lebedko.web.util.constant.PageErrorNames.USER_EXISTS;
