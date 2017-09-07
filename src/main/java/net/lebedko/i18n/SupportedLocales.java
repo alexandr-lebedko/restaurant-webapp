@@ -47,4 +47,8 @@ public final class SupportedLocales {
     public static String getLocaleRequestAttributeName() {
         return LOCALE_REQUEST_ATTRIBUTE_NAME;
     }
+
+    public static boolean containsSupportedLocales(Collection<Locale> locales) {
+        return locales.containsAll(LOCALES.keySet());
+    }
 }

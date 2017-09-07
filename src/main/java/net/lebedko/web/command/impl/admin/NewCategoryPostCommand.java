@@ -13,14 +13,13 @@ import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.constant.PageLocations;
 
-import net.lebedko.web.validator.CategoryValidator;
+import net.lebedko.web.validator.item.CategoryValidator;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.ImageValidator;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Locale;
 
 import static java.util.Optional.ofNullable;
 import static net.lebedko.i18n.SupportedLocales.*;
@@ -69,12 +68,12 @@ public class NewCategoryPostCommand extends AbstractCommand {
             return CATEGORY_FORM_FORWARD;
         }
 
-        final InputStream imageInputStream = retrieveFileInputStream(context, "image");
+        final InputStream image = getImage(context);
 
         String imageId = null;
 
         try {
-            imageId = fileService.saveImg(imageInputStream);
+            imageId = fileService.saveImg(image);
             category.setImageId(imageId);
 
             categoryService.insert(category);
@@ -90,16 +89,8 @@ public class NewCategoryPostCommand extends AbstractCommand {
         return CATEGORY_FORM_FORWARD;
     }
 
-    private InputStream retrieveFileInputStream(IContext context, String name) throws ServiceException {
-        try {
-            return context.getPart(name).getInputStream();
-        } catch (IOException e) {
-            //TODO: localize message
-            throw new ServiceException(e);
-        } catch (ServletException e) {
-            //TODO: localize message
-            throw new ServiceException(e);
-        }
+    private InputStream getImage(IContext context) throws ServiceException {
+        return getInputStream(context, "image");
     }
 
     private Category retrieveCategory(IContext context) {
@@ -117,7 +108,7 @@ public class NewCategoryPostCommand extends AbstractCommand {
     }
 
     private void validateImage(IContext context, String name, Errors errors) throws ServiceException {
-        imageValidator.validate(retrieveFileInputStream(context, name), errors);
+        imageValidator.validate(getImage(context), errors);
     }
 
     private void validateCategory(Category category, Errors errors) {
