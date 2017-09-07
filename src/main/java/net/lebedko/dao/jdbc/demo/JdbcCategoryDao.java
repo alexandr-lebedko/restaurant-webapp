@@ -5,7 +5,6 @@ import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.demo.general.StringI18N;
 import net.lebedko.entity.demo.item.Category;
-import net.lebedko.i18n.SupportedLocales;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,10 +24,10 @@ public class JdbcCategoryDao implements CategoryDao {
     private static final String RU_TITLE = "c_ru_title";
 
 
-    private static final Properties PROPS = loadProperties("sql-queries.properties");
-    private static final String INSERT = PROPS.getProperty("category.insert");
-    private static final String GET_ALL = PROPS.getProperty("category.getAll");
-
+    private static final Properties props = loadProperties("sql-queries.properties");
+    private static final String INSERT = props.getProperty("category.insert");
+    private static final String GET_ALL = props.getProperty("category.getAll");
+    private static final String GET_BY_ID = props.getProperty("category.getById");
     private static final CategoryMapper MAPPER = new CategoryMapper();
 
     private QueryTemplate template;
@@ -53,6 +52,13 @@ public class JdbcCategoryDao implements CategoryDao {
     @Override
     public Collection<Category> getAll() throws DataAccessException {
         return template.queryAll(GET_ALL, MAPPER);
+    }
+
+    @Override
+    public Category getById(int id) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, id);
+        return template.queryOne(GET_BY_ID, params, MAPPER);
     }
 
     private static class CategoryMapper implements Mapper<Category> {

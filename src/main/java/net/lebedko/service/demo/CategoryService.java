@@ -17,4 +17,5 @@ public interface CategoryService {
 
     Collection<CategoryView> getAll(Locale locale) throws ServiceException;
 
+    Category getByID(int id) throws ServiceException;
 }

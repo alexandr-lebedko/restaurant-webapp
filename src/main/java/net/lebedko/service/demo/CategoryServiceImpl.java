@@ -24,6 +24,12 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryDao = categoryDao;
     }
 
+    @Override
+    public Category getByID(int id) throws ServiceException {
+        return template.doTxService(()->categoryDao.getById(id));
+    }
+
+    @Override
     public Category insert(final Category category) throws ServiceException {
         return template.doTxService(() -> categoryDao.insert(category));
     }
