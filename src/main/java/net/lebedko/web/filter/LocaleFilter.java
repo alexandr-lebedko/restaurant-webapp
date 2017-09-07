@@ -42,25 +42,23 @@ public class LocaleFilter implements Filter {
         String localeRequestAttribute = request.getParameter(getLocaleRequestAttributeName());
 
         if (nonNull(localeRequestAttribute)) {
-            LOG.debug("LOCALE REQUEST ATTRIBUTE VALUE: " + localeRequestAttribute);
             locale = new Locale(localeRequestAttribute);
         } else {
 
             Object localeSessionAttribute = request.getSession().getAttribute(getLocaleSessionAttributeName());
 
             if (nonNull(localeSessionAttribute)) {
-                LOG.debug("LOCALE SESSION ATTRIBUTE: " + localeSessionAttribute);
                 locale = new Locale(localeSessionAttribute.toString());
             }
         }
 
         if (isSupported(locale)) {
-            LOG.debug("LOCALE: " + locale + ", IS SUPPORTED AND WILL BE RETURNED");
+//            LOG.debug("LOCALE: " + locale + ", IS SUPPORTED AND WILL BE RETURNED");
 
             return locale;
         }
 
-        LOG.debug("LOCALE: " + locale + ", IS NOT SUPPORTED. DEFAULT LOCALE: " + getDefaultLocale() + " WILL BE RETURNED");
+//        LOG.debug("LOCALE: " + locale + ", IS NOT SUPPORTED. DEFAULT LOCALE: " + getDefaultLocale() + " WILL BE RETURNED");
 
         return getDefaultLocale();
     }
