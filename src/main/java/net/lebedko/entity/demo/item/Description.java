@@ -33,6 +33,9 @@ public class Description implements Validatable {
                         isInRange(entry.getValue().length(), MIN_LENGTH, MAX_LENGTH));
     }
 
+    public StringI18N getValue() {
+        return value;
+    }
 
     @Override
     public boolean equals(Object o) {

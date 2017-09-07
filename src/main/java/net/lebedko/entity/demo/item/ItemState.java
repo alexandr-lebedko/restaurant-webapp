@@ -6,5 +6,4 @@ package net.lebedko.entity.demo.item;
 
 public enum  ItemState{
     ACTIVE, INACTIVE;
-
 }

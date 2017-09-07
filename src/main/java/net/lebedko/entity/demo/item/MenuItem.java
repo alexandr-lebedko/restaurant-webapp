@@ -2,11 +2,14 @@ package net.lebedko.entity.demo.item;
 
 import net.lebedko.entity.Validatable;
 
+import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 
 /**
  * alexandr.lebedko : 30.07.2017.
  */
+
+//TODO: refactor class with Builder pattern
 public class MenuItem implements Validatable {
 
     private long id;
@@ -15,22 +18,55 @@ public class MenuItem implements Validatable {
     private ItemState state;
     private String pictureId;
 
-    public MenuItem(ItemInfo info, ItemState state, String pictureId) {
-        this(0, info, state, pictureId);
+    public MenuItem(ItemInfo info, ItemState state) {
+        this(0, info, state, null);
     }
-
 
     public MenuItem(long id, ItemInfo info, ItemState state, String pictureId) {
         this.id = id;
-        this.info = requireNonNull(info);
-        this.state = requireNonNull(state);
-        this.pictureId = requireNonNull(pictureId);
+        this.info = info;
+        this.state = state;
+        this.pictureId = pictureId;
     }
 
     @Override
     public boolean isValid() {
-        return info.isValid();
+        return nonNull(info)
+                && nonNull(state)
+                && info.isValid();
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public void setPictureId(String pictureId) {
+        this.pictureId = pictureId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public ItemInfo getInfo() {
+        return info;
+    }
+
+    public ItemState getState() {
+        return state;
+    }
+
+    public String getPictureId() {
+        return pictureId;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuItem{" +
+                "id=" + id +
+                ", info=" + info +
+                ", state=" + state +
+                ", pictureId='" + pictureId + '\'' +
+                '}';
+    }
 }

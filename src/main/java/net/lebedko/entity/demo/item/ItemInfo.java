@@ -1,10 +1,11 @@
 package net.lebedko.entity.demo.item;
 
 import net.lebedko.entity.Validatable;
-import net.lebedko.entity.general.Price;
+import net.lebedko.entity.demo.general.Price;
 
 import java.util.Objects;
 
+import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -26,10 +27,30 @@ public class ItemInfo implements Validatable {
 
     @Override
     public boolean isValid() {
-        return title.isValid()
+        return nonNull(title)
+                && nonNull(description)
+                && nonNull(category)
+                && nonNull(price)
+                && title.isValid()
                 && description.isValid()
                 && category.isValid()
                 && price.isValid();
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public Description getDescription() {
+        return description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Price getPrice() {
+        return price;
     }
 
     @Override
