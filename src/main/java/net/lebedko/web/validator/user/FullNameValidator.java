@@ -1,9 +1,8 @@
-package net.lebedko.web.validator;
+package net.lebedko.web.validator.user;
 
 import net.lebedko.entity.user.FullName;
-
-import java.util.Map;
-import java.util.Objects;
+import net.lebedko.web.validator.Errors;
+import net.lebedko.web.validator.IValidator;
 
 import static java.util.Objects.requireNonNull;
 
