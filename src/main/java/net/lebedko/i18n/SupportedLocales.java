@@ -49,6 +49,6 @@ public final class SupportedLocales {
     }
 
     public static boolean containsSupportedLocales(Collection<Locale> locales) {
-        return locales.containsAll(LOCALES.keySet());
+        return locales.containsAll(LOCALES.values());
     }
 }
