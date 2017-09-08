@@ -19,10 +19,10 @@ public class ItemInfo implements Validatable {
     private Price price;
 
     public ItemInfo(Title title, Description description, Category category, Price price) {
-        this.title = requireNonNull(title);
-        this.description = requireNonNull(description);
-        this.category = requireNonNull(category);
-        this.price = requireNonNull(price);
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.price = price;
     }
 
     @Override
