@@ -1,16 +1,13 @@
 package net.lebedko.web.validator;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * alexandr.lebedko : 21.06.2017
  */
 public class Errors {
 
-    private Map<String, String> errorsMap = new HashMap<>();
+    private Map<String, String> errorsMap = new LinkedHashMap<>();
 
     public boolean hasErrors() {
         return errorsMap.size() > 0;
@@ -24,9 +21,8 @@ public class Errors {
         return errorsMap.get(code);
     }
 
-    public Collection<String> values() {
-        return errorsMap.values();
-
+    public Set<Map.Entry<String,String>> getEntrySet() {
+        return errorsMap.entrySet();
     }
 
 }
