@@ -11,14 +11,14 @@ import net.lebedko.web.response.IResponseAction;
 import java.util.Collection;
 import java.util.Locale;
 
-import static net.lebedko.web.util.constant.WebConstant.PAGE.NEW_ITEM;
+import static net.lebedko.web.util.constant.WebConstant.PAGE.NEW_ITEM_PAGE;
 
 
 /**
  * alexandr.lebedko : 27.08.2017.
  */
 public class NewItemGetCommand extends AbstractCommand {
-    private static final IResponseAction ITEM_FORM_FORWARD = new ForwardAction(NEW_ITEM);
+    private static final IResponseAction ITEM_FORM_FORWARD = new ForwardAction(NEW_ITEM_PAGE);
 
     private CategoryService categoryService;
 
