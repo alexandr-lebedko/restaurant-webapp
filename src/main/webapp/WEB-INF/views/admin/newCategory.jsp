@@ -17,8 +17,8 @@
 <c:set var="pageUri" value="app/admin/menu/category/new"/>
 <c:set var="contextUri" value="${pageContext.request.contextPath}"/>
 <c:set var="enTitle" value="${category.value.get('en')}"/>
-<c:set var="ukrTitle" value="${category.value.get('ukr')}"/>
-<c:set var="ruTitle" value="${category.value.get('ru')}"/>
+<c:set var="ukrTitle" value="${category.value.get('uk_UA')}"/>
+<c:set var="ruTitle" value="${category.value.get('ru_RU')}"/>
 
 <c:set var="isCategoryCreated" value="${(category ne null) && errors == null}"/>
 
