@@ -13,7 +13,7 @@ import static net.lebedko.util.Util.removeExtraSpaces;
  */
 public class Description implements Validatable {
     private static final int MAX_LENGTH = 255;
-    private static final int MIN_LENGTH = 70;
+    private static final int MIN_LENGTH = 15;
 
     private StringI18N value;
 
