@@ -49,7 +49,8 @@ public class JdbcMenuItemDao implements MenuItemDao {
         params.put(6, item.getDescription().getValue().get(RU_CODE));
         params.put(7, item.getState().name());
         params.put(8, item.getPrice().getValue());
-        params.put(9, item.getPictureId());
+        params.put(9, item.getCategory().getId());
+        params.put(10, item.getPictureId());
 
         int id = template.insertAndReturnKey(INSERT, params);
         item.setId(id);
