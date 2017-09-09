@@ -14,6 +14,9 @@ import net.lebedko.web.util.constant.PageLocations;
 import net.lebedko.web.util.constant.Views;
 import net.lebedko.web.validator.Errors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import static java.util.Objects.isNull;
 import static net.lebedko.entity.user.User.*;
 import static net.lebedko.service.UserService.authenticate;
@@ -51,9 +54,8 @@ public class SignInPostCommand extends AbstractCommand {
         }
 
         if (authenticate(userView, user)) {
-            context.addSessionAttribute("user", user);
             LOG.info(user + " authenticated");
-
+            addUserInfoToSession(context, user);
             return mainPageRedirectAction(user);
         }
 
@@ -70,6 +72,11 @@ public class SignInPostCommand extends AbstractCommand {
             return MAIN_CLIENT_PAGE_REDIRECT;
         else
             return MAIN_ADMIN_PAGE_REDIRECT;
+    }
+
+    private void addUserInfoToSession(IContext context, User user) {
+        context.addRequestAttribute("user", user);
+        context.addRequestAttribute("role", user.getRole());
     }
 
     private UserView getUserView(IContext context) {
