@@ -1,6 +1,6 @@
 package net.lebedko.web.validator.user;
 
-import net.lebedko.entity.general.EmailAddress;
+import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.IValidator;
 

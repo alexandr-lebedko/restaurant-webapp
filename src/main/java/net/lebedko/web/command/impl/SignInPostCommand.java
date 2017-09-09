@@ -1,7 +1,7 @@
 package net.lebedko.web.command.impl;
 
-import net.lebedko.entity.general.EmailAddress;
-import net.lebedko.entity.general.Password;
+import net.lebedko.entity.user.EmailAddress;
+import net.lebedko.entity.user.Password;
 import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserView;
 import net.lebedko.service.UserService;

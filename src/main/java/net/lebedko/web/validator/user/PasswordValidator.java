@@ -1,10 +1,8 @@
 package net.lebedko.web.validator.user;
 
-import net.lebedko.entity.general.Password;
+import net.lebedko.entity.user.Password;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.IValidator;
-
-import java.util.Map;
 
 /**
  * alexandr.lebedko : 19.06.2017

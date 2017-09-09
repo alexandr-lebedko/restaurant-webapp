@@ -3,10 +3,11 @@ package net.lebedko.web.command.impl;
 import net.lebedko.service.UserService;
 import net.lebedko.service.demo.CategoryService;
 import net.lebedko.service.demo.FileService;
+import net.lebedko.service.demo.MenuItemService;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.*;
-import net.lebedko.web.validator.item.CategoryValidator;
+import net.lebedko.web.validator.item.*;
 import net.lebedko.web.validator.ImageValidator;
 import net.lebedko.web.validator.user.UserValidator;
 
@@ -16,6 +17,7 @@ import java.util.Map;
 import static net.lebedko.service.ServiceFactory.*;
 import static net.lebedko.web.util.constant.Commands.*;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_NEW_ITEM;
+import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_ADMIN_NEW_ITEM;
 
 /**
  * alexandr.lebedko : 12.06.2017
@@ -44,7 +46,11 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(GET_ADMIN_MENU, new AdminMenuGetCommand(getService(CategoryService.class)));
 
         commandMap.put(GET_ADMIN_NEW_ITEM, new NewItemGetCommand(getService(CategoryService.class)));
-
+        commandMap.put(POST_ADMIN_NEW_ITEM, new NewItemPostCommand(
+                new ImageValidator(),
+                new MenuItemValidator(),
+                getService(CategoryService.class),
+                getService(MenuItemService.class)));
     }
 
     @Override

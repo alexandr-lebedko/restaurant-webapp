@@ -1,10 +1,8 @@
 package net.lebedko.dao;
 
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.entity.general.EmailAddress;
+import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.entity.user.User;
-
-import java.util.UUID;
 
 /**
  * alexandr.lebedko : 21.04.2017.

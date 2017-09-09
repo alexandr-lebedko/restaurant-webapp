@@ -1,6 +1,5 @@
 package net.lebedko.entity.user;
 
-import net.lebedko.entity.general.EmailAddress;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

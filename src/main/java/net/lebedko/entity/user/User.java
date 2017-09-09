@@ -2,8 +2,6 @@ package net.lebedko.entity.user;
 
 import net.lebedko.entity.Entity;
 import net.lebedko.entity.Validatable;
-import net.lebedko.entity.general.EmailAddress;
-import net.lebedko.entity.general.Password;
 
 import java.util.Objects;
 

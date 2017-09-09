@@ -1,7 +1,7 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.UserDao;
-import net.lebedko.entity.general.EmailAddress;
+import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.UserService;
 import net.lebedko.service.exception.ServiceException;

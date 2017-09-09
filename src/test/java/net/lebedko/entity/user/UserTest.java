@@ -1,7 +1,5 @@
 package net.lebedko.entity.user;
 
-import net.lebedko.entity.general.EmailAddress;
-import net.lebedko.entity.general.Password;
 import net.lebedko.entity.user.User.UserRole;
 import org.junit.Before;
 import org.junit.Test;
