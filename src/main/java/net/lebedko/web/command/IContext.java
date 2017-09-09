@@ -29,4 +29,6 @@ public interface IContext {
     void addErrors(Errors errors);
 
     Part getPart(String name) throws IOException, ServletException;
+
+    void destroySession();
 }

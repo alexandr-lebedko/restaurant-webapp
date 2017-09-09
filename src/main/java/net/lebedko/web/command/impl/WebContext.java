@@ -66,4 +66,9 @@ public class WebContext implements IContext {
     public Part getPart(String name) throws IOException, ServletException {
         return request.getPart(name);
     }
+
+    @Override
+    public void destroySession() {
+        request.getSession().invalidate();
+    }
 }
