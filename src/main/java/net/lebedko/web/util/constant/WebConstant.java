@@ -16,6 +16,7 @@ public final class WebConstant {
         public static final String ADMIN_MENU = PREFIX + "admin/menu" + SUFFIX;
         public static final String NEW_CATEGORY = PREFIX + "admin/newCategory" + SUFFIX;
         public static final String NEW_ITEM_PAGE = PREFIX + "admin/newItem" + SUFFIX;
+        public static final String CLIENT_MAIN =PREFIX +  "client/main" + SUFFIX;
     }
 
     public static final class URL {
@@ -42,6 +43,8 @@ public final class WebConstant {
         public static final String POST_PREFIX = "POST:";
 
         public static final String SIGN_OUT=GET_PREFIX + URL.SIGN_OUT;
+
+        public static final String GET_CLIENT_MAIN=GET_PREFIX+URL.CLIENT_MAIN;
 
         public static final String GET_ADMIN_MENU = GET_PREFIX + URL.ADMIN_MENU;
         public static final String GET_ADMIN_NEW_CATEGORY = GET_PREFIX + URL.ADMIN_NEW_CATEGORY;

@@ -7,6 +7,7 @@ import net.lebedko.service.demo.MenuItemService;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.*;
+import net.lebedko.web.command.impl.client.MainPageGetCommand;
 import net.lebedko.web.validator.item.*;
 import net.lebedko.web.validator.ImageValidator;
 import net.lebedko.web.validator.user.UserValidator;
@@ -29,6 +30,8 @@ public class CommandFactoryImpl implements ICommandFactory {
 
     public CommandFactoryImpl() {
         commandMap.put(SIGN_OUT, new SignOutCommand());
+
+        commandMap.put(GET_CLIENT_MAIN, new MainPageGetCommand());
 
         commandMap.put(POST_SIGN_IN, new SignInPostCommand(getService(UserService.class)));
         commandMap.put(GET_SIGN_IN, new SignInGetCommand());
