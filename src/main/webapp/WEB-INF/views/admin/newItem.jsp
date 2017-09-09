@@ -14,6 +14,15 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
+<%@page import="net.lebedko.i18n.SupportedLocales" %>
+<c:set var="enTitle" value="${item.title.value.get(SupportedLocales.EN_CODE)}"/>
+<c:set var="uaTitle" value="${item.title.value.get(SupportedLocales.UA_CODE)}"/>
+<c:set var="ruTitle" value="${item.title.value.get(SupportedLocales.RU_CODE)}"/>
+<c:set var="enDescription" value="${item.description.value.get(SupportedLocales.EN_CODE)}"/>
+<c:set var="uaDescription" value="${item.description.value.get(SupportedLocales.UA_CODE)}"/>
+<c:set var="ruDescription" value="${item.description.value.get(SupportedLocales.RU_CODE)}"/>
+<c:set var="price" value="${item.price.value}"/>
+
 <c:set var="contextUri" value="${pageContext.request.contextPath}"/>
 <c:set var="pageUri" value="app/admin/menu/item/new"/>
 
@@ -63,78 +72,101 @@
 
     <div class="row justify-content-center" style="margin-top:50px">
 
-        <div class="col-lg-9">
-            <form method="post">
-                <div class="form-row ">
-                    <div class="col">
-                        <input type="text" class="form-control" name="title_en" placeholder="Title">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" name="title_ru" placeholder="Название">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" name="title_ua" placeholder="Назва">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col">
-                        <textarea class="form-control" name="description_en" placeholder="Description"></textarea>
-                    </div>
+        <c:choose>
+            <c:when test="${newItem == null}">
 
-                    <div class="col">
-                        <textarea class="form-control" name="description_ru" placeholder="Описание"></textarea>
+
+                <c:if test="${errors ne null}">
+                    <div class="col-lg-9 ">
+                        <c:forEach var="entry" items="${errors.entrySet}">
+                            <span> <t:error errorName="${entry.key}"/></span>
+                            <br/>
+                        </c:forEach>
+                        <br/>
                     </div>
+                </c:if>
+                <div class="col-lg-9">
 
-                    <div class="col">
-                        <textarea class="form-control" name="description_ua" placeholder="Опис"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col">
-                        <select class="form-control" name="category" autocomplete="off">
-                            <option disabled selected value>Category</option>
-                            <c:forEach items="${categories}" var="category">
-                                <option value="${category.id}">${category.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-
-                    <div class="col">
-                        <input type="number" class="form-control" name="price" placeholder="Price">
-                    </div>
-                </div>
-
-                <div class="form-row">
-
-                    <div class="col">
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-outline-info active">
-                                <input type="radio" name="state"  value="active" autocomplete="off" checked> Active
-                            </label>
-                            <label class="btn btn-outline-info">
-                                <input type="radio" name="state" value="inactive" autocomplete="off"> Inactive
-                            </label>
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="form-row ">
+                            <div class="col">
+                                <input type="text" class="form-control" name="title_en" placeholder="Title"
+                                       value="${enTitle}">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" name="title_ru" placeholder="Название"
+                                       value="${ruTitle}">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" name="title_ua" placeholder="Назва"
+                                       value="${uaTitle}">
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <textarea class="form-control" name="description_en"
+                                          placeholder="Description">${enDescription}</textarea>
+                            </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label>Item image</label>
-                            <input type="file" class="form-control-file" name="itemImage">
+                            <div class="col">
+                                <textarea class="form-control" name="description_ru" placeholder="Описание">${ruDescription}</textarea>
+                            </div>
+
+                            <div class="col">
+                                <textarea class="form-control" name="description_ua" placeholder="Опис">${uaDescription}</textarea>
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <select class="form-control " required name="category" autocomplete="off">
+                                    <option disabled selected value>Category</option>
+                                    <c:forEach items="${categories}" var="category">
+                                        <option value="${category.id}">${category.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <input type="number" class="form-control" name="price" placeholder="Price" step="0.01" value="${price}">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="col">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-outline-info active">
+                                        <input type="radio" name="state" value="ACTIVE" autocomplete="off" checked>
+                                        Active
+                                    </label>
+                                    <label class="btn btn-outline-info">
+                                        <input type="radio" name="state" value="INACTIVE" autocomplete="off"> Inactive
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Item image</label>
+                                    <input type="file" class="form-control-file" name="itemImage">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row ">
+                            <div class="col justify-content-center">
+                                <button type="submit" class="btn btn-block btn-outline-info">Create Item</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-row ">
-                    <div class="col justify-content-center">
-                        <button type="submit" class="btn btn-block btn-outline-info">Create Item</button>
-                    </div>
-                </div>
-
-            </form>
+            </c:when>
+            <c:otherwise>
+                <h1>NEW MENU ITEM CREATED</h1>
+            </c:otherwise>
+        </c:choose>
 
 
-        </div>
     </div>
 </div>
 
@@ -142,11 +174,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-
-
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"--%>
-<%--integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"--%>
-<%--crossorigin="anonymous"></script>--%>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
         integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
