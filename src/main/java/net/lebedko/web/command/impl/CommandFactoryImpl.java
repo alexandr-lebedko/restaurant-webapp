@@ -16,6 +16,8 @@ import java.util.Map;
 
 import static net.lebedko.service.ServiceFactory.*;
 import static net.lebedko.web.util.constant.Commands.*;
+import static net.lebedko.web.util.constant.WebConstant.COMMAND.*;
+import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_MENU;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_NEW_ITEM;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_ADMIN_NEW_ITEM;
 
@@ -26,6 +28,8 @@ public class CommandFactoryImpl implements ICommandFactory {
     private Map<String, ICommand> commandMap = new HashMap<>();
 
     public CommandFactoryImpl() {
+        commandMap.put(SIGN_OUT, new SignOutCommand());
+
         commandMap.put(POST_SIGN_IN, new SignInPostCommand(getService(UserService.class)));
         commandMap.put(GET_SIGN_IN, new SignInGetCommand());
 
