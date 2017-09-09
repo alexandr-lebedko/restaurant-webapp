@@ -33,8 +33,7 @@ public final class WebConstant {
 
         public static final String NEW_ITEM_URL = PREFIX + "admin/menu/item/new";
 
-        //TODO: assign correct page URL
-        public static final String ADMIN_MAIN = PREFIX + "admin/menu";
+        public static final String ADMIN_MAIN = PREFIX + "admin/main";
         public static final String CLIENT_MAIN = PREFIX + "client/main";
     }
 
