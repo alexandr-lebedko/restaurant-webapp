@@ -12,6 +12,7 @@ import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.util.constant.PageLocations;
 import net.lebedko.web.util.constant.Views;
+import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.validator.Errors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +29,8 @@ import static net.lebedko.web.util.constant.PageErrorNames.WRONG_PASSWORD;
  */
 public class SignInPostCommand extends AbstractCommand {
     private static final IResponseAction SIGN_IN_PAGE_FORWARD = new ForwardAction(PageLocations.SIGN_IN);
-    private static final IResponseAction MAIN_ADMIN_PAGE_REDIRECT = new RedirectAction(Views.ADMIN_MAIN);
-    private static final IResponseAction MAIN_CLIENT_PAGE_REDIRECT = new RedirectAction(Views.CLIENT_MAIN);
+    private static final IResponseAction MAIN_ADMIN_PAGE_REDIRECT = new RedirectAction(WebConstant.URL.ADMIN_MAIN);
+    private static final IResponseAction MAIN_CLIENT_PAGE_REDIRECT = new RedirectAction(WebConstant.URL.CLIENT_MAIN);
 
     private UserService userService;
 
@@ -75,8 +76,8 @@ public class SignInPostCommand extends AbstractCommand {
     }
 
     private void addUserInfoToSession(IContext context, User user) {
-        context.addRequestAttribute("user", user);
-        context.addRequestAttribute("role", user.getRole());
+        context.addSessionAttribute("user", user);
+        context.addSessionAttribute("role", user.getRole());
     }
 
     private UserView getUserView(IContext context) {
