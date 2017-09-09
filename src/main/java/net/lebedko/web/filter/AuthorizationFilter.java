@@ -20,7 +20,7 @@ import static net.lebedko.web.filter.AuthenticationFilter.isAuthenticated;
  * alexandr.lebedko : 08.09.2017.
  */
 
-@WebFilter(urlPatterns= {"/app/admin/*","/app/client/*"},
+@WebFilter(urlPatterns = {"/app/admin/*", "/app/client/*"},
         initParams = {
                 @WebInitParam(name = "adminUrlRegex", value = ".+\\/admin\\/.+"),
                 @WebInitParam(name = "clientUrlRegex", value = ".+\\/client\\/.+")
@@ -42,17 +42,14 @@ public class AuthorizationFilter extends AbstractFilter {
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (notAuthenticated(request)) {
             redirectToSignInPage(request, response);
-        }
-        else if (isAdmin(request)) {
-            if (isToClientPages(request)) {
-                redirectToAdminMain(request, response);
-            }
-        }
-        else if (isClient(request)) {
-            if (isToAdminPages(request)) {
-                redirectToClientMain(request, response);
-            }
-        }else {
+
+        } else if (isAdmin(request) && isToClientPages(request)) {
+            redirectToAdminMain(request, response);
+
+        } else if (isClient(request) && isToAdminPages(request)) {
+            redirectToClientMain(request, response);
+
+        } else {
             chain.doFilter(request, response);
         }
     }
