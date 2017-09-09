@@ -15,6 +15,7 @@ import net.lebedko.web.util.constant.Views;
 import net.lebedko.web.validator.Errors;
 
 import static java.util.Objects.isNull;
+import static net.lebedko.entity.user.User.*;
 import static net.lebedko.service.UserService.authenticate;
 import static net.lebedko.web.util.constant.PageErrorNames.USER_NOT_EXISTS;
 import static net.lebedko.web.util.constant.PageErrorNames.WRONG_PASSWORD;
@@ -23,7 +24,7 @@ import static net.lebedko.web.util.constant.PageErrorNames.WRONG_PASSWORD;
  * alexandr.lebedko : 14.06.2017
  */
 public class SignInPostCommand extends AbstractCommand {
-    private static final IResponseAction LOGIN_PAGE_FORWARD = new ForwardAction(PageLocations.SIGN_IN);
+    private static final IResponseAction SIGN_IN_PAGE_FORWARD = new ForwardAction(PageLocations.SIGN_IN);
     private static final IResponseAction MAIN_ADMIN_PAGE_REDIRECT = new RedirectAction(Views.ADMIN_MAIN);
     private static final IResponseAction MAIN_CLIENT_PAGE_REDIRECT = new RedirectAction(Views.CLIENT_MAIN);
 
@@ -46,7 +47,7 @@ public class SignInPostCommand extends AbstractCommand {
             context.addErrors(errors);
             LOG.warn("Entered data for not registered account: " + userView.getEmailAddress());
 
-            return LOGIN_PAGE_FORWARD;
+            return SIGN_IN_PAGE_FORWARD;
         }
 
         if (authenticate(userView, user)) {
@@ -61,11 +62,11 @@ public class SignInPostCommand extends AbstractCommand {
         context.addErrors(errors);
         LOG.warn("Entered wrong password for account: " + userView.getEmailAddress());
 
-        return LOGIN_PAGE_FORWARD;
+        return SIGN_IN_PAGE_FORWARD;
     }
 
     private IResponseAction mainPageRedirectAction(User user) {
-        if (user.getRole() == User.UserRole.CLIENT)
+        if (user.getRole() == UserRole.CLIENT)
             return MAIN_CLIENT_PAGE_REDIRECT;
         else
             return MAIN_ADMIN_PAGE_REDIRECT;

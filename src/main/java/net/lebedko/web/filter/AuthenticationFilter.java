@@ -1,6 +1,6 @@
 package net.lebedko.web.filter;
 
-import net.lebedko.entity.user.UserRole;
+import net.lebedko.entity.user.User.UserRole;
 import net.lebedko.web.util.constant.WebConstant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static net.lebedko.entity.user.User.UserRole.*;
 
 /**
  * alexandr.lebedko : 08.09.2017.

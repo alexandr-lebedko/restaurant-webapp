@@ -1,6 +1,6 @@
 package net.lebedko.web.filter;
 
-import net.lebedko.entity.user.UserRole;
+import net.lebedko.entity.user.User;
 import net.lebedko.web.util.constant.WebConstant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+import static net.lebedko.entity.user.User.*;
 import static net.lebedko.web.filter.AuthenticationFilter.isAuthenticated;
 
 /**
@@ -70,11 +71,11 @@ public class AuthorizationFilter extends AbstractFilter {
     }
 
     private boolean isAdmin(HttpServletRequest request) {
-        return UserRole.ADMIN == (UserRole) request.getSession().getAttribute("role");
+        return UserRole.ADMIN == request.getSession().getAttribute("role");
     }
 
     private boolean isClient(HttpServletRequest request) {
-        return UserRole.CLIENT == (UserRole) request.getSession().getAttribute("role");
+        return UserRole.CLIENT == request.getSession().getAttribute("role");
     }
 
     private boolean isToAdminPages(HttpServletRequest request) {
