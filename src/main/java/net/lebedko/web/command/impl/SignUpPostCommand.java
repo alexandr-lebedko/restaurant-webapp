@@ -11,19 +11,19 @@ import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.RedirectAction;
-import net.lebedko.web.util.constant.PageLocations;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.user.UserValidator;
 
 import static java.util.Optional.*;
 import static net.lebedko.web.util.constant.PageErrorNames.USER_EXISTS;
+import static net.lebedko.web.util.constant.WebConstant.*;
 
 /**
  * alexandr.lebedko : 15.06.2017
  */
 public class SignUpPostCommand extends AbstractCommand implements ICommand {
-    private static final IResponseAction MAIN_PAGE_REDIRECT = new RedirectAction(PageLocations.MAIN_CLIENT);
-    private static final IResponseAction REGISTRATION_PAGE_FORWARD = new ForwardAction(PageLocations.SIGN_UP);
+    private static final IResponseAction MAIN_PAGE_REDIRECT = new RedirectAction(URL.CLIENT_MAIN);
+    private static final IResponseAction SIGN_UP_PAGE_FORWARD = new ForwardAction(PAGE.SIGN_UP);
 
     private UserService userService;
     private UserValidator userValidator;
@@ -41,16 +41,17 @@ public class SignUpPostCommand extends AbstractCommand implements ICommand {
         userValidator.validate(user, errors);
 
         if (errors.hasErrors()) {
-        context.addRequestAttribute("errors", errors);
-        context.addRequestAttribute("user", user);
-        LOG.info("Attempt to register invalid user: " + user);
+            context.addRequestAttribute("errors", errors);
+            context.addRequestAttribute("user", user);
+            LOG.info("Attempt to register invalid user: " + user);
 
-        return REGISTRATION_PAGE_FORWARD;
+            return SIGN_UP_PAGE_FORWARD;
         }
 
         try {
             userService.register(user);
             context.addSessionAttribute("user", user);
+            context.addSessionAttribute("role", user.getRole());
 
             return MAIN_PAGE_REDIRECT;
 
@@ -59,7 +60,9 @@ public class SignUpPostCommand extends AbstractCommand implements ICommand {
             errors.register("user exists", USER_EXISTS);
         }
 
-        return REGISTRATION_PAGE_FORWARD;
+        context.addErrors(errors);
+        context.addRequestAttribute("user", user);
+        return SIGN_UP_PAGE_FORWARD;
     }
 
 
