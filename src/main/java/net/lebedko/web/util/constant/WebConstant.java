@@ -26,6 +26,7 @@ public final class WebConstant {
         public static final String PREFIX = "/" + CONTROLLER_NAME + "/";
 
         public static final String SIGN_IN = PREFIX + "signIn";
+        public static final String SIGN_OUT = PREFIX + "signOut";
 
         public static final String ADMIN_MENU = PREFIX + "admin/menu";
         public static final String ADMIN_NEW_CATEGORY = PREFIX + "admin/menu/category/new";
@@ -33,13 +34,15 @@ public final class WebConstant {
         public static final String NEW_ITEM_URL = PREFIX + "admin/menu/item/new";
 
         //TODO: assign correct page URL
-        public static final String ADMIN_MAIN = "admin/menu";
-        public static final String CLIENT_MAIN = "client/main";
+        public static final String ADMIN_MAIN = PREFIX + "admin/menu";
+        public static final String CLIENT_MAIN = PREFIX + "client/main";
     }
 
     public static final class COMMAND {
         public static final String GET_PREFIX = "GET:";
         public static final String POST_PREFIX = "POST:";
+
+        public static final String SIGN_OUT=GET_PREFIX + URL.SIGN_OUT;
 
         public static final String GET_ADMIN_MENU = GET_PREFIX + URL.ADMIN_MENU;
         public static final String GET_ADMIN_NEW_CATEGORY = GET_PREFIX + URL.ADMIN_NEW_CATEGORY;
