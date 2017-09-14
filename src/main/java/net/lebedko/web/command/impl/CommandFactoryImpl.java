@@ -2,6 +2,7 @@ package net.lebedko.web.command.impl;
 
 import net.lebedko.service.UserService;
 import net.lebedko.service.demo.CategoryService;
+import net.lebedko.service.demo.CategoryServiceImpl;
 import net.lebedko.service.demo.FileService;
 import net.lebedko.service.demo.MenuItemService;
 import net.lebedko.web.command.ICommand;
@@ -31,7 +32,7 @@ public class CommandFactoryImpl implements ICommandFactory {
     public CommandFactoryImpl() {
         commandMap.put(SIGN_OUT, new SignOutCommand());
 
-        commandMap.put(GET_CLIENT_MAIN, new MainPageGetCommand());
+        commandMap.put(GET_CLIENT_MAIN, new MainPageGetCommand(getService(CategoryService.class)));
 
         commandMap.put(POST_SIGN_IN, new SignInPostCommand(getService(UserService.class)));
         commandMap.put(GET_SIGN_IN, new SignInGetCommand());
