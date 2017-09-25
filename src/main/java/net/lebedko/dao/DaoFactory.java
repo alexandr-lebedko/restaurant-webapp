@@ -32,6 +32,7 @@ public abstract class DaoFactory {
 
         daos.put(CategoryDao.class, new JdbcCategoryDao(template));
         daos.put(MenuItemDao.class, new JdbcMenuItemDao(template, new JdbcCategoryDao(template)));
+        daos.put(net.lebedko.dao.jdbc.demo.OrderDao.class, new net.lebedko.dao.jdbc.demo.JdbcOrderDao(template, getDao(MenuItemDao.class)));
 
     }
 
