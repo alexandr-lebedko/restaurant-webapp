@@ -22,7 +22,11 @@ public interface IContext {
 
     String getRequestParameter(String key);
 
+    String[] getRequestParameters(String key);
+
     <T> T getSessionAttribute(Class<T> clazz, String key);
+
+    void removeSessionAttribute(String key);
 
     String getSessionAttribute(String key);
 
