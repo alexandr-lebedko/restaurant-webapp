@@ -16,7 +16,7 @@
 
 <c:set var="contextUri" value="${pageContext.request.contextPath}"/>
 <c:set var="imagesUri" value="${contextUri.concat('/images/')}"/>
-<c:set var="dishesUrl" value="${contextUri.concat('/app/dishes?category=')}"/>
+<c:set var="dishesUrl" value="${contextUri.concat('/app/client/items?category=')}"/>
 
 
 <!DOCTYPE html>
