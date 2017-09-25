@@ -21,7 +21,7 @@ public abstract class DaoFactory {
     static {
         ThreadLocalConnectionProvider connectionProvider = new ThreadLocalConnectionProvider();
 
-        QueryTemplate template = new QueryTemplate(connectionProvider,new MySqlExceptionTranslator());
+        QueryTemplate template = new QueryTemplate(connectionProvider, new MySqlExceptionTranslator());
 
         daos.put(UserDao.class, new JdbcUserDao(template));
         daos.put(DishDao.class, new JdbcDishDao(template));
@@ -31,7 +31,7 @@ public abstract class DaoFactory {
 
 
         daos.put(CategoryDao.class, new JdbcCategoryDao(template));
-        daos.put(MenuItemDao.class, new JdbcMenuItemDao(template));
+        daos.put(MenuItemDao.class, new JdbcMenuItemDao(template, new JdbcCategoryDao(template)));
 
     }
 

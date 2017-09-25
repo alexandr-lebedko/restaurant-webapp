@@ -1,13 +1,16 @@
 package net.lebedko.dao.jdbc.demo;
 
 import net.lebedko.dao.exception.DataAccessException;
+import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
-import net.lebedko.entity.demo.item.MenuItem;
-import net.lebedko.i18n.SupportedLocales;
+import net.lebedko.entity.demo.general.Price;
+import net.lebedko.entity.demo.general.StringI18N;
+import net.lebedko.entity.demo.item.*;
+import net.lebedko.util.CheckedFunction;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 import static net.lebedko.i18n.SupportedLocales.*;
 import static net.lebedko.util.PropertyUtil.loadProperties;
@@ -18,10 +21,12 @@ import static net.lebedko.util.PropertyUtil.loadProperties;
 public class JdbcMenuItemDao implements MenuItemDao {
     private static final Properties props = loadProperties("sql-queries.properties");
     private static final String INSERT = props.getProperty("menuItem.insert");
+    private static final String GET_BY_CATEGORY = props.getProperty("menuItem.getByCategory");
+    private static final String GET_BY_ID = props.getProperty("menuItem.getById");
 
 
     private static final String ID = "mi_id";
-    private static final String IMAGE_ID = "c_image_id";
+    private static final String IMAGE_ID = "mi_image_id";
     private static final String UKR_TITLE = "mi_ukr_title";
     private static final String EN_TITLE = "mi_en_title";
     private static final String RU_TITLE = "mi_ru_title";
@@ -30,12 +35,15 @@ public class JdbcMenuItemDao implements MenuItemDao {
     private static final String RU_DESCRIPTION = "mi_ru_description";
     private static final String STATE = "mi_state";
     private static final String CATEGORY = "mi_category";
+    private static final String PRICE = "mi_price";
 
 
     private QueryTemplate template;
+    private JdbcCategoryDao categoryDao;
 
-    public JdbcMenuItemDao(QueryTemplate template) {
+    public JdbcMenuItemDao(QueryTemplate template, JdbcCategoryDao categoryDao) {
         this.template = template;
+        this.categoryDao = categoryDao;
     }
 
     @Override
@@ -58,6 +66,96 @@ public class JdbcMenuItemDao implements MenuItemDao {
         return item;
     }
 
+    @Override
+    public Collection<MenuItem> getByCategory(Category category) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, category.getId());
+
+        return template.queryAll(GET_BY_CATEGORY, params, new MenuItemMapper(category));
+    }
+
+    @Override
+    public MenuItem get(long id) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, id);
+
+        return template.queryOne(
+                GET_BY_ID,
+                params,
+                new MenuItemMapper(categoryId -> categoryDao.getById(categoryId)));
+    }
+
+    private static final class MenuItemMapper implements Mapper<MenuItem> {
+        private CheckedFunction<Integer, Category, DataAccessException> idToCategory;
+
+        public MenuItemMapper(CheckedFunction<Integer, Category, DataAccessException> idToCategory) {
+            this.idToCategory = idToCategory;
+        }
+
+        public MenuItemMapper(Category category) {
+            this.idToCategory = (id) -> category;
+        }
+
+        @Override
+        public MenuItem map(ResultSet rs) throws SQLException {
+            return new MenuItem(
+                    mapId(rs),
+                    mapItemInfo(rs),
+                    mapState(rs),
+                    mapImageId(rs)
+            );
+        }
+
+        private String mapImageId(ResultSet rs) throws SQLException {
+            return rs.getString(IMAGE_ID);
+        }
+
+        private int mapId(ResultSet rs) throws SQLException {
+            return rs.getInt(ID);
+        }
+
+        private ItemInfo mapItemInfo(ResultSet rs) throws SQLException {
+            return new ItemInfo(
+                    mapTitle(rs),
+                    mapDescription(rs),
+                    mapCategory(rs),
+                    mapPrice(rs));
+        }
+
+        private Category mapCategory(ResultSet rs) throws SQLException {
+            try {
+                return idToCategory.apply(rs.getInt(CATEGORY));
+            } catch (DataAccessException dae) {
+                throw (SQLException) dae.getCause();
+            }
+        }
+
+        private Price mapPrice(ResultSet rs) throws SQLException {
+            return new Price(rs.getDouble(PRICE));
+        }
+
+        private ItemState mapState(ResultSet rs) throws SQLException {
+            return ItemState.valueOf(rs.getString(STATE));
+        }
+
+        private Title mapTitle(ResultSet rs) throws SQLException {
+            Map<Locale, String> localesToTitle = new HashMap<>();
+            localesToTitle.put(getByCode(UA_CODE), rs.getString(UKR_TITLE));
+            localesToTitle.put(getByCode(EN_CODE), rs.getString(EN_TITLE));
+            localesToTitle.put(getByCode(RU_CODE), rs.getString(RU_TITLE));
+
+            return new Title(new StringI18N(localesToTitle));
+        }
+
+        private Description mapDescription(ResultSet rs) throws SQLException {
+            Map<Locale, String> localesToDescription = new HashMap<>();
+            localesToDescription.put(getByCode(UA_CODE), rs.getString(UKR_DESCRIPTION));
+            localesToDescription.put(getByCode(EN_CODE), rs.getString(EN_DESCRIPTION));
+            localesToDescription.put(getByCode(RU_CODE), rs.getString(RU_DESCRIPTION));
+
+            return new Description(new StringI18N(localesToDescription));
+        }
+    }
 
 
 }
