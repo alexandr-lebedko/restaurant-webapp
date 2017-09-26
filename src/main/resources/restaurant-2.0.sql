@@ -1,3 +1,5 @@
+drop table if exists order_items_demo;
+drop table if exists orders_demo;
 drop table if exists menu_items_demo;
 drop table if exists categories;
 
@@ -11,6 +13,19 @@ drop table if exists dishes;
 drop table if exists users;
 
 
+create table orders_demo(
+o_id int auto_increment primary key,
+o_state enum('NEW') not null,
+o_creation timestamp not null
+);
+
+create table order_items_demo(
+oi_order_id int not null,
+oi_item_id int not null,
+oi_item_number int not null check(oi_item_number>0),
+constraint foreign key(oi_order_id) references orders_demo(o_id),
+constraint foreign key(oi_item_id) references  menu_items_demo(mi_id) 
+);
 
 create table categories(
 c_id int auto_increment primary key,
