@@ -77,7 +77,7 @@
             </c:forEach>
         </div>
     </div>
-    <c:if test="${order ne null}">
+    <c:if test="${orderContent ne null}">
         <div class="row">
             <div class="col">
                 <table class="table table-striped table-inverse">
@@ -89,7 +89,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${order.content}" var="entry">
+                    <c:forEach items="${orderContent.map}" var="entry">
                         <tr>
                             <th scope="row">${entry.key.id}</th>
                             <th>${entry.key.info.title.value.get(lang)}</th>
