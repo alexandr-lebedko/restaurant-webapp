@@ -63,4 +63,10 @@ public class OrderContent implements Validatable {
                 .findFirst();
     }
 
+    @Override
+    public String toString() {
+        return "OrderContent{" +
+                "numberToItem=" + numberToItem +
+                '}';
+    }
 }
