@@ -7,6 +7,7 @@ public class PageErrorNames {
     private PageErrorNames() {
     }
 
+
     public static final String USER_EXISTS = "page.error.userExists";
     public static final String USER_NOT_EXISTS = "page.error.userNotExists";
     public static final String WRONG_PASSWORD = "page.error.wrongPassword";
@@ -25,6 +26,7 @@ public class PageErrorNames {
     public static final String NULL_ITEM_STATE = "page.error.nullItemState";
     public static final String NULL_MENU_ITEM = "page.error.nullItem";
     public static final String ITEM_EXISTS = "page.error.itemTitleExists";
+    public static final String INVALID_ORDER = "page.error.invalidOrder";
 
     //TODO
 
