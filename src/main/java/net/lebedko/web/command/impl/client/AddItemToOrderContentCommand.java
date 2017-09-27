@@ -46,9 +46,9 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
         final OrderContent orderContent = getOrderContent(context);
         Long itemId = getItemId(context);
 
-        Optional<MenuItem> itemOptional = OrderContent.getById(orderContent, itemId);
-        if (itemOptional.isPresent()) {
-            return itemOptional.get();
+        MenuItem item = OrderContent.getById(orderContent, itemId);
+        if (nonNull(item)) {
+            return item;
         } else
             return itemService.get(itemId);
     }

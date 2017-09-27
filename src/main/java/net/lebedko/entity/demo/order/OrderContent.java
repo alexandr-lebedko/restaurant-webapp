@@ -57,10 +57,11 @@ public class OrderContent implements Validatable {
         return new LinkedHashMap<>(numberToItem);
     }
 
-    public static Optional<MenuItem> getById(OrderContent orderContent, long itemId) {
+    public static MenuItem getById(OrderContent orderContent, long itemId) {
         return orderContent.numberToItem.keySet().stream()
                 .filter(item -> item.getId() == itemId)
-                .findFirst();
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
