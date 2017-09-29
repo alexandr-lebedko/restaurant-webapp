@@ -9,6 +9,10 @@ public class OrderInfo {
     private OrderState state;
     private LocalDateTime creation;
 
+    public OrderInfo() {
+        this(OrderState.NEW, LocalDateTime.now());
+    }
+
     public OrderInfo(OrderState state, LocalDateTime creation) {
         this.state = state;
         this.creation = creation;
