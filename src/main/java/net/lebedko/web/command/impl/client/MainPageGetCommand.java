@@ -1,8 +1,8 @@
 package net.lebedko.web.command.impl.client;
 
-import net.lebedko.entity.demo.item.CategoryView;
+import net.lebedko.entity.item.CategoryView;
 import net.lebedko.i18n.SupportedLocales;
-import net.lebedko.service.demo.CategoryService;
+import net.lebedko.service.CategoryService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;

@@ -1,11 +1,11 @@
 package net.lebedko.web.command.impl.client;
 
-import net.lebedko.entity.demo.item.Category;
-import net.lebedko.entity.demo.item.CategoryView;
-import net.lebedko.entity.demo.item.MenuItemView;
+import net.lebedko.entity.item.Category;
+import net.lebedko.entity.item.CategoryView;
+import net.lebedko.entity.item.ItemView;
 import net.lebedko.i18n.SupportedLocales;
-import net.lebedko.service.demo.CategoryService;
-import net.lebedko.service.demo.MenuItemService;
+import net.lebedko.service.CategoryService;
+import net.lebedko.service.ItemService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
@@ -29,9 +29,9 @@ public class ItemsByCategoryGetCommand extends AbstractCommand {
     private static final IResponseAction ITEMS_FORWARD = new ForwardAction(WebConstant.PAGE.CLIENT_MENU_ITEMS);
 
     private CategoryService categoryService;
-    private MenuItemService itemService;
+    private ItemService itemService;
 
-    public ItemsByCategoryGetCommand(CategoryService categoryService, MenuItemService itemService) {
+    public ItemsByCategoryGetCommand(CategoryService categoryService, ItemService itemService) {
         this.categoryService = categoryService;
         this.itemService = itemService;
     }
@@ -87,7 +87,7 @@ public class ItemsByCategoryGetCommand extends AbstractCommand {
         return categoryId;
     }
 
-    private Collection<MenuItemView> getItems(final IContext context, final Category category) throws ServiceException {
+    private Collection<ItemView> getItems(final IContext context, final Category category) throws ServiceException {
         return itemService.getByCategory(category, context.getSessionAttribute(Locale.class, SupportedLocales.getLocaleSessionAttributeName()));
     }
 

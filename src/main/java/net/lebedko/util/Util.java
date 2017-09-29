@@ -2,7 +2,7 @@ package net.lebedko.util;
 
 
 import net.lebedko.entity.Validatable;
-import net.lebedko.entity.demo.general.StringI18N;
+import net.lebedko.entity.general.StringI18N;
 
 import java.util.stream.Collectors;
 

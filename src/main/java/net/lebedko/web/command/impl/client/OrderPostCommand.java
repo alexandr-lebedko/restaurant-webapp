@@ -1,23 +1,21 @@
 package net.lebedko.web.command.impl.client;
 
-import net.lebedko.entity.demo.order.Order;
-import net.lebedko.entity.demo.order.OrderContent;
-import net.lebedko.entity.demo.order.OrderInfo;
-import net.lebedko.service.demo.MenuItemService;
-import net.lebedko.service.demo.OrderService;
+import net.lebedko.entity.order.Order;
+import net.lebedko.entity.order.OrderContent;
+import net.lebedko.entity.order.OrderInfo;
+import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.constant.PageErrorNames;
-import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.order.OrderValidator;
 
 
 import static java.util.Optional.ofNullable;
-import static net.lebedko.entity.demo.order.OrderContent.*;
+import static net.lebedko.entity.order.OrderContent.*;
 import static net.lebedko.web.util.constant.WebConstant.*;
 
 /**

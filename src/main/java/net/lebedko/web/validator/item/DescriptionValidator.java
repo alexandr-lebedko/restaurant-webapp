@@ -1,6 +1,6 @@
 package net.lebedko.web.validator.item;
 
-import net.lebedko.entity.demo.item.Description;
+import net.lebedko.entity.item.Description;
 import net.lebedko.i18n.SupportedLocales;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.validator.Errors;

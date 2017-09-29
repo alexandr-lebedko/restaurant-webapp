@@ -1,19 +1,18 @@
 package net.lebedko.web.command.impl.admin;
 
 
-import net.lebedko.entity.demo.general.Price;
-import net.lebedko.entity.demo.general.StringI18N;
-import net.lebedko.entity.demo.item.*;
+import net.lebedko.entity.general.Price;
+import net.lebedko.entity.general.StringI18N;
+import net.lebedko.entity.item.*;
 import net.lebedko.i18n.SupportedLocales;
-import net.lebedko.service.demo.CategoryService;
-import net.lebedko.service.demo.MenuItemService;
+import net.lebedko.service.CategoryService;
+import net.lebedko.service.ItemService;
 import net.lebedko.service.exception.EntityExistsException;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
-import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.ImageValidator;
@@ -33,9 +32,9 @@ public class NewItemPostCommand extends AbstractCommand {
     private ImageValidator imageValidator;
     private MenuItemValidator itemValidator;
     private CategoryService categoryService;
-    private MenuItemService itemService;
+    private ItemService itemService;
 
-    public NewItemPostCommand(ImageValidator imageValidator, MenuItemValidator itemValidator, CategoryService categoryService, MenuItemService itemService) {
+    public NewItemPostCommand(ImageValidator imageValidator, MenuItemValidator itemValidator, CategoryService categoryService, ItemService itemService) {
         this.imageValidator = imageValidator;
         this.itemValidator = itemValidator;
         this.categoryService = categoryService;
@@ -44,7 +43,7 @@ public class NewItemPostCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        final MenuItem item = getMenuItem(context);
+        final Item item = getMenuItem(context);
         final InputStream image = getImage(context);
 
         final Errors errors = new Errors();
@@ -62,9 +61,9 @@ public class NewItemPostCommand extends AbstractCommand {
         return saveItemAndImage(item, image, context, errors);
     }
 
-    private IResponseAction saveItemAndImage(MenuItem item, InputStream image, IContext context, Errors errors) throws ServiceException {
+    private IResponseAction saveItemAndImage(Item item, InputStream image, IContext context, Errors errors) throws ServiceException {
         try {
-            MenuItem newItem = itemService.insertItemAndImage(item, image);
+            Item newItem = itemService.insertItemAndImage(item, image);
             context.addRequestAttribute("newItem", newItem);
             return NEW_ITEM_PAGE_FORWARD;
         } catch (EntityExistsException eee) {
@@ -78,7 +77,7 @@ public class NewItemPostCommand extends AbstractCommand {
         return NEW_ITEM_PAGE_FORWARD;
     }
 
-    private void addItemToRequestAttribute(IContext context, MenuItem item) {
+    private void addItemToRequestAttribute(IContext context, Item item) {
         context.addRequestAttribute("item", item);
     }
 
@@ -90,8 +89,8 @@ public class NewItemPostCommand extends AbstractCommand {
         return categoryService.getAll(context.getSessionAttribute(Locale.class, SupportedLocales.getLocaleSessionAttributeName()));
     }
 
-    private MenuItem getMenuItem(IContext context) throws ServiceException {
-        return new MenuItem(
+    private Item getMenuItem(IContext context) throws ServiceException {
+        return new Item(
                 getItemInfo(context),
                 getItemState(context)
         );
@@ -167,7 +166,7 @@ public class NewItemPostCommand extends AbstractCommand {
         imageValidator.validate(getImage(context), errors);
     }
 
-    private void validateItem(MenuItem item, Errors errors) {
+    private void validateItem(Item item, Errors errors) {
         itemValidator.validate(item, errors);
     }
 

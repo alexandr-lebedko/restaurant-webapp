@@ -2,10 +2,9 @@ package net.lebedko.dao;
 
 import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.jdbc.*;
-import net.lebedko.dao.jdbc.demo.CategoryDao;
-import net.lebedko.dao.jdbc.demo.JdbcCategoryDao;
-import net.lebedko.dao.jdbc.demo.JdbcMenuItemDao;
-import net.lebedko.dao.jdbc.demo.MenuItemDao;
+import net.lebedko.dao.jdbc.JdbcCategoryDao;
+import net.lebedko.dao.jdbc.JdbcItemDao;
+import net.lebedko.dao.jdbc.JdbcOrderDao;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.dao.jdbc.template.errortranslator.MySqlExceptionTranslator;
 
@@ -24,15 +23,10 @@ public abstract class DaoFactory {
         QueryTemplate template = new QueryTemplate(connectionProvider, new MySqlExceptionTranslator());
 
         daos.put(UserDao.class, new JdbcUserDao(template));
-        daos.put(DishDao.class, new JdbcDishDao(template));
-        daos.put(InvoiceDao.class, new JdbcInvoiceDao(template));
-        daos.put(MenuDao.class, new JdbcMenuDao(template));
-        daos.put(OrderDao.class, new JdbcOrderDao(template));
-
 
         daos.put(CategoryDao.class, new JdbcCategoryDao(template));
-        daos.put(MenuItemDao.class, new JdbcMenuItemDao(template, new JdbcCategoryDao(template)));
-        daos.put(net.lebedko.dao.jdbc.demo.OrderDao.class, new net.lebedko.dao.jdbc.demo.JdbcOrderDao(template, getDao(MenuItemDao.class)));
+        daos.put(ItemDao.class, new JdbcItemDao(template, new JdbcCategoryDao(template)));
+        daos.put(OrderDao.class, new JdbcOrderDao(template, getDao(ItemDao.class)));
 
     }
 

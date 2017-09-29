@@ -1,15 +1,13 @@
 package net.lebedko.web.command.impl.client;
 
-import net.lebedko.entity.demo.item.MenuItem;
-import net.lebedko.entity.demo.order.OrderContent;
-import net.lebedko.service.demo.MenuItemService;
+import net.lebedko.entity.item.Item;
+import net.lebedko.entity.order.OrderContent;
+import net.lebedko.service.ItemService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
-
-import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 import static java.util.Optional.ofNullable;
@@ -19,16 +17,16 @@ import static net.lebedko.web.util.constant.WebConstant.*;
  * alexandr.lebedko : 19.09.2017.
  */
 public class AddItemToOrderContentCommand extends AbstractCommand {
-    private MenuItemService itemService;
+    private ItemService itemService;
 
-    public AddItemToOrderContentCommand(MenuItemService itemService) {
+    public AddItemToOrderContentCommand(ItemService itemService) {
         this.itemService = itemService;
     }
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         final OrderContent orderContent = getOrderContent(context);
-        final MenuItem item = getItem(context);
+        final Item item = getItem(context);
 
         if (nonNull(item)) {
             orderContent.add(item);
@@ -38,15 +36,15 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
         return redirectToItemsByCategory(context, item);
     }
 
-    private IResponseAction redirectToItemsByCategory(IContext context, MenuItem item) {
+    private IResponseAction redirectToItemsByCategory(IContext context, Item item) {
         return new RedirectAction(URL.CLIENT_MENU_ITEMS + "?category=" + item.getCategory().getId());
     }
 
-    private MenuItem getItem(IContext context) throws ServiceException {
+    private Item getItem(IContext context) throws ServiceException {
         final OrderContent orderContent = getOrderContent(context);
         Long itemId = getItemId(context);
 
-        MenuItem item = OrderContent.getById(orderContent, itemId);
+        Item item = OrderContent.getById(orderContent, itemId);
         if (nonNull(item)) {
             return item;
         } else

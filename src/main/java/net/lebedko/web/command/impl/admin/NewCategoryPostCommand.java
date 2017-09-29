@@ -1,9 +1,9 @@
 package net.lebedko.web.command.impl.admin;
 
-import net.lebedko.entity.demo.general.StringI18N;
-import net.lebedko.entity.demo.item.Category;
-import net.lebedko.service.demo.CategoryService;
-import net.lebedko.service.demo.FileService;
+import net.lebedko.entity.general.StringI18N;
+import net.lebedko.entity.item.Category;
+import net.lebedko.service.CategoryService;
+import net.lebedko.service.FileService;
 import net.lebedko.service.exception.EntityExistsException;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
@@ -17,8 +17,6 @@ import net.lebedko.web.validator.item.CategoryValidator;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.ImageValidator;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
 import java.io.InputStream;
 
 import static java.util.Optional.ofNullable;

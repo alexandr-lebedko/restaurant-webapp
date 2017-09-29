@@ -2,13 +2,10 @@ package net.lebedko.service;
 
 import net.lebedko.dao.UserDao;
 import net.lebedko.dao.TransactionManager;
-import net.lebedko.dao.jdbc.demo.CategoryDao;
-import net.lebedko.dao.jdbc.demo.MenuItemDao;
-import net.lebedko.dao.jdbc.demo.OrderDao;
-import net.lebedko.entity.demo.order.Order;
-import net.lebedko.service.demo.*;
-import net.lebedko.service.impl.ServiceTemplate;
-import net.lebedko.service.impl.UserServiceImpl;
+import net.lebedko.dao.CategoryDao;
+import net.lebedko.dao.ItemDao;
+import net.lebedko.dao.OrderDao;
+import net.lebedko.service.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,10 +31,10 @@ public abstract class ServiceFactory {
 
         services.put(FileService.class, new FileServiceImpl());
 
-        services.put(MenuItemService.class, new MenuItemServiceImpl(
+        services.put(ItemService.class, new ItemServiceImpl(
                 serviceTemplate,
                 getService(FileService.class),
-                getDao(MenuItemDao.class)));
+                getDao(ItemDao.class)));
 
         services.put(OrderService.class, new OrderServiceImpl(
                 serviceTemplate,

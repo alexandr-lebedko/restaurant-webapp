@@ -1,6 +1,6 @@
 package net.lebedko.web.validator.item;
 
-import net.lebedko.entity.demo.item.ItemInfo;
+import net.lebedko.entity.item.ItemInfo;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.IValidator;
