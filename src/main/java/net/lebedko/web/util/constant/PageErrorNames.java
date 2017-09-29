@@ -26,6 +26,7 @@ public class PageErrorNames {
     public static final String NULL_MENU_ITEM = "page.error.nullItem";
     public static final String ITEM_EXISTS = "page.error.itemTitleExists";
     public static final String INVALID_ORDER = "page.error.invalidOrder";
+    public static final String INVALID_ORDER_POSITION = "page.error.invalidOrderPosition";
 
     //TODO
 
