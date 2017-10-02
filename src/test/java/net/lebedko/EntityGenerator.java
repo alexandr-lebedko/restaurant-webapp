@@ -1,9 +1,6 @@
 package net.lebedko;
 
-import net.lebedko.entity.dish.Dish;
-import net.lebedko.entity.dish.Dish.DishCategory;
 import net.lebedko.entity.general.*;
-import net.lebedko.entity.order.Order.OrderStatus;
 import net.lebedko.entity.user.*;
 
 import java.util.Random;
@@ -38,25 +35,6 @@ public class EntityGenerator {
         return getRandom(passwords);
     }
 
-    public static Dish getDish() {
-        return new Dish(getTitle(), getDescription(), getDishCategory());
-    }
-
-    public static Title getTitle() {
-        return getRandom(titles);
-    }
-
-    public static Text getDescription() {
-        return getRandom(descriptions);
-    }
-
-    public static DishCategory getDishCategory() {
-        return getRandom(DishCategory.values());
-    }
-
-    public static Title[] getTitles() {
-        return titles;
-    }
 
     public static EmailAddress[] getEmailAddresses() {
         return emailAddresses;
@@ -70,10 +48,6 @@ public class EntityGenerator {
 
     public static boolean getBoolean() {
         return new Random().nextBoolean();
-    }
-
-    public static OrderStatus getOrderStatus(){
-        return getRandom(OrderStatus.values());
     }
 
     private static <T> T getRandom(T[] t) {
@@ -110,21 +84,6 @@ public class EntityGenerator {
             new LastName("Brooks"),
             new LastName("Joshua"),
             new LastName("Silva")
-    };
-
-    private static Title[] titles = {
-            new Title("Fish'n'Chips"),
-            new Title("Duck Brest"),
-            new Title("The Burger"),
-            new Title("Spring Roll with Duck"),
-            new Title("Ice Cream")
-    };
-
-
-    private static Text[] descriptions = {
-            new Text("Such a delicious dish!"),
-            new Text("Fantastic flavour!"),
-            new Text("Chefs favourite dish!")
     };
 
     private EntityGenerator() {
