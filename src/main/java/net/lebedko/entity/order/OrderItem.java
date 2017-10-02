@@ -1,4 +1,4 @@
-package net.lebedko.entity.order.demo;
+package net.lebedko.entity.order;
 
 import net.lebedko.entity.item.Item;
 

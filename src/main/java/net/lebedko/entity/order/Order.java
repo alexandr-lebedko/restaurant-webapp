@@ -1,4 +1,6 @@
-package net.lebedko.entity.order.demo;
+package net.lebedko.entity.order;
+
+import net.lebedko.entity.invoice.Invoice;
 
 import java.time.LocalDateTime;
 
@@ -7,21 +9,27 @@ import java.time.LocalDateTime;
  */
 public class Order {
     private Long id;
+    private Invoice invoice;
     private State state;
     private LocalDateTime createdOn;
 
-    public Order(State state, LocalDateTime createdOn) {
-        this(null, state, createdOn);
-    }
-
-    public Order(Long id, State state, LocalDateTime createdOn) {
+    public Order(Long id, Invoice invoice, State state, LocalDateTime createdOn) {
         this.id = id;
+        this.invoice = invoice;
         this.state = state;
         this.createdOn = createdOn;
     }
 
+    public Order(Invoice invoice) {
+        this(null, invoice, State.NEW, LocalDateTime.now());
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
     }
 
     public State getState() {
