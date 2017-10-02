@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     private static final String INSERT = QUERIES.getProperty("invoice.insert");
-    private static final String GET_BY_USER_AND_STATE = QUERIES.getProperty("invoice.insert");
+    private static final String GET_BY_USER_AND_STATE = QUERIES.getProperty("invoice.getByUserAndState");
 
     private static final String ID = "inv_id";
     private static final String STATE = "inv_state";
