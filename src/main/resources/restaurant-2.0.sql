@@ -5,7 +5,6 @@ drop table if exists categories;
 
 
 drop table if exists invoices;
-drop procedure if exists update_order_items_sp;
 drop table if exists order_items;
 drop table if exists orders;
 drop table if exists menu_items;
@@ -105,27 +104,3 @@ i_paid boolean  not null default false,
 i_price double(10,2) not null check(price>=0.0),
 i_creation_timestamp timestamp not null
 );
-
-DELIMITER //
-CREATE PROCEDURE update_order_items_sp(IN in_oi_id        INT, IN in_oi_order_id INT, IN in_oi_menu_item_id INT,
-                                       IN in_oi_processed INT, IN in_oi_quantity INT)
-  BEGIN
-    SET @rowCount := (SELECT count(*)
-                      FROM order_items
-                      WHERE
-                        oi_id <> in_oi_id AND oi_order_id = in_oi_order_id AND oi_menu_item_id = in_oi_menu_item_id AND
-                        oi_processed = in_oi_processed);
-    IF @rowCount = 0
-    THEN UPDATE order_items
-    SET oi_order_id  = in_oi_order_id, oi_menu_item_id = in_oi_menu_item_id, oi_processed = in_oi_processed,
-      oi_quantity = in_oi_quantity
-    WHERE oi_id = in_oi_id;
-    ELSE
-      DELETE FROM order_items
-      WHERE oi_id = in_oi_id;
-      INSERT INTO order_items (oi_order_id, oi_menu_item_id, oi_processed, oi_quantity)
-      VALUES (in_order_id, in_oi_menu_item_id, in_oi_processed, in_oi_quantity)
-      ON DUPLICATE KEY UPDATE oi_quantity = oi_quantity + VALUES(in_oi_quantity);
-    END IF;
-  END //
-DELIMITER ;
