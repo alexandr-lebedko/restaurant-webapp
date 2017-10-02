@@ -57,7 +57,7 @@ public class JdbcUserDao implements UserDao {
         params.put(4, user.getFullName().getLastName().toString());
         params.put(5, user.getPassword().getPasswordHash());
 
-        user.setId(template.insertAndReturnKey(insert, params));
+        user.setId((int)template.insertAndReturnKey(insert, params));
 
         return user;
     }

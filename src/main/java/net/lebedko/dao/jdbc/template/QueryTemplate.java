@@ -66,7 +66,7 @@ public class QueryTemplate {
     }
 
 
-    public int insertAndReturnKey(String sql, Map<Integer, Object> params) throws DataAccessException {
+    public long insertAndReturnKey(String sql, Map<Integer, Object> params) throws DataAccessException {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             putParamsToPreparedStatement(ps, params);
             ps.executeUpdate();

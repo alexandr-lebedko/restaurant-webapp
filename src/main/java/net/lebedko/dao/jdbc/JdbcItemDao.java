@@ -61,7 +61,7 @@ public class JdbcItemDao implements ItemDao {
         params.put(9, item.getCategory().getId());
         params.put(10, item.getPictureId());
 
-        int id = template.insertAndReturnKey(INSERT, params);
+        long id = template.insertAndReturnKey(INSERT, params);
         item.setId(id);
 
         return item;

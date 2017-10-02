@@ -43,8 +43,8 @@ public class JdbcCategoryDao implements CategoryDao {
         params.put(2, category.getValue().get(EN_CODE));
         params.put(3, category.getValue().get(RU_CODE));
         params.put(4, category.getImageId());
-
-        int id = template.insertAndReturnKey(INSERT, params);
+//TODO::remove casting
+        int id = (int) template.insertAndReturnKey(INSERT, params);
         category.setId(id);
 
         return category;
