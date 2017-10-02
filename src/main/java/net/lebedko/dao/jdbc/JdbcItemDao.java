@@ -21,22 +21,22 @@ import static net.lebedko.util.PropertyUtil.loadProperties;
  */
 public class JdbcItemDao implements ItemDao {
     private static final Properties props = loadProperties("sql-queries.properties");
-    private static final String INSERT = props.getProperty("menuItem.insert");
-    private static final String GET_BY_CATEGORY = props.getProperty("menuItem.getByCategory");
-    private static final String GET_BY_ID = props.getProperty("menuItem.getById");
+    private static final String INSERT = props.getProperty("item.insert");
+    private static final String GET_BY_CATEGORY = props.getProperty("item.getByCategory");
+    private static final String GET_BY_ID = props.getProperty("item.getById");
 
 
-    private static final String ID = "mi_id";
-    private static final String IMAGE_ID = "mi_image_id";
-    private static final String UKR_TITLE = "mi_ukr_title";
-    private static final String EN_TITLE = "mi_en_title";
-    private static final String RU_TITLE = "mi_ru_title";
-    private static final String UKR_DESCRIPTION = "mi_ukr_description";
-    private static final String EN_DESCRIPTION = "mi_en_description";
-    private static final String RU_DESCRIPTION = "mi_ru_description";
-    private static final String STATE = "mi_state";
-    private static final String CATEGORY = "mi_category";
-    private static final String PRICE = "mi_price";
+    private static final String ID = "i_id";
+    private static final String IMAGE_ID = "i_image_id";
+    private static final String UKR_TITLE = "i_ukr_title";
+    private static final String EN_TITLE = "i_en_title";
+    private static final String RU_TITLE = "i_ru_title";
+    private static final String UKR_DESCRIPTION = "i_ukr_description";
+    private static final String EN_DESCRIPTION = "i_en_description";
+    private static final String RU_DESCRIPTION = "i_ru_description";
+    private static final String STATE = "i_state";
+    private static final String CATEGORY = "i_category";
+    private static final String PRICE = "i_price";
 
 
     private QueryTemplate template;
