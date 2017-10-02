@@ -1,7 +1,6 @@
 package net.lebedko.web.command.impl.client;
 
 import net.lebedko.entity.item.Item;
-import net.lebedko.entity.order.OrderContent;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
@@ -25,30 +24,12 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        final OrderContent orderContent = getOrderContent(context);
-        final Item item = getItem(context);
 
-        if (nonNull(item)) {
-            orderContent.add(item);
-            context.addSessionAttribute("orderContent", orderContent);
-        }
-
-        return redirectToItemsByCategory(context, item);
+        return null;
     }
 
     private IResponseAction redirectToItemsByCategory(IContext context, Item item) {
         return new RedirectAction(URL.CLIENT_MENU_ITEMS + "?category=" + item.getCategory().getId());
-    }
-
-    private Item getItem(IContext context) throws ServiceException {
-        final OrderContent orderContent = getOrderContent(context);
-        Long itemId = getItemId(context);
-
-        Item item = OrderContent.getById(orderContent, itemId);
-        if (nonNull(item)) {
-            return item;
-        } else
-            return itemService.get(itemId);
     }
 
     private Long getItemId(IContext context) {
@@ -61,7 +42,4 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
         return id;
     }
 
-    private OrderContent getOrderContent(IContext context) {
-        return ofNullable(context.getSessionAttribute(OrderContent.class, "orderContent")).orElse(new OrderContent());
-    }
 }

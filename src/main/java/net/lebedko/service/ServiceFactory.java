@@ -4,7 +4,6 @@ import net.lebedko.dao.UserDao;
 import net.lebedko.dao.TransactionManager;
 import net.lebedko.dao.CategoryDao;
 import net.lebedko.dao.ItemDao;
-import net.lebedko.dao.OrderDao;
 import net.lebedko.service.impl.*;
 
 import java.util.HashMap;
@@ -36,10 +35,7 @@ public abstract class ServiceFactory {
                 getService(FileService.class),
                 getDao(ItemDao.class)));
 
-        services.put(OrderService.class, new OrderServiceImpl(
-                serviceTemplate,
-                getDao(OrderDao.class)));
-    }
+        }
 
     public static <T> T getService(Class<T> clazz) {
         return (T) services.get(clazz);
