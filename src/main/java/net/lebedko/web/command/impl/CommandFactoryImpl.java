@@ -1,18 +1,13 @@
 package net.lebedko.web.command.impl;
 
-import net.lebedko.service.UserService;
-import net.lebedko.service.CategoryService;
-import net.lebedko.service.FileService;
-import net.lebedko.service.ItemService;
+import net.lebedko.service.*;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.*;
-import net.lebedko.web.command.impl.client.AddItemToOrderContentCommand;
-import net.lebedko.web.command.impl.client.ItemsByCategoryGetCommand;
-import net.lebedko.web.command.impl.client.MainPageGetCommand;
-import net.lebedko.web.command.impl.client.OrderGetCommand;
+import net.lebedko.web.command.impl.client.*;
 import net.lebedko.web.validator.item.*;
 import net.lebedko.web.validator.ImageValidator;
+import net.lebedko.web.validator.order.OrderValidator;
 import net.lebedko.web.validator.user.UserValidator;
 
 import java.util.HashMap;
@@ -38,6 +33,7 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(GET_CLIENT_MENU_ITEMS, new ItemsByCategoryGetCommand(getService(CategoryService.class), getService(ItemService.class)));
         commandMap.put(POST_CLIENT_MENU_ITEMS, new AddItemToOrderContentCommand(getService(ItemService.class)));
         commandMap.put(GET_CLIENT_ORDER, new OrderGetCommand());
+        commandMap.put(POST_CLIENT_ORDER, new OrderPostCommand(getService(OrderService.class), new OrderValidator()));
 
         commandMap.put(POST_SIGN_IN, new SignInPostCommand(getService(UserService.class)));
         commandMap.put(GET_SIGN_IN, new SignInGetCommand());
