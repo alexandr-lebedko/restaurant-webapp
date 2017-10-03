@@ -33,8 +33,9 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     public Invoice insert(Invoice invoice) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, invoice.getUser().getId());
-        params.put(2, invoice.getState().name());
-        params.put(3, Timestamp.valueOf(invoice.getCratedOn()));
+        params.put(2, invoice.getAmount().getValue());
+        params.put(3, invoice.getState().name());
+        params.put(4, Timestamp.valueOf(invoice.getCratedOn()));
 
         Long id = template.insertAndReturnKey(INSERT, params);
 
