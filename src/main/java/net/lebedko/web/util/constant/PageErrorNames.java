@@ -27,6 +27,8 @@ public class PageErrorNames {
     public static final String ITEM_EXISTS = "page.error.itemTitleExists";
     public static final String INVALID_ORDER = "page.error.invalidOrder";
     public static final String INVALID_ORDER_POSITION = "page.error.invalidOrderPosition";
+    public static final String EMPTY_ORDER = "page.error.emptyOrder";
+    public static final String NEGATIVE_ITEM_QUANTITY = "page.error.negativeItemQuantity";
 
     //TODO
 
