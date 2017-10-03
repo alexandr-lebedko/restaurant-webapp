@@ -12,6 +12,7 @@ import static java.util.Objects.isNull;
 /**
  * alexandr.lebedko : 04.07.2017.
  */
+//TODO :: REFACTOR TO STATE PATTER
 public final class JdbcThreadLocalTransactionManager extends TransactionManager {
     private static final ThreadLocal<TransactionCounter> transactionCounter = new ThreadLocal<>();
 
@@ -45,9 +46,13 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
     @Override
     protected void rollback() throws DataAccessException {
         LOG.debug("Transaction rollback invoked");
+        if (isNull(transactionCounter.get())) {
+            LOG.debug("Transaction rollback was executed earlier");
+            return;
+        }
+
         try {
             connectionProvider.getConnection().rollback();
-            connectionProvider.getConnection().setAutoCommit(true);
         } catch (SQLException e) {
             LOG.error("Failed to rollback transaction");
             throw new DataAccessException(e);
@@ -69,7 +74,6 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
 
         try {
             connectionProvider.getConnection().commit();
-            connectionProvider.getConnection().setAutoCommit(true);
             LOG.debug("Committing initial transaction");
         } catch (SQLException e) {
             LOG.error("Failed to commit transaction");
@@ -81,10 +85,11 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
 
     }
 
-    private void cleanUp() throws DataAccessException{
+    private void cleanUp() throws DataAccessException {
         LOG.debug("Cleaning up thread local resources: TransactionCounter and ThreadLocalConnectionProvider");
         try {
             LOG.debug("Closing connection");
+            connectionProvider.getConnection().setAutoCommit(true);
             connectionProvider.getConnection().close();
         } catch (SQLException e) {
             throw new DataAccessException("Failed to close connection");
