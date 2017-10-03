@@ -5,6 +5,7 @@ import net.lebedko.web.validator.Errors;
 import javax.servlet.ServletException;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -22,7 +23,7 @@ public interface IContext {
 
     String getRequestParameter(String key);
 
-    String[] getRequestParameters(String key);
+    List<String> getRequestParameters(String key);
 
     <T> T getSessionAttribute(Class<T> clazz, String key);
 

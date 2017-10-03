@@ -8,7 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
+
+import static java.util.Arrays.asList;
+import static java.util.Optional.ofNullable;
 
 /**
  * alexandr.lebedko : 12.06.2017
@@ -43,8 +48,8 @@ public class WebContext implements IContext {
     }
 
     @Override
-    public String[] getRequestParameters(String key) {
-        return request.getParameterValues(key);
+    public List<String> getRequestParameters(String key) {
+        return ofNullable(asList(request.getParameterValues(key))).orElse(Collections.emptyList());
     }
 
     @Override
