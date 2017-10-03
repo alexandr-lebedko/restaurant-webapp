@@ -41,11 +41,12 @@ CREATE TABLE orders (
 );
 
 CREATE TABLE order_items (
+  oi_id          BIGINT PRIMARY KEY AUTO_INCREMENT,
   oi_order_id    BIGINT NOT NULL,
   oi_item_id     BIGINT NOT NULL,
   oi_item_number BIGINT NOT NULL CHECK (oi_item_number > 0),
   CONSTRAINT FOREIGN KEY (oi_order_id) REFERENCES orders (o_id),
-  CONSTRAINT FOREIGN KEY (oi_item_id) REFERENCES items (mi_id)
+  CONSTRAINT FOREIGN KEY (oi_item_id) REFERENCES items (i_id)
 );
 
 CREATE TABLE users (
