@@ -1,6 +1,6 @@
 package net.lebedko.web.validator.order;
 
-import net.lebedko.entity.order.demo.Order;
+import net.lebedko.entity.order.Order;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.IValidator;
 
