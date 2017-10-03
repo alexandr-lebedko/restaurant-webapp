@@ -41,8 +41,8 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
     }
 
     private void addToOrder(Map<Item, Integer> content, Item item) {
-        content.putIfAbsent(item, 1);
         content.computeIfPresent(item, (k, v) -> v + 1);
+        content.putIfAbsent(item, 1);
     }
 
 

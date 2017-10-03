@@ -40,6 +40,7 @@ public final class WebConstant {
         public static final String CLIENT_MAIN = PREFIX + "client/categories";
         public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";
         public static final String CLIENT_ORDER_FORM = PREFIX +"client/orderForm";
+        public static final String SUCCESS_ORDER = PREFIX + "client/successOrder";
     }
 
     public static final class COMMAND {
