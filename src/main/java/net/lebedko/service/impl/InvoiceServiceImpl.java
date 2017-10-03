@@ -7,8 +7,7 @@ import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.exception.ServiceException;
 
-
-import static java.util.Optional.ofNullable;
+import static java.util.Objects.nonNull;
 
 /**
  * alexandr.lebedko : 02.10.2017.
@@ -34,10 +33,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public Invoice getUnpaidOrCreate(User user) throws ServiceException {
-        return template.doTxService(() ->
-                ofNullable(getUnpaid(user))
-                        .orElse(createInvoice(user))
-        );
+        return template.doTxService(() -> {
+            Invoice unpaidInvoice = getUnpaid(user);
+            if (nonNull(unpaidInvoice)) {
+                return unpaidInvoice;
+            }
+            return createInvoice(user);
+        });
     }
-
 }
