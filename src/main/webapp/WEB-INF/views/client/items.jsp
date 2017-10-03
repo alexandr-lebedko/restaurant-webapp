@@ -89,7 +89,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${orderContent.map}" var="entry">
+                    <c:forEach items="${orderContent}" var="entry">
                         <tr>
                             <th scope="row">${entry.key.id}</th>
                             <th>${entry.key.info.title.value.get(lang)}</th>

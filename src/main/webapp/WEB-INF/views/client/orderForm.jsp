@@ -51,7 +51,7 @@
     <c:if test="${orderContent ne null}">
         <div class="col-4">
             <form method="post">
-                <c:forEach items="${orderContent.map}" var="entry">
+                <c:forEach items="${orderContent}" var="entry">
                     <input type="hidden" name="itemId" value="${entry.key.id}">
                     <div class="form-group row">
                         <label class="col-8 col-form-label">${entry.key.title.value.get(lang)}</label>
@@ -62,22 +62,6 @@
                 </c:forEach>
                 <button type="submit" class="btn">Make Order</button>
             </form>
-                <%--<form>--%>
-                <%--<c:forEach items="${order.content}" var="entry">--%>
-
-                <%--<div class="form-row">--%>
-                <%--<div class="col-9">--%>
-                <%--<p>${entry.key.title.value.get(lang)}</p>--%>
-                <%--<input type="hidden" name="itemId" value="${entry.key.id}">--%>
-                <%--</div>--%>
-                <%--<div class="col">--%>
-                <%--<label>Quantity</label>--%>
-                <%--<input type="number" name="quantity" value="${entry.value}" min="0">--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</c:forEach>--%>
-
-                <%--</form>--%>
         </div>
     </c:if>
 </div>
