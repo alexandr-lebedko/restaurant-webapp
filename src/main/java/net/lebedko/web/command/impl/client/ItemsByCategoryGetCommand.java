@@ -45,7 +45,6 @@ public class ItemsByCategoryGetCommand extends AbstractCommand {
 
         if (errors.hasErrors()) {
             context.addRequestAttribute("categories", getCategories(context));
-            context.addErrors(errors);
             //TODO: or maybe redirect to 404 page??
             return CATEGORIES_REDIRECT;
         }
