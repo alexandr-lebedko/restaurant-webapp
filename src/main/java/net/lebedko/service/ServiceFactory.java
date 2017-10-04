@@ -33,9 +33,19 @@ public abstract class ServiceFactory {
                 getService(FileService.class),
                 getDao(ItemDao.class)));
 
+
         services.put(InvoiceService.class, new InvoiceServiceImpl(getDao(InvoiceDao.class), serviceTemplate));
 
-        services.put(OrderService.class, new OrderServiceImpl(serviceTemplate, getService(InvoiceService.class), getDao(OrderDao.class)));
+        //TODO:: remove circular dependency
+        services.put(OrderService.class, new OrderServiceImpl(
+                serviceTemplate,
+                getService(InvoiceService.class),
+                getDao(OrderDao.class)));
+
+
+        ((InvoiceServiceImpl) getService(InvoiceService.class)).setOrderService(getService(OrderService.class));
+
+
     }
 
     public static <T> T getService(Class<T> clazz) {
