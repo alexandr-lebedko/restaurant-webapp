@@ -8,7 +8,9 @@ import net.lebedko.service.exception.ServiceException;
  * alexandr.lebedko : 02.10.2017.
  */
 public interface InvoiceService {
-    Invoice getUnpaidOrCreate(User user) throws ServiceException;
+    Invoice getActiveOrCreate(User user) throws ServiceException;
 
     Invoice getUnpaid(User user) throws ServiceException;
+
+    Invoice getActive(User user) throws ServiceException;
 }

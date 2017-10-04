@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(User user, Map<Item, Integer> content) throws ServiceException {
         return template.doTxService(() -> {
-                    final Invoice invoice = invoiceService.getUnpaidOrCreate(user);
+                    final Invoice invoice = invoiceService.getActiveOrCreate(user);
                     final Order order = orderDao.insert(new Order(invoice));
                     insertOrderContent(order, content);
 
