@@ -25,7 +25,7 @@ public class Invoice {
     }
 
     public Invoice(User user) {
-        this(null, user, State.UNPAID, new Price(0.), LocalDateTime.now());
+        this(null, user, State.ACTIVE, new Price(0.), LocalDateTime.now());
     }
 
     public Long getId() {
