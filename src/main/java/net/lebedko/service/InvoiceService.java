@@ -13,4 +13,7 @@ public interface InvoiceService {
     Invoice getUnpaid(User user) throws ServiceException;
 
     Invoice getActive(User user) throws ServiceException;
+
+    void closeActiveInvoice(User user) throws ServiceException;
+
 }
