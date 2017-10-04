@@ -2,13 +2,15 @@ package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.OrderDao;
 import net.lebedko.dao.exception.DataAccessException;
+import net.lebedko.dao.jdbc.mapper.OrderMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
+import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.Order;
+import net.lebedko.entity.order.State;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * alexandr.lebedko : 02.10.2017.
@@ -16,6 +18,9 @@ import java.util.Map;
 public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     private static final String INSERT_ORDER = QUERIES.getProperty("order.insertOrder");
     private static final String INSERT_ORDER_ITEM = QUERIES.getProperty("order.insertOrderItem");
+    private static final String GET_BY_INVOICE = QUERIES.getProperty("order.getByInvoiceId");
+    private static final String GET_BY_INVOICE_AND_STATE = QUERIES.getProperty("order.getByInvoiceIdAndState");
+    private static final String GET_BY_STATE = QUERIES.getProperty("order.getByState");
 
     public JdbcOrderDao(QueryTemplate template) {
         super(template);
@@ -43,5 +48,30 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
         Long id = template.insertAndReturnKey(INSERT_ORDER, params);
 
         return new Order(id, order.getInvoice(), order.getState(), order.getCreatedOn());
+    }
+
+    @Override
+    public Collection<Order> get(Invoice invoice) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, invoice.getId());
+
+        return template.queryAll(GET_BY_INVOICE, params, new OrderMapper(invoice));
+    }
+
+    @Override
+    public Collection<Order> get(Invoice invoice, State state) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, invoice.getId());
+        params.put(2, state.name());
+
+        return template.queryAll(GET_BY_INVOICE_AND_STATE, params, new OrderMapper(invoice, state));
+    }
+
+    @Override
+    public Collection<Order> get(State state) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, state.name());
+
+        return template.queryAll(GET_BY_STATE, params, new OrderMapper(state));
     }
 }
