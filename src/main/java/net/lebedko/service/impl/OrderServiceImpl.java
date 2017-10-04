@@ -6,6 +6,7 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.item.Item;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
+import net.lebedko.entity.order.State;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
@@ -39,6 +40,11 @@ public class OrderServiceImpl implements OrderService {
                     return order;
                 }
         );
+    }
+
+    @Override
+    public Collection<Order> getUnprocessed(Invoice invoice) throws ServiceException {
+        return template.doTxService(() -> orderDao.get(invoice, State.NEW));
     }
 
     private void insertOrderContent(Order order, Map<Item, Integer> content) throws DataAccessException {
