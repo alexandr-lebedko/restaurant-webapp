@@ -62,6 +62,6 @@ CREATE TABLE invoices (
   inv_id       BIGINT AUTO_INCREMENT PRIMARY KEY,
   inv_user     BIGINT        NOT NULL,
   inv_price    DOUBLE(10, 2) NOT NULL CHECK (inv_price >= 0.0),
-  inv_state    ENUM ('ACTIVE','FINISHED','PAID', 'UNPAID'),
+  inv_state    ENUM ('ACTIVE','CLOSED','PAID', 'UNPAID'),
   inv_creation TIMESTAMP     NOT NULL
 );
