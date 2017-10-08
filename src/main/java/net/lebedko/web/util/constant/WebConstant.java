@@ -39,7 +39,7 @@ public final class WebConstant {
         public static final String ADMIN_MAIN = PREFIX + "admin/main";
         public static final String CLIENT_MAIN = PREFIX + "client/categories";
         public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";
-        public static final String CLIENT_ORDER_FORM = PREFIX +"client/orderForm";
+        public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm";
         public static final String SUCCESS_ORDER = PREFIX + "client/successOrder";
     }
 
@@ -52,13 +52,16 @@ public final class WebConstant {
         public static final String GET_CLIENT_MAIN = GET_PREFIX + URL.CLIENT_MAIN;
         public static final String GET_CLIENT_MENU_ITEMS = GET_PREFIX + URL.CLIENT_MENU_ITEMS;
         public static final String POST_CLIENT_MENU_ITEMS = POST_PREFIX + URL.CLIENT_MENU_ITEMS;
-        public static final String GET_CLIENT_ORDER= GET_PREFIX+ URL.CLIENT_ORDER_FORM;
+        public static final String GET_CLIENT_ORDER = GET_PREFIX + URL.CLIENT_ORDER_FORM;
+        public static final String POST_CLIENT_ORDER= POST_PREFIX+ URL.CLIENT_ORDER_FORM;
 
         public static final String GET_ADMIN_MENU = GET_PREFIX + URL.ADMIN_MENU;
         public static final String GET_ADMIN_NEW_CATEGORY = GET_PREFIX + URL.ADMIN_NEW_CATEGORY;
 
         public static final String GET_ADMIN_NEW_ITEM = GET_PREFIX + URL.NEW_ITEM_URL;
         public static final String POST_ADMIN_NEW_ITEM = POST_PREFIX + URL.NEW_ITEM_URL;
+
+        public static final String GET_SUCCESS_ORDER = GET_PREFIX + URL.SUCCESS_ORDER;
     }
 
 
