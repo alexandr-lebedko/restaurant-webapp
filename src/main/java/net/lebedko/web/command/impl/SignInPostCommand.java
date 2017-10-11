@@ -49,6 +49,7 @@ public class SignInPostCommand extends AbstractCommand {
         if (isNull(user)) {
             errors.register("user not exists", USER_NOT_EXISTS);
             context.addErrors(errors);
+            context.addRequestAttribute("user",userView);
             LOG.warn("Entered data for not registered account: " + userView.getEmailAddress());
 
             return SIGN_IN_PAGE_FORWARD;
