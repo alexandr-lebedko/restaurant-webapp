@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@attribute name="errorName" required="true" %>
 
-<fmt:setLocale value="${language}"/>
+<fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
 <c:if test="${not empty errors.get(errorName)}">
