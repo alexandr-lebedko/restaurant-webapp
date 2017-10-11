@@ -1,6 +1,5 @@
 package net.lebedko.web.filter;
 
-import net.lebedko.i18n.SupportedLocales;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,7 +7,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -40,30 +38,25 @@ public class LocaleFilter implements Filter {
         Locale locale = null;
 
         String localeRequestAttribute = request.getParameter(getLocaleRequestAttributeName());
-
         if (nonNull(localeRequestAttribute)) {
-            locale = new Locale(localeRequestAttribute);
+            locale = getByCode(localeRequestAttribute);
         } else {
 
-            Object localeSessionAttribute = request.getSession().getAttribute(getLocaleSessionAttributeName());
+            Object localeSessionAttribute = request.getSession().getAttribute(LOCALE_SESSION_ATTRIBUTE_NAME);
 
             if (nonNull(localeSessionAttribute)) {
-                locale = new Locale(localeSessionAttribute.toString());
+                LOG.info("RETURNING LOCALE FROM SESSION ATTRIBUTE: " + localeSessionAttribute);
+                return (Locale) localeSessionAttribute;
             }
         }
 
         if (isSupported(locale)) {
-//            LOG.debug("LOCALE: " + locale + ", IS SUPPORTED AND WILL BE RETURNED");
-
             return locale;
         }
-
-//        LOG.debug("LOCALE: " + locale + ", IS NOT SUPPORTED. DEFAULT LOCALE: " + getDefaultLocale() + " WILL BE RETURNED");
-
         return getDefaultLocale();
     }
 
-
+    //TODO: REFACTOR CLASS, REDUCE IF STATEMENTS
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
