@@ -2,25 +2,6 @@ html, body {
     padding: 0;
 }
 
-header {
-    height: 60px;
-}
-
-header div.container {
-    padding: 0;
-    width: 100%;
-    background-color: silver;
-    height: 100%;
-}
-
-header div.container div.row {
-    background-color: #43a290;
-    font-family: "Century Gothic";
-    width: 100%;
-    margin: 0;
-    height: 100%;
-}
-
 div.container div.row div#header-title {
     background-color: rgba(19, 25, 53, 0.95);
     height: 100%;
@@ -126,16 +107,6 @@ section.form-section div.container div.row div#sign-in-form form button {
     float: right;
 }
 
-footer {
-    background-color: #15313b;
-    height: 80px;
-    margin-bottom: 0;
-    color: white;
-    padding: 30px 0 20px 0;
-    font-family: "Century Gothic";
-    font-stretch: ultra-expanded;
-}
-
 section div#admin-middle-section {
     background-color: white;
     width: 100%;
@@ -155,14 +126,6 @@ div#admin-middle-section div#side-bar ul li a {
     width: 100%;
     height: 100%;
 }
-
-/*section div#admin-middle-section div.row div#side-bar ul li {*/
-/*margin-top: 0;*/
-/*}*/
-
-/*section div#admin-middle-section div.row div#side-bar ul li a i {*/
-/*margin-right: 5px;*/
-/*}*/
 
 section div#admin-middle-section div.row div#side-bar ul li a span {
     float: right;
@@ -268,3 +231,46 @@ div.category div.panel-body a:hover {
     text-decoration: none;
 }
 
+body {
+    font-family: 'Exo 2', sans-serif !important;
+}
+
+header .fa {
+    margin: 0 1em;
+}
+
+footer {
+    margin-top: 90px;
+}
+
+footer .container {
+    border-top: solid lightgrey 1px;
+    font-size: small;
+    font-weight: 600;
+    padding-top: 30px;
+}
+
+.main-content {
+    margin-top: 50px;
+}
+
+#image-area {
+    height: 280px;
+    width: 100%;
+}
+
+div#form form {
+    padding: 20px;
+    height: 280px;
+}
+
+div#sign-up-form form{
+    padding: 20px!important;
+    height: 440px;
+}
+#sign-up-page div img{
+    height: 360px;
+}
+#image-area img {
+    height: 280px;
+}
