@@ -112,7 +112,7 @@
                     <li role="navigation">
                         <a href="#" class="side-bar-item">
                             <i class="glyphicon glyphicon-off"></i>
-                            <fmt:message key="page.admin.label.logout"/>
+                            <fmt:message key="page.header.signOut"/>
                         </a>
                     </li>
                 </ul>

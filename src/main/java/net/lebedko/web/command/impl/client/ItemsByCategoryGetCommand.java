@@ -25,7 +25,7 @@ import static java.util.Optional.ofNullable;
  * alexandr.lebedko : 18.09.2017.
  */
 public class ItemsByCategoryGetCommand extends AbstractCommand {
-    private static final IResponseAction CATEGORIES_REDIRECT = new RedirectAction(WebConstant.URL.CLIENT_MAIN);
+    private static final IResponseAction CATEGORIES_REDIRECT = new RedirectAction(WebConstant.URL.CLIENT_CATEGORIES);
     private static final IResponseAction ITEMS_FORWARD = new ForwardAction(WebConstant.PAGE.CLIENT_MENU_ITEMS);
 
     private CategoryService categoryService;

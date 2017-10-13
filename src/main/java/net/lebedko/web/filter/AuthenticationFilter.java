@@ -15,7 +15,6 @@ import java.io.IOException;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static net.lebedko.entity.user.User.UserRole.*;
 
 /**
  * alexandr.lebedko : 08.09.2017.
@@ -60,7 +59,7 @@ public class AuthenticationFilter extends AbstractFilter {
             response.sendRedirect(request.getContextPath() + WebConstant.URL.ADMIN_MAIN);
         } else {
             LOG.debug("REDIRECTING TO CLIENT MAIN PAGE");
-            response.sendRedirect(request.getContextPath() + WebConstant.URL.CLIENT_MAIN);
+            response.sendRedirect(request.getContextPath() + WebConstant.URL.CLIENT_CATEGORIES);
         }
     }
 }
