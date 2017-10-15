@@ -3,8 +3,10 @@ package net.lebedko.web.util.constant;
 public class URL {
 
     public static final String CONTROLLER_NAME = "app";
+    public static final String IMAGE_CONTROLLER_NAME="images";
     public static final String CONTROLLER_PATTERN = CONTROLLER_NAME + "/*";
 
+    public static final String IMAGE_PREFIX = "/" + IMAGE_CONTROLLER_NAME + "/";
     public static final String PREFIX = "/" + CONTROLLER_NAME + "/";
 
     public static final String SIGN_IN = PREFIX + "signIn";
