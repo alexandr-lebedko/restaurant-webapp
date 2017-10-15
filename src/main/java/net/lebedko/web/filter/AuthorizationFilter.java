@@ -1,7 +1,7 @@
 package net.lebedko.web.filter;
 
 import net.lebedko.entity.user.UserRole;
-import net.lebedko.web.util.constant.WebConstant;
+import net.lebedko.web.util.constant.URL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,16 +54,16 @@ public class AuthorizationFilter extends AbstractFilter {
     }
 
     private void redirectToSignInPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + WebConstant.URL.SIGN_IN);
+        response.sendRedirect(request.getContextPath() + URL.SIGN_IN);
     }
 
     private void redirectToAdminMain(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + WebConstant.URL.ADMIN_MAIN);
+        response.sendRedirect(request.getContextPath() + URL.ADMIN_MAIN);
 
     }
 
     private void redirectToClientMain(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect(req.getContextPath() + WebConstant.URL.CLIENT_CATEGORIES);
+        resp.sendRedirect(req.getContextPath() + URL.CLIENT_CATEGORIES);
     }
 
     private boolean isAdmin(HttpServletRequest request) {

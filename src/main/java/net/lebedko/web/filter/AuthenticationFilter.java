@@ -1,7 +1,7 @@
 package net.lebedko.web.filter;
 
 import net.lebedko.entity.user.UserRole;
-import net.lebedko.web.util.constant.WebConstant;
+import net.lebedko.web.util.constant.URL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -56,10 +56,10 @@ public class AuthenticationFilter extends AbstractFilter {
 
         if (role == UserRole.ADMIN) {
             LOG.debug("REDIRECTING TO ADMIN MAIN PAGE");
-            response.sendRedirect(request.getContextPath() + WebConstant.URL.ADMIN_MAIN);
+            response.sendRedirect(request.getContextPath() + URL.ADMIN_MAIN);
         } else {
             LOG.debug("REDIRECTING TO CLIENT MAIN PAGE");
-            response.sendRedirect(request.getContextPath() + WebConstant.URL.CLIENT_CATEGORIES);
+            response.sendRedirect(request.getContextPath() + URL.CLIENT_CATEGORIES);
         }
     }
 }

@@ -12,6 +12,7 @@ import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
+import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.validator.Errors;
 
@@ -25,7 +26,7 @@ import static java.util.Optional.ofNullable;
  * alexandr.lebedko : 18.09.2017.
  */
 public class ItemsByCategoryGetCommand extends AbstractCommand {
-    private static final IResponseAction CATEGORIES_REDIRECT = new RedirectAction(WebConstant.URL.CLIENT_CATEGORIES);
+    private static final IResponseAction CATEGORIES_REDIRECT = new RedirectAction(URL.CLIENT_CATEGORIES);
     private static final IResponseAction ITEMS_FORWARD = new ForwardAction(WebConstant.PAGE.CLIENT_MENU_ITEMS);
 
     private CategoryService categoryService;

@@ -2,12 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ tag import="net.lebedko.i18n.SupportedLocales" %>
+<%@ tag import="net.lebedko.web.util.constant.URL" %>
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<c:set var="signIn" value="/restaurant/app/signIn" scope="page"/>
-<c:set var="signUp" value="/restaurant/app/signUp" scope="page"/>
+<c:set var="contextUrl" value="${pageContext.request.contextPath}"/>
+
+<c:set var="signIn" value="${contextUrl.concat(URL.SIGN_IN)}" scope="page"/>
+<c:set var="signUp" value="${contextUrl.concat(URL.SIGN_UP)}" scope="page"/>
+
 
 <%@attribute name="pageUrl" type="java.lang.String" required="true" %>
 

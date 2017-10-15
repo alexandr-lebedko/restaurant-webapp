@@ -18,7 +18,9 @@ import static net.lebedko.web.util.constant.Commands.*;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.*;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_MENU;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_NEW_ITEM;
+import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_SIGN_UP;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_ADMIN_NEW_ITEM;
+import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_SIGN_UP;
 
 /**
  * alexandr.lebedko : 12.06.2017

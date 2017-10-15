@@ -1,7 +1,8 @@
 <%@tag description="Header for unauthenticated user" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ tag import="net.lebedko.web.util.constant.WebConstant.URL" %>
+<%@ tag import="net.lebedko.web.util.constant.URL" %>
+<%@ tag import="net.lebedko.i18n.SupportedLocales" %>
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
@@ -41,14 +42,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${invoices}">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
-                            <span><fmt:message key="page.header.invoices"/></span>
+                            <span><fmt:message key="page.header.invoice"/></span>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="${menu}">
                             <i class="fa fa-th" aria-hidden="true"></i>
-                            <span><fmt:message key="page.signUp.form.firstName.label"/></span>
+                            <span><fmt:message key="page.header.menu"/></span>
                         </a>
                     </li>
 
