@@ -250,12 +250,11 @@ footer .container {
     padding-top: 30px;
 }
 
-.main-content {
-    margin-top: 50px;
+.main-content, #categories {
+    margin-top: 120px;
 }
 
 #image-area {
-    height: 280px;
     width: 100%;
 }
 
@@ -264,13 +263,49 @@ div#form form {
     height: 280px;
 }
 
-div#sign-up-form form{
-    padding: 20px!important;
+div#sign-up-form form {
+    padding: 20px !important;
     height: 440px;
 }
-#sign-up-page div img{
+
+#sign-up-page div img {
     height: 360px;
 }
+
 #image-area img {
     height: 280px;
+}
+
+#categories div.card {
+    width: 11rem !important;
+    margin-bottom: 1rem;
+}
+
+#categories .card img {
+    height: 9rem;
+}
+
+#categories .card-body {
+    padding: 0.1em;
+    border-bottom: solid silver;
+}
+
+#categories .card a {
+    color: inherit;
+}
+
+#categories .card a:hover {
+    text-decoration: none;
+}
+
+#categories .card:hover {
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-top: 2px solid silver;
+}
+
+@media (min-width: 1200px) {
+    #categories {
+        max-width: 770px;
+    }
 }

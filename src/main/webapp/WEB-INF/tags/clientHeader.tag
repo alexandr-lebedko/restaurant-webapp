@@ -26,7 +26,7 @@
 
     <div class="container">
 
-        <nav class="navbar navbar-light bg-light navbar-expand-md">
+        <nav class="navbar fixed-top navbar-light bg-light navbar-expand-md">
 
             <a class="navbar-brand" href="#"><i class="fa fa-cutlery"></i>Restaurant</a>
 
