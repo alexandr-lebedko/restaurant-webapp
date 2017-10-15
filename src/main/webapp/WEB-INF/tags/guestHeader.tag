@@ -23,7 +23,7 @@
 
 <header class="bg-light">
     <div class="container">
-        <nav class="navbar fixed-top navbar-light bg-light navbar-expand-md ">
+        <nav class="navbar navbar-light bg-light navbar-expand-md ">
             <a class="navbar-brand" href="#"><i class="fa fa-cutlery"></i>Restaurant</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
