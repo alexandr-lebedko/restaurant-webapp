@@ -1,6 +1,6 @@
 package net.lebedko.web.filter;
 
-import net.lebedko.entity.user.User.UserRole;
+import net.lebedko.entity.user.UserRole;
 import net.lebedko.web.util.constant.WebConstant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,9 +1,6 @@
 package net.lebedko.web.command.impl;
 
-import net.lebedko.entity.user.EmailAddress;
-import net.lebedko.entity.user.Password;
-import net.lebedko.entity.user.User;
-import net.lebedko.entity.user.UserView;
+import net.lebedko.entity.user.*;
 import net.lebedko.service.UserService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.response.ForwardAction;
@@ -15,7 +12,6 @@ import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.validator.Errors;
 
 import static java.util.Objects.isNull;
-import static net.lebedko.entity.user.User.*;
 import static net.lebedko.service.UserService.authenticate;
 import static net.lebedko.web.util.constant.PageErrorNames.USER_NOT_EXISTS;
 import static net.lebedko.web.util.constant.PageErrorNames.WRONG_PASSWORD;

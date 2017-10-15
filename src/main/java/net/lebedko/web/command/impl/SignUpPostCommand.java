@@ -76,6 +76,6 @@ public class SignUpPostCommand extends AbstractCommand implements ICommand {
                 new FullName(new FirstName(firstNameString), new LastName(lastNameString)),
                 new EmailAddress(emailString),
                 Password.createPasswordFromString(passwordString),
-                User.UserRole.CLIENT);
+                UserRole.CLIENT);
     }
 }

@@ -1,6 +1,5 @@
 package net.lebedko.entity.user;
 
-import net.lebedko.entity.user.User.UserRole;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +19,7 @@ public class UserTest {
     private static EmailAddress validEmail;
     private static Password invalidPassword;
     private static Password validPassword;
-    private static User.UserRole role;
+    private static UserRole role;
     private static int id=1;
 
     @Before

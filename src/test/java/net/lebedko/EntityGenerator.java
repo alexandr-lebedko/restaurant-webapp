@@ -5,7 +5,7 @@ import net.lebedko.entity.user.*;
 
 import java.util.Random;
 
-import static net.lebedko.entity.user.User.UserRole;
+import net.lebedko.entity.user.UserRole;
 
 /**
  * alexandr.lebedko : 04.05.2017.

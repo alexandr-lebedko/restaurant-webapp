@@ -10,10 +10,6 @@ import static java.util.Objects.requireNonNull;
 
 public class User implements Entity, Validatable {
 
-    public enum UserRole {
-        ADMIN, CLIENT
-    }
-
 
     private int id;
     private FullName fullName;

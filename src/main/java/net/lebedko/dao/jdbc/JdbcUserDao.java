@@ -7,7 +7,7 @@ import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.entity.user.Password;
 import net.lebedko.entity.user.*;
-import net.lebedko.entity.user.User.UserRole;
+import net.lebedko.entity.user.UserRole;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,5 +1,6 @@
 package net.lebedko.web.filter;
 
+import net.lebedko.entity.user.UserRole;
 import net.lebedko.web.util.constant.WebConstant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-import static net.lebedko.entity.user.User.*;
 import static net.lebedko.web.filter.AuthenticationFilter.isAuthenticated;
 
 /**
