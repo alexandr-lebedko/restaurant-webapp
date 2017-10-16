@@ -51,7 +51,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${menu}">
                             <i class="fa fa-th" aria-hidden="true"></i>
-                            <span><fmt:message key="page.header.menu"/></span>
+                            <span><fmt:message key="page.header.categories"/></span>
                         </a>
                     </li>
 
