@@ -50,6 +50,7 @@ public class ItemsByCategoryGetCommand extends AbstractCommand {
             return CATEGORIES_REDIRECT;
         }
 
+        context.addRequestAttribute("categories", getCategories(context));
         context.addRequestAttribute("items", getItems(context, category));
 
         return ITEMS_FORWARD;
