@@ -6,7 +6,7 @@
 <c:set var="itemsUrl" value="${contextUrl.concat(URL.CLIENT_MENU_ITEMS).concat('?category=')}"/>
 <c:set var="imagesUrl" value="${contextUrl.concat(URL.IMAGE_PREFIX)}"/>
 
-<t:page pageUrl="${contextUrl.concat(URL.CLIENT_CATEGORIES)}">
+<t:page pageUrl="${URL.CLIENT_CATEGORIES}">
 
     <div class="container " id="categories">
         <div class="col-xl-10 col-lg-9  col-md-11 col-sm-11 ml-auto">

@@ -2,12 +2,12 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@page import="net.lebedko.web.util.constant.URL" %>
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
 
-<t:page pageUrl="/restaurant/app/signUp">
+<t:page pageUrl="${URL.SIGN_UP}">
     <div class="container main-content" id="sign-up-page">
         <div class="row justify-content-around">
 

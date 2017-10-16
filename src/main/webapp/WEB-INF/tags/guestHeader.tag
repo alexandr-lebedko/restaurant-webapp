@@ -3,23 +3,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ tag import="net.lebedko.i18n.SupportedLocales" %>
 <%@ tag import="net.lebedko.web.util.constant.URL" %>
-
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<c:set var="contextUrl" value="${pageContext.request.contextPath}"/>
-
-<c:set var="signIn" value="${contextUrl.concat(URL.SIGN_IN)}" scope="page"/>
-<c:set var="signUp" value="${contextUrl.concat(URL.SIGN_UP)}" scope="page"/>
-
-
 <%@attribute name="pageUrl" type="java.lang.String" required="true" %>
 
-<c:set var="enPage"
-       value="${pageUrl.concat('?').concat(SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME).concat('=').concat(SupportedLocales.EN_CODE)}"/>
-<c:set var="ruPage"
-       value="${pageUrl.concat('?').concat(SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME).concat('=').concat(SupportedLocales.RU_CODE)}"/>
+<c:url var="enPage" value="${pageUrl}">
+    <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.EN_CODE}"/>
+</c:url>
 
+<c:url var="ruPage" value="${pageUrl}">
+    <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.RU_CODE}"/>
+</c:url>
+
+<c:url var="signIn" value="${URL.SIGN_IN}" scope="page"/>
+<c:url var="signUp" value="${URL.SIGN_UP}" scope="page"/>
 
 <header class="bg-light">
     <div class="container">

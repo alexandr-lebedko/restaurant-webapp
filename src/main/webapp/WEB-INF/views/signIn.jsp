@@ -3,13 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@page import="net.lebedko.web.util.constant.URL" %>
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<c:set value="/restaurant/app/signIn" var="signIn"/>
 
-<t:page pageUrl="${signIn}">
+<t:page pageUrl="${URL.SIGN_IN}">
+
     <div class="container main-content" >
 
     <div class="row justify-content-between">
@@ -55,4 +55,5 @@
             </form>
         </div>
     </div>
+
 </t:page>

@@ -7,20 +7,22 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
+<c:url var="signOut" value="${URL.SIGN_OUT}"/>
+<c:url var="orderCart" value="${URL.CLIENT_ORDER_FORM}"/>
+<c:url var="orders" value="${URL.CLIENT_ORDERS}"/>
+<c:url var="invoices" value="${URL.CLIENT_INVOICES}"/>
+<c:url var="menu" value="${URL.CLIENT_CATEGORIES}"/>
+
+
 <%@attribute name="pageUrl" required="true" %>
 
-<c:set var="enPage"
-       value="${pageUrl.concat('?').concat(SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME).concat('=').concat(SupportedLocales.EN_CODE)}"/>
-<c:set var="ruPage"
-       value="${pageUrl.concat('?').concat(SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME).concat('=').concat(SupportedLocales.RU_CODE)}"/>
+<c:url var="enPage" value="${pageUrl}">
+    <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.EN_CODE}"/>
+</c:url>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<c:set var="signOut" value="${contextPath.concat(URL.SIGN_OUT)}"/>
-<c:set var="orderCart" value="${contextPath.concat(URL.CLIENT_ORDER_FORM)}"/>
-<c:set var="orders" value="${contextPath.concat(URL.CLIENT_ORDERS)}"/>
-<c:set var="invoices" value="${contextPath.concat(URL.CLIENT_INVOICES)}"/>
-<c:set var="menu" value="${contextPath.concat(URL.CLIENT_CATEGORIES)}"/>
-
+<c:url var="ruPage" value="${pageUrl}">
+    <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.RU_CODE}"/>
+</c:url>
 
 <header class="bg-light">
 
