@@ -276,32 +276,30 @@ div#sign-up-form form {
     height: 280px;
 }
 
-#categories div.card {
+div.card {
     width: 11rem !important;
     margin-bottom: 1rem;
 }
 
-#categories .card img {
+.card img {
     height: 9rem;
 }
 
-#categories .card-body {
+.card-body {
     padding: 0.1em;
     border-bottom: solid silver;
 }
 
-#categories .card a {
+.card a {
     color: inherit;
 }
 
-#categories .card a:hover {
+ .card a:hover {
     text-decoration: none;
 }
 
-#categories .card:hover {
-    border-left: 2px solid silver;
-    border-right: 2px solid silver;
-    border-top: 2px solid silver;
+.card:hover {
+    border: 2px solid silver;
 }
 
 @media (min-width: 1200px) {
@@ -309,3 +307,52 @@ div#sign-up-form form {
         max-width: 770px;
     }
 }
+
+#items .card-body {
+    border-bottom: 0;
+}
+
+#items ul.nav {
+    height: 100%;
+    background-color: inherit;
+}
+
+#items li.nav-item {
+    margin-bottom: 0.5rem;
+    border-radius: 0;
+}
+
+#items ul.nav {
+    height: 100%;
+    background-color: inherit;
+}
+
+#items a.nav-link {
+    color: grey;
+    border-radius: 0;
+}
+#items li.nav-item :hover, #current-category {
+    border-left: 4px solid darkgray;
+    border-radius: 0;
+    color: black;
+}
+
+#items .card a {
+    color: inherit;
+}
+
+#items .order-text-block {
+    background: grey;
+    color: white;
+    height: 25px;
+    position: relative;
+    top: -25px;
+    margin-bottom: -25px;
+    opacity: 0;
+}
+
+#items .card:hover .order-text-block {
+    opacity: 1;
+}
+
+
