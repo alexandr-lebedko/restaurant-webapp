@@ -16,7 +16,8 @@
                     <div class="col-lg-4 col-md-4 col-sm-6 col-6">
                         <div class="card text-center">
                             <a href="${itemsUrl.concat(category.id)}">
-                                <img class="card-img-top" src="${imagesUrl.concat(category.imageId)}"/>
+                                <c:url var ="imageUrl" value="${URL.IMAGE_PREFIX.concat(category.imageId)}"/>
+                                <img class="card-img-top" src="${imageUrl}"/>
 
                                 <div class="card-body">
                                     <h5 class="card-title">${category.name}</h5>
