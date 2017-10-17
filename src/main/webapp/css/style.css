@@ -294,12 +294,13 @@ div.card {
     color: inherit;
 }
 
- .card a:hover {
+.card a:hover {
     text-decoration: none;
 }
 
 .card:hover {
     border: 2px solid silver;
+    cursor: pointer;
 }
 
 @media (min-width: 1200px) {
@@ -331,6 +332,7 @@ div.card {
     color: grey;
     border-radius: 0;
 }
+
 #items li.nav-item :hover, #current-category {
     border-left: 4px solid darkgray;
     border-radius: 0;
