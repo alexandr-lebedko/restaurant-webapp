@@ -10,6 +10,7 @@ import net.lebedko.service.exception.ServiceException;
 
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
@@ -67,5 +68,12 @@ public class ItemServiceImpl implements ItemService {
         view.setState(item.getState().name());
 
         return view;
+    }
+
+    @Override
+    public List<Item> get(List<Long> ids) throws ServiceException {
+        return template.doTxService(() -> ids.stream()
+                .map(itemDao::get)
+                .collect(Collectors.toList()));
     }
 }

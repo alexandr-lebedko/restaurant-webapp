@@ -7,6 +7,7 @@ import net.lebedko.service.exception.ServiceException;
 
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -19,4 +20,6 @@ public interface ItemService {
     Collection<ItemView> getByCategory(Category category, Locale locale) throws ServiceException;
 
     Item get(long id) throws ServiceException;
+
+    List<Item> get(List<Long> ids) throws ServiceException;
 }
