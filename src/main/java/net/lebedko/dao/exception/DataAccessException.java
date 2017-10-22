@@ -4,7 +4,7 @@ package net.lebedko.dao.exception;
  * alexandr.lebedko : 21.04.2017.
  */
 
-public class DataAccessException extends Exception{
+public class DataAccessException extends RuntimeException{
     public DataAccessException() {
         super();
     }
