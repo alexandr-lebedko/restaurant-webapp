@@ -4,7 +4,6 @@ import net.lebedko.entity.Validatable;
 import net.lebedko.entity.general.Price;
 
 import static java.util.Objects.nonNull;
-import static java.util.Objects.requireNonNull;
 
 /**
  * alexandr.lebedko : 30.07.2017.
@@ -75,6 +74,21 @@ public class Item implements Validatable {
 
     public Category getCategory() {
         return info.getCategory();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Item item = (Item) o;
+
+        return info != null ? info.equals(item.info) : item.info == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return info != null ? info.hashCode() : 0;
     }
 
     @Override
