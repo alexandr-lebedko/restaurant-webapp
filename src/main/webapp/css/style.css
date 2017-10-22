@@ -239,12 +239,17 @@ header .fa {
     margin: 0 1em;
 }
 
-header #bucket-amount {
-    margin-left: -15px;
-    background-color: #bf75d8;
+
+header #order-bucket-nav {
+    position: relative;
 }
 
-header #bucket-amount:hover {
+header #bucket-amount {
+    background-color: #bf75d8;
+    font-size: xx-small;
+    position: absolute;
+    top: -5%;
+    right: -5%;
 }
 
 header #order-bucket-nav:hover span#bucket-amount {
@@ -368,5 +373,55 @@ div.card {
 #items .card:hover .order-text-block {
     opacity: 1;
 }
+
+/*ITEMS TABLE*/
+td img {
+    width: 55px;
+    height: 55px;
+    padding: 0 !important;
+}
+
+.set-amount-wrapper {
+    position: relative;
+    display: flex;
+}
+
+.set-amount-button {
+    font-size: 50%;
+    margin-bottom: auto;
+    margin-top: auto;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+}
+
+.set-amount-button:hover, .trash-button:hover {
+    cursor: pointer;
+}
+
+td {
+    vertical-align: middle !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
+}
+
+th {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+}
+
+.item-amount {
+    margin: 0 5px;
+}
+
+table .fa-trash {
+    width: 20px;
+    height: 20px;
+    font-size: 80%;
+    padding-left: 15%;
+}
+
+
+
 
 
