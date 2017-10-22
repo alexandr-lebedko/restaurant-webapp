@@ -62,9 +62,10 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item" id="order-bucket-nav">
                         <a class="nav-link" href="${orderCart}">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            <span id="bucket-amount" class="badge">${orderAmount}</span>
                             <span><fmt:message key="page.header.orderCart"/></span>
                         </a>
                     </li>

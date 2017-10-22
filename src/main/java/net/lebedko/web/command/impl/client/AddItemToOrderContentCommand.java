@@ -33,6 +33,7 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
 
         addToOrder(orderContent, item);
         addOrderContentToSession(context, orderContent);
+        addItemsAmountToSession(context, orderContent);
 
         return redirectToItemsByCategory(context, item);
     }
@@ -46,6 +47,13 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
         content.putIfAbsent(item, 1);
     }
 
+    private void addItemsAmountToSession(IContext context, Map<Item, Integer> content) {
+        Long amount = content.values().stream()
+                .mapToLong(Long::valueOf)
+                .sum();
+
+        context.addSessionAttribute("orderAmount", amount);
+    }
 
     private Long getItemId(IContext context) {
         Long id = -1L;

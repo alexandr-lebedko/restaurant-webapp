@@ -239,6 +239,18 @@ header .fa {
     margin: 0 1em;
 }
 
+header #bucket-amount {
+    margin-left: -15px;
+    background-color: #bf75d8;
+}
+
+header #bucket-amount:hover {
+}
+
+header #order-bucket-nav:hover span#bucket-amount {
+    background-color: #a157ba;
+}
+
 footer {
     margin-top: 90px;
 }
