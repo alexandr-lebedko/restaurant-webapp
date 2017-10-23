@@ -13,7 +13,7 @@ import static net.lebedko.dao.DaoFactory.*;
  * alexandr.lebedko : 30.06.2017.
  */
 public abstract class ServiceFactory {
-    private static final Map<Class, Object> services = new HashMap();
+    private static final Map<Class, Object> services = new HashMap<>();
 
     static {
         ServiceTemplate serviceTemplate = new ServiceTemplate(TransactionManager.getTxManager());
@@ -40,6 +40,7 @@ public abstract class ServiceFactory {
         services.put(OrderService.class, new OrderServiceImpl(
                 serviceTemplate,
                 getService(InvoiceService.class),
+                getService(ItemService.class),
                 getDao(OrderDao.class)));
 
 
