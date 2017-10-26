@@ -18,4 +18,5 @@ public interface InvoiceDao {
 
     Invoice update(Invoice invoice) throws DataAccessException;
 
+    Invoice getUnpaidOrClosedByUser(User user) throws DataAccessException;
 }

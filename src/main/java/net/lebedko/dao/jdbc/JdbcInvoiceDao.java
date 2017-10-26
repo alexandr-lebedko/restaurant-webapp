@@ -18,13 +18,9 @@ import java.util.Map;
  */
 public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     private static final String INSERT = QUERIES.getProperty("invoice.insert");
-    private static final String GET_BY_USER_AND_STATE = QUERIES.getProperty("invoice.getByUserAndState");
     private static final String GET_BY_ID = QUERIES.getProperty("invoice.getById");
-
-    private static final String ID = "inv_id";
-    private static final String STATE = "inv_state";
-    private static final String PRICE = "inv_price";
-    private static final String CREATION = "inv_creation";
+    private static final String GET_BY_USER_AND_STATE = QUERIES.getProperty("invoice.getByUserAndState");
+    private static final String GET_UNPAID_OR_CLOSED_BY_USER = QUERIES.getProperty("invoice.getUnpaidOrClosedByUser");
 
 
     public JdbcInvoiceDao(QueryTemplate template) {
@@ -64,5 +60,13 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     @Override
     public Invoice update(Invoice invoice) throws DataAccessException {
         return null;
+    }
+
+    @Override
+    public Invoice getUnpaidOrClosedByUser(User user) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, user.getId());
+
+        return template.queryOne(GET_UNPAID_OR_CLOSED_BY_USER, params, new InvoiceMapper(user));
     }
 }
