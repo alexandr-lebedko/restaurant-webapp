@@ -3,6 +3,7 @@ package net.lebedko.dao;
 import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.transaction.JdbcThreadLocalTransactionManager;
+import net.lebedko.service.exception.ServiceException;
 import net.lebedko.util.VoidCallable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,12 +29,12 @@ public abstract class TransactionManager {
             begin();
             result = work.call();
             commit();
-        } catch (DataAccessException dae) {
+        } catch (DataAccessException | ServiceException e) {
             rollback();
-            throw dae;
+            throw e;
         } catch (Exception e) {
             rollback();
-            throw new DataAccessException(e);
+            throw new RuntimeException(e);
         }
         return result;
     }
@@ -43,12 +44,12 @@ public abstract class TransactionManager {
             begin();
             work.call();
             commit();
-        } catch (DataAccessException dae) {
+        } catch (DataAccessException | ServiceException e) {
             rollback();
-            throw dae;
+            throw e;
         } catch (Exception e) {
             rollback();
-            throw new DataAccessException(e);
+            throw new RuntimeException(e);
         }
     }
 
