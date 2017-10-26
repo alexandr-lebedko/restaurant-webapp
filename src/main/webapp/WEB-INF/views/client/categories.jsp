@@ -8,7 +8,7 @@
 
 <t:page pageUrl="${URL.CLIENT_CATEGORIES}">
 
-    <div class="container " id="categories">
+    <div class="container main-content" id="categories">
         <div class="col-xl-10 col-lg-9  col-md-11 col-sm-11 ml-auto">
             <div class="row">
 
