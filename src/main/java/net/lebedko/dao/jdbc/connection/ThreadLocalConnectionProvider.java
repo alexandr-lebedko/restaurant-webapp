@@ -10,7 +10,7 @@ import static java.util.Objects.isNull;
  * alexandr.lebedko : 04.07.2017.
  */
 public class ThreadLocalConnectionProvider implements ConnectionProvider {
-    private static final ThreadLocal<Connection> connectionThreadLocal = new ThreadLocal();
+    private static final ThreadLocal<Connection> connectionThreadLocal = new ThreadLocal<>();
     private ConnectionProvider connectionProvider;
 
     public ThreadLocalConnectionProvider() {
