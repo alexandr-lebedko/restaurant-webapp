@@ -13,6 +13,7 @@ import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.constant.PageLocations;
 
+import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.validator.item.CategoryValidator;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.ImageValidator;
@@ -22,7 +23,6 @@ import java.io.InputStream;
 import static java.util.Optional.ofNullable;
 import static net.lebedko.i18n.SupportedLocales.*;
 import static net.lebedko.web.util.constant.PageErrorNames.CATEGORY_EXISTS;
-import static net.lebedko.web.util.constant.WebConstant.*;
 
 /**
  * alexandr.lebedko : 05.08.2017.
