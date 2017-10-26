@@ -6,4 +6,9 @@ package net.lebedko.web.validator;
 
 public interface IValidator<T> {
     void validate(T t, Errors errors);
+
+    default boolean notValid(T t, Errors errors) {
+        validate(t, errors);
+        return errors.hasErrors();
+    }
 }
