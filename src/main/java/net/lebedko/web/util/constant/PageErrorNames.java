@@ -30,6 +30,9 @@ public class PageErrorNames {
     public static final String EMPTY_ORDER = "page.error.emptyOrder";
     public static final String NEGATIVE_ITEM_QUANTITY = "page.error.negativeItemQuantity";
 
+    public static final String ORDER_FORM_ERROR = "page.error.order.form";
+    public static final String UNPAID_INVOICE = "page.error.invoice.unpaid";
+
     //TODO
 
 }
