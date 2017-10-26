@@ -28,6 +28,9 @@ header #bucket-amount {
     top: -2%;
     right: -1%;
 }
+header #order-bucket-nav:hover #bucket-amount{
+    background-color:#ab41d3;
+}
 
 
 .main-content{
