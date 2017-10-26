@@ -31,6 +31,10 @@ public class InvoiceMapper implements Mapper<Invoice> {
         this.state = state;
     }
 
+    public InvoiceMapper(User user) {
+        this.user = user;
+    }
+
     public InvoiceMapper() {
         this.userMapper = new UserMapper();
     }
