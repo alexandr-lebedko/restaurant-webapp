@@ -12,6 +12,9 @@ import net.lebedko.service.InvoiceService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
+import net.lebedko.service.exception.ClosedInvoiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collection;
@@ -25,6 +28,7 @@ import static java.util.stream.Collectors.toMap;
  * alexandr.lebedko : 02.10.2017.
  */
 public class OrderServiceImpl implements OrderService {
+    private static final Logger LOG = LogManager.getLogger();
     private ServiceTemplate template;
     private InvoiceService invoiceService;
     private ItemService itemService;
@@ -37,22 +41,6 @@ public class OrderServiceImpl implements OrderService {
         this.orderDao = orderDao;
     }
 
-    @Override
-    public Order create(User user, Map<Long, Integer> amountToItemId) throws ServiceException {
-        return template.doTxService(() -> {
-
-            final Map<Item, Integer> orderContent = toOrderContent(amountToItemId);
-
-            final Invoice invoice = invoiceService.getActiveOrCreate(user);
-            final Order order = orderDao.insert(new Order(invoice));
-
-            orderContent.entrySet().stream()
-                    .map(e -> new OrderItem(order, e.getKey(), e.getValue()))
-                    .forEach(orderDao::insert);
-
-            return order;
-        });
-    }
 
     @Override
     public Map<Item, Integer> toOrderContent(Map<Long, Integer> amountToItemId) {
@@ -69,6 +57,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(User user, Map<Item, Integer> content) throws ServiceException {
         return template.doTxService(() -> {
+                    if (invoiceService.hasUnpaidOrClosed(user)) {
+                        LOG.error("Cannot create new order. User: " + user + " has unpaid or closed invoice!");
+                        throw new ClosedInvoiceException();
+                    }
+
                     final Invoice invoice = invoiceService.getActiveOrCreate(user);
                     final Order order = orderDao.insert(new Order(invoice));
                     insertOrderContent(order, content);
@@ -84,14 +77,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void insertOrderContent(Order order, Map<Item, Integer> content) throws DataAccessException {
-        Collection<OrderItem> orderItems = content.entrySet()
+        content.entrySet()
                 .stream()
                 .map(e -> new OrderItem(order, e.getKey(), e.getValue()))
-                .collect(Collectors.toList());
-
-        for (OrderItem orderItem : orderItems) {
-            orderDao.insert(orderItem);
-        }
+                .forEach(orderDao::insert);
     }
 
+    @Override
+    public Collection<Order> getOrdersByUser(User user) {
+        return template.doTxService(() -> orderDao.getByUser(user));
+    }
 }

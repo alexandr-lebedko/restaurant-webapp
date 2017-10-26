@@ -13,11 +13,11 @@ import java.util.Map;
  * alexandr.lebedko : 02.10.2017.
  */
 public interface OrderService {
-    Order create(User user, Map<Long, Integer> amountToItemId) throws ServiceException;
-
     Order createOrder(User user, Map<Item, Integer> content) throws ServiceException;
 
     Collection<Order> getUnprocessed(Invoice invoice) throws ServiceException;
 
     Map<Item, Integer> toOrderContent(Map<Long, Integer> amountById) throws ServiceException;
+
+    Collection<Order> getOrdersByUser(User user);
 }
