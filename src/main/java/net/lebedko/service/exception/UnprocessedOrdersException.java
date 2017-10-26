@@ -1,10 +1,6 @@
 package net.lebedko.service.exception;
 
 public class UnprocessedOrdersException extends ServiceException {
-    public UnprocessedOrdersException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
     public UnprocessedOrdersException(Throwable cause) {
         super(cause);
     }
