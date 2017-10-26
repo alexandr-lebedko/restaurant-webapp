@@ -16,4 +16,6 @@ public interface InvoiceService {
 
     void closeActiveInvoice(User user) throws ServiceException;
 
+    boolean hasUnpaidOrClosed(User user) throws ServiceException;
+
 }
