@@ -41,7 +41,7 @@ public class SignInPostCommand extends AbstractCommand {
         if (isNull(user)) {
             errors.register("user not exists", USER_NOT_EXISTS);
             context.addErrors(errors);
-            context.addRequestAttribute("user",userView);
+            context.addRequestAttribute("user", userView);
             LOG.warn("Entered data for not registered account: " + userView.getEmailAddress());
 
             return SIGN_IN_PAGE_FORWARD;
@@ -69,6 +69,7 @@ public class SignInPostCommand extends AbstractCommand {
     }
 
     private void addUserInfoToSession(IContext context, User user) {
+        //TODO remove role attribute from session
         context.addSessionAttribute("user", user);
         context.addSessionAttribute("role", user.getRole());
     }
