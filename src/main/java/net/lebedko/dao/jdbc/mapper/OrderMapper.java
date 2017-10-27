@@ -30,8 +30,8 @@ public class OrderMapper implements Mapper<Order> {
         this(null, state);
     }
 
-    public OrderMapper() {
-        this(null, null);
+    public OrderMapper(InvoiceMapper invoiceMapper) {
+        this(invoiceMapper, null, null);
     }
 
     public OrderMapper(Invoice invoice, State state) {
