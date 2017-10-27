@@ -19,6 +19,7 @@ public final class WebConstant {
         public static final String CLIENT_MAIN = PREFIX + "client/categories" + SUFFIX;
         public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items" + SUFFIX;
         public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm" + SUFFIX;
+        public static final String CLIENT_ORDERS = PREFIX + "client/orders" + SUFFIX;
     }
 
     public static final class COMMAND {
@@ -41,7 +42,7 @@ public final class WebConstant {
         public static final String GET_ADMIN_NEW_ITEM = GET_PREFIX + URL.NEW_ITEM_URL;
         public static final String POST_ADMIN_NEW_ITEM = POST_PREFIX + URL.NEW_ITEM_URL;
 
-        public static final String GET_SUCCESS_ORDER = GET_PREFIX + URL.SUCCESS_ORDER;
+        public static final String GET_CLIENT_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
     }
 
 
