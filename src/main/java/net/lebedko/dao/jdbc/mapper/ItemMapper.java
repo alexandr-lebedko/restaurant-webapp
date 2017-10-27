@@ -41,6 +41,10 @@ public class ItemMapper implements Mapper<Item> {
         this.categoryMapper = categoryMapper;
     }
 
+    public ItemMapper() {
+        this(new CategoryMapper());
+    }
+
     @Override
     public Item map(ResultSet rs) throws SQLException {
         return new Item(
