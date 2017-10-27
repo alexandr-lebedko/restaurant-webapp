@@ -3,23 +3,7 @@ function previewImage(event, destinationImageId) {
 }
 
 function post(path, params) {
-    var form = document.createElement("form");
-    form.setAttribute("method", "post");
-    form.setAttribute("action", path);
-
-    for (var key in params) {
-        if (params.hasOwnProperty(key)) {
-            var field = document.createElement("input");
-            field.setAttribute("type", "hidden");
-            field.setAttribute("name", key);
-            field.setAttribute("value", params[key]);
-
-            form.appendChild(field);
-        }
-
-        document.body.appendChild(form);
-        form.submit();
-    }
+    sendRequest(path, 'post', params);
 }
 
 function deleteItemRow(rowSelector) {
@@ -67,4 +51,29 @@ function submitOrder() {
         form.appendChild(itemAmountInput);
     }
     form.submit();
+}
+
+function get(path, params) {
+    sendRequest(path, 'get', params);
+}
+
+function sendRequest(path, method, params) {
+    const form = document.createElement("form");
+
+    form.setAttribute("action", path);
+    form.setAttribute("method", method);
+
+    for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+            const field = document.createElement("input");
+            field.setAttribute("type", "hidden");
+            field.setAttribute("name", key);
+            field.setAttribute("value", params[key]);
+
+            form.appendChild(field);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
 }
