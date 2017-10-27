@@ -45,7 +45,6 @@ public class LocaleFilter implements Filter {
             Object localeSessionAttribute = request.getSession().getAttribute(LOCALE_SESSION_ATTRIBUTE_NAME);
 
             if (nonNull(localeSessionAttribute)) {
-                LOG.info("RETURNING LOCALE FROM SESSION ATTRIBUTE: " + localeSessionAttribute);
                 return (Locale) localeSessionAttribute;
             }
         }
