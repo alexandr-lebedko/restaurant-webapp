@@ -62,7 +62,7 @@ public class SignUpPostCommand extends AbstractCommand implements ICommand {
         }
 
         context.addErrors(errors);
-        context.addRequestAttribute("user", user);
+        context.addSessionAttribute("user", user);
         return SIGN_UP_PAGE_FORWARD;
     }
 
