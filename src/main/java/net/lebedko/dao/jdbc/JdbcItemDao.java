@@ -2,6 +2,7 @@ package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.ItemDao;
 import net.lebedko.dao.exception.DataAccessException;
+import net.lebedko.dao.jdbc.mapper.CategoryMapper;
 import net.lebedko.dao.jdbc.mapper.ItemMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.item.*;
@@ -22,11 +23,9 @@ public class JdbcItemDao implements ItemDao {
 
 
     private QueryTemplate template;
-    private JdbcCategoryDao categoryDao;
 
-    public JdbcItemDao(QueryTemplate template, JdbcCategoryDao categoryDao) {
+    public JdbcItemDao(QueryTemplate template) {
         this.template = template;
-        this.categoryDao = categoryDao;
     }
 
     @Override
@@ -65,7 +64,7 @@ public class JdbcItemDao implements ItemDao {
         return template.queryOne(
                 GET_BY_ID,
                 params,
-                new ItemMapper(categoryId -> categoryDao.getById(categoryId)));
+                new ItemMapper(new CategoryMapper()));
     }
 
 

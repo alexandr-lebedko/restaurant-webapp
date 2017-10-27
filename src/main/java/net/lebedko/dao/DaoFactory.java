@@ -24,7 +24,7 @@ public abstract class DaoFactory {
         daos.put(UserDao.class, new JdbcUserDao(template));
 
         daos.put(CategoryDao.class, new JdbcCategoryDao(template));
-        daos.put(ItemDao.class, new JdbcItemDao(template, new JdbcCategoryDao(template)));
+        daos.put(ItemDao.class, new JdbcItemDao(template));
         daos.put(InvoiceDao.class, new JdbcInvoiceDao(template));
         daos.put(OrderDao.class, new JdbcOrderDao(template));
     }
