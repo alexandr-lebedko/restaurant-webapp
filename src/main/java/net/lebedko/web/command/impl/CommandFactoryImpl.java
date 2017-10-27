@@ -36,7 +36,7 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(POST_CLIENT_MENU_ITEMS, new AddItemToOrderContentCommand(getService(ItemService.class)));
         commandMap.put(GET_CLIENT_ORDER, new OrderGetCommand());
         commandMap.put(POST_CLIENT_ORDER, new OrderPostCommand(getService(OrderService.class), new OrderValidator()));
-
+        commandMap.put(GET_CLIENT_ORDERS, new OrdersGetCommand(getService(OrderService.class)));
         commandMap.put(POST_SIGN_IN, new SignInPostCommand(getService(UserService.class)));
         commandMap.put(GET_SIGN_IN, new SignInGetCommand());
 
