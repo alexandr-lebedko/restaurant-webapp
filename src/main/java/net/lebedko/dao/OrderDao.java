@@ -5,6 +5,7 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.State;
+import net.lebedko.entity.user.User;
 
 import java.util.Collection;
 import java.util.List;
@@ -22,4 +23,6 @@ public interface OrderDao {
     Collection<Order> get(Invoice invoice, State state) throws DataAccessException;
 
     Collection<Order> get(State state) throws DataAccessException;
+
+    Collection<Order> getByUser(User user) throws DataAccessException;
 }

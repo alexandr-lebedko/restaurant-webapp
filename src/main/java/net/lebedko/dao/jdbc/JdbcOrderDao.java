@@ -2,12 +2,14 @@ package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.OrderDao;
 import net.lebedko.dao.exception.DataAccessException;
+import net.lebedko.dao.jdbc.mapper.InvoiceMapper;
 import net.lebedko.dao.jdbc.mapper.OrderMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.State;
+import net.lebedko.entity.user.User;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -21,6 +23,7 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     private static final String GET_BY_INVOICE = QUERIES.getProperty("order.getByInvoiceId");
     private static final String GET_BY_INVOICE_AND_STATE = QUERIES.getProperty("order.getByInvoiceIdAndState");
     private static final String GET_BY_STATE = QUERIES.getProperty("order.getByState");
+    private static final String GET_BY_USER = QUERIES.getProperty("order.getByUser");
 
     public JdbcOrderDao(QueryTemplate template) {
         super(template);
@@ -73,5 +76,13 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
         params.put(1, state.name());
 
         return template.queryAll(GET_BY_STATE, params, new OrderMapper(state));
+    }
+
+    @Override
+    public Collection<Order> getByUser(User user) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, user.getId());
+
+        return template.queryAll(GET_BY_USER, params, new OrderMapper(new InvoiceMapper(user)));
     }
 }
