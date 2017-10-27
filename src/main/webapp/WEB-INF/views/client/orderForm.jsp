@@ -17,7 +17,7 @@
                 <c:when test="${orderContent ne null}">
                     <div class="col-lg-11">
 
-                        <table class="table border " style="user-select: none">
+                        <table class="table border" id="order-table" style="user-select: none">
                             <thead>
                             <tr class="bg-light" id="table-header">
                                 <th scope="col">ID</th>
