@@ -1,16 +1,8 @@
-/*category*/
-div#categories .card:hover {
-    border-top: 1px solid silver;
-    border-left: 1px solid silver;
-    border-right: 1px solid silver;
-}
-
-div#categories .card:hover .card-body {
-    background-color: rgba(76,214,255,0.1);
-}
-
 body {
     font-family: 'Exo 2', sans-serif !important;
+}
+.main-content{
+    margin-top: 50px;
 }
 
 header .fa {
@@ -32,10 +24,19 @@ header #order-bucket-nav:hover #bucket-amount{
     background-color:#ab41d3;
 }
 
-
-.main-content{
-    margin-top: 50px;
+/*category*/
+div#categories .card:hover {
+    border-top: 1px solid silver;
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
 }
+
+div#categories .card:hover .card-body {
+    background-color: rgba(76,214,255,0.1);
+}
+
+
+
 
 #image-area {
     width: 100%;
@@ -118,7 +119,7 @@ div.card {
 }
 
 #items li.nav-item :hover, #current-category {
-    border-left: 4px solid darkgray;
+    border-left: 2px solid darkgray;
     border-radius: 0;
     color: black;
 }
@@ -166,13 +167,13 @@ td img {
     cursor: pointer;
 }
 
-td {
+#order-table td {
     vertical-align: middle !important;
     padding-top: 0.3rem !important;
     padding-bottom: 0.3rem !important;
 }
 
-th {
+#order-table th {
     padding-top: 0.75rem !important;
     padding-bottom: 0.75rem !important;
 }
@@ -187,6 +188,15 @@ table .fa-trash {
     font-size: 80%;
     padding-left: 15%;
 }
+/*CLIENT-ORDERS*/
+#client-orders table tr:nth-child(even){
+    background-color: rgba(172, 215, 0, 0.05);
+}
+#client-orders td.order-id:hover , #client-orders td.invoice-id:hover{
+    cursor: pointer;
+    background-color: rgba(0,215,108,0.05);
+}
+
 
 footer {
     margin-top: 90px;
