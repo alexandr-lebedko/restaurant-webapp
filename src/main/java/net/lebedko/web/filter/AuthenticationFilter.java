@@ -45,11 +45,7 @@ public class AuthenticationFilter extends AbstractFilter {
         if (isNull(session))
             return false;
 
-<<<<<<< HEAD
         return nonNull(request.getSession().getAttribute("user"));
-=======
-        return nonNull(nonNull(request.getSession().getAttribute("user")));
->>>>>>> ae33e6573b76079894ef1ddf276e41b2df7d816c
     }
 
     private void redirectToMainPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
