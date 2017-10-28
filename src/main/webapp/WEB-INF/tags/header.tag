@@ -5,7 +5,7 @@
 <%@tag import="net.lebedko.entity.user.UserRole"%>
 
 <%@attribute name="pageUrl" type="java.lang.String" required="true" %>
-
+<c:set var ="role" value="${user.role}"/>
 <c:choose>
     <c:when test="${UserRole.ADMIN eq role}">
 

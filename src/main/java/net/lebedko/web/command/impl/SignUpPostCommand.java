@@ -52,7 +52,6 @@ public class SignUpPostCommand extends AbstractCommand implements ICommand {
         try {
             userService.register(user);
             context.addSessionAttribute("user", user);
-            context.addSessionAttribute("role", user.getRole());
 
             return MAIN_PAGE_REDIRECT;
 

@@ -1,5 +1,6 @@
 package net.lebedko.web.filter;
 
+import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserRole;
 import net.lebedko.web.util.constant.URL;
 import org.apache.logging.log4j.LogManager;
@@ -44,15 +45,11 @@ public class AuthenticationFilter extends AbstractFilter {
         if (isNull(session))
             return false;
 
-        return isRoleExists(request);
-    }
-
-    private static boolean isRoleExists(HttpServletRequest request) {
-        return nonNull(request.getSession().getAttribute("role"));
+        return nonNull(request.getSession().getAttribute("user"));
     }
 
     private void redirectToMainPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserRole role = (UserRole) (request.getSession().getAttribute("role"));
+        UserRole role = ((User) (request.getSession().getAttribute("user"))).getRole();
 
         if (role == UserRole.ADMIN) {
             LOG.debug("REDIRECTING TO ADMIN MAIN PAGE");
