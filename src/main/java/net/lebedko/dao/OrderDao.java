@@ -25,4 +25,8 @@ public interface OrderDao {
     Collection<Order> get(State state) throws DataAccessException;
 
     Collection<Order> getByUser(User user) throws DataAccessException;
+
+    Order getByOrderIdAndUser(Long id, User user) throws DataAccessException;
+
+    Collection<OrderItem> getByOrder(Order order) throws DataAccessException;
 }

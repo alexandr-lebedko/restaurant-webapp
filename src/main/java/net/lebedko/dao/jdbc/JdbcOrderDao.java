@@ -3,6 +3,7 @@ package net.lebedko.dao.jdbc;
 import net.lebedko.dao.OrderDao;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.mapper.InvoiceMapper;
+import net.lebedko.dao.jdbc.mapper.OrderItemMapper;
 import net.lebedko.dao.jdbc.mapper.OrderMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.invoice.Invoice;
@@ -24,6 +25,8 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     private static final String GET_BY_INVOICE_AND_STATE = QUERIES.getProperty("order.getByInvoiceIdAndState");
     private static final String GET_BY_STATE = QUERIES.getProperty("order.getByState");
     private static final String GET_BY_USER = QUERIES.getProperty("order.getByUser");
+    private static final String GET_BY_ID_AND_USER= QUERIES.getProperty("order.getByOrderAndUser");
+    private static final String GET_ORDER_ITEMS_BY_ORDER= QUERIES.getProperty("order.getOrderItemsByOrder");
 
     public JdbcOrderDao(QueryTemplate template) {
         super(template);
@@ -85,4 +88,23 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
 
         return template.queryAll(GET_BY_USER, params, new OrderMapper(new InvoiceMapper(user)));
     }
+
+    @Override
+    public Order getByOrderIdAndUser(Long id, User user) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, id);
+        params.put(2, user.getId());
+
+        return template.queryOne(GET_BY_ID_AND_USER, params,new OrderMapper(new InvoiceMapper(user)));
+    }
+
+    @Override
+    public Collection<OrderItem> getByOrder(Order order) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, order.getId());
+
+        return template.queryAll(GET_ORDER_ITEMS_BY_ORDER, params, new OrderItemMapper(order));
+    }
+
 }
+

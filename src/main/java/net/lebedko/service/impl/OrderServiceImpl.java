@@ -1,5 +1,6 @@
 package net.lebedko.service.impl;
 
+import javafx.print.Collation;
 import net.lebedko.dao.OrderDao;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.entity.invoice.Invoice;
@@ -18,10 +19,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
 
 /**
@@ -86,5 +90,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Collection<Order> getOrdersByUser(User user) {
         return template.doTxService(() -> orderDao.getByUser(user));
+    }
+
+    @Override
+    public Collection<OrderItem> getByOrderIdAndUser(Long id, User user) throws ServiceException {
+        return template.doTxService(() -> {
+            Optional<Order> order = ofNullable(orderDao.getByOrderIdAndUser(id, user));
+            if (order.isPresent()) {
+                return orderDao.getByOrder(order.get());
+            }
+            return Collections.emptyList();
+        });
     }
 }
