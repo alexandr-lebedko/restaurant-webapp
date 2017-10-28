@@ -8,16 +8,6 @@
 <fmt:setBundle basename="localization"/>
 
 
-<style>
-    #order-content th, #order-content td {
-        text-align: center;
-    }
-
-    #order {
-        margin-bottom: 70px;
-    }
-
-</style>
 
 <t:page pageUrl="${URL.CLIENT_ORDER_DETAILS.concat('?id=').concat(param.id)}">
     <div class="container main-content">
