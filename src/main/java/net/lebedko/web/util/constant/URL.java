@@ -23,6 +23,8 @@ public class URL {
     public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";
     public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm";
     public static final String CLIENT_ORDERS = PREFIX + "client/orders";
+    public static final String CLIENT_ORDER_DETAILS = PREFIX + "client/order";
+    public static final String CLIENT_INVOICE_DETAILS = PREFIX + "client/invoice";
     public static final String CLIENT_INVOICES = PREFIX + "client/invoices";
     public static final String SUCCESS_ORDER = PREFIX + "client/successOrder";
 }
