@@ -1,5 +1,6 @@
 package net.lebedko.web.command.impl.client;
 
+import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.OrderService;
@@ -24,8 +25,13 @@ public class OrderContentGetCommand extends AbstractCommand {
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         context.addRequestAttribute("orderItems", getOrderItems(context));
+        context.addRequestAttribute("orders", getOrders(context));
 
         return ORDER_INFO_FORWARD;
+    }
+
+    private Collection<Order> getOrders(IContext context) {
+        return orderService.getOrdersByUser(getUser(context));
     }
 
     private Collection<OrderItem> getOrderItems(IContext context) {
