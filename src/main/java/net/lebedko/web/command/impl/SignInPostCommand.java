@@ -69,9 +69,7 @@ public class SignInPostCommand extends AbstractCommand {
     }
 
     private void addUserInfoToSession(IContext context, User user) {
-        //TODO remove role attribute from session
         context.addSessionAttribute("user", user);
-        context.addSessionAttribute("role", user.getRole());
     }
 
     private UserView getUserView(IContext context) {
