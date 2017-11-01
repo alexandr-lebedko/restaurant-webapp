@@ -10,14 +10,14 @@ public class Invoice {
     private User user;
     private State state;
     private Price amount;
-    private LocalDateTime cratedOn;
+    private LocalDateTime createdOn;
 
     public Invoice(Long id, User user, State state, Price amount, LocalDateTime cratedOn) {
         this.id = id;
         this.user = user;
         this.state = state;
         this.amount = amount;
-        this.cratedOn = cratedOn;
+        this.createdOn = cratedOn;
     }
 
     public Invoice(User user, State state, Price amount, LocalDateTime cratedOn) {
@@ -44,7 +44,7 @@ public class Invoice {
         return state;
     }
 
-    public LocalDateTime getCratedOn() {
-        return cratedOn;
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
     }
 }
