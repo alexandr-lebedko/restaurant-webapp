@@ -9,10 +9,10 @@
 
 
 
-<t:page pageUrl="${URL.CLIENT_ORDER_DETAILS.concat('?id=').concat(param.id)}">
+<t:page pageUrl="${URL.CLIENT_ORDERS.concat('?id=').concat(param.id)}">
     <div class="container main-content">
 
-        <c:if test="${orderItems ne null}">
+        <c:if test="${not empty orderItems}">
 
             <div class="row border align-items-center" id="order">
 
@@ -114,7 +114,7 @@
                         <tbody>
 
                         <c:forEach var="order" items="${orders}">
-                            <c:url var="orderGet" value="${URL.CLIENT_ORDER_DETAILS}"/>
+                            <c:url var="orderGet" value="${URL.CLIENT_ORDERS}"/>
                             <c:url var="invoiceGet" value="${URL.CLIENT_INVOICE_DETAILS}"/>
 
                             <tr>

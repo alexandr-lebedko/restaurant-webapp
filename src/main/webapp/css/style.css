@@ -202,6 +202,17 @@ td.order-id:hover, .invoice-id:hover {
     padding: 0.75rem!important;
 }
 
+/*ORDER PAGE*/
+#order-content th, #order-content td, #client-orders th, #client-orders td {
+    text-align: center;
+}
+
+#order {
+    margin-bottom: 70px;
+}
+
+
+
 footer {
     margin-top: 90px;
 }
@@ -212,14 +223,4 @@ footer .container {
     font-weight: 600;
     padding-top: 30px;
 }
-
-/*ORDER PAGE*/
-#order-content th, #order-content td {
-    text-align: center;
-}
-
-#order {
-    margin-bottom: 70px;
-}
-
 
