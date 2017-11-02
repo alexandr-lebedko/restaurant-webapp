@@ -20,6 +20,8 @@ public interface OrderDao {
 
     Collection<Order> get(Invoice invoice) throws DataAccessException;
 
+    Collection<OrderItem> getOrderItemsByInvoice(Invoice invoice) throws DataAccessException;
+
     Collection<Order> get(Invoice invoice, State state) throws DataAccessException;
 
     Collection<Order> get(State state) throws DataAccessException;

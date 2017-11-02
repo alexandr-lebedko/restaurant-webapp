@@ -24,4 +24,6 @@ public interface OrderService {
 
     Collection<OrderItem> getByOrderIdAndUser(Long id, User user) throws ServiceException;
 
+    Collection<OrderItem> getOrderItemsByInvoice(Invoice  invoice) throws ServiceException;
+
 }

@@ -3,6 +3,7 @@ package net.lebedko.dao.jdbc;
 import net.lebedko.dao.OrderDao;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.mapper.InvoiceMapper;
+import net.lebedko.dao.jdbc.mapper.ItemMapper;
 import net.lebedko.dao.jdbc.mapper.OrderItemMapper;
 import net.lebedko.dao.jdbc.mapper.OrderMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
@@ -25,8 +26,9 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     private static final String GET_BY_INVOICE_AND_STATE = QUERIES.getProperty("order.getByInvoiceIdAndState");
     private static final String GET_BY_STATE = QUERIES.getProperty("order.getByState");
     private static final String GET_BY_USER = QUERIES.getProperty("order.getByUser");
-    private static final String GET_BY_ID_AND_USER= QUERIES.getProperty("order.getByOrderAndUser");
-    private static final String GET_ORDER_ITEMS_BY_ORDER= QUERIES.getProperty("order.getOrderItemsByOrder");
+    private static final String GET_BY_ID_AND_USER = QUERIES.getProperty("order.getByOrderAndUser");
+    private static final String GET_ORDER_ITEMS_BY_ORDER = QUERIES.getProperty("order.getOrderItemsByOrder");
+    private static final String GET_ORDER_ITEMS_BY_INVOICE = QUERIES.getProperty("order.getOrderItemsByInvoice");
 
     public JdbcOrderDao(QueryTemplate template) {
         super(template);
@@ -95,7 +97,7 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
         params.put(1, id);
         params.put(2, user.getId());
 
-        return template.queryOne(GET_BY_ID_AND_USER, params,new OrderMapper(new InvoiceMapper(user)));
+        return template.queryOne(GET_BY_ID_AND_USER, params, new OrderMapper(new InvoiceMapper(user)));
     }
 
     @Override
@@ -106,5 +108,17 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
         return template.queryAll(GET_ORDER_ITEMS_BY_ORDER, params, new OrderItemMapper(order));
     }
 
+    @Override
+    public Collection<OrderItem> getOrderItemsByInvoice(Invoice invoice) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, invoice.getId());
+
+
+        return template.queryAll(
+                GET_ORDER_ITEMS_BY_INVOICE,
+                params,
+                new OrderItemMapper(new ItemMapper(), new OrderMapper(invoice), null)
+        );
+    }
 }
 
