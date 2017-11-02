@@ -20,7 +20,7 @@ public final class WebConstant {
         public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items" + SUFFIX;
         public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm" + SUFFIX;
         public static final String CLIENT_ORDERS = PREFIX + "client/orders" + SUFFIX;
-        public static final String CLIENT_INVOICES = PREFIX + "client/invoice" + SUFFIX;
+        public static final String CLIENT_INVOICES = PREFIX + "client/invoices" + SUFFIX;
     }
 
     public static final class COMMAND {
