@@ -3,12 +3,17 @@ package net.lebedko.service.impl;
 import net.lebedko.dao.InvoiceDao;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.State;
+import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.NoSuchEntityException;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.service.exception.UnprocessedOrdersException;
+
+import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
 
 import static java.util.Objects.nonNull;
 import static java.util.Optional.ofNullable;
@@ -73,11 +78,19 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     private Invoice instantiateClosedInvoice(Invoice invoice) {
-        return new Invoice(invoice.getId(), invoice.getUser(), State.CLOSED, invoice.getAmount(), invoice.getCratedOn());
+        return new Invoice(invoice.getId(), invoice.getUser(), State.CLOSED, invoice.getAmount(), invoice.getCreatedOn());
     }
 
     @Override
     public boolean hasUnpaidOrClosed(User user) throws ServiceException {
         return nonNull(template.doTxService(() -> invoiceDao.getUnpaidOrClosedByUser(user)));
+    }
+
+    @Override
+    public Entry<Invoice, Collection<OrderItem>> getCurrentInvoiceAndContent(User user) throws ServiceException {
+        return template.doTxService(() ->
+                ofNullable(invoiceDao.getCurrentInvoice(user))
+                        .map(invoice -> new SimpleEntry<>(invoice, orderService.getOrderItemsByInvoice(invoice)))
+                        .orElse(null));
     }
 }

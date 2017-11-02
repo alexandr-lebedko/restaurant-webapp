@@ -5,6 +5,8 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.State;
 import net.lebedko.entity.user.User;
 
+import java.util.Collection;
+
 /**
  * alexandr.lebedko : 02.10.2017.
  */
@@ -19,4 +21,6 @@ public interface InvoiceDao {
     Invoice update(Invoice invoice) throws DataAccessException;
 
     Invoice getUnpaidOrClosedByUser(User user) throws DataAccessException;
+
+    Invoice getCurrentInvoice(User user) throws DataAccessException;
 }
