@@ -75,7 +75,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     private boolean hasUnprocessedOrders(Invoice invoice) throws ServiceException {
-        return orderService.getUnprocessed(invoice).isEmpty();
+        return !orderService.getUnprocessed(invoice).isEmpty();
     }
 
     @Override
