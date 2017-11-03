@@ -24,8 +24,7 @@
                     <c:set var="creationTime" value="${invoice.createdOn.toLocalTime()}"/>
 
 
-
-                    <h5 class="mb-3 ml-3">Invoice details</h5>
+                    <h5 class="mb-3 ml-3"><fmt:message key="page.invoice.details"/></h5>
                     <table class="table border table-bordered">
                         <tbody>
                         <tr>
@@ -33,15 +32,15 @@
                             <td class="text-center ">${invoiceId}</td>
                         </tr>
                         <tr>
-                            <th class="text-center bg-light">State</th>
+                            <th class="text-center bg-light"><fmt:message key="page.label.state"/> </th>
                             <td class="text-center">${invoiceState}</td>
                         </tr>
                         <tr>
-                            <th class="text-center bg-light">Date</th>
+                            <th class="text-center bg-light"><fmt:message key="page.label.date"/></th>
                             <td class="text-center">${creationDate}</td>
                         </tr>
                         <tr>
-                            <th class="text-center bg-light">Time</th>
+                            <th class="text-center bg-light"><fmt:message key="page.label.time"/></th>
                             <td class="text-center">${creationTime}</td>
                         </tr>
                         </tbody>
@@ -49,10 +48,12 @@
 
                     <c:choose>
                         <c:when test="${invoice.state eq State.ACTIVE}">
-                            <form method="post">
+                            <c:url var="closeInvoiceUrl" value="${URL.CLIENT_CLOSE_INVOICE}"/>
+
+                            <form method="post" action="${closeInvoiceUrl}">
                                 <input type="hidden" name="id" value="${invoice.id}">
-                                <button class="btn btn-block btn-warning btn-sm rounded-0 font-weight-bold">CLOSE
-                                    INVOICE
+                                <button class="btn btn-block btn-warning btn-sm rounded-0 font-weight-bold">
+                                    <fmt:message key="page.invoice.button.closeInvoice"/>
                                 </button>
                             </form>
                         </c:when>
@@ -67,20 +68,28 @@
                 </div>
 
                 <div class="col-lg-9 text-center">
+                    <c:if test="${errors ne null}">
+                        <div class="alert alert-warning">
+                            <c:forEach var="error" items="${errors.entrySet}">
+                                <t:error errorName="${error.key}"/>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+
                     <c:set var="invoiceContent" value="${currentInvoice.value}"/>
 
 
-                    <h4 class="mb-3">Invoice content</h4>
+                    <h4 class="mb-3"><fmt:message key="page.invoice.content"/></h4>
 
                     <table class="table border">
                         <thead class="bg-light">
                         <tr>
-                            <th class="text-center">Item</th>
-                            <th class="text-center">Title</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Quantity</th>
-                            <th class="text-center">Total</th>
+                            <th class="text-center"><fmt:message key="page.items.item"/></th>
+                            <th class="text-center"><fmt:message key="page.items.title"/></th>
+                            <th class="text-center"><fmt:message key="page.order.state"/></th>
+                            <th class="text-center"><fmt:message key="page.items.table.price"/></th>
+                            <th class="text-center"><fmt:message key="page.items.quantity"/></th>
+                            <th class="text-center"><fmt:message key="page.items.total"/></th>
                         </tr>
                         </thead>
 
@@ -122,9 +131,11 @@
 
                     <c:choose>
                         <c:when test="${invoice.state eq State.ACTIVE}">
-                            <form method="post">
+                            <form method="post" action="${closeInvoiceUrl}">
                                 <input type="hidden" name="id" value="${invoice.id}">
-                                <button class="btn btn-lg float-left btn-warning rounded-0 p-3">CLOSE INVOICE</button>
+                                <button class="btn btn-lg float-left btn-warning rounded-0 pl-5 pr-5 p-1">
+                                    <fmt:message key="page.invoice.button.closeInvoice"/>
+                                </button>
                             </form>
                         </c:when>
                         <c:otherwise>
