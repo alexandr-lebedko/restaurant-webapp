@@ -7,6 +7,7 @@ public class PageErrorNames {
     private PageErrorNames() {
     }
 
+
     public static final String USER_EXISTS = "page.error.userExists";
     public static final String USER_NOT_EXISTS = "page.error.userNotExists";
     public static final String WRONG_PASSWORD = "page.error.wrongPassword";
@@ -33,6 +34,8 @@ public class PageErrorNames {
     public static final String ORDER_FORM_ERROR = "page.error.order.form";
     public static final String UNPAID_INVOICE = "page.error.invoice.unpaid";
 
+    public static final String INVOICE_NOT_EXISTS = "page.error.invoice.notExists";
+    public static final String INVOICE_HAS_UNPROCESSED_ORDERS = "page.error.invoice.hasUnprocessedOrders";
     //TODO
 
 }

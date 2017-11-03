@@ -25,5 +25,6 @@ public class URL {
     public static final String CLIENT_ORDERS = PREFIX + "client/orders";
     public static final String CLIENT_INVOICE_DETAILS = PREFIX + "client/invoice";
     public static final String CLIENT_INVOICES = PREFIX + "client/invoices";
+    public static final String CLIENT_CLOSE_INVOICE= PREFIX + "client/invoices/close";
     public static final String SUCCESS_ORDER = PREFIX + "client/successOrder";
 }

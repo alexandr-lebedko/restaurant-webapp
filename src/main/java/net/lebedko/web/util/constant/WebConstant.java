@@ -45,6 +45,7 @@ public final class WebConstant {
 
         public static final String GET_CLIENT_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
         public static final String GET_CLIENT_INVOICES = GET_PREFIX + URL.CLIENT_INVOICES;
+        public static final String CLIENT_CLOSE_INVOICE= POST_PREFIX+ URL.CLIENT_CLOSE_INVOICE;
 
     }
 
