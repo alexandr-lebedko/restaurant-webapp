@@ -14,8 +14,8 @@ import java.util.Collection;
 import static java.util.Optional.ofNullable;
 
 public abstract class AbstractAdminCommand extends AbstractCommand {
-    private OrderService orderService;
-    private InvoiceService invoiceService;
+    protected OrderService orderService;
+    protected InvoiceService invoiceService;
 
     public AbstractAdminCommand(OrderService orderService, InvoiceService invoiceService) {
         this.orderService = orderService;
