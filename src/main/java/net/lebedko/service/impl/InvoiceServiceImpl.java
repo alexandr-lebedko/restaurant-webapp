@@ -48,13 +48,14 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public void closeActiveInvoice(User user) throws ServiceException {
         template.doTxService(() -> {
-            Invoice invoice = ofNullable(getActive(user)).orElseThrow(() -> new NoSuchEntityException("User: " + user + " doesn't have active invoice"));
+            Invoice invoice = ofNullable(getActive(user))
+                    .orElseThrow(() -> new NoSuchEntityException("User: " + user + " doesn't have active invoice"));
 
             if (hasUnprocessedOrders(invoice)) {
                 throw new UnprocessedOrdersException();
             }
 
-            invoiceDao.update(instantiateClosedInvoice(invoice));
+            invoiceDao.update(new Invoice(invoice.getId(), invoice.getUser(), State.CLOSED, invoice.getAmount(), invoice.getCreatedOn()));
         });
     }
 
@@ -75,10 +76,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     private boolean hasUnprocessedOrders(Invoice invoice) throws ServiceException {
         return orderService.getUnprocessed(invoice).isEmpty();
-    }
-
-    private Invoice instantiateClosedInvoice(Invoice invoice) {
-        return new Invoice(invoice.getId(), invoice.getUser(), State.CLOSED, invoice.getAmount(), invoice.getCreatedOn());
     }
 
     @Override
