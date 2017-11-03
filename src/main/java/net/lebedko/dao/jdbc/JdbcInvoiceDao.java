@@ -60,7 +60,12 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
 
     @Override
     public Invoice update(Invoice invoice) throws DataAccessException {
-        return null;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, invoice.getAmount().getValue());
+        params.put(2, invoice.getState().name());
+        params.put(3, invoice.getId());
+
+        return invoice;
     }
 
     @Override
@@ -77,6 +82,6 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
         params.put(1, user.getId());
 
 
-        return template.queryOne(GET_CURRENT_INVOICE, params,new InvoiceMapper(user));
+        return template.queryOne(GET_CURRENT_INVOICE, params, new InvoiceMapper(user));
     }
 }
