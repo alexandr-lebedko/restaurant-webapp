@@ -30,7 +30,7 @@
                            name="email"
                            aria-describedby="emailHelp"
                            placeholder="<fmt:message key="page.signIn.form.email.placeholder"/>"
-                           value="${user.emailAddress}">
+                           value="${userView.emailAddress}">
                     <small class="form-text text-danger">
                         <t:error errorName="user not exists"/>
                     </small>
@@ -42,7 +42,7 @@
                            class="form-control form-control-sm"
                            name="password"
                            id="inputPassword"
-                           value="${user.password.passwordString}"
+                           value="${userView.password.passwordString}"
                            placeholder="<fmt:message key="page.signIn.form.password.placeholder"/>">
                     <small class="form-text text-danger">
                         <t:error errorName="wrong password"/>
@@ -57,3 +57,4 @@
     </div>
 
 </t:page>
+`

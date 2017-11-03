@@ -54,7 +54,7 @@ public class SignInPostCommand extends AbstractCommand {
         }
 
         errors.register("wrong password", WRONG_PASSWORD);
-        context.addRequestAttribute("user", userView);
+        context.addRequestAttribute("userView", userView);
         context.addErrors(errors);
         LOG.warn("Entered wrong password for account: " + userView.getEmailAddress());
 
