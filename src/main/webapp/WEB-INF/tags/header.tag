@@ -9,6 +9,7 @@
 <c:choose>
     <c:when test="${UserRole.ADMIN eq role}">
 
+        <t:adminHeader pageUrl="${pageUrl}"/>
 
     </c:when>
 
