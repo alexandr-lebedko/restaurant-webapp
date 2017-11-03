@@ -76,7 +76,7 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     }
 
     @Override
-    public Collection<Order> get(State state) throws DataAccessException {
+    public Collection<Order> getByState(State state) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, state.name());
 

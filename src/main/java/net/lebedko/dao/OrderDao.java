@@ -24,7 +24,7 @@ public interface OrderDao {
 
     Collection<Order> get(Invoice invoice, State state) throws DataAccessException;
 
-    Collection<Order> get(State state) throws DataAccessException;
+    Collection<Order> getByState(State state) throws DataAccessException;
 
     Collection<Order> getByUser(User user) throws DataAccessException;
 
