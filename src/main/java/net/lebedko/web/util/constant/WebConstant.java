@@ -14,6 +14,7 @@ public final class WebConstant {
         public static final String SIGN_IN = PREFIX + "signIn" + SUFFIX;
         public static final String SIGN_UP = PREFIX + "signUp" + SUFFIX;
         public static final String ADMIN_MENU = PREFIX + "admin/menu" + SUFFIX;
+        public static final String ADMIN_MAIN = PREFIX + "admin/main" + SUFFIX;
         public static final String NEW_CATEGORY = PREFIX + "admin/newCategory" + SUFFIX;
         public static final String NEW_ITEM_PAGE = PREFIX + "admin/newItem" + SUFFIX;
         public static final String CLIENT_MAIN = PREFIX + "client/categories" + SUFFIX;
