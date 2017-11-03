@@ -10,11 +10,11 @@ header .fa {
     margin: 0 1em;
 }
 
-header #order-bucket-nav {
+header #order-bucket-nav, .badged {
     position: relative;
 }
 
-header #bucket-amount {
+header .badge{
     background-color: #bf75d8;
     font-size: xx-small;
     position: absolute;
