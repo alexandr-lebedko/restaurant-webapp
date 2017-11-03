@@ -90,4 +90,9 @@ public class InvoiceServiceImpl implements InvoiceService {
                         .map(invoice -> new SimpleEntry<>(invoice, orderService.getOrderItemsByInvoice(invoice)))
                         .orElse(null));
     }
+
+    @Override
+    public Collection<Invoice> getClosedInvoices() throws ServiceException {
+        return template.doTxService(() -> invoiceDao.getByState(State.CLOSED));
+    }
 }

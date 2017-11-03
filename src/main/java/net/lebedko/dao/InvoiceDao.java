@@ -23,4 +23,6 @@ public interface InvoiceDao {
     Invoice getUnpaidOrClosedByUser(User user) throws DataAccessException;
 
     Invoice getCurrentInvoice(User user) throws DataAccessException;
+
+    Collection<Invoice> getByState(State state) throws DataAccessException;
 }

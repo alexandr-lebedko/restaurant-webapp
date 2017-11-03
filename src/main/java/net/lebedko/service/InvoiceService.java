@@ -24,4 +24,6 @@ public interface InvoiceService {
     boolean hasUnpaidOrClosed(User user) throws ServiceException;
 
     Entry<Invoice, Collection<OrderItem>> getCurrentInvoiceAndContent(User user) throws ServiceException;
+
+    Collection<Invoice> getClosedInvoices() throws ServiceException;
 }
