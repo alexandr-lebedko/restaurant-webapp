@@ -49,7 +49,7 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(GET_SIGN_UP, new SignUpGetCommand());
         commandMap.put(POST_SIGN_UP, new SignUpPostCommand(getService(UserService.class), new UserValidator()));
 
-        commandMap.put(GET_ADMIN_MAIN, new AdminMainGetCommand());
+        commandMap.put(GET_ADMIN_MAIN, new AdminMainGetCommand(getService(OrderService.class), getService(InvoiceService.class)));
         commandMap.put(GET_NEW_DISH, new NewDishGetCommand());
 
         commandMap.put(GET_NEW_CATEGORY, new NewCategoryGetCommand());
