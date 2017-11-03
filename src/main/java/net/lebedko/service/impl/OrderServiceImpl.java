@@ -107,4 +107,9 @@ public class OrderServiceImpl implements OrderService {
     public Collection<OrderItem> getOrderItemsByInvoice(Invoice invoice) throws ServiceException {
         return template.doTxService(() -> orderDao.getOrderItemsByInvoice(invoice));
     }
+
+    @Override
+    public Collection<Order> getUnprocessedOrders() throws ServiceException {
+        return template.doTxService(()->orderDao.getByState(State.NEW));
+    }
 }
