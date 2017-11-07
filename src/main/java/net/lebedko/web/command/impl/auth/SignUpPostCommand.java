@@ -1,4 +1,4 @@
-package net.lebedko.web.command.impl;
+package net.lebedko.web.command.impl.auth;
 
 import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.entity.user.Password;
@@ -6,6 +6,7 @@ import net.lebedko.entity.user.*;
 import net.lebedko.service.UserService;
 import net.lebedko.service.exception.EntityExistsException;
 import net.lebedko.service.exception.ServiceException;
+import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.command.ICommand;

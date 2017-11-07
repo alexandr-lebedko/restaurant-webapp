@@ -1,4 +1,4 @@
-package net.lebedko.web.command.impl;
+package net.lebedko.web.command.impl.auth;
 
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;

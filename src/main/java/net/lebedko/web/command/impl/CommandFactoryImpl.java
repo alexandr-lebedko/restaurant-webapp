@@ -4,6 +4,7 @@ import net.lebedko.service.*;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.*;
+import net.lebedko.web.command.impl.auth.*;
 import net.lebedko.web.command.impl.client.*;
 import net.lebedko.web.validator.item.*;
 import net.lebedko.web.validator.ImageValidator;
