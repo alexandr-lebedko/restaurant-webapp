@@ -35,7 +35,7 @@ CREATE TABLE items (
 CREATE TABLE orders (
   o_id       BIGINT AUTO_INCREMENT PRIMARY KEY,
   o_invoice  BIGINT       NOT NULL,
-  o_state    ENUM ('NEW','PROCESSED') NOT NULL,
+  o_state    ENUM ('NEW', 'PROCESSED', 'MODIFIED', 'REJECTED') NOT NULL,
   o_creation TIMESTAMP    NOT NULL,
   CONSTRAINT FOREIGN KEY (o_invoice) REFERENCES invoices (inv_id)
 );
