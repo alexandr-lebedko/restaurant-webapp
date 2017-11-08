@@ -54,10 +54,7 @@ public class FullName implements Validatable {
 
     @Override
     public String toString() {
-        return "FullName{" +
-                "firstName=" + firstName +
-                ", lastName=" + lastName +
-                '}';
+        return firstName + " " + lastName;
     }
 
 }
