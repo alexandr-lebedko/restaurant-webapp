@@ -11,7 +11,7 @@
 
 
 <c:url var="main" value="${URL.ADMIN_MAIN}"/>
-<c:url var="orders" value="${URL.ADMIN_ORDERS}"/>
+<c:url var="orders" value="${URL.ADMIN_NEW_ORDERS}"/>
 <c:url var="invoices" value="${URL.ADMIN_INVOICES}"/>
 <c:url var="menu" value="${URL.ADMIN_MENU}"/>
 <c:url var="signOut" value="${URL.SIGN_OUT}"/>
