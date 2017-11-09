@@ -67,7 +67,7 @@
                     </c:choose>
                 </div>
 
-                <div class="col-lg-9 text-center">
+                <div class="col-lg-9 text-center" id="client-invoices">
                     <c:if test="${errors ne null}">
                         <div class="alert alert-warning">
                             <c:forEach var="error" items="${errors.entrySet}">
