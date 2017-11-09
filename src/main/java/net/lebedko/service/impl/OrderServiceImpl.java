@@ -1,7 +1,7 @@
 package net.lebedko.service.impl;
 
-import javafx.print.Collation;
 import net.lebedko.dao.OrderDao;
+import net.lebedko.dao.OrderItemDao;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.item.Item;
@@ -14,6 +14,7 @@ import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.service.exception.ClosedInvoiceException;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,8 +24,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
 
@@ -37,12 +38,14 @@ public class OrderServiceImpl implements OrderService {
     private InvoiceService invoiceService;
     private ItemService itemService;
     private OrderDao orderDao;
+    private OrderItemDao orderItemDao;
 
-    public OrderServiceImpl(ServiceTemplate template, InvoiceService invoiceService, ItemService itemService, OrderDao orderDao) {
+    public OrderServiceImpl(ServiceTemplate template, InvoiceService invoiceService, ItemService itemService, OrderDao orderDao, OrderItemDao orderItemDao) {
         this.template = template;
         this.invoiceService = invoiceService;
         this.itemService = itemService;
         this.orderDao = orderDao;
+        this.orderItemDao = orderItemDao;
     }
 
 
@@ -110,6 +113,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Collection<Order> getUnprocessedOrders() throws ServiceException {
-        return template.doTxService(()->orderDao.getByState(State.NEW));
+        return template.doTxService(() -> orderDao.getByState(State.NEW));
+    }
+
+    @Override
+    public Pair<Order, Collection<OrderItem>> getOrderAndOrderItemsByOrderId(Long id) throws ServiceException {
+        return template.doTxService(() ->
+                ofNullable(orderDao.getById(id))
+                        .map((Order order) -> Pair.of(order, orderItemDao.getByOrder(order)))
+                        .orElse(null)
+        );
     }
 }

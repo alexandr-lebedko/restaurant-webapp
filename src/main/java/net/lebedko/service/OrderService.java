@@ -6,9 +6,11 @@ import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.exception.ServiceException;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * alexandr.lebedko : 02.10.2017.
@@ -27,4 +29,6 @@ public interface OrderService {
     Collection<OrderItem> getOrderItemsByInvoice(Invoice invoice) throws ServiceException;
 
     Collection<Order> getUnprocessedOrders() throws ServiceException;
+
+    Pair<Order, Collection<OrderItem>> getOrderAndOrderItemsByOrderId(Long id) throws ServiceException;
 }

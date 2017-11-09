@@ -41,7 +41,8 @@ public abstract class ServiceFactory {
                 serviceTemplate,
                 getService(InvoiceService.class),
                 getService(ItemService.class),
-                getDao(OrderDao.class)));
+                getDao(OrderDao.class),
+                getDao(OrderItemDao.class)));
 
 
         ((InvoiceServiceImpl) getService(InvoiceService.class)).setOrderService(getService(OrderService.class));
