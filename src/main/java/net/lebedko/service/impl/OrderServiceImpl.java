@@ -124,4 +124,14 @@ public class OrderServiceImpl implements OrderService {
                         .orElse(null)
         );
     }
+
+    @Override
+    public void processOrderById(Long id) throws ServiceException {
+        template.doTxService(() -> {
+            ofNullable(orderDao.getById(id))
+                    .filter(order -> order.getState() == State.NEW)
+                    .map(order -> new Order(order.getId(), order.getInvoice(), State.PROCESSED, order.getCreatedOn()))
+                    .ifPresent(orderDao::update);
+        });
+    }
 }

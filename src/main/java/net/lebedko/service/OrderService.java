@@ -31,4 +31,6 @@ public interface OrderService {
     Collection<Order> getUnprocessedOrders() throws ServiceException;
 
     Pair<Order, Collection<OrderItem>> getOrderAndOrderItemsByOrderId(Long id) throws ServiceException;
+
+    void processOrderById(Long id) throws ServiceException;
 }
