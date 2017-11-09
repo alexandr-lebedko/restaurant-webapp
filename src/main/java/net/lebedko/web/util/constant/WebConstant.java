@@ -4,7 +4,7 @@ package net.lebedko.web.util.constant;
  * alexandr.lebedko : 05.08.2017.
  */
 public final class WebConstant {
-    public WebConstant() {
+    private WebConstant() {
     }
 
     public static final class PAGE {
@@ -22,6 +22,9 @@ public final class WebConstant {
         public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm" + SUFFIX;
         public static final String CLIENT_ORDERS = PREFIX + "client/orders" + SUFFIX;
         public static final String CLIENT_INVOICES = PREFIX + "client/invoices" + SUFFIX;
+
+        public static final String ADMIN_ORDERS = PREFIX + "admin/orders" + SUFFIX;
+        public static final String ADMIN_ORDER_DETAILS = PREFIX + "admin/orderDetails" + SUFFIX;
     }
 
     public static final class COMMAND {
@@ -41,14 +44,18 @@ public final class WebConstant {
         public static final String GET_ADMIN_MENU = GET_PREFIX + URL.ADMIN_MENU;
         public static final String GET_ADMIN_NEW_CATEGORY = GET_PREFIX + URL.ADMIN_NEW_CATEGORY;
 
+        public static final String GET_ADMIN_NEW_ORDERS = GET_PREFIX + URL.ADMIN_NEW_ORDERS;
+        public static final String GET_ADMIN_ORDER_DETAILS = GET_PREFIX + URL.ADMIN_ORDER_DETAILS;
+        public static final String ADMIN_PROCESS_ORDER = POST_PREFIX + URL.ADMIN_PROCESS_ORDER;
+        public static final String ADMIN_REJECT_ORDER = POST_PREFIX + URL.ADMIN_REJECT_ORDER;
+
         public static final String GET_ADMIN_NEW_ITEM = GET_PREFIX + URL.NEW_ITEM_URL;
         public static final String POST_ADMIN_NEW_ITEM = POST_PREFIX + URL.NEW_ITEM_URL;
 
         public static final String GET_CLIENT_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
         public static final String GET_CLIENT_INVOICES = GET_PREFIX + URL.CLIENT_INVOICES;
-        public static final String CLIENT_CLOSE_INVOICE= POST_PREFIX+ URL.CLIENT_CLOSE_INVOICE;
+        public static final String CLIENT_CLOSE_INVOICE = POST_PREFIX + URL.CLIENT_CLOSE_INVOICE;
 
     }
-
 
 }

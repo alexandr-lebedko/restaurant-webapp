@@ -18,8 +18,11 @@ public class URL {
 
     public static final String ADMIN_MAIN = PREFIX + "admin/main";
     public static final String ADMIN_MENU = PREFIX + "admin/menu";
-    public static final String ADMIN_ORDERS = PREFIX + "admin/orders";
+    public static final String ADMIN_NEW_ORDERS = PREFIX + "admin/orders/new";
     public static final String ADMIN_INVOICES = PREFIX + "admin/invoices";
+    public static final String ADMIN_ORDER_DETAILS= PREFIX + "admin/order/details";
+    public static final String ADMIN_PROCESS_ORDER= PREFIX + "admin/order/process";
+    public static final String ADMIN_REJECT_ORDER= PREFIX + "admin/order/reject";
 
     public static final String CLIENT_CATEGORIES = PREFIX + "client/categories";
     public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";

@@ -69,6 +69,16 @@ public class CommandFactoryImpl implements ICommandFactory {
                 new MenuItemValidator(),
                 getService(CategoryService.class),
                 getService(ItemService.class)));
+
+        commandMap.put(GET_ADMIN_NEW_ORDERS,
+                new AdminGetNewOrdersCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(GET_ADMIN_ORDER_DETAILS,
+                new AdminGetOrderDetailsCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_PROCESS_ORDER,
+                new AdminProcessOrderCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_REJECT_ORDER,
+                new AdminRejectOrderCommand(getService(OrderService.class), getService(InvoiceService.class)));
+
     }
 
     @Override
