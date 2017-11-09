@@ -30,6 +30,8 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     private static final String GET_ORDER_ITEMS_BY_ORDER = QUERIES.getProperty("order.getOrderItemsByOrder");
     private static final String GET_ORDER_ITEMS_BY_INVOICE = QUERIES.getProperty("order.getOrderItemsByInvoice");
 
+    private static final String GET_BY_ID = QUERIES.getProperty("order.getById");
+
     public JdbcOrderDao(QueryTemplate template) {
         super(template);
     }
@@ -106,6 +108,14 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
         params.put(1, order.getId());
 
         return template.queryAll(GET_ORDER_ITEMS_BY_ORDER, params, new OrderItemMapper(order));
+    }
+
+    @Override
+    public Order getById(Long id) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, id);
+
+        return template.queryOne(GET_BY_ID , params, new OrderMapper(new InvoiceMapper()));
     }
 
     @Override
