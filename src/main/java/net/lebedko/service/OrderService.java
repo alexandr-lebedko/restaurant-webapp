@@ -33,4 +33,6 @@ public interface OrderService {
     Pair<Order, Collection<OrderItem>> getOrderAndOrderItemsByOrderId(Long id) throws ServiceException;
 
     void processOrderById(Long id) throws ServiceException;
+
+    void rejectOrderById(Long id) throws ServiceException;
 }
