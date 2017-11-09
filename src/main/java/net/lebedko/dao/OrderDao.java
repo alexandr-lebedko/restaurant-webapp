@@ -33,4 +33,6 @@ public interface OrderDao {
     Collection<OrderItem> getByOrder(Order order) throws DataAccessException;
 
     Order getById(Long id) throws DataAccessException;
+
+    void update(Order order) throws DataAccessException;
 }
