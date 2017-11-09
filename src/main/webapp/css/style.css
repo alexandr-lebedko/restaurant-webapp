@@ -14,7 +14,7 @@ header #order-bucket-nav, .badged {
     position: relative;
 }
 
-header .badge{
+header .badge {
     background-color: #bf75d8;
     font-size: xx-small;
     position: absolute;
@@ -59,27 +59,27 @@ div#sign-up-form form {
     height: 280px;
 }
 
-div.card {
+#items div.card {
     width: 11rem !important;
     margin-bottom: 1rem;
 }
 
-.card img {
+#items .card img {
     height: 9rem;
 }
 
-.card-body {
+#items .card-body {
     width: 100%;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
     border-bottom: solid silver;
 }
 
-.card a {
+#items .card a {
     color: inherit;
 }
 
-.card a:hover {
+#items .card a:hover {
     text-decoration: none;
 }
 
@@ -166,13 +166,14 @@ td img {
     cursor: pointer;
 }
 
-td {
+#client-orders td, #client-invoices td, .centered-table td {
     vertical-align: middle !important;
     padding-top: 0.3rem !important;
     padding-bottom: 0.3rem !important;
+
 }
 
-th {
+#client-orders th, #client-invoices th {
     padding-top: 0.75rem !important;
     padding-bottom: 0.75rem !important;
 }
@@ -198,12 +199,19 @@ td.order-id:hover, .invoice-id:hover {
     background-color: rgba(0, 215, 108, 0.05);
 }
 
-#client-orders th, #client-orders td {
-    padding: 0.75rem!important;
+#client-orders th, #client-orders td, #admin-order-items-table td {
+    padding: 0.75rem !important;
 }
 
 /*ORDER PAGE*/
-#order-content th, #order-content td, #client-orders th, #client-orders td {
+#order-content th,
+#order-content td,
+#client-orders th,
+#client-orders td,
+#admin-orders th,
+#admin-orders td,
+.centered-table th,
+.centered-table td {
     text-align: center;
 }
 
@@ -211,7 +219,21 @@ td.order-id:hover, .invoice-id:hover {
     margin-bottom: 70px;
 }
 
+/*admin orders start*/
 
+#admin-orders-nav li.active {
+    border-left: solid 3px chocolate;
+}
+
+#admin-orders-nav li.active a {
+    color: black;
+}
+
+#admin-orders-nav li:hover {
+    background-color: rgba(224, 224, 224, 0.3);
+}
+
+/*admin orders end*/
 
 footer {
     margin-top: 90px;
