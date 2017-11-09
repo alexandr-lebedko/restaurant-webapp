@@ -6,6 +6,7 @@ import net.lebedko.dao.jdbc.JdbcCategoryDao;
 import net.lebedko.dao.jdbc.JdbcItemDao;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.dao.jdbc.template.errortranslator.MySqlExceptionTranslator;
+import net.lebedko.entity.order.OrderItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,7 @@ public abstract class DaoFactory {
         daos.put(ItemDao.class, new JdbcItemDao(template));
         daos.put(InvoiceDao.class, new JdbcInvoiceDao(template));
         daos.put(OrderDao.class, new JdbcOrderDao(template));
+        daos.put(OrderItemDao.class, new JdbcOrderItemDao(template));
     }
 
     public static <T> T getDao(Class<T> clazz) {
