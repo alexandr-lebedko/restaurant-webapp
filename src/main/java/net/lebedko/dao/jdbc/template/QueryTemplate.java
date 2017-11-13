@@ -121,7 +121,7 @@ public class QueryTemplate {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
             prepareBatch(ps, elements, mapper);
 
-            return ps.executeBatch().length == butchCount;
+            return ps.executeUpdate() == butchCount;
         } catch (SQLException e) {
             throw exceptionTranslator.translate(e);
         }
