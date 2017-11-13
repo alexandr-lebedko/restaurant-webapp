@@ -23,6 +23,7 @@ public class URL {
     public static final String ADMIN_ORDER_DETAILS= PREFIX + "admin/order/details";
     public static final String ADMIN_PROCESS_ORDER= PREFIX + "admin/order/process";
     public static final String ADMIN_REJECT_ORDER= PREFIX + "admin/order/reject";
+    public static final String ADMIN_MODIFY_ORDER= PREFIX + "admin/order/modify";
 
     public static final String CLIENT_CATEGORIES = PREFIX + "client/categories";
     public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";

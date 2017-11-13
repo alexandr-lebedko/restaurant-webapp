@@ -37,5 +37,6 @@ public class PageErrorNames {
     public static final String INVOICE_NOT_EXISTS = "page.error.invoice.notExists";
     public static final String INVOICE_HAS_UNPROCESSED_ORDERS = "page.error.invoice.hasUnprocessedOrders";
     //TODO
+    public static final String INVALID_MODIFY_ORDER_FORM = "invalid.modify.order.form";
 
 }

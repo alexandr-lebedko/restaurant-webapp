@@ -48,6 +48,7 @@ public final class WebConstant {
         public static final String GET_ADMIN_ORDER_DETAILS = GET_PREFIX + URL.ADMIN_ORDER_DETAILS;
         public static final String ADMIN_PROCESS_ORDER = POST_PREFIX + URL.ADMIN_PROCESS_ORDER;
         public static final String ADMIN_REJECT_ORDER = POST_PREFIX + URL.ADMIN_REJECT_ORDER;
+        public static final String ADMIN_MODIFY_ORDER = POST_PREFIX + URL.ADMIN_MODIFY_ORDER;
 
         public static final String GET_ADMIN_NEW_ITEM = GET_PREFIX + URL.NEW_ITEM_URL;
         public static final String POST_ADMIN_NEW_ITEM = POST_PREFIX + URL.NEW_ITEM_URL;
