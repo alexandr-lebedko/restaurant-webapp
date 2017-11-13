@@ -115,6 +115,18 @@ public class QueryTemplate {
         }
     }
 
+    public <T> boolean updateBatch(String sql, Collection<T> elements, EntityMapper<T> mapper) throws DataAccessException {
+        int butchCount = 0;
+
+        try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
+            prepareBatch(ps, elements, mapper);
+
+            return ps.executeBatch().length == butchCount;
+        } catch (SQLException e) {
+            throw exceptionTranslator.translate(e);
+        }
+    }
+
     private <T> void prepareBatch(PreparedStatement ps, Collection<T> elements, EntityMapper<T> mapper) throws SQLException {
         for (T t : elements) {
             putParamsToPreparedStatement(ps, mapper.map(t));
