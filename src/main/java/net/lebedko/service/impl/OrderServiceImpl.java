@@ -146,7 +146,33 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void modifyOrder(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException {
+        template.doTxService(() -> {
 
+            final Order order = orderDao.getById(orderId);
+            final Collection<OrderItem> orderItems = orderItemDao.getByOrder(order);
+
+            List<OrderItem> itemsToUpdate = orderItems.stream()
+                    .filter(orderItem -> itemIdAndQuantityByOrderItemIds.containsKey(orderItem.getId()))
+                    .filter(orderItem -> {
+                        Long quantity = itemIdAndQuantityByOrderItemIds.get(orderItem.getId()).getRight();
+                        return quantity > 0 && quantity < orderItem.getQuantity();
+                    })
+                    .map(orderItem -> new OrderItem(
+                            orderItem.getId(),
+                            orderItem.getOrder(),
+                            orderItem.getItem(),
+                            itemIdAndQuantityByOrderItemIds.get(orderItem.getId()).getRight()))
+                    .collect(Collectors.toList());
+
+            List<OrderItem> itemsToDelete = orderItems.stream()
+                    .filter(orderItem -> !itemIdAndQuantityByOrderItemIds.containsKey(orderItem.getId()))
+                    .collect(Collectors.toList());
+
+
+            orderItemDao.update(itemsToUpdate);
+            orderItemDao.delete(itemsToDelete);
+            orderDao.update(new Order(order.getId(), order.getInvoice(), State.MODIFIED, order.getCreatedOn()));
+        });
     }
 
 }
