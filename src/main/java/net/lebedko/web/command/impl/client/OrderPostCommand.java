@@ -47,7 +47,7 @@ public class OrderPostCommand extends AbstractCommand {
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         final Errors errors = new Errors();
 
-        Map<Long, Integer> amountToIds = parseOrderForm(context, errors);
+        Map<Long, Long> amountToIds = parseOrderForm(context, errors);
 
         if (errors.hasErrors()) {
             context.addErrors(errors);
@@ -59,7 +59,7 @@ public class OrderPostCommand extends AbstractCommand {
             return ORDER_FORM_REDIRECT;
         }
 
-        Map<Item, Integer> orderContent = orderService.toOrderContent(amountToIds);
+        Map<Item, Long> orderContent = orderService.toOrderContent(amountToIds);
 
         if (validator.notValid(orderContent, errors)) {
             context.addErrors(errors);
@@ -90,9 +90,9 @@ public class OrderPostCommand extends AbstractCommand {
         return context.getSessionAttribute(User.class, "user");
     }
 
-    private Map<Long, Integer> parseOrderForm(IContext context, Errors errors) {
+    private Map<Long, Long> parseOrderForm(IContext context, Errors errors) {
         final List<Long> ids = getIds(context);
-        final List<Integer> amounts = getAmounts(context);
+        final List<Long> amounts = getAmounts(context);
 
         if (ids.size() != amounts.size()) {
             errors.register("formError", ORDER_FORM_ERROR);
@@ -105,7 +105,7 @@ public class OrderPostCommand extends AbstractCommand {
     }
 
 
-    private List<Integer> getAmounts(IContext context) {
+    private List<Long> getAmounts(IContext context) {
         return context.getRequestParameters("item-amount").stream()
                 .map(this::parseItemQuantity)
                 .collect(toList());
@@ -117,7 +117,7 @@ public class OrderPostCommand extends AbstractCommand {
                 .collect(toList());
     }
 
-    private long parseItemId(String value) {
+    private Long parseItemId(String value) {
         long id = -1;
         try {
             id = Long.valueOf(value);
@@ -127,10 +127,10 @@ public class OrderPostCommand extends AbstractCommand {
         return id;
     }
 
-    private int parseItemQuantity(String value) {
-        int quantity = -1;
+    private Long parseItemQuantity(String value) {
+        Long quantity = -1L;
         try {
-            quantity = Integer.valueOf(value);
+            quantity = Long.valueOf(value);
         } catch (NumberFormatException nfe) {
             LOG.error(nfe);
         }

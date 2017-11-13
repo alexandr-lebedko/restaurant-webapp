@@ -18,12 +18,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
@@ -50,19 +49,19 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Map<Item, Integer> toOrderContent(Map<Long, Integer> amountToItemId) {
+    public Map<Item, Long> toOrderContent(Map<Long, Long> amountToItemId) {
         return template.doTxService(() ->
                 amountToItemId.entrySet().stream()
                         .map(this::convertEntry)
                         .collect(toMap(Entry::getKey, Entry::getValue)));
     }
 
-    private Entry<Item, Integer> convertEntry(Entry<Long, Integer> amountToId) {
-        return new SimpleEntry<Item, Integer>(itemService.get(amountToId.getKey()), amountToId.getValue());
+    private Entry<Item, Long> convertEntry(Entry<Long, Long> amountToId) {
+        return new SimpleEntry<>(itemService.get(amountToId.getKey()), amountToId.getValue());
     }
 
     @Override
-    public Order createOrder(User user, Map<Item, Integer> content) throws ServiceException {
+    public Order createOrder(User user, Map<Item, Long> content) throws ServiceException {
         return template.doTxService(() -> {
                     if (invoiceService.hasUnpaidOrClosed(user)) {
                         LOG.error("Cannot create new order. User: " + user + " has unpaid or closed invoice!");
@@ -83,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
         return template.doTxService(() -> orderDao.get(invoice, State.NEW));
     }
 
-    private void insertOrderContent(Order order, Map<Item, Integer> content) throws DataAccessException {
+    private void insertOrderContent(Order order, Map<Item, Long> content) throws DataAccessException {
         content.entrySet()
                 .stream()
                 .map(e -> new OrderItem(order, e.getKey(), e.getValue()))
@@ -144,4 +143,10 @@ public class OrderServiceImpl implements OrderService {
                     .ifPresent(orderDao::update);
         });
     }
+
+    @Override
+    public void modifyOrder(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException {
+
+    }
+
 }

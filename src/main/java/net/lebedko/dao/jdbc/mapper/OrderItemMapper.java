@@ -53,8 +53,8 @@ public class OrderItemMapper implements Mapper<OrderItem> {
         return itemMapper.map(rs);
     }
 
-    private Integer getAmount(ResultSet rs) throws SQLException {
-        return rs.getInt(AMOUNT);
+    private Long getAmount(ResultSet rs) throws SQLException {
+        return rs.getLong(AMOUNT);
     }
 
     private Order getOrder(ResultSet rs) throws SQLException {

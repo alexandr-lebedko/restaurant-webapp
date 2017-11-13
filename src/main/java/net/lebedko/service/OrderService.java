@@ -10,17 +10,16 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * alexandr.lebedko : 02.10.2017.
  */
 public interface OrderService {
-    Order createOrder(User user, Map<Item, Integer> content) throws ServiceException;
+    Order createOrder(User user, Map<Item, Long> content) throws ServiceException;
 
     Collection<Order> getUnprocessed(Invoice invoice) throws ServiceException;
 
-    Map<Item, Integer> toOrderContent(Map<Long, Integer> amountById) throws ServiceException;
+    Map<Item, Long> toOrderContent(Map<Long, Long> amountById) throws ServiceException;
 
     Collection<Order> getOrdersByUser(User user) throws ServiceException;
 
@@ -35,4 +34,6 @@ public interface OrderService {
     void processOrderById(Long id) throws ServiceException;
 
     void rejectOrderById(Long id) throws ServiceException;
+
+    void modifyOrder(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException;
 }

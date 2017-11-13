@@ -12,12 +12,12 @@ import java.util.Map;
 /**
  * alexandr.lebedko : 24.09.2017.
  */
-public class OrderValidator implements IValidator<Map<Item, Integer>> {
+public class OrderValidator implements IValidator<Map<Item, Long>> {
     public OrderValidator() {
     }
 
     @Override
-    public void validate(Map<Item, Integer> quantityToItem, Errors errors) {
+    public void validate(Map<Item, Long> quantityToItem, Errors errors) {
         if (quantityToItem.isEmpty()) {
             errors.register("emptyOrder", PageErrorNames.EMPTY_ORDER);
             return;

@@ -9,13 +9,13 @@ public class OrderItem {
     private Long id;
     private Order order;
     private Item item;
-    private Integer quantity;
+    private Long quantity;
 
-    public OrderItem(Order order, Item item, Integer quantity) {
+    public OrderItem(Order order, Item item, Long quantity) {
         this(null, order, item, quantity);
     }
 
-    public OrderItem(Long id, Order order, Item item, Integer quantity) {
+    public OrderItem(Long id, Order order, Item item, Long quantity) {
         this.id = id;
         this.order = order;
         this.item = item;
@@ -34,7 +34,7 @@ public class OrderItem {
         return item;
     }
 
-    public Integer getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
