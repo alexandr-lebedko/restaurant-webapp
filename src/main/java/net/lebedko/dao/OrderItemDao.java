@@ -15,6 +15,10 @@ public interface OrderItemDao {
 
     void update(OrderItem item) throws DataAccessException;
 
+    void update(Collection<OrderItem> items) throws DataAccessException;
+
+    void delete(Collection<OrderItem> items) throws DataAccessException;
+
     Collection<OrderItem> getByOrder(Order order) throws DataAccessException;
 
     Collection<OrderItem> getByInvoice(Invoice invoice) throws DataAccessException;
