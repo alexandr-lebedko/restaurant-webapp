@@ -8,16 +8,4 @@
     <tlib-version>1.0</tlib-version>
     <short-name>customTagLib</short-name>
     <uri>http://localhost:8080/restaurant/custoTagLib</uri>
-
-<function>
-    <name>defineNumberOfRows</name>
-    <function-class>net.lebedko.web.util.Functions</function-class>
-    <function-signature>int defineNumberOfRows(int,int)</function-signature>
-</function>
-
-<function>
-    <name>defineRowLimit</name>
-    <function-class>net.lebedko.web.util.Functions</function-class>
-    <function-signature>int defineRowLimit(int,int,int)</function-signature>
-</function>
 </taglib>
