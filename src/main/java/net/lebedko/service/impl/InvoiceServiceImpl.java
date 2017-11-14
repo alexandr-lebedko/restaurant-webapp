@@ -35,6 +35,12 @@ public class InvoiceServiceImpl implements InvoiceService {
         this.orderService = orderService;
     }
 
+
+    @Override
+    public Invoice getById(Long id) throws ServiceException {
+        return template.doTxService(() -> invoiceDao.get(id));
+    }
+
     @Override
     public Invoice getUnpaid(User user) throws ServiceException {
         return template.doTxService(() -> invoiceDao.get(user, State.UNPAID));

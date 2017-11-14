@@ -14,6 +14,8 @@ import java.util.Map.Entry;
  * alexandr.lebedko : 02.10.2017.
  */
 public interface InvoiceService {
+    Invoice getById(Long id) throws ServiceException;
+
     Invoice getActiveOrCreate(User user) throws ServiceException;
 
     Invoice getUnpaid(User user) throws ServiceException;
