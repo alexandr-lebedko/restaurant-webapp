@@ -175,4 +175,18 @@ public class OrderServiceImpl implements OrderService {
         });
     }
 
+    @Override
+    public Collection<Order> getProcessedOrder() throws ServiceException {
+        return template.doTxService(()->orderDao.getByState(State.PROCESSED));
+    }
+
+    @Override
+    public Collection<Order> getRejectedOrders() throws ServiceException {
+        return template.doTxService(()-> orderDao.getByState(State.REJECTED));
+    }
+
+    @Override
+    public Collection<Order> getModifiedOrders() throws ServiceException {
+        return  template.doTxService(()->orderDao.getByState(State.MODIFIED));
+    }
 }

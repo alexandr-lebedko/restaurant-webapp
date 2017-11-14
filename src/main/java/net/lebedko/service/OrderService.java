@@ -29,6 +29,12 @@ public interface OrderService {
 
     Collection<Order> getUnprocessedOrders() throws ServiceException;
 
+    Collection<Order> getProcessedOrder() throws ServiceException;
+
+    Collection<Order> getRejectedOrders() throws ServiceException;
+
+    Collection<Order> getModifiedOrders() throws ServiceException;
+
     Pair<Order, Collection<OrderItem>> getOrderAndOrderItemsByOrderId(Long id) throws ServiceException;
 
     void processOrderById(Long id) throws ServiceException;
@@ -36,4 +42,5 @@ public interface OrderService {
     void rejectOrderById(Long id) throws ServiceException;
 
     void modifyOrder(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException;
+
 }
