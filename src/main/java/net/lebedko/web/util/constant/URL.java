@@ -31,6 +31,7 @@ public class URL {
     public static final String ADMIN_CLOSED_INVOICES = PREFIX + "admin/invoices/closed";
     public static final String ADMIN_UNPAID_INVOICES = PREFIX + "admin/invoices/unpaid";
     public static final String ADMIN_PAID_INVOICES = PREFIX + "admin/invoices/paid";
+    public static final String ADMIN_INVOICE = PREFIX + "admin/invoice";
 
     public static final String CLIENT_CATEGORIES = PREFIX + "client/categories";
     public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";

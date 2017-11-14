@@ -95,6 +95,8 @@ public class CommandFactoryImpl implements ICommandFactory {
                 new AdminGetUnpaidInvoicesCommand(getService(OrderService.class), getService(InvoiceService.class)));
         commandMap.put(ADMIN_GET_ACTIVE_INVOICES,
                 new AdminGetActiveInvoicesCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_GET_INVOICE,
+                new AdminGetInvoiceCommand(getService(OrderService.class), getService(InvoiceService.class)));
 
     }
 
