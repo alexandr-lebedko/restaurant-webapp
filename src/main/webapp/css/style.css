@@ -22,7 +22,7 @@ header .badge {
     right: -1%;
 }
 
-header #order-bucket-nav:hover #bucket-amount, .badged:hover .badge{
+header #order-bucket-nav:hover #bucket-amount, .badged:hover .badge {
     background-color: #ab41d3;
 }
 
@@ -233,20 +233,23 @@ td.order-id:hover, .invoice-id:hover {
     background-color: rgba(224, 224, 224, 0.3);
 }
 
+#admin-orders #reject-button:hover {
+    background-color: rgba(168, 23, 14, 0.6);
+}
 
-#admin-orders #reject-button:hover,#admin-orders #process-button:hover {
-    cursor: pointer;
+#admin-orders #process-button:hover {
+    background-color: rgba(12, 168, 12, 0.7);
+}
+
+.span-btn{
     user-select: none;
 }
-#admin-orders #reject-button:hover{
-    background-color: rgba(168,23,14,0.6);
-}
-#admin-orders #process-button:hover{
-    background-color: rgba(12,168,12,0.7);
+
+.span-btn:hover {
+    cursor: pointer;
 }
 
-
-    /*admin orders end*/
+/*admin orders end*/
 
 footer {
     margin-top: 90px;

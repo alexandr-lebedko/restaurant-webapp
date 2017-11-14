@@ -80,6 +80,12 @@ public class CommandFactoryImpl implements ICommandFactory {
                 new AdminRejectOrderCommand(getService(OrderService.class), getService(InvoiceService.class)));
         commandMap.put(ADMIN_MODIFY_ORDER,
                 new AdminModifyOrderCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_GET_PROCESSED_ORDERS,
+                new AdminGetProcessedOrdersCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_GET_REJECTED_ORDERS,
+                new AdminGetRejectedOrdersCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_GET_MODIFIED_ORDERS,
+                new AdminGetModifiedOrdersCommand(getService(OrderService.class), getService(InvoiceService.class)));
 
     }
 
