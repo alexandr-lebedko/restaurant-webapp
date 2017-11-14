@@ -6,6 +6,7 @@ import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.*;
 import net.lebedko.web.command.impl.auth.*;
 import net.lebedko.web.command.impl.client.*;
+import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.validator.item.*;
 import net.lebedko.web.validator.ImageValidator;
 import net.lebedko.web.validator.order.OrderValidator;
@@ -86,6 +87,14 @@ public class CommandFactoryImpl implements ICommandFactory {
                 new AdminGetRejectedOrdersCommand(getService(OrderService.class), getService(InvoiceService.class)));
         commandMap.put(ADMIN_GET_MODIFIED_ORDERS,
                 new AdminGetModifiedOrdersCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_GET_CLOSED_INVOICES,
+                new AdminGetClosedInvoicesCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_GET_PAID_INVOICES,
+                new AdminGetPaidInvoicesCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_GET_UNPAID_INVOICES,
+                new AdminGetUnpaidInvoicesCommand(getService(OrderService.class), getService(InvoiceService.class)));
+        commandMap.put(ADMIN_GET_ACTIVE_INVOICES,
+                new AdminGetActiveInvoicesCommand(getService(OrderService.class), getService(InvoiceService.class)));
 
     }
 

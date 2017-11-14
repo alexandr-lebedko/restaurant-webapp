@@ -23,10 +23,14 @@ public class URL {
     public static final String ADMIN_MODIFIED_ORDERS = PREFIX + "admin/orders/modified";
     public static final String ADMIN_REJECTED_ORDERS = PREFIX + "admin/orders/rejected";
     public static final String ADMIN_INVOICES = PREFIX + "admin/invoices";
-    public static final String ADMIN_ORDER_DETAILS= PREFIX + "admin/order/details";
-    public static final String ADMIN_PROCESS_ORDER= PREFIX + "admin/order/process";
-    public static final String ADMIN_REJECT_ORDER= PREFIX + "admin/order/reject";
-    public static final String ADMIN_MODIFY_ORDER= PREFIX + "admin/order/modify";
+    public static final String ADMIN_ORDER_DETAILS = PREFIX + "admin/order/details";
+    public static final String ADMIN_PROCESS_ORDER = PREFIX + "admin/order/process";
+    public static final String ADMIN_REJECT_ORDER = PREFIX + "admin/order/reject";
+    public static final String ADMIN_MODIFY_ORDER = PREFIX + "admin/order/modify";
+    public static final String ADMIN_ACTIVE_INVOICES = PREFIX + "admin/invoices/active";
+    public static final String ADMIN_CLOSED_INVOICES = PREFIX + "admin/invoices/closed";
+    public static final String ADMIN_UNPAID_INVOICES = PREFIX + "admin/invoices/unpaid";
+    public static final String ADMIN_PAID_INVOICES = PREFIX + "admin/invoices/paid";
 
     public static final String CLIENT_CATEGORIES = PREFIX + "client/categories";
     public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";
