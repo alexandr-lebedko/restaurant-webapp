@@ -95,4 +95,9 @@ public class InvoiceServiceImpl implements InvoiceService {
     public Collection<Invoice> getClosedInvoices() throws ServiceException {
         return template.doTxService(() -> invoiceDao.getByState(State.CLOSED));
     }
+
+    @Override
+    public Collection<Invoice> getByState(State state) throws ServiceException {
+        return template.doTxService(() -> invoiceDao.getByState(state));
+    }
 }

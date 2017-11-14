@@ -1,6 +1,7 @@
 package net.lebedko.service;
 
 import net.lebedko.entity.invoice.Invoice;
+import net.lebedko.entity.invoice.State;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.exception.ServiceException;
@@ -26,4 +27,6 @@ public interface InvoiceService {
     Entry<Invoice, Collection<OrderItem>> getCurrentInvoiceAndContent(User user) throws ServiceException;
 
     Collection<Invoice> getClosedInvoices() throws ServiceException;
+
+    Collection<Invoice> getByState(State state) throws ServiceException;
 }
