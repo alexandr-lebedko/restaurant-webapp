@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ tag import="net.lebedko.web.util.constant.URL" %>
 <%@ tag import="net.lebedko.i18n.SupportedLocales" %>
+<%@ tag import="net.lebedko.web.util.constant.Attribute" %>
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
@@ -65,7 +66,7 @@
                     <li class="nav-item" id="order-bucket-nav">
                         <a class="nav-link" href="${orderCart}">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            <span id="bucket-amount" class="badge">${orderAmount}</span>
+                            <span id="bucket-amount" class="badge">${sessionScope.get(Attribute.ORDER_BUCKET_AMOUNT)}</span>
                             <span><fmt:message key="page.header.orderCart"/></span>
                         </a>
                     </li>
