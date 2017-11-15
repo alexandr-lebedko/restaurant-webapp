@@ -5,19 +5,6 @@
 <%@ page import="net.lebedko.entity.order.State" %>
 <%@ page import="net.lebedko.web.util.constant.Attribute" %>
 
-<style>
-
-    input {
-        border: none;
-        margin: 0 auto !important;
-        border-radius: 10%;
-        text-align: center !important;
-        /*padding-left: 1rem;*/
-    }
-
-</style>
-
-
 <t:page pageUrl="${URL.ADMIN_ORDER_DETAILS.concat('?').concat(Attribute.ORDER_ID).concat('=').concat(param.get(Attribute.ORDER_ID))}">
     <div class="container main-content">
         <div class="row justify-content-center">
@@ -84,7 +71,7 @@
 
                             <form method="post" action="${processOrderUrl}">
                                 <input type="hidden" name="${Attribute.ORDER_ID}" value="${order.id}"/>
-                                <button class="btn btn-success btn-block rounded-0">Process</button>
+                                <button class="btn btn-success btn-block rounded-0 mb-2">Process</button>
                             </form>
 
                             <form method="post" action="${rejectOrderUrl}">
@@ -188,41 +175,6 @@
                     </div>
                 </c:when>
             </c:choose>
-
-
         </div>
-
-
-        <script>
-            $('#order-content-form')
-                .each(function () {
-                    $(this).data('initial-form-data', $(this).serialize())
-                })
-                .on('change input', function () {
-                    $(this)
-                        .find('input:submit, button:submit')
-                        .prop('disabled', $(this).serialize() == $(this).data('initial-form-data'));
-                })
-                .find('input:submit, button:submit')
-                .prop('disabled', true);
-
-            function deleteOrderItemRow(rowId) {
-                const selector = "#".concat(rowId);
-
-                if ($(selector).siblings().length > 0) {
-
-                    $(selector).remove();
-
-                    $('#order-content-form')
-                        .find('button:submit')
-                        .prop('disabled', false);
-                }
-            }
-
-        </script>
-
-
-    </div>
-
     </div>
 </t:page>

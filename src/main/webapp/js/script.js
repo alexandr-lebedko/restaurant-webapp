@@ -77,3 +77,28 @@ function sendRequest(path, method, params) {
         form.submit();
     }
 }
+
+$('#order-content-form')
+    .each(function () {
+        $(this).data('initial-form-data', $(this).serialize())
+    })
+    .on('change input', function () {
+        $(this)
+            .find('input:submit, button:submit')
+            .prop('disabled', $(this).serialize() == $(this).data('initial-form-data'));
+    })
+    .find('input:submit, button:submit')
+    .prop('disabled', true);
+
+function deleteOrderItemRow(rowId) {
+    const selector = "#".concat(rowId);
+
+    if ($(selector).siblings().length > 0) {
+
+        $(selector).remove();
+
+        $('#order-content-form')
+            .find('button:submit')
+            .prop('disabled', false);
+    }
+}
