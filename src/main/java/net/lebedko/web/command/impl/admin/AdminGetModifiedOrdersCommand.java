@@ -20,7 +20,7 @@ public class AdminGetModifiedOrdersCommand extends AbstractAdminCommand {
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         context.addRequestAttribute(Attribute.ORDER_STATE, State.MODIFIED);
-        context.addRequestAttribute(Attribute.ORDERS, orderService.getModifiedOrders());
+        context.addRequestAttribute(Attribute.ORDERS, orderService.getOrders(State.MODIFIED));
 
         return ORDERS_FORWARD;
     }

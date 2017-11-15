@@ -2,6 +2,7 @@ package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
+import net.lebedko.entity.order.State;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -38,7 +39,7 @@ public abstract class AbstractAdminCommand extends AbstractCommand {
             context.addRequestAttribute("unprocessedInvoiceNum", unprocessedInvoices.size());
         }
 
-        Collection<Order> unprocessedOrders = orderService.getUnprocessedOrders();
+        Collection<Order> unprocessedOrders = orderService.getOrders(State.NEW);
         if (!unprocessedOrders.isEmpty()) {
             context.addRequestAttribute("unprocessedOrderNum", unprocessedOrders.size());
         }
