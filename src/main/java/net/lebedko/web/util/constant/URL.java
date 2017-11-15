@@ -32,11 +32,18 @@ public class URL {
     public static final String ADMIN_UNPAID_INVOICES = PREFIX + "admin/invoices/unpaid";
     public static final String ADMIN_PAID_INVOICES = PREFIX + "admin/invoices/paid";
     public static final String ADMIN_INVOICE = PREFIX + "admin/invoice";
+    public static final String ADMIN_MODIFY_INVOICE = PREFIX + "admin/invoice/modify";
+    public static final String ADMIN_PROCESS_INVOICE = PREFIX + "admin/invoice/process";
+
+    public static final String CLIENT_ORDER = PREFIX + "client/order";
+    public static final String CLIENT_ORDERS = PREFIX + "client/orders";
+    public static final String CLIENT_REJECT_ORDER= PREFIX + "client/order/reject";
+    public static final String CLIENT_SUBMIT_MODIFIED_ORDER= PREFIX + "client/order/submit";
+    public static final String CLIENT_MODIFY_ORDER = PREFIX + "client/order/modify";
 
     public static final String CLIENT_CATEGORIES = PREFIX + "client/categories";
     public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";
     public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm";
-    public static final String CLIENT_ORDERS = PREFIX + "client/orders";
     public static final String CLIENT_INVOICE_DETAILS = PREFIX + "client/invoice";
     public static final String CLIENT_INVOICES = PREFIX + "client/invoices";
     public static final String CLIENT_CLOSE_INVOICE = PREFIX + "client/invoices/close";

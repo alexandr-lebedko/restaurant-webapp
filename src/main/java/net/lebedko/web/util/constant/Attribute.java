@@ -5,10 +5,16 @@ public class Attribute {
     private Attribute() {
     }
 
+    public static final String USER = "user";
+
+    public static final String ORDER = "order";
     public static final String ORDERS = "orders";
     public static final String ORDER_ID = "orderId";
     public static final String ORDER_STATE = "orderState";
     public static final String ORDER_DETAILS = "orderDetails";
+    public static final String ORDER_BUCKET = "orderContent";
+    public static final String ORDER_BUCKET_AMOUNT = "bucketAmount";
+
     public static final String ADMIN_NEW_ORDERS = "adminNewOrders";
     public static final String ITEM_ID = "itemId";
     public static final String ORDER_ITEM_ID = "orderItemId";

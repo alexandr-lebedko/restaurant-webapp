@@ -21,6 +21,7 @@ public final class WebConstant {
         public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items" + SUFFIX;
         public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm" + SUFFIX;
         public static final String CLIENT_ORDERS = PREFIX + "client/orders" + SUFFIX;
+        public static final String CLIENT_ORDER = PREFIX + "client/order" + SUFFIX;
         public static final String CLIENT_INVOICES = PREFIX + "client/invoices" + SUFFIX;
 
         public static final String ADMIN_ORDERS = PREFIX + "admin/newOrders" + SUFFIX;
@@ -67,6 +68,10 @@ public final class WebConstant {
         public static final String GET_CLIENT_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
         public static final String GET_CLIENT_INVOICES = GET_PREFIX + URL.CLIENT_INVOICES;
         public static final String CLIENT_CLOSE_INVOICE = POST_PREFIX + URL.CLIENT_CLOSE_INVOICE;
+        public static final String CLIENT_GET_ORDER = GET_PREFIX + URL.CLIENT_ORDER;
+        public static final String CLIENT_REJECT_ORDER = POST_PREFIX + URL.CLIENT_REJECT_ORDER;
+        public static final String CLIENT_SUBMIT_MODIFIED_ORDER = POST_PREFIX+ URL.CLIENT_SUBMIT_MODIFIED_ORDER;
+        public static final String CLIENT_MODIFY_ORDER = POST_PREFIX+ URL.CLIENT_MODIFY_ORDER;
 
     }
 

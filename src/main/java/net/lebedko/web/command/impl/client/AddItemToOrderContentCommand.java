@@ -7,6 +7,7 @@ import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
+import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
 import java.util.HashMap;
@@ -52,7 +53,7 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
                 .mapToLong(Long::valueOf)
                 .sum();
 
-        context.addSessionAttribute("orderAmount", amount);
+        context.addSessionAttribute(Attribute.ORDER_BUCKET_AMOUNT, amount);
     }
 
     private Long getItemId(IContext context) {
