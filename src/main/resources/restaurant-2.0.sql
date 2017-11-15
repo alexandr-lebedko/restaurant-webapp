@@ -45,7 +45,7 @@ CREATE TABLE order_items (
   oi_order    BIGINT NOT NULL,
   oi_item     BIGINT NOT NULL,
   oi_item_number BIGINT NOT NULL CHECK (oi_item_number > 0),
-  CONSTRAINT FOREIGN KEY (oi_order) REFERENCES orders (o_id),
+  CONSTRAINT FOREIGN KEY (oi_order) REFERENCES orders (o_id) ON DELETE CASCADE,
   CONSTRAINT FOREIGN KEY (oi_item) REFERENCES items (i_id)
 );
 
