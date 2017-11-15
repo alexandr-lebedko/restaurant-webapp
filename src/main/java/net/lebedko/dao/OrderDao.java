@@ -35,4 +35,6 @@ public interface OrderDao {
     Order getById(Long id) throws DataAccessException;
 
     void update(Order order) throws DataAccessException;
+
+    void delete(Order order) throws DataAccessException;
 }

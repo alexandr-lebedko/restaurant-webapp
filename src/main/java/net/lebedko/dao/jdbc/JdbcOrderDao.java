@@ -32,6 +32,7 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
 
     private static final String GET_BY_ID = QUERIES.getProperty("order.getById");
     private static final String UPDATE = QUERIES.getProperty("order.update");
+    private static final String DELETE = QUERIES.getProperty("order.delete");
 
     public JdbcOrderDao(QueryTemplate template) {
         super(template);
@@ -141,6 +142,14 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
         params.put(4, order.getId());
 
         template.update(UPDATE, params);
+    }
+
+    @Override
+    public void delete(Order order) throws DataAccessException {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, order.getId());
+
+        template.update(DELETE, params);
     }
 }
 
