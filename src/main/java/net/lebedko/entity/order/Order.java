@@ -13,6 +13,9 @@ public class Order {
     private State state;
     private LocalDateTime createdOn;
 
+    private Order() {
+    }
+
     public Order(Long id, Invoice invoice, State state, LocalDateTime createdOn) {
         this.id = id;
         this.invoice = invoice;
@@ -47,5 +50,55 @@ public class Order {
                 ", state=" + state +
                 ", createdOn=" + createdOn +
                 '}';
+    }
+
+    public static Builder builder(Order order) {
+        return new Builder(order);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Long id;
+        private Invoice invoice;
+        private State state;
+        private LocalDateTime createdOn;
+
+        private Builder() {
+        }
+
+        private Builder(Order order) {
+            this.id = order.getId();
+            this.invoice = order.getInvoice();
+            this.state = order.getState();
+            this.createdOn = order.getCreatedOn();
+        }
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setInvoice(Invoice invoice) {
+            this.invoice = invoice;
+            return this;
+        }
+
+        public Builder setState(State state) {
+            this.state = state;
+            return this;
+        }
+
+        public Builder setCreation(LocalDateTime creation) {
+            this.createdOn = creation;
+            return this;
+        }
+
+        public Order build() {
+            return new Order(this.id, this.invoice, this.state, this.createdOn);
+        }
+
     }
 }
