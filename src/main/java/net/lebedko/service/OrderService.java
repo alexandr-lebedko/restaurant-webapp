@@ -4,6 +4,7 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.item.Item;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
+import net.lebedko.entity.order.State;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.exception.ServiceException;
 import org.apache.commons.lang3.tuple.Pair;
@@ -27,19 +28,23 @@ public interface OrderService {
 
     Collection<OrderItem> getOrderItemsByInvoice(Invoice invoice) throws ServiceException;
 
-    Collection<Order> getUnprocessedOrders() throws ServiceException;
-
-    Collection<Order> getProcessedOrder() throws ServiceException;
-
-    Collection<Order> getRejectedOrders() throws ServiceException;
-
-    Collection<Order> getModifiedOrders() throws ServiceException;
-
     Pair<Order, Collection<OrderItem>> getOrderAndOrderItemsByOrderId(Long id) throws ServiceException;
 
-    void processOrderById(Long id) throws ServiceException;
+    Order getOrder(Long orderId, User user) throws ServiceException;
 
-    void rejectOrderById(Long id) throws ServiceException;
+    Collection<Order> getOrders(State state) throws ServiceException;
+
+    Collection<OrderItem> getOrderItems(Order order) throws ServiceException;
+
+    Order submitModifiedOrder(Long id, User user) throws ServiceException;
+
+    Order rejectOrder(Long id, User user) throws ServiceException;
+
+    Pair<Order,Collection<OrderItem>> deleteOrder(Long id, User user) throws ServiceException;
+
+    void processOrder(Long orderId) throws ServiceException;
+
+    void rejectOrder(Long orderId) throws ServiceException;
 
     void modifyOrder(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException;
 
