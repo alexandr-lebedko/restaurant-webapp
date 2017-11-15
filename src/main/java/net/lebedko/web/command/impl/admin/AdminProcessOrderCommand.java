@@ -4,7 +4,6 @@ import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
-import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.constant.Attribute;
@@ -20,7 +19,7 @@ public class AdminProcessOrderCommand extends AbstractAdminCommand {
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         Long orderId = getOrderId(context);
-        orderService.processOrderById(orderId);
+        orderService.processOrder(orderId);
 
         return new RedirectAction(URL.ADMIN_ORDER_DETAILS.concat("?").concat(Attribute.ORDER_ID).concat("=").concat(orderId.toString()));
     }
