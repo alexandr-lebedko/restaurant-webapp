@@ -1,9 +1,8 @@
 package net.lebedko.web.filter;
 
+import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserRole;
 import net.lebedko.web.util.constant.URL;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -25,7 +24,6 @@ import static net.lebedko.web.filter.AuthenticationFilter.isAuthenticated;
                 @WebInitParam(name = "clientUrlRegex", value = ".+\\/client\\/.+")
         })
 public class AuthorizationFilter extends AbstractFilter {
-    private static final Logger LOG = LogManager.getLogger();
 
     private Pattern adminPattern;
     private Pattern clientPattern;
@@ -67,11 +65,11 @@ public class AuthorizationFilter extends AbstractFilter {
     }
 
     private boolean isAdmin(HttpServletRequest request) {
-        return UserRole.ADMIN == request.getSession().getAttribute("role");
+        return UserRole.ADMIN == ((User)request.getSession().getAttribute("user")).getRole();
     }
 
     private boolean isClient(HttpServletRequest request) {
-        return UserRole.CLIENT == request.getSession().getAttribute("role");
+        return UserRole.CLIENT == ((User)request.getSession().getAttribute("user")).getRole();
     }
 
     private boolean isToAdminPages(HttpServletRequest request) {
