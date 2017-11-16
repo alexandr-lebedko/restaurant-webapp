@@ -2,6 +2,7 @@ package net.lebedko.service;
 
 import net.lebedko.dao.*;
 import net.lebedko.entity.invoice.Invoice;
+import net.lebedko.entity.order.OrderItem;
 import net.lebedko.service.impl.*;
 
 import java.util.HashMap;
@@ -33,8 +34,9 @@ public abstract class ServiceFactory {
                 getService(FileService.class),
                 getDao(ItemDao.class)));
 
+        services.put(OrderItemService.class, new OrderItemServiceImpl(getDao(OrderItemDao.class), serviceTemplate));
 
-        services.put(InvoiceService.class, new InvoiceServiceImpl(getDao(InvoiceDao.class), serviceTemplate));
+        services.put(InvoiceService.class, new InvoiceServiceImpl(getDao(InvoiceDao.class), getService(OrderItemService.class), serviceTemplate));
 
         //TODO:: remove circular dependency
         services.put(OrderService.class, new OrderServiceImpl(
