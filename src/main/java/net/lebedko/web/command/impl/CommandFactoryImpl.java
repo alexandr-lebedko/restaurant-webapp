@@ -6,7 +6,6 @@ import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.*;
 import net.lebedko.web.command.impl.auth.*;
 import net.lebedko.web.command.impl.client.*;
-import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.validator.item.*;
 import net.lebedko.web.validator.ImageValidator;
 import net.lebedko.web.validator.order.OrderValidator;
@@ -33,6 +32,7 @@ public class CommandFactoryImpl implements ICommandFactory {
     public CommandFactoryImpl() {
         OrderService orderService = getService(OrderService.class);
         InvoiceService invoiceService = getService(InvoiceService.class);
+        OrderItemService orderItemService = getService(OrderItemService.class);
 
 
         commandMap.put(SIGN_OUT, new SignOutCommand());
@@ -55,7 +55,8 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(GET_CLIENT_ORDERS, new OrdersGetCommand(getService(OrderService.class)));
 
         commandMap.put(GET_CLIENT_INVOICES, new InvoicesGetCommand(getService(InvoiceService.class)));
-        commandMap.put(CLIENT_CLOSE_INVOICE, new CloseInvoiceCommand(getService(InvoiceService.class)));
+        commandMap.put(CLIENT_CLOSE_INVOICE, new ClientCloseInvoiceCommand(invoiceService, orderItemService));
+        commandMap.put(CLIENT_GET_INVOICE, new ClientGetInvoiceCommand(invoiceService, orderItemService));
 
         commandMap.put(GET_ADMIN_MAIN, new AdminMainGetCommand(getService(OrderService.class), getService(InvoiceService.class)));
         commandMap.put(GET_NEW_DISH, new NewDishGetCommand());

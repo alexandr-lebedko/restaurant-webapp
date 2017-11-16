@@ -44,7 +44,8 @@ public class URL {
     public static final String CLIENT_CATEGORIES = PREFIX + "client/categories";
     public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";
     public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm";
-    public static final String CLIENT_INVOICE_DETAILS = PREFIX + "client/invoice";
+    public static final String CLIENT_INVOICE = PREFIX + "client/invoice";
+    public static final String CLIENT_PAY_INVOICE = PREFIX + "client/invoice/pay";
     public static final String CLIENT_INVOICES = PREFIX + "client/invoices";
     public static final String CLIENT_CLOSE_INVOICE = PREFIX + "client/invoices/close";
 }

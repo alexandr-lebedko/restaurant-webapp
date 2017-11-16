@@ -4,6 +4,7 @@ package net.lebedko.web.util.constant;
  * alexandr.lebedko : 15.06.2017
  */
 public class PageErrorNames {
+
     private PageErrorNames() {
     }
 
@@ -35,7 +36,8 @@ public class PageErrorNames {
     public static final String UNPAID_INVOICE = "page.error.invoice.unpaid";
 
     public static final String INVOICE_NOT_EXISTS = "page.error.invoice.notExists";
-    public static final String INVOICE_HAS_UNPROCESSED_ORDERS = "page.error.invoice.hasUnprocessedOrders";
+    public static final String INVOICE_CLOSE_ERROR = "invoice.close.error";
+    public static final String INVOICE_PAY_ERROR = "invoice.close.error";
     //TODO
     public static final String INVALID_MODIFY_ORDER_FORM = "invalid.modify.order.form";
 

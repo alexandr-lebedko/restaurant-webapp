@@ -23,6 +23,7 @@ public final class WebConstant {
         public static final String CLIENT_ORDERS = PREFIX + "client/orders" + SUFFIX;
         public static final String CLIENT_ORDER = PREFIX + "client/order" + SUFFIX;
         public static final String CLIENT_INVOICES = PREFIX + "client/invoices" + SUFFIX;
+        public static final String CLIENT_INVOICE = PREFIX + "client/invoice" + SUFFIX;
 
         public static final String ADMIN_ORDERS = PREFIX + "admin/newOrders" + SUFFIX;
         public static final String ADMIN_ORDER_DETAILS = PREFIX + "admin/orderDetails" + SUFFIX;
@@ -56,22 +57,23 @@ public final class WebConstant {
         public static final String ADMIN_GET_MODIFIED_ORDERS = GET_PREFIX + URL.ADMIN_MODIFIED_ORDERS;
         public static final String ADMIN_GET_REJECTED_ORDERS = GET_PREFIX + URL.ADMIN_REJECTED_ORDERS;
         public static final String ADMIN_GET_PROCESSED_ORDERS = GET_PREFIX + URL.ADMIN_PROCESSED_ORDERS;
-        public static final String ADMIN_GET_CLOSED_INVOICES = GET_PREFIX+URL.ADMIN_CLOSED_INVOICES;
-        public static final String ADMIN_GET_ACTIVE_INVOICES = GET_PREFIX+URL.ADMIN_ACTIVE_INVOICES;
-        public static final String ADMIN_GET_PAID_INVOICES = GET_PREFIX+URL.ADMIN_PAID_INVOICES;
-        public static final String ADMIN_GET_UNPAID_INVOICES = GET_PREFIX+URL.ADMIN_UNPAID_INVOICES;
-        public static final String ADMIN_GET_INVOICE = GET_PREFIX+URL.ADMIN_INVOICE;
+        public static final String ADMIN_GET_CLOSED_INVOICES = GET_PREFIX + URL.ADMIN_CLOSED_INVOICES;
+        public static final String ADMIN_GET_ACTIVE_INVOICES = GET_PREFIX + URL.ADMIN_ACTIVE_INVOICES;
+        public static final String ADMIN_GET_PAID_INVOICES = GET_PREFIX + URL.ADMIN_PAID_INVOICES;
+        public static final String ADMIN_GET_UNPAID_INVOICES = GET_PREFIX + URL.ADMIN_UNPAID_INVOICES;
+        public static final String ADMIN_GET_INVOICE = GET_PREFIX + URL.ADMIN_INVOICE;
 
         public static final String GET_ADMIN_NEW_ITEM = GET_PREFIX + URL.NEW_ITEM_URL;
         public static final String POST_ADMIN_NEW_ITEM = POST_PREFIX + URL.NEW_ITEM_URL;
 
+        public static final String CLIENT_GET_INVOICE = GET_PREFIX + URL.CLIENT_INVOICE;
         public static final String GET_CLIENT_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
         public static final String GET_CLIENT_INVOICES = GET_PREFIX + URL.CLIENT_INVOICES;
         public static final String CLIENT_CLOSE_INVOICE = POST_PREFIX + URL.CLIENT_CLOSE_INVOICE;
         public static final String CLIENT_GET_ORDER = GET_PREFIX + URL.CLIENT_ORDER;
         public static final String CLIENT_REJECT_ORDER = POST_PREFIX + URL.CLIENT_REJECT_ORDER;
-        public static final String CLIENT_SUBMIT_MODIFIED_ORDER = POST_PREFIX+ URL.CLIENT_SUBMIT_MODIFIED_ORDER;
-        public static final String CLIENT_MODIFY_ORDER = POST_PREFIX+ URL.CLIENT_MODIFY_ORDER;
+        public static final String CLIENT_SUBMIT_MODIFIED_ORDER = POST_PREFIX + URL.CLIENT_SUBMIT_MODIFIED_ORDER;
+        public static final String CLIENT_MODIFY_ORDER = POST_PREFIX + URL.CLIENT_MODIFY_ORDER;
 
     }
 
