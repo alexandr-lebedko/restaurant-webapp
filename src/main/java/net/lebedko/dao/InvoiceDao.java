@@ -25,4 +25,6 @@ public interface InvoiceDao {
     Invoice getCurrentInvoice(User user) throws DataAccessException;
 
     Collection<Invoice> getByState(State state) throws DataAccessException;
+
+    Collection<Invoice> get(User user);
 }

@@ -22,7 +22,7 @@ public interface OrderService {
 
     Map<Item, Long> toOrderContent(Map<Long, Long> amountById) throws ServiceException;
 
-    Collection<Order> getOrdersByUser(User user) throws ServiceException;
+    Collection<Order> getOrders(User user) throws ServiceException;
 
     Collection<OrderItem> getByOrderIdAndUser(Long id, User user) throws ServiceException;
 

@@ -24,6 +24,7 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     private static final String GET_UNPAID_OR_CLOSED_BY_USER = QUERIES.getProperty("invoice.getUnpaidOrClosedByUser");
     private static final String GET_CURRENT_INVOICE = QUERIES.getProperty("invoice.getCurrentInvoice");
     private static final String GET_BY_STATE = QUERIES.getProperty("invoice.getByState");
+    private static final String GET_BY_USER = QUERIES.getProperty("invoice.getByUser");
 
 
     public JdbcInvoiceDao(QueryTemplate template) {
@@ -94,5 +95,13 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
         params.put(1, state.name());
 
         return template.queryAll(GET_BY_STATE, params, new InvoiceMapper());
+    }
+
+    @Override
+    public Collection<Invoice> get(User user) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, user.getId());
+
+        return template.queryAll(GET_BY_USER, params, new InvoiceMapper(user));
     }
 }

@@ -103,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Collection<Order> getOrdersByUser(User user) {
+    public Collection<Order> getOrders(User user) {
         return template.doTxService(() -> orderDao.getByUser(user));
     }
 
