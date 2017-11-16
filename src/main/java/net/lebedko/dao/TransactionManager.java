@@ -29,7 +29,7 @@ public abstract class TransactionManager {
             begin();
             result = work.call();
             commit();
-        } catch (DataAccessException | ServiceException e) {
+        } catch (RuntimeException e) {
             rollback();
             throw e;
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public abstract class TransactionManager {
             begin();
             work.call();
             commit();
-        } catch (DataAccessException | ServiceException e) {
+        } catch (RuntimeException e) {
             rollback();
             throw e;
         } catch (Exception e) {
