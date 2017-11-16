@@ -191,6 +191,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Collection<Order> getOrders(Invoice invoice) throws ServiceException {
+        return template.doTxService(() -> orderDao.get(invoice));
+    }
+
+    @Override
     public Order submitModifiedOrder(Long id, User user) throws ServiceException {
         return template.doTxService(() -> {
             Order order = ofNullable(orderDao.getByOrderIdAndUser(id, user))

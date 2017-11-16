@@ -34,13 +34,15 @@ public interface OrderService {
 
     Collection<Order> getOrders(State state) throws ServiceException;
 
+    Collection<Order> getOrders(Invoice invoice) throws ServiceException;
+
     Collection<OrderItem> getOrderItems(Order order) throws ServiceException;
 
     Order submitModifiedOrder(Long id, User user) throws ServiceException;
 
     Order rejectOrder(Long id, User user) throws ServiceException;
 
-    Pair<Order,Collection<OrderItem>> deleteOrder(Long id, User user) throws ServiceException;
+    Pair<Order, Collection<OrderItem>> deleteOrder(Long id, User user) throws ServiceException;
 
     void processOrder(Long orderId) throws ServiceException;
 
