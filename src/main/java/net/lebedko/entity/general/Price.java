@@ -29,6 +29,10 @@ public class Price implements Validatable {
         return value;
     }
 
+    public static Price sum(Price price1, Price price2) {
+        return new Price(price1.getValue() + price2.getValue());
+    }
+
     @Override
     public String toString() {
         return "Price{" +
