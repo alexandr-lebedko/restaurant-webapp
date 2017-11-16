@@ -25,7 +25,7 @@ public class AdminGetInvoiceCommand extends AbstractAdminCommand {
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        final Invoice invoice = invoiceService.getById(getInvoiceId(context));
+        final Invoice invoice = invoiceService.getInvoice(getInvoiceId(context));
         if (nonNull(invoice)) {
             final Collection<OrderItem> orderItems = orderService.getOrderItemsByInvoice(invoice);
             context.addRequestAttribute(Attribute.INVOICE, invoice);

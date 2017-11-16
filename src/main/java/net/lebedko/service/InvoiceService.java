@@ -14,7 +14,9 @@ import java.util.Map.Entry;
  * alexandr.lebedko : 02.10.2017.
  */
 public interface InvoiceService {
-    Invoice getById(Long id) throws ServiceException;
+    Invoice getInvoice(Long id) throws ServiceException;
+
+    Invoice getInvoice(Long invoiceId, User user) throws ServiceException;
 
     Invoice getActiveOrCreate(User user) throws ServiceException;
 
@@ -23,6 +25,10 @@ public interface InvoiceService {
     Invoice getActive(User user) throws ServiceException;
 
     void closeActiveInvoice(User user) throws ServiceException;
+
+    void closeInvoice(Long id, User user) throws ServiceException;
+
+    void payInvoice(Long id, User user) throws ServiceException;
 
     boolean hasUnpaidOrClosed(User user) throws ServiceException;
 
