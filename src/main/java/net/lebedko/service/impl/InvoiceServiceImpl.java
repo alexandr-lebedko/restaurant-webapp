@@ -55,6 +55,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public Collection<Invoice> getInvoices(User user) {
+        return template.doTxService(()->invoiceDao.get(user));
+    }
+
+    @Override
     public Invoice getUnpaid(User user) throws ServiceException {
         return template.doTxService(() -> invoiceDao.get(user, State.UNPAID));
     }

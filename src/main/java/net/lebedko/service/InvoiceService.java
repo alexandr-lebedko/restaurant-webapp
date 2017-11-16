@@ -18,6 +18,8 @@ public interface InvoiceService {
 
     Invoice getInvoice(Long invoiceId, User user) throws ServiceException;
 
+    Collection<Invoice> getInvoices(User user);
+
     Invoice getActiveOrCreate(User user) throws ServiceException;
 
     Invoice getUnpaid(User user) throws ServiceException;
