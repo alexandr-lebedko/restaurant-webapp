@@ -18,6 +18,7 @@ import java.util.Map;
  */
 public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     private static final String INSERT = QUERIES.getProperty("invoice.insert");
+    private static final String UPDATE = QUERIES.getProperty("invoice.update");
     private static final String GET_BY_ID = QUERIES.getProperty("invoice.getById");
     private static final String GET_BY_USER_AND_STATE = QUERIES.getProperty("invoice.getByUserAndState");
     private static final String GET_UNPAID_OR_CLOSED_BY_USER = QUERIES.getProperty("invoice.getUnpaidOrClosedByUser");
@@ -66,6 +67,7 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
         params.put(2, invoice.getState().name());
         params.put(3, invoice.getId());
 
+        template.update(UPDATE, params);
         return invoice;
     }
 
