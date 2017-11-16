@@ -1,5 +1,6 @@
 package net.lebedko.entity.order;
 
+import net.lebedko.entity.general.Price;
 import net.lebedko.entity.item.Item;
 
 /**
@@ -36,6 +37,10 @@ public class OrderItem {
 
     public Long getQuantity() {
         return quantity;
+    }
+
+    public Price getPrice() {
+        return new Price(item.getPrice().getValue() * quantity);
     }
 
     @Override
