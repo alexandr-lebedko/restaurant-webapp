@@ -15,15 +15,14 @@ import java.util.Map;
 import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
-import static net.lebedko.web.util.constant.WebConstant.*;
 
 /**
  * alexandr.lebedko : 19.09.2017.
  */
-public class AddItemToOrderContentCommand extends AbstractCommand {
+public class ClientAddItemToOrderCommand extends AbstractCommand {
     private ItemService itemService;
 
-    public AddItemToOrderContentCommand(ItemService itemService) {
+    public ClientAddItemToOrderCommand(ItemService itemService) {
         this.itemService = itemService;
     }
 
@@ -36,7 +35,7 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
         addOrderContentToSession(context, orderContent);
         addItemsAmountToSession(context, orderContent);
 
-        return redirectToItemsByCategory(context, item);
+        return new RedirectAction(URL.CLIENT_MENU.concat("?").concat(Attribute.CATEGORY_ID).concat("=").concat(Long.toString(item.getCategory().getId())));
     }
 
     private void addOrderContentToSession(IContext context, Map<Item, Integer> content) {
@@ -87,7 +86,8 @@ public class AddItemToOrderContentCommand extends AbstractCommand {
     }
 
     private IResponseAction redirectToItemsByCategory(IContext context, Item item) {
-        return new RedirectAction(URL.CLIENT_MENU_ITEMS + "?category=" + item.getCategory().getId());
+        return new RedirectAction(URL.CLIENT_ITEM_ADD.concat("?").concat(Attribute.CATEGORY_ID).concat(Long.toString(item.getId())));
+
     }
 
 }
