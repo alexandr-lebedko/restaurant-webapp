@@ -35,6 +35,8 @@ public class URL {
     public static final String ADMIN_MODIFY_INVOICE = PREFIX + "admin/invoice/modify";
     public static final String ADMIN_PROCESS_INVOICE = PREFIX + "admin/invoice/process";
 
+
+    public static final String CLIENT_MENU= PREFIX + "client/menu";
     public static final String CLIENT_ORDER = PREFIX + "client/order";
     public static final String CLIENT_ORDERS = PREFIX + "client/orders";
     public static final String CLIENT_REJECT_ORDER = PREFIX + "client/order/reject";
@@ -42,7 +44,7 @@ public class URL {
     public static final String CLIENT_MODIFY_ORDER = PREFIX + "client/order/modify";
 
     public static final String CLIENT_CATEGORIES = PREFIX + "client/categories";
-    public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items";
+    public static final String CLIENT_ITEM_ADD = PREFIX + "client/item/add";
     public static final String CLIENT_ORDER_FORM = PREFIX + "client/order/create";
     public static final String CLIENT_INVOICE = PREFIX + "client/invoice";
     public static final String CLIENT_PAY_INVOICE = PREFIX + "client/invoice/pay";

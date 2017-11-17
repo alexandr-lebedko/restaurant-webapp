@@ -17,6 +17,8 @@ public final class WebConstant {
         public static final String ADMIN_MAIN = PREFIX + "admin/main" + SUFFIX;
         public static final String NEW_CATEGORY = PREFIX + "admin/newCategory" + SUFFIX;
         public static final String NEW_ITEM_PAGE = PREFIX + "admin/newItem" + SUFFIX;
+
+        public static final String CLIENT_MENU = PREFIX + "client/menu" + SUFFIX;
         public static final String CLIENT_MAIN = PREFIX + "client/categories" + SUFFIX;
         public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items" + SUFFIX;
         public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm" + SUFFIX;
@@ -41,8 +43,8 @@ public final class WebConstant {
         public static final String SIGN_OUT = GET_PREFIX + URL.SIGN_OUT;
 
         public static final String GET_CLIENT_MAIN = GET_PREFIX + URL.CLIENT_CATEGORIES;
-        public static final String CLIENT_GET_ITEMS = GET_PREFIX + URL.CLIENT_MENU_ITEMS;
-        public static final String ADD_ITEM_TO_BUCKET = POST_PREFIX + URL.CLIENT_MENU_ITEMS;
+        public static final String CLIENT_GET_ITEMS = GET_PREFIX + URL.CLIENT_ITEM_ADD;
+        public static final String CLIENT_ADD_ITEM_TO_BUCKET = POST_PREFIX + URL.CLIENT_ITEM_ADD;
         public static final String CLIENT_GET_ORDER_FORM = GET_PREFIX + URL.CLIENT_ORDER_FORM;
         public static final String CLIENT_CREATE_ORDER = POST_PREFIX + URL.CLIENT_ORDER_FORM;
         public static final String CLIENT_CLEAR_ORDER_BUCKET = POST_PREFIX + URL.CLIENT_CLEAR_ORDER_BUCKET;
@@ -67,8 +69,9 @@ public final class WebConstant {
         public static final String GET_ADMIN_NEW_ITEM = GET_PREFIX + URL.NEW_ITEM_URL;
         public static final String POST_ADMIN_NEW_ITEM = POST_PREFIX + URL.NEW_ITEM_URL;
 
+        public static final String CLIENT_GET_MENU= GET_PREFIX + URL.CLIENT_MENU;
         public static final String CLIENT_GET_INVOICE = GET_PREFIX + URL.CLIENT_INVOICE;
-        public static final String GET_CLIENT_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
+        public static final String CLIENT_GET_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
         public static final String CLIENT_GET_INVOICES = GET_PREFIX + URL.CLIENT_INVOICES;
         public static final String CLIENT_CLOSE_INVOICE = POST_PREFIX + URL.CLIENT_CLOSE_INVOICE;
         public static final String CLIENT_GET_ORDER = GET_PREFIX + URL.CLIENT_ORDER;

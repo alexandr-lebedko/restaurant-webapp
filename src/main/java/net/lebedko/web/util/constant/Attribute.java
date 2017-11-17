@@ -6,6 +6,8 @@ public class Attribute {
     }
 
     public static final String USER = "user";
+    public static final String CATEGORY_ID = "categoryId";
+    public static final String CATEGORIES = "categories";
 
     public static final String ORDER = "order";
     public static final String ORDERS = "orders";
@@ -25,4 +27,7 @@ public class Attribute {
     public static final String INVOICE = "invoice";
     public static final String INVOICE_ID = "invoiceId";
     public static final String INVOICE_STATE = "invoiceState";
+
+    public static final String ITEMS = "items";
+    public static final String LOCALE = "lang";
 }
