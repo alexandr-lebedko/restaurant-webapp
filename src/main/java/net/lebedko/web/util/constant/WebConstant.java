@@ -43,8 +43,9 @@ public final class WebConstant {
         public static final String GET_CLIENT_MAIN = GET_PREFIX + URL.CLIENT_CATEGORIES;
         public static final String CLIENT_GET_ITEMS = GET_PREFIX + URL.CLIENT_MENU_ITEMS;
         public static final String ADD_ITEM_TO_BUCKET = POST_PREFIX + URL.CLIENT_MENU_ITEMS;
-        public static final String GET_CLIENT_ORDER = GET_PREFIX + URL.CLIENT_ORDER_FORM;
-        public static final String POST_CLIENT_ORDER = POST_PREFIX + URL.CLIENT_ORDER_FORM;
+        public static final String CLIENT_GET_ORDER_FORM = GET_PREFIX + URL.CLIENT_ORDER_FORM;
+        public static final String CLIENT_CREATE_ORDER = POST_PREFIX + URL.CLIENT_ORDER_FORM;
+        public static final String CLIENT_CLEAR_ORDER_BUCKET = POST_PREFIX + URL.CLIENT_CLEAR_ORDER_BUCKET;
 
         public static final String GET_ADMIN_MENU = GET_PREFIX + URL.ADMIN_MENU;
         public static final String GET_ADMIN_NEW_CATEGORY = GET_PREFIX + URL.ADMIN_NEW_CATEGORY;
