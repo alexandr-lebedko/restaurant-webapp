@@ -24,7 +24,7 @@ public class ClientGetOrdersCommand extends AbstractCommand {
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         User user = context.getSessionAttribute(User.class, Attribute.USER);
 
-        context.addRequestAttribute(Attribute.ORDER, orderService.getOrders(user));
+        context.addRequestAttribute(Attribute.ORDERS, orderService.getOrders(user));
         return ORDERS_FORWARD;
     }
 
