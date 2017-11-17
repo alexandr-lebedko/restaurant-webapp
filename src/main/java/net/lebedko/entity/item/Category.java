@@ -11,20 +11,20 @@ import java.util.Objects;
 
 public class Category implements Validatable {
 
-    private int id;
+    private Long id;
     private Title value;
     private String imageId;
 
 
     public Category(StringI18N title) {
-        this(0, title, null);
+        this(0L, title, null);
     }
 
     public Category(StringI18N title, String imageId) {
-        this(0, title, imageId);
+        this(0L, title, imageId);
     }
 
-    public Category(int id, StringI18N title, String imageId) {
+    public Category(Long id, StringI18N title, String imageId) {
         this.id = id;
         this.value = new Title(title);
         this.imageId = imageId;
@@ -36,11 +36,11 @@ public class Category implements Validatable {
     }
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,19 +60,17 @@ public class Category implements Validatable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        Category that = (Category) o;
-        return Objects.equals(value, that.value);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(id, category.id) &&
+                Objects.equals(value, category.value) &&
+                Objects.equals(imageId, category.imageId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(id, value, imageId);
     }
 
     @Override

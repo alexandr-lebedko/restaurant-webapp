@@ -20,7 +20,7 @@ public class CategoryMapper implements Mapper<Category> {
 
     @Override
     public Category map(ResultSet rs) throws SQLException {
-        final int id = rs.getInt(CATEGORY_ID);
+        final long id = rs.getLong(CATEGORY_ID);
 
         final String imageId = rs.getString(IMAGE_ID);
 

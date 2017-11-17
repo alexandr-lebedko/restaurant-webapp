@@ -33,8 +33,8 @@ public class JdbcCategoryDao implements CategoryDao {
         params.put(2, category.getValue().get(EN_CODE));
         params.put(3, category.getValue().get(RU_CODE));
         params.put(4, category.getImageId());
-//TODO::remove casting
-        int id = (int) template.insertAndReturnKey(INSERT, params);
+
+        Long id =  template.insertAndReturnKey(INSERT, params);
         category.setId(id);
 
         return category;
@@ -43,13 +43,6 @@ public class JdbcCategoryDao implements CategoryDao {
     @Override
     public Collection<Category> getAll() throws DataAccessException {
         return template.queryAll(GET_ALL, MAPPER);
-    }
-
-    @Override
-    public Category getById(int id) throws DataAccessException {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-        return template.queryOne(GET_BY_ID, params, MAPPER);
     }
 
 }
