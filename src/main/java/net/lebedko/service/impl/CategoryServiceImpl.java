@@ -25,8 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getByID(int id) throws ServiceException {
-        return template.doTxService(()->categoryDao.getById(id));
+    public Collection<Category> getAll() throws ServiceException {
+        return template.doTxService(()->categoryDao.getAll());
     }
 
     @Override
