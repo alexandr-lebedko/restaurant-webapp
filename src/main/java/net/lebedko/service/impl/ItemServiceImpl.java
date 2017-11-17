@@ -76,4 +76,9 @@ public class ItemServiceImpl implements ItemService {
                 .map(itemDao::get)
                 .collect(Collectors.toList()));
     }
+
+    @Override
+    public Collection<Item> get(Category category) {
+        return template.doTxService(() -> itemDao.getByCategory(category));
+    }
 }
