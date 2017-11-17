@@ -12,7 +12,7 @@
 <c:url var="orderCart" value="${URL.CLIENT_ORDER_FORM}"/>
 <c:url var="orders" value="${URL.CLIENT_ORDERS}"/>
 <c:url var="invoices" value="${URL.CLIENT_INVOICES}"/>
-<c:url var="menu" value="${URL.CLIENT_CATEGORIES}"/>
+<c:url var="menu" value="${URL.CLIENT_MENU}"/>
 
 
 <%@attribute name="pageUrl" required="true" %>
@@ -26,11 +26,8 @@
 </c:url>
 
 <header class="bg-light">
-
     <div class="container">
-
         <nav class="navbar navbar-light bg-light navbar-expand-md">
-
             <a class="navbar-brand" href="#"><i class="fa fa-cutlery"></i>Restaurant</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -39,30 +36,25 @@
             </button>
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-
                 <ul class="navbar-nav">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="${invoices}">
-                            <i class="fa fa-credit-card" aria-hidden="true"></i>
-                            <span><fmt:message key="page.header.invoice"/></span>
-                        </a>
-                    </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="${menu}">
                             <i class="fa fa-th" aria-hidden="true"></i>
-                            <span><fmt:message key="page.header.categories"/></span>
+                            <span><fmt:message key="menu"/></span>
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="${invoices}">
+                            <i class="fa fa-credit-card" aria-hidden="true"></i>
+                            <span><fmt:message key="invoices"/></span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${orders}">
                             <i class="fa fa-list-ul" aria-hidden="true"></i>
                             <span><fmt:message key="page.header.orders"/></span>
                         </a>
                     </li>
-
                     <li class="nav-item" id="order-bucket-nav">
                         <a class="nav-link" href="${orderCart}">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -70,7 +62,6 @@
                             <span><fmt:message key="page.header.orderCart"/></span>
                         </a>
                     </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true">
                             <i class="fa fa-language"></i>
@@ -83,26 +74,19 @@
                                 </c:when>
                             </c:choose>
                         </a>
-
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="${enPage}">English</a>
                             <a class="dropdown-item" href="${ruPage}">Русский</a>
                         </div>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="${signOut}">
                             <i class="fa fa-sign-out" aria-hidden="true"></i>
                             <span><fmt:message key="page.header.signOut"/> </span>
                         </a>
                     </li>
-
                 </ul>
-
             </div>
-
         </nav>
-
     </div>
-
 </header>
