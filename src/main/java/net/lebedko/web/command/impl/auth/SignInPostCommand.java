@@ -23,7 +23,7 @@ import static net.lebedko.web.util.constant.PageErrorNames.WRONG_PASSWORD;
 public class SignInPostCommand extends AbstractCommand {
     private static final IResponseAction SIGN_IN_PAGE_FORWARD = new ForwardAction(PageLocations.SIGN_IN);
     private static final IResponseAction MAIN_ADMIN_PAGE_REDIRECT = new RedirectAction(URL.ADMIN_MAIN);
-    private static final IResponseAction MAIN_CLIENT_PAGE_REDIRECT = new RedirectAction(URL.CLIENT_CATEGORIES);
+    private static final IResponseAction MAIN_CLIENT_PAGE_REDIRECT = new RedirectAction(URL.CLIENT_MENU);
 
     private UserService userService;
 
