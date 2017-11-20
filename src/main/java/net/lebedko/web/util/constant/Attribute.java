@@ -18,7 +18,6 @@ public class Attribute {
     public static final String ORDER_BUCKET_AMOUNT = "bucketAmount";
 
     public static final String ADMIN_NEW_ORDERS = "adminNewOrders";
-    public static final String ITEM_ID = "itemId";
     public static final String ORDER_ITEM_ID = "orderItemId";
     public static final String ORDER_ITEM_QUANTITY = "orderItemQuantity";
     public static final String ORDER_ITEMS = "orderItems";
@@ -28,6 +27,8 @@ public class Attribute {
     public static final String INVOICE_ID = "invoiceId";
     public static final String INVOICE_STATE = "invoiceState";
 
+    public static final String ITEM_ID = "itemId";
     public static final String ITEMS = "items";
+    public static final String ITEMS_TO_ORDER = "itemsToOrder";
     public static final String LOCALE = "lang";
 }

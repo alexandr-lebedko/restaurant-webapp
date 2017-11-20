@@ -71,6 +71,8 @@ public final class WebConstant {
 
         public static final String CLIENT_GET_MENU= GET_PREFIX + URL.CLIENT_MENU;
         public static final String CLIENT_GET_INVOICE = GET_PREFIX + URL.CLIENT_INVOICE;
+        public static final String CLIENT_PAY_INVOICE = POST_PREFIX
+                + URL.CLIENT_PAY_INVOICE;
         public static final String CLIENT_GET_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
         public static final String CLIENT_GET_INVOICES = GET_PREFIX + URL.CLIENT_INVOICES;
         public static final String CLIENT_CLOSE_INVOICE = POST_PREFIX + URL.CLIENT_CLOSE_INVOICE;

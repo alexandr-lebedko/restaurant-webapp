@@ -35,8 +35,6 @@ public class PageErrorNames {
     public static final String ORDER_FORM_ERROR = "page.error.order.form";
     public static final String UNPAID_INVOICE = "page.error.invoice.unpaid";
 
-    public static final String INVOICE_NOT_EXISTS = "page.error.invoice.notExists";
-    public static final String INVOICE_CLOSE_ERROR = "invoice.close.error";
     public static final String INVOICE_PAY_ERROR = "invoice.close.error";
     //TODO
     public static final String INVALID_MODIFY_ORDER_FORM = "invalid.modify.order.form";
