@@ -10,12 +10,12 @@ import net.lebedko.service.exception.ServiceException;
 import java.util.Collection;
 
 public class OrderItemServiceImpl implements OrderItemService {
-    private OrderItemDao orderItemDao;
     private ServiceTemplate template;
+    private OrderItemDao orderItemDao;
 
-    public OrderItemServiceImpl(OrderItemDao orderItemDao, ServiceTemplate template) {
-        this.orderItemDao = orderItemDao;
+    public OrderItemServiceImpl(ServiceTemplate template, OrderItemDao orderItemDao) {
         this.template = template;
+        this.orderItemDao = orderItemDao;
     }
 
     @Override

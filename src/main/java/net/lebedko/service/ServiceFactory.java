@@ -13,46 +13,23 @@ import static net.lebedko.dao.DaoFactory.*;
 /**
  * alexandr.lebedko : 30.06.2017.
  */
-public abstract class ServiceFactory {
-    private static final Map<Class, Object> services = new HashMap<>();
+public interface ServiceFactory {
 
-    static {
-        ServiceTemplate serviceTemplate = new ServiceTemplate(TransactionManager.getTxManager());
+    InvoiceService getInvoiceService();
 
-        services.put(UserService.class, new UserServiceImpl(
-                serviceTemplate,
-                getDao(UserDao.class)));
+    OrderService getOrderService();
 
-        services.put(CategoryService.class, new CategoryServiceImpl(
-                serviceTemplate,
-                getDao(CategoryDao.class)));
+    ItemService getItemService();
 
-        services.put(FileService.class, new FileServiceImpl());
+    CategoryService getCategoryService();
 
-        services.put(ItemService.class, new ItemServiceImpl(
-                serviceTemplate,
-                getService(FileService.class),
-                getDao(ItemDao.class)));
+    OrderItemService getOrderItemService();
 
-        services.put(OrderItemService.class, new OrderItemServiceImpl(getDao(OrderItemDao.class), serviceTemplate));
+    UserService getUserService();
 
-        services.put(InvoiceService.class, new InvoiceServiceImpl(getDao(InvoiceDao.class), getService(OrderItemService.class), serviceTemplate));
+    FileService getFileService();
 
-        //TODO:: remove circular dependency
-        services.put(OrderService.class, new OrderServiceImpl(
-                serviceTemplate,
-                getService(InvoiceService.class),
-                getService(ItemService.class),
-                getDao(OrderDao.class),
-                getDao(OrderItemDao.class)));
-
-
-        ((InvoiceServiceImpl) getService(InvoiceService.class)).setOrderService(getService(OrderService.class));
-
-
-    }
-
-    public static <T> T getService(Class<T> clazz) {
-        return (T) services.get(clazz);
+    static ServiceFactory getServiceFactory() {
+        return ServiceFactoryImpl.getInstance();
     }
 }

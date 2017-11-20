@@ -15,17 +15,18 @@ import static net.lebedko.util.PropertyUtil.loadProperties;
 /**
  * alexandr.lebedko : 07.09.2017.
  */
-public class JdbcItemDao implements ItemDao {
-    private static final Properties props = loadProperties("sql-queries.properties");
-    private static final String INSERT = props.getProperty("item.insert");
-    private static final String GET_BY_CATEGORY = props.getProperty("item.getByCategory");
-    private static final String GET_BY_ID = props.getProperty("item.getById");
+public class JdbcItemDao extends AbstractJdbcDao implements ItemDao {
+    private static final String INSERT = QUERIES.getProperty("item.insert");
+    private static final String GET_BY_CATEGORY = QUERIES.getProperty("item.getByCategory");
+    private static final String GET_BY_ID = QUERIES.getProperty("item.getById");
 
-
-    private QueryTemplate template;
 
     public JdbcItemDao(QueryTemplate template) {
-        this.template = template;
+        super(template);
+    }
+
+    public JdbcItemDao() {
+        super();
     }
 
     @Override

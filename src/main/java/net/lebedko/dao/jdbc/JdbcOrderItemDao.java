@@ -27,6 +27,10 @@ public class JdbcOrderItemDao extends AbstractJdbcDao implements OrderItemDao {
         super(template);
     }
 
+    public JdbcOrderItemDao() {
+        super();
+    }
+
 
     @Override
     public OrderItem insert(OrderItem item) throws DataAccessException {

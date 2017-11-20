@@ -84,10 +84,4 @@ public class ClientAddItemToOrderCommand extends AbstractCommand {
             return itemService.get(itemId);
         }
     }
-
-    private IResponseAction redirectToItemsByCategory(IContext context, Item item) {
-        return new RedirectAction(URL.CLIENT_ITEM_ADD.concat("?").concat(Attribute.CATEGORY_ID).concat(Long.toString(item.getId())));
-
-    }
-
 }

@@ -28,6 +28,7 @@ public class AdminMenuGetCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
+     //TODO : REMOVE!
         final Locale locale = context.getSessionAttribute(Locale.class, getLocaleSessionAttributeName());
 
 

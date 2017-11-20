@@ -23,20 +23,21 @@ import static net.lebedko.util.Util.checkValidity;
  * alexandr.lebedko : 26.04.2017.
  */
 
-public class JdbcUserDao implements UserDao {
-    private static final Properties props = loadProperties("sql-queries.properties");
-    private static final String find_by_email = props.getProperty("user.getByEmail");
-    private static final String find_active_by_email = props.getProperty("user.getActiveByEmail");
-    private static final String find_by_id = props.getProperty("user.getById");
-    private static final String insert = props.getProperty("user.insert");
-    private static final String update = props.getProperty("user.update");
-    private static final String delete = props.getProperty("user.delete");
+public class JdbcUserDao extends AbstractJdbcDao implements UserDao {
+    private static final String find_by_email = QUERIES.getProperty("user.getByEmail");
+    private static final String find_by_id = QUERIES.getProperty("user.getById");
+    private static final String insert = QUERIES.getProperty("user.insert");
+    private static final String update = QUERIES.getProperty("user.update");
+    private static final String delete = QUERIES.getProperty("user.delete");
+
     private static final UserMapper mapper = new UserMapper();
 
-    private QueryTemplate template;
-
     public JdbcUserDao(QueryTemplate template) {
-        this.template = requireNonNull(template, "Template cannot be null");
+        super(template);
+    }
+
+    public JdbcUserDao() {
+        super();
     }
 
     @Override
