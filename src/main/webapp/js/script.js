@@ -102,3 +102,11 @@ function deleteOrderItemRow(rowId) {
             .prop('disabled', false);
     }
 }
+
+$(document).ready(function () {
+    var hiddenRows = $('tr.order-content');
+    $('.info-btn').click(function () {
+        var hiddenRow = $(this).parent().parent().next().toggle();
+        hiddenRows.not(hiddenRow).hide();
+    })
+})
