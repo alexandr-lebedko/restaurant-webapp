@@ -2,7 +2,7 @@ package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
-import net.lebedko.entity.order.State;
+import net.lebedko.entity.order.OrderState;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -12,7 +12,7 @@ import net.lebedko.web.response.IResponseAction;
 
 import java.util.Collection;
 
-import static java.util.Optional.ofNullable;
+import static net.lebedko.entity.invoice.InvoiceState.UNPAID;
 
 public abstract class AbstractAdminCommand extends AbstractCommand {
     protected OrderService orderService;
@@ -34,12 +34,12 @@ public abstract class AbstractAdminCommand extends AbstractCommand {
 
     private void addOrderAndInvoiceStatistics(IContext context) {
 
-        Collection<Invoice> unprocessedInvoices = invoiceService.getClosedInvoices();
+        Collection<Invoice> unprocessedInvoices = invoiceService.getByState(UNPAID);
         if (!unprocessedInvoices.isEmpty()){
             context.addRequestAttribute("unprocessedInvoiceNum", unprocessedInvoices.size());
         }
 
-        Collection<Order> unprocessedOrders = orderService.getOrders(State.NEW);
+        Collection<Order> unprocessedOrders = orderService.getOrders(OrderState.NEW);
         if (!unprocessedOrders.isEmpty()) {
             context.addRequestAttribute("unprocessedOrderNum", unprocessedOrders.size());
         }

@@ -1,6 +1,6 @@
 package net.lebedko.web.command.impl.admin;
 
-import net.lebedko.entity.invoice.State;
+import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -20,8 +20,8 @@ public class AdminGetUnpaidInvoicesCommand extends AbstractAdminCommand {
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        context.addRequestAttribute(Attribute.INVOICE_STATE, State.UNPAID);
-        context.addRequestAttribute(Attribute.INVOICES, invoiceService.getByState(State.UNPAID));
+        context.addRequestAttribute(Attribute.INVOICE_STATE, InvoiceState.UNPAID);
+        context.addRequestAttribute(Attribute.INVOICES, invoiceService.getByState(InvoiceState.UNPAID));
 
         return INVOICES_FORWARD;
     }

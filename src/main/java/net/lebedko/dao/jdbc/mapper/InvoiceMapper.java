@@ -1,18 +1,16 @@
 package net.lebedko.dao.jdbc.mapper;
 
-import net.lebedko.dao.jdbc.JdbcUserDao;
 import net.lebedko.dao.jdbc.JdbcUserDao.UserMapper;
 import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.entity.general.Price;
 import net.lebedko.entity.invoice.Invoice;
-import net.lebedko.entity.invoice.State;
+import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.entity.user.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public class InvoiceMapper implements Mapper<Invoice> {
@@ -24,9 +22,9 @@ public class InvoiceMapper implements Mapper<Invoice> {
 
     private UserMapper userMapper;
     private User user;
-    private State state;
+    private InvoiceState state;
 
-    public InvoiceMapper(User user, State state) {
+    public InvoiceMapper(User user, InvoiceState state) {
         this.user = user;
         this.state = state;
     }
@@ -43,15 +41,15 @@ public class InvoiceMapper implements Mapper<Invoice> {
     public Invoice map(ResultSet rs) throws SQLException {
         Long id = rs.getLong(ID);
         User user = getUser(rs);
-        State state = getState(rs);
+        InvoiceState state = getState(rs);
         Price price = new Price(rs.getDouble(PRICE));
         LocalDateTime creation = rs.getTimestamp(CREATION).toLocalDateTime();
 
         return new Invoice(id, user, state, price, creation);
     }
 
-    private State getState(ResultSet rs) throws SQLException {
-        return nonNull(state) ? state : State.valueOf(rs.getString(STATE));
+    private InvoiceState getState(ResultSet rs) throws SQLException {
+        return nonNull(state) ? state : InvoiceState.valueOf(rs.getString(STATE));
     }
 
     private User getUser(ResultSet rs) throws SQLException {

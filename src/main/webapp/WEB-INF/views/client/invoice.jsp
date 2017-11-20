@@ -4,7 +4,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page import="net.lebedko.web.util.constant.URL" %>
 <%@ page import="net.lebedko.web.util.constant.Attribute" %>
-<%@ page import="net.lebedko.entity.invoice.State" %>
+<%@ page import="net.lebedko.entity.invoice.InvoiceState" %>
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
@@ -49,27 +49,17 @@
                     </tbody>
                 </table>
 
-                <c:choose>
-                    <c:when test="${invoice.state eq State.ACTIVE}">
-                        <c:url var="closeInvoice" value="${URL.CLIENT_CLOSE_INVOICE}"/>
-                        <form id="close-invoice-form" method="post" action="${closeInvoice}">
-                            <input type="hidden" name="${Attribute.INVOICE_ID}" value="${invoice.id}">
-                            <button class="btn btn-block btn-warning rounded-0">
-                                <fmt:message key="invoice.close"/>
-                            </button>
-                        </form>
-                    </c:when>
 
-                    <c:when test="${invoice.state eq State.ACTIVE}">
-                        <c:url var="payInvoice" value="${URL.CLIENT_PAY_INVOICE}"/>
-                        <form id="pay-invoice-form" method="post" action="${payInvoice}">
-                            <input type="hidden" name="${Attribute.INVOICE_ID}" value="${invoice.id}">
-                            <button class="btn btn-block btn-warning rounded-0">
-                                <fmt:message key="invoice.pay"/>
-                            </button>
-                        </form>
-                    </c:when>
-                </c:choose>
+                <c:if test="${invoice.state eq InvoiceState.UNPAID}">
+                    <c:url var="payInvoice" value="${URL.CLIENT_PAY_INVOICE}"/>
+                    <form id="pay-invoice-form" method="post" action="${payInvoice}">
+                        <input type="hidden" name="${Attribute.INVOICE_ID}" value="${invoice.id}">
+                        <button class="btn btn-block btn-lg btn-warning rounded-0">
+                            <fmt:message key="invoice.pay"/>
+                        </button>
+                    </form>
+                </c:if>
+
             </div>
 
             <div class="col-lg-8">
@@ -127,21 +117,12 @@
                     </tbody>
                 </table>
 
-                <c:choose>
-                    <c:when test="${invoice.state eq State.ACTIVE}">
-                        <button type="submit" form="close-invoice-form"
-                                class="btn btn-lg float-left btn-warning rounded-0 font-weight-bold p-3 ">
-                            <fmt:message key="invoice.close"/>
-                        </button>
-                    </c:when>
-
-                    <c:when test="${invoice.state eq State.ACTIVE}">
-                        <button type="submit" form="pay-invoice-form"
-                                class="btn btn-lg float-left btn-warning rounded-0 font-weight-bold p-3 ">
-                            <fmt:message key="invoice.pay"/>
-                        </button>
-                    </c:when>
-                </c:choose>
+                <c:if test="${invoice.state eq InvoiceState.UNPAID}">
+                    <button type="submit" form="pay-invoice-form"
+                            class="btn btn-lg float-right btn-warning rounded-0 font-weight-bold p-3 ">
+                        <fmt:message key="invoice.pay"/>
+                    </button>
+                </c:if>
 
             </div>
         </div>

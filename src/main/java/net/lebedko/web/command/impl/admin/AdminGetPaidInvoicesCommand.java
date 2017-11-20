@@ -1,6 +1,6 @@
 package net.lebedko.web.command.impl.admin;
 
-import net.lebedko.entity.invoice.State;
+import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -19,8 +19,8 @@ public class AdminGetPaidInvoicesCommand extends AbstractAdminCommand{
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        context.addRequestAttribute(Attribute.INVOICE_STATE, State.PAID);
-        context.addRequestAttribute(Attribute.INVOICES, invoiceService.getByState(State.PAID));
+        context.addRequestAttribute(Attribute.INVOICE_STATE, InvoiceState.PAID);
+        context.addRequestAttribute(Attribute.INVOICES, invoiceService.getByState(InvoiceState.PAID));
 
         return INVOICES_FORWARD;
     }

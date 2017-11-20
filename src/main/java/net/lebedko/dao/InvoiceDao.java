@@ -2,7 +2,7 @@ package net.lebedko.dao;
 
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.entity.invoice.Invoice;
-import net.lebedko.entity.invoice.State;
+import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.entity.user.User;
 
 import java.util.Collection;
@@ -14,7 +14,7 @@ public interface InvoiceDao {
 
     Invoice insert(Invoice invoice) throws DataAccessException;
 
-    Invoice get(User user, State state) throws DataAccessException;
+    Invoice get(User user, InvoiceState state) throws DataAccessException;
 
     Invoice get(Long id) throws DataAccessException;
 
@@ -24,7 +24,7 @@ public interface InvoiceDao {
 
     Invoice getCurrentInvoice(User user) throws DataAccessException;
 
-    Collection<Invoice> getByState(State state) throws DataAccessException;
+    Collection<Invoice> getByState(InvoiceState state) throws DataAccessException;
 
     Collection<Invoice> get(User user);
 }

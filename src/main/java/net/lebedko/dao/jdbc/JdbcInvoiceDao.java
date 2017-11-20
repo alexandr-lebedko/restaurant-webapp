@@ -5,7 +5,7 @@ import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.mapper.InvoiceMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.invoice.Invoice;
-import net.lebedko.entity.invoice.State;
+import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.entity.user.User;
 
 import java.sql.Timestamp;
@@ -45,7 +45,7 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     }
 
     @Override
-    public Invoice get(User user, State state) throws DataAccessException {
+    public Invoice get(User user, InvoiceState state) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, user.getId());
         params.put(2, state.name());
@@ -90,7 +90,7 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     }
 
     @Override
-    public Collection<Invoice> getByState(State state) throws DataAccessException {
+    public Collection<Invoice> getByState(InvoiceState state) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, state.name());
 

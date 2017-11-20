@@ -24,6 +24,7 @@
                         <th><fmt:message key="date"/></th>
                         <th><fmt:message key="time"/></th>
                         <th><fmt:message key="total"/></th>
+                        <th><i class="fa fa-money" aria-hidden="true"></i></th>
                     </tr>
                     </thead>
 
@@ -42,6 +43,7 @@
                             <td>${invoice.createdOn.toLocalDate()}</td>
                             <td>${invoice.createdOn.toLocalTime()}</td>
                             <td>${invoice.amount.value}</td>
+                            <td><span class="badge badge-success">Pay</span></td>
                         </tr>
 
                     </c:forEach>

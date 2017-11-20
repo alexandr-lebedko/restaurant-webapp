@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 public class Invoice {
     private Long id;
     private User user;
-    private State state;
+    private InvoiceState state;
     private Price amount;
     private LocalDateTime createdOn;
 
-    public Invoice(Long id, User user, State state, Price amount, LocalDateTime cratedOn) {
+    public Invoice(Long id, User user, InvoiceState state, Price amount, LocalDateTime cratedOn) {
         this.id = id;
         this.user = user;
         this.state = state;
@@ -20,12 +20,12 @@ public class Invoice {
         this.createdOn = cratedOn;
     }
 
-    public Invoice(User user, State state, Price amount, LocalDateTime cratedOn) {
+    public Invoice(User user, InvoiceState state, Price amount, LocalDateTime cratedOn) {
         this(null, user, state, amount, cratedOn);
     }
 
     public Invoice(User user) {
-        this(null, user, State.ACTIVE, new Price(0.), LocalDateTime.now());
+        this(null, user, InvoiceState.UNPAID, new Price(0.), LocalDateTime.now());
     }
 
     public Long getId() {
@@ -40,7 +40,7 @@ public class Invoice {
         return user;
     }
 
-    public State getState() {
+    public InvoiceState getState() {
         return state;
     }
 
@@ -59,7 +59,7 @@ public class Invoice {
     public static class Builder {
         private Long id;
         private User user;
-        private State state;
+        private InvoiceState state;
         private Price amount;
         private LocalDateTime createdOn;
 
@@ -83,7 +83,7 @@ public class Invoice {
             return this;
         }
 
-        public Builder setState(State state) {
+        public Builder setState(InvoiceState state) {
             this.state = state;
             return this;
         }
