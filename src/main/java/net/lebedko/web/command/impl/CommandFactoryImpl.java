@@ -22,17 +22,14 @@ import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_SIGN_UP;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_ADMIN_NEW_ITEM;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_SIGN_UP;
 
-/**
- * alexandr.lebedko : 12.06.2017
- */
 public class CommandFactoryImpl implements ICommandFactory {
     private Map<String, ICommand> commandMap = new HashMap<>();
 
     public CommandFactoryImpl() {
-        final UserService userService= getService(UserService.class);
+        final UserService userService = getService(UserService.class);
         final OrderService orderService = getService(OrderService.class);
         final InvoiceService invoiceService = getService(InvoiceService.class);
-        final  OrderItemService orderItemService = getService(OrderItemService.class);
+        final OrderItemService orderItemService = getService(OrderItemService.class);
         final ItemService itemService = getService(ItemService.class);
         final CategoryService categoryService = getService(CategoryService.class);
 
@@ -48,13 +45,13 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(CLIENT_GET_ORDER_FORM, new OrderGetCommand());
         commandMap.put(CLIENT_GET_INVOICE, new ClientGetInvoiceCommand(invoiceService, orderItemService));
         commandMap.put(CLIENT_GET_INVOICES, new ClientGetInvoicesCommand(invoiceService));
-        commandMap.put(CLIENT_CLOSE_INVOICE, new ClientCloseInvoiceCommand(invoiceService, orderItemService));
         commandMap.put(CLIENT_ADD_ITEM_TO_BUCKET, new ClientAddItemToOrderCommand(itemService));
         commandMap.put(CLIENT_CLEAR_ORDER_BUCKET, new ClientDeleteBucketCommand());
-        commandMap.put(CLIENT_GET_MENU, new ClientGetMenuCommand(categoryService,itemService));
+        commandMap.put(CLIENT_GET_MENU, new ClientGetMenuCommand(categoryService, itemService));
         commandMap.put(CLIENT_REJECT_ORDER, new ClientRejectModifiedOrderCommand(orderService));
         commandMap.put(CLIENT_MODIFY_ORDER, new ClientModifyOrderCommand(orderService));
         commandMap.put(CLIENT_SUBMIT_MODIFIED_ORDER, new ClientSubmitModifiedOrderCommand(orderService));
+        commandMap.put(CLIENT_PAY_INVOICE, new ClientPayInvoiceCommand(invoiceService, orderItemService));
 
         commandMap.put(GET_ADMIN_NEW_ORDERS, new AdminGetNewOrdersCommand(orderService, invoiceService));
         commandMap.put(GET_ADMIN_ORDER_DETAILS, new AdminGetOrderDetailsCommand(orderService, invoiceService));
@@ -64,10 +61,8 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(ADMIN_GET_PROCESSED_ORDERS, new AdminGetProcessedOrdersCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_REJECTED_ORDERS, new AdminGetRejectedOrdersCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_MODIFIED_ORDERS, new AdminGetModifiedOrdersCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_GET_CLOSED_INVOICES, new AdminGetClosedInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_PAID_INVOICES, new AdminGetPaidInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_UNPAID_INVOICES, new AdminGetUnpaidInvoicesCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_GET_ACTIVE_INVOICES, new AdminGetActiveInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_INVOICE, new AdminGetInvoiceCommand(orderService, invoiceService));
 
         commandMap.put(GET_ADMIN_MAIN, new AdminMainGetCommand(getService(OrderService.class), getService(InvoiceService.class)));
