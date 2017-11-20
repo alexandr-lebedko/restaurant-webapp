@@ -3,7 +3,7 @@ package net.lebedko.dao.jdbc.mapper;
 import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
-import net.lebedko.entity.order.State;
+import net.lebedko.entity.order.OrderState;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,7 @@ public class OrderMapper implements Mapper<Order> {
 
     private InvoiceMapper invoiceMapper;
     private Invoice invoice;
-    private State state;
+    private OrderState state;
 
 
     public OrderMapper(Invoice invoice) {
@@ -26,7 +26,7 @@ public class OrderMapper implements Mapper<Order> {
 
     }
 
-    public OrderMapper(State state) {
+    public OrderMapper(OrderState state) {
         this(null, state);
     }
 
@@ -34,11 +34,11 @@ public class OrderMapper implements Mapper<Order> {
         this(invoiceMapper, null, null);
     }
 
-    public OrderMapper(Invoice invoice, State state) {
+    public OrderMapper(Invoice invoice, OrderState state) {
         this(new InvoiceMapper(), invoice, state);
     }
 
-    public OrderMapper(InvoiceMapper invoiceMapper, Invoice invoice, State state) {
+    public OrderMapper(InvoiceMapper invoiceMapper, Invoice invoice, OrderState state) {
         this.invoiceMapper = invoiceMapper;
         this.invoice = invoice;
         this.state = state;
@@ -48,14 +48,14 @@ public class OrderMapper implements Mapper<Order> {
     public Order map(ResultSet rs) throws SQLException {
         Long id = rs.getLong(ID);
         Invoice invoice = getInvoice(rs);
-        State state = getState(rs);
+        OrderState state = getState(rs);
         LocalDateTime creation = rs.getTimestamp(CREATION).toLocalDateTime();
 
         return new Order(id, invoice, state, creation);
     }
 
-    private State getState(ResultSet rs) throws SQLException {
-        return nonNull(state) ? state : State.valueOf(rs.getString(STATE));
+    private OrderState getState(ResultSet rs) throws SQLException {
+        return nonNull(state) ? state : OrderState.valueOf(rs.getString(STATE));
     }
 
     private Invoice getInvoice(ResultSet rs) throws SQLException {

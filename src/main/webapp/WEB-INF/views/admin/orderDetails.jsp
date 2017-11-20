@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page import="net.lebedko.web.util.constant.URL" %>
-<%@ page import="net.lebedko.entity.order.State" %>
+<%@ page import="net.lebedko.entity.order.OrderState" %>
 <%@ page import="net.lebedko.web.util.constant.Attribute" %>
 
 <t:page pageUrl="${URL.ADMIN_ORDER_DETAILS.concat('?').concat(Attribute.ORDER_ID).concat('=').concat(param.get(Attribute.ORDER_ID))}">
@@ -28,20 +28,20 @@
                                 <td>${order.invoice.id}</td>
                             </tr>
                             <c:choose>
-                                <c:when test="${order.state eq State.PROCESSED}">
+                                <c:when test="${order.state eq OrderState.PROCESSED}">
                                     <tr class="bg-success">
                                         <th>State</th>
                                         <td>${order.state}</td>
                                     </tr>
                                 </c:when>
-                                <c:when test="${order.state eq State.REJECTED}">
+                                <c:when test="${order.state eq OrderState.REJECTED}">
                                     <tr class="bg-danger">
                                         <th>State</th>
                                         <td>${order.state}</td>
                                     </tr>
                                 </c:when>
 
-                                <c:when test="${order.state eq State.MODIFIED}">
+                                <c:when test="${order.state eq OrderState.MODIFIED}">
                                     <tr class="bg-warning">
                                         <th>State</th>
                                         <td>${order.state}</td>
@@ -65,7 +65,7 @@
                             </tbody>
                         </table>
 
-                        <c:if test="${order.state eq State.NEW}">
+                        <c:if test="${order.state eq OrderState.NEW}">
                             <c:url var="processOrderUrl" value="${URL.ADMIN_PROCESS_ORDER}"/>
                             <c:url var="rejectOrderUrl" value="${URL.ADMIN_REJECT_ORDER}"/>
 
@@ -134,7 +134,7 @@
 
                                         <c:choose>
 
-                                            <c:when test="${order.state eq State.NEW}">
+                                            <c:when test="${order.state eq OrderState.NEW}">
                                                 <td>
                                                     <input class="border pl-3" name="${Attribute.ORDER_ITEM_QUANTITY}"
                                                            type="number" max="${quantity}" min="1" value="${quantity}">
@@ -164,7 +164,7 @@
                                 </tbody>
                             </table>
 
-                            <c:if test="${order.state eq State.NEW}">
+                            <c:if test="${order.state eq OrderState.NEW}">
                                 <button disabled
                                         class="btn btn-lg float-right p-2 pl-5 pr-5 mr-3 rounded-0 btn-warning">
                                     Modify

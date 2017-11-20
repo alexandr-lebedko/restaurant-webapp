@@ -10,7 +10,7 @@ import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.Order;
-import net.lebedko.entity.order.State;
+import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
 
 import java.sql.Timestamp;
@@ -71,7 +71,7 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     }
 
     @Override
-    public Collection<Order> get(Invoice invoice, State state) throws DataAccessException {
+    public Collection<Order> get(Invoice invoice, OrderState state) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, invoice.getId());
         params.put(2, state.name());
@@ -80,7 +80,7 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     }
 
     @Override
-    public Collection<Order> getByState(State state) throws DataAccessException {
+    public Collection<Order> getByState(OrderState state) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, state.name());
 

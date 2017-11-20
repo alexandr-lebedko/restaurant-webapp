@@ -4,7 +4,7 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.item.Item;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
-import net.lebedko.entity.order.State;
+import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.exception.ServiceException;
 import org.apache.commons.lang3.tuple.Pair;
@@ -32,7 +32,7 @@ public interface OrderService {
 
     Order getOrder(Long orderId, User user) throws ServiceException;
 
-    Collection<Order> getOrders(State state) throws ServiceException;
+    Collection<Order> getOrders(OrderState state) throws ServiceException;
 
     Collection<Order> getOrders(Invoice invoice) throws ServiceException;
 

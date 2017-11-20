@@ -7,7 +7,7 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.item.Item;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
-import net.lebedko.entity.order.State;
+import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.ItemService;
@@ -22,14 +22,10 @@ import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-import static java.util.Objects.nonNull;
-import static java.util.Optional.empty;
-import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
-import static net.lebedko.entity.order.State.MODIFIED;
+import static net.lebedko.entity.order.OrderState.MODIFIED;
 
 /**
  * alexandr.lebedko : 02.10.2017.
@@ -81,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
                         throw new ClosedInvoiceException();
                     }
 
-                    final Invoice invoice = invoiceService.getActiveOrCreate(user);
+                    final Invoice invoice = invoiceService.getUnpaidOrCreate(user);
                     final Order order = orderDao.insert(new Order(invoice));
                     insertOrderContent(order, content);
 
@@ -92,7 +88,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Collection<Order> getUnprocessed(Invoice invoice) throws ServiceException {
-        return template.doTxService(() -> orderDao.get(invoice, State.NEW));
+        return template.doTxService(() -> orderDao.get(invoice, OrderState.NEW));
     }
 
     private void insertOrderContent(Order order, Map<Item, Long> content) throws DataAccessException {
@@ -136,8 +132,8 @@ public class OrderServiceImpl implements OrderService {
     public void processOrder(Long orderId) throws ServiceException {
         template.doTxService(() -> {
             ofNullable(orderDao.getById(orderId))
-                    .filter(order -> order.getState() == State.NEW)
-                    .map(order -> new Order(order.getId(), order.getInvoice(), State.PROCESSED, order.getCreatedOn()))
+                    .filter(order -> order.getState() == OrderState.NEW)
+                    .map(order -> new Order(order.getId(), order.getInvoice(), OrderState.PROCESSED, order.getCreatedOn()))
                     .ifPresent(orderDao::update);
         });
     }
@@ -146,8 +142,8 @@ public class OrderServiceImpl implements OrderService {
     public void rejectOrder(Long orderId) throws ServiceException {
         template.doTxService(() -> {
             ofNullable(orderDao.getById(orderId))
-                    .filter(order -> order.getState() == State.NEW)
-                    .map(order -> new Order(order.getId(), order.getInvoice(), State.REJECTED, order.getCreatedOn()))
+                    .filter(order -> order.getState() == OrderState.NEW)
+                    .map(order -> new Order(order.getId(), order.getInvoice(), OrderState.REJECTED, order.getCreatedOn()))
                     .ifPresent(orderDao::update);
         });
     }
@@ -186,7 +182,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Collection<Order> getOrders(State state) throws ServiceException {
+    public Collection<Order> getOrders(OrderState state) throws ServiceException {
         return template.doTxService(() -> orderDao.getByState(state));
     }
 
@@ -201,12 +197,12 @@ public class OrderServiceImpl implements OrderService {
             Order order = ofNullable(orderDao.getByOrderIdAndUser(id, user))
                     .orElseThrow(NoSuchElementException::new);
 
-            if (order.getState() != State.MODIFIED) {
+            if (order.getState() != OrderState.MODIFIED) {
                 throw new IllegalStateException("Cannot submit order which in 'MODIFIED' state");
             }
 
             Order newOrder = Order.builder(order)
-                    .setState(State.NEW)
+                    .setState(OrderState.NEW)
                     .build();
             orderDao.update(newOrder);
 
@@ -221,12 +217,12 @@ public class OrderServiceImpl implements OrderService {
             Order order = ofNullable(orderDao.getByOrderIdAndUser(id, user))
                     .orElseThrow(NoSuchElementException::new);
 
-            if (order.getState() == State.PROCESSED || order.getState() == State.REJECTED) {
+            if (order.getState() == OrderState.PROCESSED || order.getState() == OrderState.REJECTED) {
                 throw new IllegalStateException();
             }
 
             Order newOrder = Order.builder(order)
-                    .setState(State.REJECTED)
+                    .setState(OrderState.REJECTED)
                     .build();
 
             orderDao.update(newOrder);

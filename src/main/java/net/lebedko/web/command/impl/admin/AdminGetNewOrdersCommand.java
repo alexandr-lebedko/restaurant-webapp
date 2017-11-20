@@ -1,6 +1,6 @@
 package net.lebedko.web.command.impl.admin;
 
-import net.lebedko.entity.order.State;
+import net.lebedko.entity.order.OrderState;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -20,8 +20,8 @@ public class AdminGetNewOrdersCommand extends AbstractAdminCommand {
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        context.addRequestAttribute(Attribute.ORDER_STATE, State.NEW);
-        context.addRequestAttribute(Attribute.ORDERS, orderService.getOrders(State.NEW));
+        context.addRequestAttribute(Attribute.ORDER_STATE, OrderState.NEW);
+        context.addRequestAttribute(Attribute.ORDERS, orderService.getOrders(OrderState.NEW));
 
         return ORDERS_FORWARD;
     }

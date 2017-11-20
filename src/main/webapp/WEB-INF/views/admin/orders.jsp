@@ -3,20 +3,20 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page import="net.lebedko.web.util.constant.URL" %>
 <%@ page import="net.lebedko.web.util.constant.Attribute" %>
-<%@ page import="net.lebedko.entity.order.State" %>
+<%@ page import="net.lebedko.entity.order.OrderState" %>
 
 <c:set var="orderState" value="${requestScope.get(Attribute.ORDER_STATE)}"/>
 <c:choose>
-    <c:when test="${orderState eq State.MODIFIED}">
+    <c:when test="${orderState eq OrderState.MODIFIED}">
         <c:set var="pageUrl" value="${URL.ADMIN_MODIFIED_ORDERS}"/>
     </c:when>
-    <c:when test="${orderState eq State.PROCESSED}">
+    <c:when test="${orderState eq OrderState.PROCESSED}">
         <c:set var="pageUrl" value="${URL.ADMIN_PROCESSED_ORDERS}"/>
     </c:when>
-    <c:when test="${orderState eq State.REJECTED}">
+    <c:when test="${orderState eq OrderState.REJECTED}">
         <c:set var="pageUrl" value="${URL.ADMIN_PROCESSED_ORDERS}"/>
     </c:when>
-    <c:when test="${orderState eq State.NEW}">
+    <c:when test="${orderState eq OrderState.NEW}">
         <c:set var="pageUrl" value="${URL.ADMIN_NEW_ORDERS}"/>
     </c:when>
 </c:choose>
@@ -32,16 +32,16 @@
 
 
                 <ul class="nav flex-column border" id="admin-orders-nav">
-                    <li class="nav-item ${orderState eq State.NEW ? 'active' : ''}">
+                    <li class="nav-item ${orderState eq OrderState.NEW ? 'active' : ''}">
                         <a class="nav-link" href="${newOrders}">New</a>
                     </li>
-                    <li class="nav-item ${orderState eq State.PROCESSED ? 'active' : ''}">
+                    <li class="nav-item ${orderState eq OrderState.PROCESSED ? 'active' : ''}">
                         <a class="nav-link" href="${processedOrders}">Processed</a>
                     </li>
-                    <li class="nav-item ${orderState eq State.MODIFIED ? 'active' : ''}">
+                    <li class="nav-item ${orderState eq OrderState.MODIFIED ? 'active' : ''}">
                         <a class="nav-link" href="${modifiedOrders}">Modified</a>
                     </li>
-                    <li class="nav-item ${orderState eq State.REJECTED ? 'active' : ''}">
+                    <li class="nav-item ${orderState eq OrderState.REJECTED ? 'active' : ''}">
                         <a class="nav-link" href="${rejectedOrders}">Rejected</a>
                     </li>
                 </ul>
@@ -75,7 +75,7 @@
 
                             <c:choose>
 
-                                <c:when test="${orderState eq State.NEW}">
+                                <c:when test="${orderState eq OrderState.NEW}">
                                     <c:url var="process" value="${URL.ADMIN_PROCESS_ORDER}"/>
                                     <c:url var="reject" value="${URL.ADMIN_REJECT_ORDER}"/>
                                     <td>

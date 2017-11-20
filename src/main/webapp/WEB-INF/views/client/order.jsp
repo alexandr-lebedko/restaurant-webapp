@@ -4,7 +4,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page import="net.lebedko.web.util.constant.URL" %>
 <%@ page import="net.lebedko.web.util.constant.Attribute" %>
-<%@ page import="net.lebedko.entity.order.State" %>
+<%@ page import="net.lebedko.entity.order.OrderState" %>
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>

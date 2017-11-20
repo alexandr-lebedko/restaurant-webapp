@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 public class Order {
     private Long id;
     private Invoice invoice;
-    private State state;
+    private OrderState state;
     private LocalDateTime createdOn;
 
     private Order() {
     }
 
-    public Order(Long id, Invoice invoice, State state, LocalDateTime createdOn) {
+    public Order(Long id, Invoice invoice, OrderState state, LocalDateTime createdOn) {
         this.id = id;
         this.invoice = invoice;
         this.state = state;
@@ -24,7 +24,7 @@ public class Order {
     }
 
     public Order(Invoice invoice) {
-        this(null, invoice, State.NEW, LocalDateTime.now());
+        this(null, invoice, OrderState.NEW, LocalDateTime.now());
     }
 
     public Long getId() {
@@ -35,7 +35,7 @@ public class Order {
         return invoice;
     }
 
-    public State getState() {
+    public OrderState getState() {
         return state;
     }
 
@@ -63,7 +63,7 @@ public class Order {
     public static class Builder {
         private Long id;
         private Invoice invoice;
-        private State state;
+        private OrderState state;
         private LocalDateTime createdOn;
 
         private Builder() {
@@ -86,7 +86,7 @@ public class Order {
             return this;
         }
 
-        public Builder setState(State state) {
+        public Builder setState(OrderState state) {
             this.state = state;
             return this;
         }
