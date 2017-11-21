@@ -22,10 +22,6 @@ public class ServiceTemplate {
         this.txManager = Objects.requireNonNull(txManager);
     }
 
-    public ServiceTemplate() {
-        this(TransactionManager.getTxManager());
-    }
-
     public <T> T doTxService(Callable<T> work) throws ServiceException {
         try {
             return txManager.tx(work);

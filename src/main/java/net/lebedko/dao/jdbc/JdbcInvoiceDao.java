@@ -31,9 +31,6 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
         super(template);
     }
 
-    public JdbcInvoiceDao() {
-        super();
-    }
 
     @Override
     public Invoice insert(Invoice invoice) throws DataAccessException {

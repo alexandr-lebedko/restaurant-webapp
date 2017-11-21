@@ -19,7 +19,4 @@ public class AbstractJdbcDao {
         this.template = template;
     }
 
-    protected AbstractJdbcDao() {
-        this(new QueryTemplate(ConnectionProvider.getProvider()));
-    }
 }

@@ -2,11 +2,8 @@ package net.lebedko.service.impl;
 
 import net.lebedko.dao.DaoFactory;
 import net.lebedko.dao.TransactionManager;
-<<<<<<< HEAD
 import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.jdbc.transaction.JdbcThreadLocalTransactionManager;
-=======
->>>>>>> master
 import net.lebedko.service.*;
 
 public class ServiceFactoryImpl implements ServiceFactory {
@@ -28,23 +25,16 @@ public class ServiceFactoryImpl implements ServiceFactory {
 
     private ServiceFactoryImpl() {
         this.daoFactory = DaoFactory.getInstance();
-<<<<<<< HEAD
         this.serviceTemplate = new ServiceTemplate(daoFactory.getTxManager());
 
-=======
-        this.serviceTemplate = new ServiceTemplate();
->>>>>>> master
         this.fileService = new FileServiceImpl();
         this.userService = new UserServiceImpl(serviceTemplate, daoFactory.getUserDao());
         this.itemService = new ItemServiceImpl(serviceTemplate, new FileServiceImpl(), daoFactory.getItemDao());
         this.categoryService = new CategoryServiceImpl(serviceTemplate, daoFactory.getCategoryDao());
         this.orderItemService = new OrderItemServiceImpl(serviceTemplate, daoFactory.getOrderItemDao());
         this.invoiceService = new InvoiceServiceImpl(serviceTemplate, daoFactory.getInvoiceDao());
-<<<<<<< HEAD
+
         this.orderService = new OrderServiceImpl(serviceTemplate, invoiceService, orderItemService, itemService, daoFactory.getOrderDao());
-=======
-        this.orderService = new OrderServiceImpl(serviceTemplate, invoiceService, orderItemService, daoFactory.getOrderDao());
->>>>>>> master
         ((InvoiceServiceImpl) invoiceService).setOrderService(orderService);
     }
 

@@ -26,6 +26,7 @@ public class JdbcUserDao extends AbstractJdbcDao implements UserDao {
 
     public JdbcUserDao(QueryTemplate template) {
         super(template);
+    }
 
     @Override
     public User findByEmail(EmailAddress email) throws DataAccessException {

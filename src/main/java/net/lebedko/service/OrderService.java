@@ -20,7 +20,6 @@ public interface OrderService {
 
     Order getOrder(Long orderId, User user) throws ServiceException;
 
-
     Order getOrder(Long orderId) throws ServiceException;
 
     Collection<Order> getOrders(User user) throws ServiceException;
@@ -29,11 +28,13 @@ public interface OrderService {
 
     Collection<Order> getOrders(Invoice invoice) throws ServiceException;
 
-    Collection<OrderItem> getOrderItems(Order order) throws ServiceException;
-
-    Order submitModifiedOrder(Long id, User user) throws ServiceException;
+    public void submitModifiedOrder(Long id, User user);
 
     void deleteModified(Long id, User user);
+
+    void process(Long id);
+
+    void reject(Long id);
 
     void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException;
 

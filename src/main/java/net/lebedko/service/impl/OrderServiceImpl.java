@@ -8,10 +8,7 @@ import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
-<<<<<<< HEAD
 import net.lebedko.service.ItemService;
-=======
->>>>>>> master
 import net.lebedko.service.OrderItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -27,10 +24,7 @@ public class OrderServiceImpl implements OrderService {
     private ServiceTemplate template;
     private InvoiceService invoiceService;
     private OrderItemService orderItemService;
-<<<<<<< HEAD
     private ItemService itemService;
-=======
->>>>>>> master
 
     private OrderDao orderDao;
 
@@ -38,18 +32,12 @@ public class OrderServiceImpl implements OrderService {
             ServiceTemplate template,
             InvoiceService invoiceService,
             OrderItemService orderItemService,
-<<<<<<< HEAD
             ItemService itemService,
-=======
->>>>>>> master
             OrderDao orderDao) {
         this.template = template;
         this.invoiceService = invoiceService;
         this.orderItemService = orderItemService;
-<<<<<<< HEAD
         this.itemService = itemService;
-=======
->>>>>>> master
         this.orderDao = orderDao;
     }
 
@@ -59,11 +47,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-<<<<<<< HEAD
     public Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId) throws ServiceException {
-=======
-    public Order createOrder(User user, Map<Item, Long> content) throws ServiceException {
->>>>>>> master
         return template.doTxService(() -> {
 
                     final Invoice invoice = invoiceService.getUnpaidOrCreate(user);
@@ -76,18 +60,10 @@ public class OrderServiceImpl implements OrderService {
         );
     }
 
-<<<<<<< HEAD
     private void insertOrderContent(Order order, Collection<Pair<Long, Long>> quantityToItemId) throws DataAccessException {
         quantityToItemId.stream()
                 .map(e -> new OrderItem(order, itemService.get(e.getLeft()), e.getRight()))
                 .forEach(orderItemService::insert);
-=======
-    private void insertOrderContent(Order order, Map<Item, Long> content) throws DataAccessException {
-        content.entrySet()
-                .stream()
-                .map(e -> new OrderItem(order, e.getKey(), e.getValue()))
-                .forEach(orderDao::insert);
->>>>>>> master
     }
 
     @Override
