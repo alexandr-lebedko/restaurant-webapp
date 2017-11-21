@@ -14,25 +14,25 @@ import java.util.Map;
 /**
  * alexandr.lebedko : 30.06.2017.
  */
-public abstract class DaoFactory {
-    private static final Map<Class, Object> daos = new HashMap<>();
+public interface DaoFactory {
+    ItemDao getItemDao();
 
-    static {
-        ThreadLocalConnectionProvider connectionProvider = new ThreadLocalConnectionProvider();
+    CategoryDao getCategoryDao();
 
-        QueryTemplate template = new QueryTemplate(connectionProvider, new MySqlExceptionTranslator());
+    OrderDao getOrderDao();
 
-        daos.put(UserDao.class, new JdbcUserDao(template));
+    InvoiceDao getInvoiceDao();
 
-        daos.put(CategoryDao.class, new JdbcCategoryDao(template));
-        daos.put(ItemDao.class, new JdbcItemDao(template));
-        daos.put(InvoiceDao.class, new JdbcInvoiceDao(template));
-        daos.put(OrderDao.class, new JdbcOrderDao(template));
-        daos.put(OrderItemDao.class, new JdbcOrderItemDao(template));
+    OrderItemDao getOrderItemDao();
+
+    UserDao getUserDao();
+
+<<<<<<< HEAD
+    TransactionManager getTxManager();
+
+=======
+>>>>>>> master
+    static DaoFactory getInstance() {
+        return JdbcDaoFactory.getInstance();
     }
-
-    public static <T> T getDao(Class<T> clazz) {
-        return (T) daos.get(clazz);
-    }
-
 }

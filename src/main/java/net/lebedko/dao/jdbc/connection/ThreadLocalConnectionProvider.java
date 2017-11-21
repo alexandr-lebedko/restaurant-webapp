@@ -11,11 +11,8 @@ import static java.util.Objects.isNull;
  */
 public class ThreadLocalConnectionProvider implements ConnectionProvider {
     private static final ThreadLocal<Connection> connectionThreadLocal = new ThreadLocal<>();
-    private ConnectionProvider connectionProvider;
 
-    public ThreadLocalConnectionProvider() {
-        this(ConnectionProvider.getProvider());
-    }
+    private ConnectionProvider connectionProvider;
 
     public ThreadLocalConnectionProvider(ConnectionProvider connectionProvider) {
         this.connectionProvider = connectionProvider;

@@ -23,5 +23,5 @@ public interface ItemService {
 
     List<Item> get(List<Long> ids) throws ServiceException;
 
-    Collection<Item> get(Category category);
+    Collection<Item> getByCategory(Category category);
 }

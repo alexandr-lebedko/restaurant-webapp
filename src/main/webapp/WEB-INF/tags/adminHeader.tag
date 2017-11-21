@@ -12,7 +12,7 @@
 
 <c:url var="main" value="${URL.ADMIN_MAIN}"/>
 <c:url var="orders" value="${URL.ADMIN_NEW_ORDERS}"/>
-<c:url var="invoices" value="${URL.ADMIN_CLOSED_INVOICES}"/>
+<c:url var="invoices" value="${URL.ADMIN_UNPAID_INVOICES}"/>
 <c:url var="menu" value="${URL.ADMIN_MENU}"/>
 <c:url var="signOut" value="${URL.SIGN_OUT}"/>
 
@@ -43,9 +43,10 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="${main}">
-                            <i class="fa fa-home" aria-hidden="true"></i>
-                            <span><fmt:message key="page.header.main"/> </span>
+                        <a class="nav-link badged" href="${orders}">
+                            <i class="fa fa-list-ul" aria-hidden="true"></i>
+                            <span class="badge">${unprocessedOrderNum}</span>
+                            <span><fmt:message key="page.header.orders"/> </span>
                         </a>
                     </li>
 
@@ -54,14 +55,6 @@
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
                             <span class="badge">${unprocessedInvoiceNum}</span>
                             <span><fmt:message key="page.header.invoices"/> </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link badged" href="${orders}">
-                            <i class="fa fa-list-ul" aria-hidden="true"></i>
-                            <span class="badge">${unprocessedOrderNum}</span>
-                            <span><fmt:message key="page.header.orders"/> </span>
                         </a>
                     </li>
 

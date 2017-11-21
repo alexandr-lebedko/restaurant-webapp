@@ -16,38 +16,35 @@ import java.util.Map;
  * alexandr.lebedko : 02.10.2017.
  */
 public interface OrderService {
-    Order createOrder(User user, Map<Item, Long> content) throws ServiceException;
+<<<<<<< HEAD
 
-    Collection<Order> getUnprocessed(Invoice invoice) throws ServiceException;
-
-    Map<Item, Long> toOrderContent(Map<Long, Long> amountById) throws ServiceException;
-
-    Collection<Order> getOrders(User user) throws ServiceException;
-
-    Collection<OrderItem> getByOrderIdAndUser(Long id, User user) throws ServiceException;
-
-    Collection<OrderItem> getOrderItemsByInvoice(Invoice invoice) throws ServiceException;
-
-    Pair<Order, Collection<OrderItem>> getOrderAndOrderItemsByOrderId(Long id) throws ServiceException;
+    Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId);
 
     Order getOrder(Long orderId, User user) throws ServiceException;
+
+=======
+
+    Order createOrder(User user, Map<Item, Long> content) throws ServiceException;
+
+    Order getOrder(Long orderId, User user) throws ServiceException;
+
+>>>>>>> master
+    Order getOrder(Long orderId) throws ServiceException;
+
+    Collection<Order> getOrders(User user) throws ServiceException;
 
     Collection<Order> getOrders(OrderState state) throws ServiceException;
 
     Collection<Order> getOrders(Invoice invoice) throws ServiceException;
 
-    Collection<OrderItem> getOrderItems(Order order) throws ServiceException;
+    void process(Long orderId);
 
-    Order submitModifiedOrder(Long id, User user) throws ServiceException;
+    void reject(Long id);
 
-    Order rejectOrder(Long id, User user) throws ServiceException;
+    void deleteModified(Long id, User user);
 
-    Pair<Order, Collection<OrderItem>> deleteOrder(Long id, User user) throws ServiceException;
+    void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException;
 
-    void processOrder(Long orderId) throws ServiceException;
-
-    void rejectOrder(Long orderId) throws ServiceException;
-
-    void modifyOrder(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException;
+    void submitModifiedOrder(Long id, User user);
 
 }

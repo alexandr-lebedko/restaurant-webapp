@@ -11,7 +11,4 @@ public interface ConnectionProvider {
 
     Connection getConnection() throws SQLException;
 
-    static ConnectionProvider getProvider() {
-        return new JndiConnectionProvider();
-    }
 }

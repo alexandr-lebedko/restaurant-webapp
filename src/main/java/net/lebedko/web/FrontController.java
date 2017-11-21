@@ -5,7 +5,7 @@ import net.lebedko.web.command.impl.CommandFactoryImpl;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.WebContext;
-import net.lebedko.web.util.constant.RelationalURI;
+import net.lebedko.web.util.constant.URL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +20,7 @@ import java.io.IOException;
 /**
  * alexandr.lebedko : 10.06.2017
  */
-@WebServlet(RelationalURI.CONTROLLER_URL_PATTERN)
+@WebServlet("/" + URL.CONTROLLER_PATTERN)
 @MultipartConfig
 public class FrontController extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();

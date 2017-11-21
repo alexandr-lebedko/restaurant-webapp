@@ -3,9 +3,7 @@ package net.lebedko.web.command.impl;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
-import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
-import net.lebedko.web.util.constant.PageLocations;
 import net.lebedko.web.validator.Errors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,13 +33,14 @@ public abstract class AbstractCommand implements ICommand {
             errors.register("Service failure", e.getCause().getMessage());
         }
         context.addRequestAttribute("errors", errors);
-        return new ForwardAction(PageLocations.ERROR_500);
+//        return new ForwardAction(PageLocations.ERROR_500);
+        return null;
     }
 
 
     protected abstract IResponseAction doExecute(IContext context) throws ServiceException;
 
-    protected InputStream getInputStream(IContext context, String name) throws ServiceException{
+    protected InputStream getInputStream(IContext context, String name) throws ServiceException {
         try {
             return context.getPart(name).getInputStream();
         } catch (IOException e) {

@@ -16,7 +16,7 @@ import net.lebedko.web.util.constant.WebConstant;
 import java.util.Collection;
 
 public class ClientGetMenuCommand extends AbstractCommand {
-    private static final Long DEFAULT_ID = 1L;
+    private static final Long DEFAULT_CATEGORY = 1L;
 
     private CategoryService categoryService;
     private ItemService itemService;
@@ -29,15 +29,23 @@ public class ClientGetMenuCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        Long requestedCategoryId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), DEFAULT_ID);
+<<<<<<< HEAD
+        final Long categoryId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), DEFAULT_CATEGORY);
+        final Collection<Category> categories = categoryService.getAll();
 
-        Collection<Category> categories = categoryService.getAll();
+        System.out.println("Categories: " + categories);
+=======
+        Long categoryId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), DEFAULT_CATEGORY);
+>>>>>>> master
+
         Category requestedCategory = categories.stream()
-                .filter(category -> requestedCategoryId.equals(category.getId()))
+                .filter(category -> categoryId.equals(category.getId()))
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
 
-        Collection<Item> items = itemService.get(requestedCategory);
+        System.out.println("REQUESTED CATEGORY : " + requestedCategory);
+
+        Collection<Item> items = itemService.getByCategory(requestedCategory);
 
         context.addRequestAttribute(Attribute.CATEGORIES, categories);
         context.addRequestAttribute(Attribute.ITEMS, items);

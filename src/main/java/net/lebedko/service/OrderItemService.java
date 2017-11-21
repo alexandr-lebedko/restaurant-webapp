@@ -10,6 +10,8 @@ import java.util.Collection;
 public interface OrderItemService {
 
     Collection<OrderItem> getOrderItems(Invoice invoice) throws ServiceException;
-    
+
     Collection<OrderItem> getOrderItems(Order order) throws ServiceException;
+
+    OrderItem insert(OrderItem orderItem);
 }

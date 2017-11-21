@@ -8,12 +8,8 @@ import net.lebedko.service.exception.EntityExistsException;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
-import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
-import net.lebedko.web.response.RedirectAction;
-import net.lebedko.web.util.constant.PageLocations;
 
-import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.validator.item.CategoryValidator;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.ImageValidator;
@@ -28,8 +24,8 @@ import static net.lebedko.web.util.constant.PageErrorNames.CATEGORY_EXISTS;
  * alexandr.lebedko : 05.08.2017.
  */
 public class NewCategoryPostCommand extends AbstractCommand {
-    private static final IResponseAction CATEGORY_FORM_FORWARD = new ForwardAction(PageLocations.CATEGORY_NEW);
-    private static final IResponseAction ADMIN_MENU_REDIRECT = new RedirectAction(URL.ADMIN_MENU);
+//    private static final IResponseAction CATEGORY_FORM_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN);
+//    private static final IResponseAction ADMIN_MENU_REDIRECT = new RedirectAction(URL.ADMIN_MENU);
 
     private CategoryService categoryService;
     private CategoryValidator categoryValidator;
@@ -63,7 +59,8 @@ public class NewCategoryPostCommand extends AbstractCommand {
         if (errors.hasErrors()) {
             context.addErrors(errors);
             context.addRequestAttribute("category", category);
-            return CATEGORY_FORM_FORWARD;
+return null;
+//            return CATEGORY_FORM_FORWARD;
         }
 
         final InputStream image = getImage(context);
@@ -75,7 +72,8 @@ public class NewCategoryPostCommand extends AbstractCommand {
             category.setImageId(imageId);
 
             categoryService.insert(category);
-            return ADMIN_MENU_REDIRECT;
+            return null;
+//            return ADMIN_MENU_REDIRECT;
         } catch (EntityExistsException eee) {
             //TODO: is it good to register error and add to context in catch block ???
             LOG.info("Attempt to insert existent category: " + category);
@@ -83,8 +81,8 @@ public class NewCategoryPostCommand extends AbstractCommand {
             errors.register("category-exists", CATEGORY_EXISTS);
             context.addErrors(errors);
         }
-
-        return CATEGORY_FORM_FORWARD;
+        return null;
+//        return CATEGORY_FORM_FORWARD;
     }
 
     private InputStream getImage(IContext context) throws ServiceException {

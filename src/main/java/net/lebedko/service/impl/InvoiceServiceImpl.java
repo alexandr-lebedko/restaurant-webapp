@@ -24,12 +24,12 @@ import static java.util.Optional.ofNullable;
  */
 public class InvoiceServiceImpl implements InvoiceService {
     private ServiceTemplate template;
-    private InvoiceDao invoiceDao;
     private OrderService orderService;
+    private InvoiceDao invoiceDao;
 
-    public InvoiceServiceImpl(InvoiceDao invoiceDao, OrderService orderService, ServiceTemplate template) {
-        this.invoiceDao = invoiceDao;
+    public InvoiceServiceImpl(ServiceTemplate template, InvoiceDao invoiceDao) {
         this.template = template;
+        this.invoiceDao = invoiceDao;
     }
 
     public void setOrderService(OrderService orderService) {
@@ -82,10 +82,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     public Invoice getUnpaidOrCreate(User user) throws ServiceException {
         return template.doTxService(() -> {
             Invoice unpaidInvoice = getUnpaid(user);
-            if (nonNull(unpaidInvoice)) {
-                return unpaidInvoice;
-            }
-            return createInvoice(user);
+
+            return Objects.nonNull(unpaidInvoice) ? unpaidInvoice : createInvoice(user);
         });
     }
 

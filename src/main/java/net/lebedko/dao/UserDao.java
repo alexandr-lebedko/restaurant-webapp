@@ -7,8 +7,9 @@ import net.lebedko.entity.user.User;
 /**
  * alexandr.lebedko : 21.04.2017.
  */
-public interface UserDao extends GenericDao<User> {
+public interface UserDao{
 
     User findByEmail(EmailAddress email) throws DataAccessException;
 
+    User insert(User user);
 }

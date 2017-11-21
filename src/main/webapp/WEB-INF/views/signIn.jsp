@@ -23,26 +23,30 @@
             <form class="bg-light" method="post">
 
                 <div class="form-group">
-                    <label for="emailInput"><fmt:message key="page.signIn.form.email.label"/></label>
+                    <label for="emailInput">
+                        <fmt:message key="page.signIn.form.email.label"/>
+                    </label>
                     <input type="email"
                            class="form-control form-control-sm"
                            id="emailInput"
                            name="email"
                            aria-describedby="emailHelp"
                            placeholder="<fmt:message key="page.signIn.form.email.placeholder"/>"
-                           value="${userView.emailAddress}">
+                           value="${email}">
                     <small class="form-text text-danger">
                         <t:error errorName="user not exists"/>
                     </small>
                 </div>
 
                 <div class="form-group">
-                    <label for="inputPassword"><fmt:message key="page.signIn.form.password.label"/></label>
+                    <label for="inputPassword">
+                        <fmt:message key="page.signIn.form.password.label"/>
+                    </label>
                     <input type="password"
                            class="form-control form-control-sm"
                            name="password"
                            id="inputPassword"
-                           value="${userView.password.passwordString}"
+                           value="${password.passwordString}"
                            placeholder="<fmt:message key="page.signIn.form.password.placeholder"/>">
                     <small class="form-text text-danger">
                         <t:error errorName="wrong password"/>
@@ -57,4 +61,3 @@
     </div>
 
 </t:page>
-`

@@ -1,5 +1,6 @@
 package net.lebedko.dao.jdbc;
 
+import net.lebedko.dao.jdbc.connection.ConnectionProvider;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 
 import java.util.Properties;
@@ -14,7 +15,11 @@ public class AbstractJdbcDao {
 
     protected QueryTemplate template;
 
-    public AbstractJdbcDao(QueryTemplate template) {
+    protected AbstractJdbcDao(QueryTemplate template) {
         this.template = template;
+    }
+
+    protected AbstractJdbcDao() {
+        this(new QueryTemplate(ConnectionProvider.getProvider()));
     }
 }

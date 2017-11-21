@@ -9,6 +9,7 @@ import net.lebedko.service.impl.ServiceTemplate;
 
 import java.util.Collection;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -20,13 +21,13 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryDao categoryDao;
 
     public CategoryServiceImpl(ServiceTemplate template, CategoryDao categoryDao) {
-        this.template = template;
-        this.categoryDao = categoryDao;
+        this.template = Objects.requireNonNull(template);
+        this.categoryDao = Objects.requireNonNull(categoryDao);
     }
 
     @Override
     public Collection<Category> getAll() throws ServiceException {
-        return template.doTxService(()->categoryDao.getAll());
+        return template.doTxService(() -> categoryDao.getAll());
     }
 
     @Override

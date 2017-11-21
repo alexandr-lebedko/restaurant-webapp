@@ -1,49 +1,56 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.OrderDao;
-import net.lebedko.dao.OrderItemDao;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.entity.invoice.Invoice;
-import net.lebedko.entity.item.Item;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
+<<<<<<< HEAD
 import net.lebedko.service.ItemService;
+=======
+>>>>>>> master
+import net.lebedko.service.OrderItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
-import net.lebedko.service.exception.ClosedInvoiceException;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.*;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toMap;
 import static net.lebedko.entity.order.OrderState.MODIFIED;
 
-/**
- * alexandr.lebedko : 02.10.2017.
- */
 public class OrderServiceImpl implements OrderService {
-    private static final Logger LOG = LogManager.getLogger();
     private ServiceTemplate template;
     private InvoiceService invoiceService;
+    private OrderItemService orderItemService;
+<<<<<<< HEAD
     private ItemService itemService;
-    private OrderDao orderDao;
-    private OrderItemDao orderItemDao;
+=======
+>>>>>>> master
 
-    public OrderServiceImpl(ServiceTemplate template, InvoiceService invoiceService, ItemService itemService, OrderDao orderDao, OrderItemDao orderItemDao) {
+    private OrderDao orderDao;
+
+    public OrderServiceImpl(
+            ServiceTemplate template,
+            InvoiceService invoiceService,
+            OrderItemService orderItemService,
+<<<<<<< HEAD
+            ItemService itemService,
+=======
+>>>>>>> master
+            OrderDao orderDao) {
         this.template = template;
         this.invoiceService = invoiceService;
+        this.orderItemService = orderItemService;
+<<<<<<< HEAD
         this.itemService = itemService;
+=======
+>>>>>>> master
         this.orderDao = orderDao;
-        this.orderItemDao = orderItemDao;
     }
 
     @Override
@@ -52,50 +59,35 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Collection<OrderItem> getOrderItems(Order order) throws ServiceException {
-        return template.doTxService(() -> orderItemDao.getByOrder(order));
-    }
-
-
-    @Override
-    public Map<Item, Long> toOrderContent(Map<Long, Long> amountToItemId) {
-        return template.doTxService(() ->
-                amountToItemId.entrySet().stream()
-                        .map(this::convertEntry)
-                        .collect(toMap(Entry::getKey, Entry::getValue)));
-    }
-
-    private Entry<Item, Long> convertEntry(Entry<Long, Long> amountToId) {
-        return new SimpleEntry<>(itemService.get(amountToId.getKey()), amountToId.getValue());
-    }
-
-    @Override
+<<<<<<< HEAD
+    public Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId) throws ServiceException {
+=======
     public Order createOrder(User user, Map<Item, Long> content) throws ServiceException {
+>>>>>>> master
         return template.doTxService(() -> {
-                    if (invoiceService.hasUnpaidOrClosed(user)) {
-                        LOG.error("Cannot create new order. User: " + user + " has unpaid or closed invoice!");
-                        throw new ClosedInvoiceException();
-                    }
 
                     final Invoice invoice = invoiceService.getUnpaidOrCreate(user);
                     final Order order = orderDao.insert(new Order(invoice));
-                    insertOrderContent(order, content);
+
+                    insertOrderContent(order, quantityToItemId);
 
                     return order;
                 }
         );
     }
 
-    @Override
-    public Collection<Order> getUnprocessed(Invoice invoice) throws ServiceException {
-        return template.doTxService(() -> orderDao.get(invoice, OrderState.NEW));
-    }
-
+<<<<<<< HEAD
+    private void insertOrderContent(Order order, Collection<Pair<Long, Long>> quantityToItemId) throws DataAccessException {
+        quantityToItemId.stream()
+                .map(e -> new OrderItem(order, itemService.get(e.getLeft()), e.getRight()))
+                .forEach(orderItemService::insert);
+=======
     private void insertOrderContent(Order order, Map<Item, Long> content) throws DataAccessException {
         content.entrySet()
                 .stream()
                 .map(e -> new OrderItem(order, e.getKey(), e.getValue()))
                 .forEach(orderDao::insert);
+>>>>>>> master
     }
 
     @Override
@@ -104,32 +96,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Collection<OrderItem> getByOrderIdAndUser(Long id, User user) throws ServiceException {
-        return template.doTxService(() -> {
-            Optional<Order> order = ofNullable(orderDao.getByOrderIdAndUser(id, user));
-            if (order.isPresent()) {
-                return orderDao.getByOrder(order.get());
-            }
-            return Collections.emptyList();
-        });
-    }
-
-    @Override
-    public Collection<OrderItem> getOrderItemsByInvoice(Invoice invoice) throws ServiceException {
-        return template.doTxService(() -> orderDao.getOrderItemsByInvoice(invoice));
-    }
-
-    @Override
-    public Pair<Order, Collection<OrderItem>> getOrderAndOrderItemsByOrderId(Long id) throws ServiceException {
-        return template.doTxService(() ->
-                ofNullable(orderDao.getById(id))
-                        .map((Order order) -> Pair.of(order, orderItemDao.getByOrder(order)))
-                        .orElse(null)
-        );
-    }
-
-    @Override
-    public void processOrder(Long orderId) throws ServiceException {
+    public void process(Long orderId) throws ServiceException {
         template.doTxService(() -> {
             ofNullable(orderDao.getById(orderId))
                     .filter(order -> order.getState() == OrderState.NEW)
@@ -139,9 +106,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void rejectOrder(Long orderId) throws ServiceException {
+    public void reject(Long id) throws ServiceException {
         template.doTxService(() -> {
-            ofNullable(orderDao.getById(orderId))
+            ofNullable(orderDao.getById(id))
                     .filter(order -> order.getState() == OrderState.NEW)
                     .map(order -> new Order(order.getId(), order.getInvoice(), OrderState.REJECTED, order.getCreatedOn()))
                     .ifPresent(orderDao::update);
@@ -149,11 +116,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void modifyOrder(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException {
+    public void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException {
         template.doTxService(() -> {
 
             final Order order = orderDao.getById(orderId);
-            final Collection<OrderItem> orderItems = orderItemDao.getByOrder(order);
+            final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
 
             List<OrderItem> itemsToUpdate = orderItems.stream()
                     .filter(orderItem -> itemIdAndQuantityByOrderItemIds.containsKey(orderItem.getId()))
@@ -173,8 +140,8 @@ public class OrderServiceImpl implements OrderService {
                     .collect(Collectors.toList());
 
 
-            orderItemDao.update(itemsToUpdate);
-            orderItemDao.delete(itemsToDelete);
+//            orderItemDao.update(itemsToUpdate);
+//            orderItemDao.delete(itemsToDelete);
             orderDao.update(Order.builder(order)
                     .setState(MODIFIED)
                     .build());
@@ -192,52 +159,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order submitModifiedOrder(Long id, User user) throws ServiceException {
-        return template.doTxService(() -> {
+    public void submitModifiedOrder(Long id, User user) {
+        template.doTxService(() -> {
             Order order = ofNullable(orderDao.getByOrderIdAndUser(id, user))
                     .orElseThrow(NoSuchElementException::new);
 
             if (order.getState() != OrderState.MODIFIED) {
-                throw new IllegalStateException("Cannot submit order which in 'MODIFIED' state");
+                throw new IllegalStateException("Cannot submit order which not in 'MODIFIED' state");
             }
 
             Order newOrder = Order.builder(order)
                     .setState(OrderState.NEW)
                     .build();
-            orderDao.update(newOrder);
-
-            return newOrder;
-        });
-    }
-
-
-    @Override
-    public Order rejectOrder(Long id, User user) throws ServiceException {
-        return template.doTxService(() -> {
-            Order order = ofNullable(orderDao.getByOrderIdAndUser(id, user))
-                    .orElseThrow(NoSuchElementException::new);
-
-            if (order.getState() == OrderState.PROCESSED || order.getState() == OrderState.REJECTED) {
-                throw new IllegalStateException();
-            }
-
-            Order newOrder = Order.builder(order)
-                    .setState(OrderState.REJECTED)
-                    .build();
 
             orderDao.update(newOrder);
-            return newOrder;
         });
     }
 
     @Override
-    public Pair<Order, Collection<OrderItem>> deleteOrder(Long id, User user) throws ServiceException {
-        final Order order = ofNullable(orderDao.getByOrderIdAndUser(id, user))
-                .orElseThrow(NoSuchElementException::new);
-        final Collection<OrderItem> orderItems = orderItemDao.getByOrder(order);
+    public Order getOrder(Long orderId) throws ServiceException {
+        return orderDao.getById(orderId);
+    }
 
-        orderDao.delete(order);
+    @Override
+    public void deleteModified(Long id, User user) {
 
-        return Pair.of(order, orderItems);
     }
 }

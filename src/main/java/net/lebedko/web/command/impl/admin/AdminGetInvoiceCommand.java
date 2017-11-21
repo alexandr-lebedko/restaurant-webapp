@@ -5,6 +5,7 @@ import net.lebedko.entity.item.Item;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.service.InvoiceService;
+import net.lebedko.service.OrderItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
@@ -24,15 +25,17 @@ public class AdminGetInvoiceCommand extends AbstractAdminCommand {
     private static final IResponseAction INVOICE_FORWARD = new ForwardAction(PAGE.ADMIN_INVOICE);
     private static final Comparator<Order> COMPARATOR = Comparator.comparing(Order::getCreatedOn).reversed();
 
+    private OrderItemService orderItemService;
 
-    public AdminGetInvoiceCommand(OrderService orderService, InvoiceService invoiceService) {
+    public AdminGetInvoiceCommand(OrderService orderService, OrderItemService orderItemService, InvoiceService invoiceService) {
         super(orderService, invoiceService);
+        this.orderItemService = orderItemService;
     }
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         final Invoice invoice = invoiceService.getInvoice(getInvoiceId(context));
-        final Collection<OrderItem> orderItems = orderService.getOrderItemsByInvoice(invoice);
+        final Collection<OrderItem> orderItems = orderItemService.getOrderItems(invoice);
 
         final Map<Order, List<OrderItem>> itemsToOrder = new TreeMap<>(COMPARATOR);
 

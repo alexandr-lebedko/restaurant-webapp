@@ -26,9 +26,7 @@ public class UserValidator implements IValidator<User> {
 
     @Override
     public void validate(User user, Errors errors) {
-        if (user.isValid())
-            return;
-
+        //TODO: MOVE VALIDATION!!!!!!!
         fullNameValidator.validate(user.getFullName(), errors);
         emailAddressValidator.validate(user.getEmail(), errors);
         passwordValidator.validate(user.getPassword(), errors);

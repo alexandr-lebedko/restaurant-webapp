@@ -4,6 +4,7 @@ import net.lebedko.entity.item.Item;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.user.User;
+import net.lebedko.service.OrderItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
@@ -23,10 +24,13 @@ import static java.util.Optional.ofNullable;
 
 public class ClientModifyOrderCommand extends AbstractCommand {
     private static final IResponseAction CLIENT_ORDER_REDIRECT = new RedirectAction(URL.CLIENT_ORDER_FORM);
-    private OrderService orderService;
 
-    public ClientModifyOrderCommand(OrderService orderService) {
+    private OrderService orderService;
+    private OrderItemService orderItemService;
+
+    public ClientModifyOrderCommand(OrderService orderService, OrderItemService orderItemService) {
         this.orderService = orderService;
+        this.orderItemService = orderItemService;
     }
 
     @Override
@@ -34,11 +38,14 @@ public class ClientModifyOrderCommand extends AbstractCommand {
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
 
-        final Pair<Order, Collection<OrderItem>> orderAndOrderItems = orderService.deleteOrder(orderId, user);
+        final Order order = orderService.getOrder(orderId);
+        final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
+
+        orderService.deleteModified(orderId, user);
 
         final Map<Item, Long> mergedBucket = mergeBucketAndOrderItems(
                 getOrderBucket(context),
-                orderAndOrderItems.getValue());
+                orderItems);
 
         final Long bucketAmount = mergedBucket.entrySet()
                 .stream()

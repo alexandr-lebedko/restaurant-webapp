@@ -1,6 +1,5 @@
 package net.lebedko.web.command.impl.client;
 
-import net.lebedko.entity.item.Item;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ClosedInvoiceException;
@@ -14,6 +13,7 @@ import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.validator.Errors;
+import org.apache.commons.lang3.tuple.Pair;
 
 
 import java.util.*;
@@ -38,11 +38,11 @@ public class ClientCreateOrderCommand extends AbstractCommand {
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         final Errors errors = new Errors();
 
-        Map<Item, Long> orderContent = orderService.toOrderContent(parseOrderForm(context));
+        final Collection<Pair<Long, Long>> quantityToItem = parseOrderForm(context);
 
         try {
             User user = context.getSessionAttribute(User.class, Attribute.USER);
-            orderService.createOrder(user, orderContent);
+//            orderService.createOrder(user, orderContent);
 
             context.removeSessionAttribute(Attribute.ORDER_BUCKET);
             context.removeSessionAttribute(Attribute.ORDER_BUCKET_AMOUNT);
@@ -57,16 +57,19 @@ public class ClientCreateOrderCommand extends AbstractCommand {
         return ORDER_FORM_FORWARD;
     }
 
-    private Map<Long, Long> parseOrderForm(IContext context) {
+    private Collection<Pair<Long, Long>> parseOrderForm(IContext context) {
         final List<Long> ids = context.getRequestParameters(Attribute.ITEM_ID).stream()
                 .map(value -> CommandUtils.parseToLong(value, -1L))
+                .filter(value -> value > 0)
                 .collect(toList());
         final List<Long> amounts = context.getRequestParameters(Attribute.ORDER_ITEM_QUANTITY).stream()
                 .map(value -> CommandUtils.parseToLong(value, -1L))
+                .filter(value -> value > 0)
                 .collect(toList());
 
         return IntStream.range(0, ids.size())
                 .boxed()
-                .collect(toMap(ids::get, amounts::get));
+                .map(i -> Pair.of(ids.get(i), amounts.get(i)))
+                .collect(toList());
     }
 }

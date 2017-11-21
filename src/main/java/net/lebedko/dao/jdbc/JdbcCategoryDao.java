@@ -14,17 +14,23 @@ import static net.lebedko.util.PropertyUtil.loadProperties;
 /**
  * alexandr.lebedko : 03.08.2017.
  */
-public class JdbcCategoryDao implements CategoryDao {
-    private static final Properties props = loadProperties("sql-queries.properties");
-    private static final String INSERT = props.getProperty("category.insert");
-    private static final String GET_ALL = props.getProperty("category.getAll");
-    private static final String GET_BY_ID = props.getProperty("category.getById");
+public class JdbcCategoryDao  extends AbstractJdbcDao implements CategoryDao {
+    private static final String INSERT = QUERIES.getProperty("category.insert");
+    private static final String GET_ALL = QUERIES.getProperty("category.getAll");
+    private static final String GET_BY_ID = QUERIES.getProperty("category.getById");
+
     private static final CategoryMapper MAPPER = new CategoryMapper();
 
-    private QueryTemplate template;
 
     public JdbcCategoryDao(QueryTemplate template) {
-        this.template = template;
+        super(template);
+<<<<<<< HEAD
+=======
+    }
+
+    public JdbcCategoryDao() {
+        super();
+>>>>>>> master
     }
 
     public Category insert(Category category) throws DataAccessException {

@@ -18,7 +18,7 @@ header .badge {
     background-color: #bf75d8;
     font-size: xx-small;
     position: absolute;
-    top: -2%;
+    top: 5%;
     right: -1%;
 }
 
@@ -215,9 +215,34 @@ td.order-id:hover, .invoice-id:hover {
     text-align: center;
 }
 
+.table-text-center th,
+.table-text-center td {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
 #order {
     margin-bottom: 70px;
 }
+
+/*ORDER/INVOICE STATE CLASSES  START*/
+.REJECTED, .UNPAID {
+    background-color: rgba(168, 45, 25, 0.34) !important;
+}
+
+.PROCESSED, .PAID {
+    background-color: rgba(66, 255, 64, 0.29) !important;
+}
+
+.NEW, .ACTIVE {
+    background-color: rgba(45, 70, 255, 0.34) !important;
+}
+
+.CLOSED, .MODIFIED {
+    background-color: rgba(255, 249, 44, 0.4) !important;
+}
+
+/*ORDER STATE CLASSES  END*/
 
 /*admin orders start*/
 
@@ -241,7 +266,7 @@ td.order-id:hover, .invoice-id:hover {
     background-color: rgba(12, 168, 12, 0.7);
 }
 
-.span-btn{
+.span-btn {
     user-select: none;
 }
 
@@ -249,7 +274,37 @@ td.order-id:hover, .invoice-id:hover {
     cursor: pointer;
 }
 
+td input {
+    border: none;
+    margin: 0 auto !important;
+    border-radius: 10%;
+    text-align: center !important;
+}
+
 /*admin orders end*/
+
+/*admin invoice */
+
+.inner-table {
+    width: 90%;
+    margin: 0 auto;
+    background-color: rgba(130, 216, 255, 0.05) !important;
+}
+
+.order-content form {
+    margin-bottom: 25px !important;
+}
+
+tr.order-content {
+    display: none;
+    padding: 40px !important;
+}
+
+/*admin invoice end*/
+
+.unselectable {
+    user-select: none;
+}
 
 footer {
     margin-top: 90px;

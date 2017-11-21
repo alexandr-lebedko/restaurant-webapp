@@ -7,4 +7,7 @@ public interface ICommandFactory {
 
     ICommand getCommand(String cmd);
 
+    static ICommandFactory getCommandFactory(){
+        return null;
+    }
 }

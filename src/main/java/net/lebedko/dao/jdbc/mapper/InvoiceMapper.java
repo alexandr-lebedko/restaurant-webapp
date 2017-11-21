@@ -1,6 +1,5 @@
 package net.lebedko.dao.jdbc.mapper;
 
-import net.lebedko.dao.jdbc.JdbcUserDao.UserMapper;
 import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.entity.general.Price;
 import net.lebedko.entity.invoice.Invoice;

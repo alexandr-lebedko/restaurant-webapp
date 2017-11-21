@@ -1,7 +1,6 @@
 package net.lebedko.web.util.constant;
 
 public class Attribute {
-
     private Attribute() {
     }
 
@@ -31,4 +30,7 @@ public class Attribute {
     public static final String ITEMS = "items";
     public static final String ITEMS_TO_ORDER = "itemsToOrder";
     public static final String LOCALE = "lang";
+
+    public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
 }

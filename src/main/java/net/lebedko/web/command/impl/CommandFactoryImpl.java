@@ -13,8 +13,7 @@ import net.lebedko.web.validator.user.UserValidator;
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.lebedko.service.ServiceFactory.*;
-import static net.lebedko.web.util.constant.Commands.*;
+import static net.lebedko.web.util.constant.WebConstant.*;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.*;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_MENU;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_NEW_ITEM;
@@ -23,23 +22,29 @@ import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_ADMIN_NEW_I
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_SIGN_UP;
 
 public class CommandFactoryImpl implements ICommandFactory {
+
     private Map<String, ICommand> commandMap = new HashMap<>();
 
     public CommandFactoryImpl() {
-        final UserService userService = getService(UserService.class);
-        final OrderService orderService = getService(OrderService.class);
-        final InvoiceService invoiceService = getService(InvoiceService.class);
-        final OrderItemService orderItemService = getService(OrderItemService.class);
-        final ItemService itemService = getService(ItemService.class);
-        final CategoryService categoryService = getService(CategoryService.class);
+        final ServiceFactory serviceFactory = ServiceFactory.getServiceFactory();
+
+        final FileService fileService = serviceFactory.getFileService();
+        final UserService userService = serviceFactory.getUserService();
+        final OrderService orderService = serviceFactory.getOrderService();
+        final InvoiceService invoiceService = serviceFactory.getInvoiceService();
+        final OrderItemService orderItemService = serviceFactory.getOrderItemService();
+        final ItemService itemService = serviceFactory.getItemService();
+        final CategoryService categoryService = serviceFactory.getCategoryService();
 
         commandMap.put(GET_SIGN_IN, new SignInGetCommand());
+        commandMap.put(POST_SIGN_IN, new SignInPostCommand(userService));
+
         commandMap.put(GET_SIGN_UP, new SignUpGetCommand());
         commandMap.put(SIGN_OUT, new SignOutCommand());
-        commandMap.put(POST_SIGN_IN, new SignInPostCommand(userService));
+
         commandMap.put(POST_SIGN_UP, new SignUpPostCommand(userService, new UserValidator()));
 
-        commandMap.put(CLIENT_GET_ORDER, new ClientGetOrderCommand(orderService));
+        commandMap.put(CLIENT_GET_ORDER, new ClientGetOrderCommand(orderService, orderItemService));
         commandMap.put(CLIENT_GET_ORDERS, new ClientGetOrdersCommand(orderService));
         commandMap.put(CLIENT_CREATE_ORDER, new ClientCreateOrderCommand(orderService));
         commandMap.put(CLIENT_GET_ORDER_FORM, new OrderGetCommand());
@@ -49,12 +54,13 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(CLIENT_CLEAR_ORDER_BUCKET, new ClientDeleteBucketCommand());
         commandMap.put(CLIENT_GET_MENU, new ClientGetMenuCommand(categoryService, itemService));
         commandMap.put(CLIENT_REJECT_ORDER, new ClientRejectModifiedOrderCommand(orderService));
-        commandMap.put(CLIENT_MODIFY_ORDER, new ClientModifyOrderCommand(orderService));
+        commandMap.put(CLIENT_MODIFY_ORDER, new ClientModifyOrderCommand(orderService, orderItemService));
         commandMap.put(CLIENT_SUBMIT_MODIFIED_ORDER, new ClientSubmitModifiedOrderCommand(orderService));
         commandMap.put(CLIENT_PAY_INVOICE, new ClientPayInvoiceCommand(invoiceService, orderItemService));
 
+        commandMap.put(COMMAND.ADMIN_GET_MAIN, new AdminGetNewOrdersCommand(orderService,invoiceService));
         commandMap.put(GET_ADMIN_NEW_ORDERS, new AdminGetNewOrdersCommand(orderService, invoiceService));
-        commandMap.put(GET_ADMIN_ORDER_DETAILS, new AdminGetOrderDetailsCommand(orderService, invoiceService));
+        commandMap.put(GET_ADMIN_ORDER_DETAILS, new AdminGetOrderCommandCommand(orderService, orderItemService, invoiceService));
         commandMap.put(ADMIN_PROCESS_ORDER, new AdminProcessOrderCommand(orderService, invoiceService));
         commandMap.put(ADMIN_REJECT_ORDER, new AdminRejectOrderCommand(orderService, invoiceService));
         commandMap.put(ADMIN_MODIFY_ORDER, new AdminModifyOrderCommand(orderService, invoiceService));
@@ -63,27 +69,19 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(ADMIN_GET_MODIFIED_ORDERS, new AdminGetModifiedOrdersCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_PAID_INVOICES, new AdminGetPaidInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_UNPAID_INVOICES, new AdminGetUnpaidInvoicesCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_GET_INVOICE, new AdminGetInvoiceCommand(orderService, invoiceService));
+        commandMap.put(ADMIN_GET_INVOICE, new AdminGetInvoiceCommand(orderService, orderItemService, invoiceService));
 
-        commandMap.put(GET_ADMIN_MAIN, new AdminMainGetCommand(getService(OrderService.class), getService(InvoiceService.class)));
-        commandMap.put(GET_NEW_DISH, new NewDishGetCommand());
+//        commandMap.put(GET_NEW_DISH, new NewDishGetCommand());
 
-        commandMap.put(GET_NEW_CATEGORY, new NewCategoryGetCommand());
+//        commandMap.put(GET_NEW_CATEGORY, new NewCategoryGetCommand());
+//
+//        commandMap.put(POST_NEW_CATEGORY, new NewCategoryPostCommand(categoryService, new CategoryValidator(), fileService, new ImageValidator()));
 
-        commandMap.put(POST_NEW_CATEGORY, new NewCategoryPostCommand(
-                getService(CategoryService.class),
-                new CategoryValidator(),
-                getService(FileService.class),
-                new ImageValidator()));
+        commandMap.put(GET_ADMIN_MENU, new AdminMenuGetCommand(categoryService));
 
-        commandMap.put(GET_ADMIN_MENU, new AdminMenuGetCommand(getService(CategoryService.class)));
-
-        commandMap.put(GET_ADMIN_NEW_ITEM, new NewItemGetCommand(getService(CategoryService.class)));
+        commandMap.put(GET_ADMIN_NEW_ITEM, new NewItemGetCommand(categoryService));
         commandMap.put(POST_ADMIN_NEW_ITEM, new NewItemPostCommand(
-                new ImageValidator(),
-                new MenuItemValidator(),
-                getService(CategoryService.class),
-                getService(ItemService.class)));
+                new ImageValidator(), new MenuItemValidator(), categoryService, itemService));
     }
 
     @Override

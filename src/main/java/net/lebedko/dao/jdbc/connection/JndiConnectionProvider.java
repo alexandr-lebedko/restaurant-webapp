@@ -1,6 +1,5 @@
 package net.lebedko.dao.jdbc.connection;
 
-import net.lebedko.dao.jdbc.connection.ConnectionProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,20 +14,19 @@ import java.sql.SQLException;
  * alexandr.lebedko : 30.06.2017.
  */
 public class JndiConnectionProvider implements ConnectionProvider {
-    private static final Logger logger = LogManager.getLogger();
-
+    private static final Logger LOG = LogManager.getLogger();
     private DataSource dataSource;
 
     public JndiConnectionProvider() {
-        logger.debug("Begin initializing of class");
+        LOG.debug("Begin initializing of class");
         try {
             Context initContext = new InitialContext();
             Context envContext = (Context) initContext.lookup("java:comp/env");
             dataSource = (DataSource) envContext.lookup("jdbc/restaurant");
             createTestConnection();
-            logger.debug("DataSource created");
+            LOG.debug("DataSource created");
         } catch (NamingException e) {
-            logger.error("Failed to initialize DataSource");
+            LOG.error("Failed to initialize DataSource");
             throw new RuntimeException("Failed to initialize DataSource", e);
         }
     }
@@ -40,12 +38,12 @@ public class JndiConnectionProvider implements ConnectionProvider {
 
 
     private void createTestConnection() {
-        logger.debug("Attempt to create test connection");
+        LOG.debug("Attempt to create test connection");
         try (Connection connection = getConnection()) {
-            logger.debug("Test connection created");
+            LOG.debug("Test connection created");
         } catch (SQLException e) {
-            logger.error("Failed to create test connection",e);
-            throw new RuntimeException("Failed to create test connection",e);
+            LOG.error("Failed to create test connection", e);
+            throw new RuntimeException("Failed to create test connection", e);
         }
     }
 }

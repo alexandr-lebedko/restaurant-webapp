@@ -1,6 +1,7 @@
 package net.lebedko.dao.jdbc.transaction;
 
 import net.lebedko.dao.TransactionManager;
+import net.lebedko.dao.jdbc.connection.JndiConnectionProvider;
 import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
 import net.lebedko.dao.exception.DataAccessException;
 
@@ -15,11 +16,14 @@ import static java.util.Objects.isNull;
 //TODO :: REFACTOR TO STATE PATTER
 public final class JdbcThreadLocalTransactionManager extends TransactionManager {
     private static final ThreadLocal<TransactionCounter> transactionCounter = new ThreadLocal<>();
-
     private final ThreadLocalConnectionProvider connectionProvider;
 
     public JdbcThreadLocalTransactionManager(ThreadLocalConnectionProvider connectionProvider) {
         this.connectionProvider = connectionProvider;
+    }
+
+    public JdbcThreadLocalTransactionManager(){
+        this(new ThreadLocalConnectionProvider(new JndiConnectionProvider()));
     }
 
     @Override

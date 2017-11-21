@@ -1,8 +1,5 @@
 package net.lebedko.web.util.constant;
 
-/**
- * alexandr.lebedko : 05.08.2017.
- */
 public final class WebConstant {
     private WebConstant() {
     }
@@ -38,8 +35,10 @@ public final class WebConstant {
         public static final String GET_PREFIX = "GET:";
         public static final String POST_PREFIX = "POST:";
 
+        public static final String GET_SIGN_IN = GET_PREFIX + URL.SIGN_IN;
         public static final String GET_SIGN_UP = GET_PREFIX + URL.SIGN_UP;
         public static final String POST_SIGN_UP = POST_PREFIX + URL.SIGN_UP;
+        public static final String POST_SIGN_IN = POST_PREFIX + URL.SIGN_IN;
         public static final String SIGN_OUT = GET_PREFIX + URL.SIGN_OUT;
 
         public static final String GET_CLIENT_MAIN = GET_PREFIX + URL.CLIENT_CATEGORIES;
@@ -52,6 +51,7 @@ public final class WebConstant {
         public static final String GET_ADMIN_MENU = GET_PREFIX + URL.ADMIN_MENU;
         public static final String GET_ADMIN_NEW_CATEGORY = GET_PREFIX + URL.ADMIN_NEW_CATEGORY;
 
+        public static final String ADMIN_GET_MAIN = GET_PREFIX + URL.ADMIN_MAIN;
         public static final String GET_ADMIN_NEW_ORDERS = GET_PREFIX + URL.ADMIN_NEW_ORDERS;
         public static final String GET_ADMIN_ORDER_DETAILS = GET_PREFIX + URL.ADMIN_ORDER_DETAILS;
         public static final String ADMIN_PROCESS_ORDER = POST_PREFIX + URL.ADMIN_PROCESS_ORDER;
@@ -80,7 +80,6 @@ public final class WebConstant {
         public static final String CLIENT_REJECT_ORDER = POST_PREFIX + URL.CLIENT_REJECT_ORDER;
         public static final String CLIENT_SUBMIT_MODIFIED_ORDER = POST_PREFIX + URL.CLIENT_SUBMIT_MODIFIED_ORDER;
         public static final String CLIENT_MODIFY_ORDER = POST_PREFIX + URL.CLIENT_MODIFY_ORDER;
-
     }
 
 }

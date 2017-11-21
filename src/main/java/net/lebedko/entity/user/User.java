@@ -8,20 +8,20 @@ import java.util.Objects;
 import static java.util.Objects.requireNonNull;
 
 
-public class User implements Entity, Validatable {
+public class User{
 
 
-    private int id;
+    private Long id;
     private FullName fullName;
     private EmailAddress email;
     private Password password;
     private UserRole role;
 
     public User(FullName fullName, EmailAddress email, Password password, UserRole role) {
-        this(0, fullName, email, password, role);
+        this(null, fullName, email, password, role);
     }
 
-    public User(int id, FullName fullName, EmailAddress email, Password password, UserRole role) {
+    public User(Long id, FullName fullName, EmailAddress email, Password password, UserRole role) {
         this.id = id;
         this.fullName = requireNonNull(fullName, "Full name cannot be null!");
         this.email = requireNonNull(email, "Email address cannot be null!");
@@ -29,11 +29,11 @@ public class User implements Entity, Validatable {
         this.role = requireNonNull(role, "Role cannot be null!");
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -68,14 +68,6 @@ public class User implements Entity, Validatable {
     @Override
     public int hashCode() {
         return Objects.hash(fullName, email, password, role);
-    }
-
-
-    @Override
-    public boolean isValid() {
-        return fullName.isValid() &&
-                email.isValid() &&
-                password.isValid();
     }
 
     @Override

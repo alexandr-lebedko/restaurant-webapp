@@ -23,7 +23,10 @@ public class ClientRejectModifiedOrderCommand extends AbstractCommand {
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
 
-        orderService.rejectOrder(orderId, user);
+
+        //TODO : implement correctly!!!!
+
+//        orderService.reject(orderId, user);
 
         return new RedirectAction(URL.CLIENT_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=").concat(orderId.toString()));
 

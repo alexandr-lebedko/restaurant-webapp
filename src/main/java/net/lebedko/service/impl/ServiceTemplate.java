@@ -22,16 +22,18 @@ public class ServiceTemplate {
         this.txManager = Objects.requireNonNull(txManager);
     }
 
+    public ServiceTemplate() {
+        this(TransactionManager.getTxManager());
+    }
+
     public <T> T doTxService(Callable<T> work) throws ServiceException {
-        T result = null;
         try {
-            result = txManager.tx(work);
+            return txManager.tx(work);
         } catch (UniqueViolationException e) {
             throw new EntityExistsException(e);
         } catch (DataAccessException e) {
             throw new ServiceException(e);
         }
-        return result;
     }
 
     public void doTxService(VoidCallable work) throws ServiceException {

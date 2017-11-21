@@ -78,7 +78,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Collection<Item> get(Category category) {
+    public Collection<Item> getByCategory(Category category) {
         return template.doTxService(() -> itemDao.getByCategory(category));
     }
 }

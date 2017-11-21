@@ -26,7 +26,9 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        orderService.modifyOrder(getOrderId(context), getItemIdAndQuantityByOrderItemIds(context));
+      //TODO : REFACTOR
+
+        orderService.modify(getOrderId(context), getItemIdAndQuantityByOrderItemIds(context));
 
         return new RedirectAction(URL.ADMIN_ORDER_DETAILS
                 .concat("?").concat(Attribute.ORDER_ID).concat("=").concat(getOrderId(context).toString()));

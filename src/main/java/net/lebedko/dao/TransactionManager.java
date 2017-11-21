@@ -24,11 +24,11 @@ public abstract class TransactionManager {
     protected abstract void commit() throws DataAccessException;
 
     public final <T> T tx(Callable<T> work) throws DataAccessException {
-        T result = null;
         try {
             begin();
-            result = work.call();
+            T result = work.call();
             commit();
+            return  result;
         } catch (RuntimeException e) {
             rollback();
             throw e;
@@ -36,7 +36,6 @@ public abstract class TransactionManager {
             rollback();
             throw new RuntimeException(e);
         }
-        return result;
     }
 
     public final void tx(VoidCallable work) throws DataAccessException {
@@ -51,9 +50,5 @@ public abstract class TransactionManager {
             rollback();
             throw new RuntimeException(e);
         }
-    }
-
-    public static TransactionManager getTxManager() {
-        return new JdbcThreadLocalTransactionManager(new ThreadLocalConnectionProvider());
     }
 }

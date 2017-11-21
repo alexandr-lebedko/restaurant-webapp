@@ -1,5 +1,6 @@
 package net.lebedko.service.impl;
 
+import net.lebedko.dao.TransactionManager;
 import net.lebedko.dao.UserDao;
 import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.entity.user.User;
@@ -17,8 +18,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     public UserServiceImpl(ServiceTemplate template, UserDao userDao) {
-        this.template = requireNonNull(template, "Service Template cannot be null!");
-        this.userDao = requireNonNull(userDao, "UserDao cannot be null!");
+        this.template = template;
+        this.userDao = userDao;
     }
 
     @Override

@@ -78,8 +78,8 @@
 
                 <c:if test="${errors ne null}">
                     <div class="col-lg-9 ">
-                        <c:forEach var="entry" items="${errors.entrySet}">
-                            <span> <t:error errorName="${entry.key}"/></span>
+                        <c:forEach var="orderItem" items="${errors.entrySet}">
+                            <span> <t:error errorName="${orderItem.key}"/></span>
                             <br/>
                         </c:forEach>
                         <br/>
