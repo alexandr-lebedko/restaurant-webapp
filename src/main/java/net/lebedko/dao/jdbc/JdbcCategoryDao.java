@@ -9,12 +9,12 @@ import net.lebedko.entity.item.Category;
 import java.util.*;
 
 import static net.lebedko.i18n.SupportedLocales.*;
-import static net.lebedko.util.PropertyUtil.loadProperties;
+
 
 /**
  * alexandr.lebedko : 03.08.2017.
  */
-public class JdbcCategoryDao  extends AbstractJdbcDao implements CategoryDao {
+public class JdbcCategoryDao extends AbstractJdbcDao implements CategoryDao {
     private static final String INSERT = QUERIES.getProperty("category.insert");
     private static final String GET_ALL = QUERIES.getProperty("category.getAll");
     private static final String GET_BY_ID = QUERIES.getProperty("category.getById");
@@ -24,14 +24,8 @@ public class JdbcCategoryDao  extends AbstractJdbcDao implements CategoryDao {
 
     public JdbcCategoryDao(QueryTemplate template) {
         super(template);
-<<<<<<< HEAD
-=======
     }
 
-    public JdbcCategoryDao() {
-        super();
->>>>>>> master
-    }
 
     public Category insert(Category category) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
@@ -40,7 +34,7 @@ public class JdbcCategoryDao  extends AbstractJdbcDao implements CategoryDao {
         params.put(3, category.getValue().get(RU_CODE));
         params.put(4, category.getImageId());
 
-        Long id =  template.insertAndReturnKey(INSERT, params);
+        Long id = template.insertAndReturnKey(INSERT, params);
         category.setId(id);
 
         return category;

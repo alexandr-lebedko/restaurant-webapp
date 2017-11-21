@@ -27,11 +27,8 @@ public interface DaoFactory {
 
     UserDao getUserDao();
 
-<<<<<<< HEAD
     TransactionManager getTxManager();
 
-=======
->>>>>>> master
     static DaoFactory getInstance() {
         return JdbcDaoFactory.getInstance();
     }

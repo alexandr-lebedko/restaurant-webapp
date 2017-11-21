@@ -1,7 +1,6 @@
 package net.lebedko.service;
 
 import net.lebedko.entity.invoice.Invoice;
-import net.lebedko.entity.item.Item;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.OrderState;
@@ -16,19 +15,12 @@ import java.util.Map;
  * alexandr.lebedko : 02.10.2017.
  */
 public interface OrderService {
-<<<<<<< HEAD
 
     Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId);
 
     Order getOrder(Long orderId, User user) throws ServiceException;
 
-=======
 
-    Order createOrder(User user, Map<Item, Long> content) throws ServiceException;
-
-    Order getOrder(Long orderId, User user) throws ServiceException;
-
->>>>>>> master
     Order getOrder(Long orderId) throws ServiceException;
 
     Collection<Order> getOrders(User user) throws ServiceException;
@@ -37,14 +29,12 @@ public interface OrderService {
 
     Collection<Order> getOrders(Invoice invoice) throws ServiceException;
 
-    void process(Long orderId);
+    Collection<OrderItem> getOrderItems(Order order) throws ServiceException;
 
-    void reject(Long id);
+    Order submitModifiedOrder(Long id, User user) throws ServiceException;
 
     void deleteModified(Long id, User user);
 
     void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException;
-
-    void submitModifiedOrder(Long id, User user);
 
 }

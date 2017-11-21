@@ -27,14 +27,7 @@ public class JdbcOrderItemDao extends AbstractJdbcDao implements OrderItemDao {
         super(template);
     }
 
-<<<<<<< HEAD
-=======
-    public JdbcOrderItemDao() {
-        super();
-    }
 
-
->>>>>>> master
     @Override
     public OrderItem insert(OrderItem item) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();

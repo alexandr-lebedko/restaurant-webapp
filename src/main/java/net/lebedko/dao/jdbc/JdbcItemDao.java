@@ -20,18 +20,9 @@ public class JdbcItemDao extends AbstractJdbcDao implements ItemDao {
     private static final String GET_BY_CATEGORY = QUERIES.getProperty("item.getByCategory");
     private static final String GET_BY_ID = QUERIES.getProperty("item.getById");
 
-<<<<<<< HEAD
-    public JdbcItemDao(QueryTemplate template) {
-        super(template);
-=======
 
     public JdbcItemDao(QueryTemplate template) {
         super(template);
-    }
-
-    public JdbcItemDao() {
-        super();
->>>>>>> master
     }
 
     @Override

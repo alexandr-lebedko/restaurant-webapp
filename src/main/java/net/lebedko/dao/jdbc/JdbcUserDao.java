@@ -10,8 +10,6 @@ import net.lebedko.entity.user.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.util.Objects.requireNonNull;
-import static net.lebedko.util.Util.checkValidity;
 
 /**
  * alexandr.lebedko : 26.04.2017.
@@ -28,14 +26,6 @@ public class JdbcUserDao extends AbstractJdbcDao implements UserDao {
 
     public JdbcUserDao(QueryTemplate template) {
         super(template);
-<<<<<<< HEAD
-=======
-    }
-
-    public JdbcUserDao() {
-        super();
->>>>>>> master
-    }
 
     @Override
     public User findByEmail(EmailAddress email) throws DataAccessException {
