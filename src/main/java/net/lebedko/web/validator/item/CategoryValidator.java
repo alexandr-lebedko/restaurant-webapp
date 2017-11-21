@@ -28,6 +28,6 @@ public class CategoryValidator implements IValidator<Category> {
     }
 
     private boolean containsSupportedLocales(Category category) {
-        return SupportedLocales.containsSupportedLocales(category.getValue().getMap().keySet());
+        return SupportedLocales.containsSupportedLocales(category.getTitle().getMap().keySet());
     }
 }

@@ -29,10 +29,9 @@ public class JdbcCategoryDao extends AbstractJdbcDao implements CategoryDao {
 
     public Category insert(Category category) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
-        params.put(1, category.getValue().get(UA_CODE));
-        params.put(2, category.getValue().get(EN_CODE));
-        params.put(3, category.getValue().get(RU_CODE));
-        params.put(4, category.getImageId());
+        params.put(1, category.getTitle().get(UA_CODE));
+        params.put(2, category.getTitle().get(EN_CODE));
+        params.put(3, category.getTitle().get(RU_CODE));
 
         Long id = template.insertAndReturnKey(INSERT, params);
         category.setId(id);

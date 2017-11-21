@@ -12,7 +12,6 @@ import static net.lebedko.i18n.SupportedLocales.*;
 
 public class CategoryMapper implements Mapper<Category> {
     private static final String CATEGORY_ID = "c_id";
-    private static final String IMAGE_ID = "c_image_id";
     private static final String UKR_TITLE = "c_ukr_title";
     private static final String EN_TITLE = "c_en_title";
     private static final String RU_TITLE = "c_ru_title";
@@ -22,8 +21,6 @@ public class CategoryMapper implements Mapper<Category> {
     public Category map(ResultSet rs) throws SQLException {
         final long id = rs.getLong(CATEGORY_ID);
 
-        final String imageId = rs.getString(IMAGE_ID);
-
         final String ukrTitle = rs.getString(UKR_TITLE);
         final String enTitle = rs.getString(EN_TITLE);
         final String ruTitle = rs.getString(RU_TITLE);
@@ -32,6 +29,6 @@ public class CategoryMapper implements Mapper<Category> {
         title.add(getByCode(EN_CODE), enTitle);
         title.add(getByCode(RU_CODE), ruTitle);
 
-        return new Category(id, title, imageId);
+        return new Category(id, title);
     }
 }

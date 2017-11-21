@@ -69,7 +69,7 @@ return null;
 
         try {
             imageId = fileService.saveImg(image);
-            category.setImageId(imageId);
+//            category.setImageId(imageId);
 
             categoryService.insert(category);
             return null;

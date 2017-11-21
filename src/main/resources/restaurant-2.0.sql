@@ -9,8 +9,7 @@ CREATE TABLE categories (
   c_id        BIGINT AUTO_INCREMENT PRIMARY KEY,
   c_ukr_title VARCHAR(50) UNIQUE NOT NULL,
   c_en_title  VARCHAR(50) UNIQUE NOT NULL,
-  c_ru_title  VARCHAR(50) UNIQUE NOT NULL,
-  c_image_id  VARCHAR(50) UNIQUE NOT NULL
+  c_ru_title  VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE items (

@@ -12,29 +12,17 @@ import java.util.Objects;
 public class Category implements Validatable {
 
     private Long id;
-    private Title value;
-    private String imageId;
+    private StringI18N title;
 
 
     public Category(StringI18N title) {
-        this(0L, title, null);
+        this(0L, title);
     }
 
-    public Category(StringI18N title, String imageId) {
-        this(0L, title, imageId);
-    }
-
-    public Category(Long id, StringI18N title, String imageId) {
+    public Category(Long id, StringI18N title) {
         this.id = id;
-        this.value = new Title(title);
-        this.imageId = imageId;
+        this.title = title;
     }
-
-
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
-    }
-
 
     public Long getId() {
         return id;
@@ -46,16 +34,11 @@ public class Category implements Validatable {
 
     @Override
     public boolean isValid() {
-        return value.isValid();
+        return title.isValid();
     }
 
-    public String getImageId() {
-        return imageId;
-    }
-
-    //TODO::refactor method name
-    public StringI18N getValue() {
-        return value.getValue();
+    public StringI18N getTitle() {
+        return title;
     }
 
     @Override
@@ -64,17 +47,16 @@ public class Category implements Validatable {
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
         return Objects.equals(id, category.id) &&
-                Objects.equals(value, category.value) &&
-                Objects.equals(imageId, category.imageId);
+                Objects.equals(title, category.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, value, imageId);
+        return Objects.hash(id, title);
     }
 
     @Override
     public String toString() {
-        return value.toString();
+        return title.toString();
     }
 }
