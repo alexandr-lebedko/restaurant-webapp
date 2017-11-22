@@ -38,7 +38,8 @@ public class NewItemGetCommand extends AbstractCommand {
     }
 
     private Collection<CategoryView> getAllCategories(IContext context) throws ServiceException {
-        return categoryService.getAll(context.getSessionAttribute(Locale.class, "lang"));
+//        return categoryService.getAll(context.getSessionAttribute(Locale.class, "lang"));
+        return null;
     }
 
 

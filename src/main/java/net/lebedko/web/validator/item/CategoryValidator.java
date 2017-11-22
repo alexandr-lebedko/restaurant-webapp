@@ -6,28 +6,28 @@ import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.IValidator;
 
-import static java.util.Objects.isNull;
-
 /**
  * alexandr.lebedko : 04.08.2017.
  */
 public class CategoryValidator implements IValidator<Category> {
-
+    private static final int MIN_TITLE_LENGTH = 2;
+    private static final int MAX_TITLE_LENGTH = 50;
 
     @Override
     public void validate(Category category, Errors errors) {
-        if (isNull(category)) {
-            errors.register("nullCategory", PageErrorNames.NULL_CATEGORY);
-            return;
+        if (notValidLength(category) || notContainsSupportedLocales(category)) {
+            errors.register("invalid-category", PageErrorNames.INVALID_CATEGORY);
         }
-
-        if (containsSupportedLocales(category) && category.isValid()) {
-            return;
-        }
-        errors.register("invalid-category", PageErrorNames.INVALID_CATEGORY);
     }
 
-    private boolean containsSupportedLocales(Category category) {
-        return SupportedLocales.containsSupportedLocales(category.getTitle().getMap().keySet());
+    private boolean notValidLength(Category category) {
+        return category.getTitle().getMap().values().stream()
+                .map(String::length)
+                .anyMatch(length ->
+                        (length < MIN_TITLE_LENGTH) || (length > MAX_TITLE_LENGTH));
+    }
+
+    private boolean notContainsSupportedLocales(Category category) {
+        return !SupportedLocales.containsSupportedLocales(category.getTitle().getMap().keySet());
     }
 }

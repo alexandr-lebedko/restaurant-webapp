@@ -30,8 +30,8 @@ public class AdminMenuGetCommand extends AbstractCommand {
         final Locale locale = context.getSessionAttribute(Locale.class, getLocaleSessionAttributeName());
 
 
-        Collection<CategoryView> categories = categoryService.getAll(locale);
-        context.addRequestAttribute("categories", categories.toArray());
+//        Collection<CategoryView> categories = categoryService.getAll(locale);
+//        context.addRequestAttribute("categories", categories.toArray());
         return null;
 //        return ADMIN_MENU_FORWARD;
     }

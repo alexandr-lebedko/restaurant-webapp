@@ -6,6 +6,8 @@ import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.*;
 import net.lebedko.web.command.impl.auth.*;
 import net.lebedko.web.command.impl.client.*;
+import net.lebedko.web.util.constant.WebConstant;
+import net.lebedko.web.util.constant.WebConstant.COMMAND;
 import net.lebedko.web.validator.item.*;
 import net.lebedko.web.validator.ImageValidator;
 import net.lebedko.web.validator.user.UserValidator;
@@ -13,13 +15,7 @@ import net.lebedko.web.validator.user.UserValidator;
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.lebedko.web.util.constant.WebConstant.*;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.*;
-import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_MENU;
-import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_ADMIN_NEW_ITEM;
-import static net.lebedko.web.util.constant.WebConstant.COMMAND.GET_SIGN_UP;
-import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_ADMIN_NEW_ITEM;
-import static net.lebedko.web.util.constant.WebConstant.COMMAND.POST_SIGN_UP;
 
 public class CommandFactoryImpl implements ICommandFactory {
 
@@ -27,8 +23,6 @@ public class CommandFactoryImpl implements ICommandFactory {
 
     public CommandFactoryImpl() {
         final ServiceFactory serviceFactory = ServiceFactory.getServiceFactory();
-
-        final FileService fileService = serviceFactory.getFileService();
         final UserService userService = serviceFactory.getUserService();
         final OrderService orderService = serviceFactory.getOrderService();
         final InvoiceService invoiceService = serviceFactory.getInvoiceService();
@@ -58,7 +52,7 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(CLIENT_SUBMIT_MODIFIED_ORDER, new ClientSubmitModifiedOrderCommand(orderService));
         commandMap.put(CLIENT_PAY_INVOICE, new ClientPayInvoiceCommand(invoiceService, orderItemService));
 
-        commandMap.put(COMMAND.ADMIN_GET_MAIN, new AdminGetNewOrdersCommand(orderService,invoiceService));
+        commandMap.put(ADMIN_GET_MAIN, new AdminGetNewOrdersCommand(orderService, invoiceService));
         commandMap.put(GET_ADMIN_NEW_ORDERS, new AdminGetNewOrdersCommand(orderService, invoiceService));
         commandMap.put(GET_ADMIN_ORDER_DETAILS, new AdminGetOrderCommandCommand(orderService, orderItemService, invoiceService));
         commandMap.put(ADMIN_PROCESS_ORDER, new AdminProcessOrderCommand(orderService, invoiceService));
@@ -70,6 +64,10 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(ADMIN_GET_PAID_INVOICES, new AdminGetPaidInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_UNPAID_INVOICES, new AdminGetUnpaidInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_INVOICE, new AdminGetInvoiceCommand(orderService, orderItemService, invoiceService));
+        commandMap.put(ADMIN_GET_CATEGORIES, new AdminGetCategoriesCommand(orderService, invoiceService, categoryService));
+        commandMap.put(ADMIN_MODIFY_CATEGORY, new AdminModifyCategoryCommand(orderService, invoiceService, categoryService));
+        commandMap.put(ADMIN_CREATE_CATEGORY, new AdminCreateNewCategoryCommand(orderService, invoiceService, categoryService));
+        commandMap.put(ADMIN_DELETE_CATEGORY, new AdminDeleteCategoryCommand(orderService, invoiceService, categoryService));
 
 //        commandMap.put(GET_NEW_DISH, new NewDishGetCommand());
 

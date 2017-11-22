@@ -64,7 +64,7 @@ public class ItemServiceImpl implements ItemService {
         view.setDescription(item.getDescription().getValue().get(locale));
         view.setPrice(item.getPrice().getValue());
         view.setPictureId(item.getPictureId());
-        view.setCategory(item.getCategory().getValue().get(locale));
+        view.setCategory(item.getCategory().getTitle().get(locale));
         view.setState(item.getState().name());
 
         return view;

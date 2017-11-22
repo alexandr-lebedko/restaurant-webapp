@@ -12,7 +12,7 @@
 <c:url var="orderCart" value="${URL.CLIENT_ORDER_FORM}"/>
 <c:url var="orders" value="${URL.CLIENT_ORDERS}"/>
 <c:url var="invoices" value="${URL.CLIENT_INVOICES}"/>
-<c:url var="menu" value="${URL.CLIENT_MENU}"/>
+<c:url var="categories" value="${URL.CLIENT_MENU}"/>
 
 
 <%@attribute name="pageUrl" required="true" %>
@@ -38,7 +38,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="${menu}">
+                        <a class="nav-link" href="${categories}">
                             <i class="fa fa-th" aria-hidden="true"></i>
                             <span><fmt:message key="menu"/></span>
                         </a>

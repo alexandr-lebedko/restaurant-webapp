@@ -10,8 +10,11 @@ import java.util.Collection;
  */
 public interface CategoryDao {
 
-    Category insert(Category category) throws DataAccessException;
+    Collection<Category> getAll();
 
-    Collection<Category> getAll() throws DataAccessException;
+    Category insert(Category category);
 
+    void update(Category category);
+
+    void delete(Long id);
 }

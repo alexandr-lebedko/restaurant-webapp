@@ -18,6 +18,8 @@ public class URL {
 
     public static final String ADMIN_MAIN = PREFIX + "admin/main";
     public static final String ADMIN_MENU = PREFIX + "admin/menu";
+    public static final String ADMIN_INVOICE = PREFIX + "admin/invoice";
+    public static final String ADMIN_CATEGORIES= PREFIX + "admin/categories";
     public static final String ADMIN_NEW_ORDERS = PREFIX + "admin/orders/new";
     public static final String ADMIN_PROCESSED_ORDERS = PREFIX + "admin/orders/processed";
     public static final String ADMIN_MODIFIED_ORDERS = PREFIX + "admin/orders/modified";
@@ -27,13 +29,11 @@ public class URL {
     public static final String ADMIN_PROCESS_ORDER = PREFIX + "admin/order/process";
     public static final String ADMIN_REJECT_ORDER = PREFIX + "admin/order/reject";
     public static final String ADMIN_MODIFY_ORDER = PREFIX + "admin/order/modify";
-    public static final String ADMIN_ACTIVE_INVOICES = PREFIX + "admin/invoices/active";
-    public static final String ADMIN_CLOSED_INVOICES = PREFIX + "admin/invoices/closed";
     public static final String ADMIN_UNPAID_INVOICES = PREFIX + "admin/invoices/unpaid";
+    public static final String ADMIN_MODIFY_CATEGORY = PREFIX + "admin/category/modify";
+    public static final String ADMIN_CREATE_CATEGORY = PREFIX + "admin/category/create";
+    public static final String ADMIN_DELETE_CATEGORY = PREFIX + "admin/category/delete";
     public static final String ADMIN_PAID_INVOICES = PREFIX + "admin/invoices/paid";
-    public static final String ADMIN_INVOICE = PREFIX + "admin/invoice";
-    public static final String ADMIN_MODIFY_INVOICE = PREFIX + "admin/invoice/modify";
-    public static final String ADMIN_PROCESS_INVOICE = PREFIX + "admin/invoice/process";
 
 
     public static final String CLIENT_MENU= PREFIX + "client/menu";

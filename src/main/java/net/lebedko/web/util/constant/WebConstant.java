@@ -24,7 +24,7 @@ public final class WebConstant {
         public static final String CLIENT_INVOICES = PREFIX + "client/invoices" + SUFFIX;
         public static final String CLIENT_INVOICE = PREFIX + "client/invoice" + SUFFIX;
 
-        public static final String ADMIN_ORDERS = PREFIX + "admin/newOrders" + SUFFIX;
+        public static final String ADMIN_CATEGORIES = PREFIX + "admin/categories" + SUFFIX;
         public static final String ADMIN_ORDER_DETAILS = PREFIX + "admin/orderDetails" + SUFFIX;
         public static final String ADMIN_ORDERS_PAGE = PREFIX + "admin/orders" + SUFFIX;
         public static final String ADMIN_INVOICES = PREFIX + "admin/invoices" + SUFFIX;
@@ -60,16 +60,18 @@ public final class WebConstant {
         public static final String ADMIN_GET_MODIFIED_ORDERS = GET_PREFIX + URL.ADMIN_MODIFIED_ORDERS;
         public static final String ADMIN_GET_REJECTED_ORDERS = GET_PREFIX + URL.ADMIN_REJECTED_ORDERS;
         public static final String ADMIN_GET_PROCESSED_ORDERS = GET_PREFIX + URL.ADMIN_PROCESSED_ORDERS;
-        public static final String ADMIN_GET_CLOSED_INVOICES = GET_PREFIX + URL.ADMIN_CLOSED_INVOICES;
-        public static final String ADMIN_GET_ACTIVE_INVOICES = GET_PREFIX + URL.ADMIN_ACTIVE_INVOICES;
         public static final String ADMIN_GET_PAID_INVOICES = GET_PREFIX + URL.ADMIN_PAID_INVOICES;
         public static final String ADMIN_GET_UNPAID_INVOICES = GET_PREFIX + URL.ADMIN_UNPAID_INVOICES;
         public static final String ADMIN_GET_INVOICE = GET_PREFIX + URL.ADMIN_INVOICE;
+        public static final String ADMIN_GET_CATEGORIES = GET_PREFIX + URL.ADMIN_CATEGORIES;
+        public static final String ADMIN_MODIFY_CATEGORY= POST_PREFIX + URL.ADMIN_MODIFY_CATEGORY;
+        public static final String ADMIN_CREATE_CATEGORY= POST_PREFIX + URL.ADMIN_CREATE_CATEGORY;
+        public static final String ADMIN_DELETE_CATEGORY= POST_PREFIX + URL.ADMIN_DELETE_CATEGORY;
 
         public static final String GET_ADMIN_NEW_ITEM = GET_PREFIX + URL.NEW_ITEM_URL;
         public static final String POST_ADMIN_NEW_ITEM = POST_PREFIX + URL.NEW_ITEM_URL;
 
-        public static final String CLIENT_GET_MENU= GET_PREFIX + URL.CLIENT_MENU;
+        public static final String CLIENT_GET_MENU = GET_PREFIX + URL.CLIENT_MENU;
         public static final String CLIENT_GET_INVOICE = GET_PREFIX + URL.CLIENT_INVOICE;
         public static final String CLIENT_PAY_INVOICE = POST_PREFIX
                 + URL.CLIENT_PAY_INVOICE;

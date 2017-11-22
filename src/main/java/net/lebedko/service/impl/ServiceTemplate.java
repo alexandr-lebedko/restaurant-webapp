@@ -3,9 +3,7 @@ package net.lebedko.service.impl;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.exception.UniqueViolationException;
 import net.lebedko.dao.TransactionManager;
-import net.lebedko.service.exception.EntityExistsException;
 import net.lebedko.service.exception.ServiceException;
-import net.lebedko.service.exception.UnavailableServiceException;
 import net.lebedko.util.VoidCallable;
 
 import java.util.Objects;
@@ -26,7 +24,7 @@ public class ServiceTemplate {
         try {
             return txManager.tx(work);
         } catch (UniqueViolationException e) {
-            throw new EntityExistsException(e);
+            throw new IllegalArgumentException(e);
         } catch (DataAccessException e) {
             throw new ServiceException(e);
         }
@@ -36,7 +34,7 @@ public class ServiceTemplate {
         try {
             txManager.tx(work);
         } catch (UniqueViolationException e) {
-            throw new EntityExistsException(e);
+            throw new IllegalArgumentException(e);
         } catch (DataAccessException e) {
             throw new ServiceException(e);
         }

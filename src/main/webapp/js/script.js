@@ -110,3 +110,34 @@ $(document).ready(function () {
         hiddenRows.not(hiddenRow).hide();
     })
 })
+
+$(document).ready(function () {
+    $('#categoryModal').on('shown.bs.modal', function (event) {
+
+        var button = $(event.relatedTarget);
+
+        var uaTitle = button.data('ua');
+        var enTitle = button.data('en');
+        var ruTitle = button.data('ru');
+        var id = button.data('id');
+        var modal = $(this);
+
+        modal.find('#ruTitle').val(ruTitle);
+        modal.find('#enTitle').val(enTitle);
+        modal.find('#uaTitle').val(uaTitle);
+        modal.find('#categoryId').val(id);
+        modal.find('#deleteId').val(id);
+
+    });
+
+    $('.modal').on('hide.bs.modal', function (e) {
+        $('#category-alert').remove();
+        var modal = $(this);
+
+        modal.find('.ruTitle').val('');
+        modal.find('.enTitle').val('');
+        modal.find('.uaTitle').val('');
+        modal.find('.categoryId').val('');
+    });
+})
+
