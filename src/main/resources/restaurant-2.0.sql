@@ -20,7 +20,6 @@ CREATE TABLE items (
   i_ukr_description VARCHAR(255)                NOT NULL,
   i_en_description  VARCHAR(255)                NOT NULL,
   i_ru_description  VARCHAR(255)                NOT NULL,
-  i_state           ENUM ('ACTIVE', 'INACTIVE') NOT NULL,
   i_price           FLOAT                       NOT NULL,
   i_category        BIGINT                      NOT NULL,
   i_image_id        VARCHAR(50) UNICODE         NOT NULL,

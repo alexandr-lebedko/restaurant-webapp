@@ -34,10 +34,9 @@ public class JdbcItemDao extends AbstractJdbcDao implements ItemDao {
         params.put(4, item.getDescription().getValue().get(UA_CODE));
         params.put(5, item.getDescription().getValue().get(EN_CODE));
         params.put(6, item.getDescription().getValue().get(RU_CODE));
-        params.put(7, item.getState().name());
-        params.put(8, item.getPrice().getValue());
-        params.put(9, item.getCategory().getId());
-        params.put(10, item.getPictureId());
+        params.put(7, item.getPrice().getValue());
+        params.put(8, item.getCategory().getId());
+        params.put(9, item.getImageId());
 
         long id = template.insertAndReturnKey(INSERT, params);
         item.setId(id);

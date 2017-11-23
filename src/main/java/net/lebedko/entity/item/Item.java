@@ -1,103 +1,84 @@
 package net.lebedko.entity.item;
 
-import net.lebedko.entity.Validatable;
 import net.lebedko.entity.general.Price;
 
-import static java.util.Objects.nonNull;
+import java.util.Objects;
 
-/**
- * alexandr.lebedko : 30.07.2017.
- */
+public class Item {
 
-//TODO: refactor class with Builder pattern
-public class Item implements Validatable {
+    private Long id;
+    private Title title;
+    private Description description;
+    private Category category;
+    private Price price;
+    private String imageId;
 
-    private long id;
 
-    private ItemInfo info;
-    private ItemState state;
-    private String pictureId;
-
-    public Item(ItemInfo info, ItemState state) {
-        this(0, info, state, null);
+    public Item(Title title, Description description, Category category, Price price, String imageId) {
+        this(null, title, description,category, price, imageId);
     }
 
-    public Item(long id, ItemInfo info, ItemState state, String pictureId) {
+    public Item(Long id, Title title, Description description, Category category, Price price, String imageId) {
         this.id = id;
-        this.info = info;
-        this.state = state;
-        this.pictureId = pictureId;
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.price = price;
+        this.imageId = imageId;
     }
 
-    @Override
-    public boolean isValid() {
-        return nonNull(info)
-                && nonNull(state)
-                && info.isValid();
-    }
-
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void setPictureId(String pictureId) {
-        this.pictureId = pictureId;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public ItemInfo getInfo() {
-        return info;
-    }
-
-    public ItemState getState() {
-        return state;
-    }
-
-    public String getPictureId() {
-        return pictureId;
-    }
-
     public Title getTitle() {
-        return info.getTitle();
+        return title;
     }
 
     public Description getDescription() {
-        return info.getDescription();
+        return description;
     }
 
     public Price getPrice() {
-        return info.getPrice();
+        return price;
     }
 
     public Category getCategory() {
-        return info.getCategory();
+        return category;
+    }
+
+    public String getImageId() {
+        return imageId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Item item = (Item) o;
-
-        return info != null ? info.equals(item.info) : item.info == null;
+        return Objects.equals(id, item.id) &&
+                Objects.equals(title, item.title) &&
+                Objects.equals(description, item.description) &&
+                Objects.equals(category, item.category) &&
+                Objects.equals(price, item.price) &&
+                Objects.equals(imageId, item.imageId);
     }
 
     @Override
     public int hashCode() {
-        return info != null ? info.hashCode() : 0;
+        return Objects.hash(id, title, description, category, price, imageId);
     }
 
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
-                ", info=" + info +
-                ", state=" + state +
-                ", pictureId='" + pictureId + '\'' +
+                ", title=" + title +
+                ", price=" + price +
                 '}';
     }
 }
