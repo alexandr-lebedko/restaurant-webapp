@@ -12,7 +12,6 @@ import static net.lebedko.util.PropertyUtil.loadProperties;
  */
 public class AbstractJdbcDao {
     protected static final Properties QUERIES = loadProperties("sql-queries.properties");
-
     protected QueryTemplate template;
 
     protected AbstractJdbcDao(QueryTemplate template) {

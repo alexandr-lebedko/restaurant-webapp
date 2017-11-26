@@ -1,20 +1,20 @@
 package net.lebedko.dao.jdbc;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
+
+import static net.lebedko.i18n.SupportedLocales.EN_CODE;
+import static net.lebedko.i18n.SupportedLocales.UA_CODE;
+import static net.lebedko.i18n.SupportedLocales.RU_CODE;
+
 import net.lebedko.dao.CategoryDao;
-import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.mapper.CategoryMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.item.Category;
 import net.lebedko.i18n.SupportedLocales;
 
-import java.util.*;
 
-import static net.lebedko.i18n.SupportedLocales.*;
-
-
-/**
- * alexandr.lebedko : 03.08.2017.
- */
 public class JdbcCategoryDao extends AbstractJdbcDao implements CategoryDao {
     private static final String INSERT = QUERIES.getProperty("category.insert");
     private static final String GET_ALL = QUERIES.getProperty("category.getAll");
@@ -59,6 +59,14 @@ public class JdbcCategoryDao extends AbstractJdbcDao implements CategoryDao {
         params.put(1, id);
 
         template.update(DELETE, params);
+    }
+
+    @Override
+    public Category getById(Long id) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, id);
+
+        return template.queryOne(GET_BY_ID, params, MAPPER);
     }
 
     @Override

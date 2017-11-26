@@ -5,6 +5,7 @@ import net.lebedko.web.validator.Errors;
 import javax.servlet.ServletException;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,4 +37,6 @@ public interface IContext {
     Part getPart(String name) throws IOException, ServletException;
 
     void destroySession();
+
+    InputStream getInputStream(String name);
 }

@@ -1,19 +1,12 @@
 package net.lebedko.entity.item;
 
-import net.lebedko.entity.Validatable;
 import net.lebedko.entity.general.StringI18N;
 
 import java.util.Objects;
 
-/**
- * alexandr.lebedko : 30.07.2017.
- */
-
-public class Category implements Validatable {
-
+public class Category {
     private Long id;
     private StringI18N title;
-
 
     public Category(StringI18N title) {
         this(0L, title);
@@ -30,11 +23,6 @@ public class Category implements Validatable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    @Override
-    public boolean isValid() {
-        return title.isValid();
     }
 
     public StringI18N getTitle() {

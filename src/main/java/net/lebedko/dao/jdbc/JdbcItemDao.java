@@ -5,23 +5,25 @@ import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.mapper.CategoryMapper;
 import net.lebedko.dao.jdbc.mapper.ItemMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
-import net.lebedko.entity.item.*;
+import net.lebedko.entity.item.Item;
+import net.lebedko.entity.item.Category;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
 
-import static net.lebedko.i18n.SupportedLocales.*;
-import static net.lebedko.util.PropertyUtil.loadProperties;
+import static net.lebedko.i18n.SupportedLocales.EN_CODE;
+import static net.lebedko.i18n.SupportedLocales.RU_CODE;
+import static net.lebedko.i18n.SupportedLocales.UA_CODE;
 
-/**
- * alexandr.lebedko : 07.09.2017.
- */
 public class JdbcItemDao extends AbstractJdbcDao implements ItemDao {
     private static final String INSERT = QUERIES.getProperty("item.insert");
+    private static final String UPDATE = QUERIES.getProperty("item.update");
     private static final String GET_BY_CATEGORY = QUERIES.getProperty("item.getByCategory");
     private static final String GET_BY_ID = QUERIES.getProperty("item.getById");
 
 
-    public JdbcItemDao(QueryTemplate template) {
+    JdbcItemDao(QueryTemplate template) {
         super(template);
     }
 
@@ -45,6 +47,24 @@ public class JdbcItemDao extends AbstractJdbcDao implements ItemDao {
     }
 
     @Override
+    public void update(Item item) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, item.getTitle().getValue().get(UA_CODE));
+        params.put(2, item.getTitle().getValue().get(EN_CODE));
+        params.put(3, item.getTitle().getValue().get(RU_CODE));
+        params.put(4, item.getDescription().getValue().get(UA_CODE));
+        params.put(5, item.getDescription().getValue().get(EN_CODE));
+        params.put(6, item.getDescription().getValue().get(RU_CODE));
+        params.put(7, item.getPrice().getValue());
+        params.put(8, item.getCategory().getId());
+        params.put(9, item.getImageId());
+
+        params.put(10, item.getId());
+
+        template.update(UPDATE, params);
+    }
+
+    @Override
     public Collection<Item> getByCategory(Category category) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, category.getId());
@@ -53,14 +73,11 @@ public class JdbcItemDao extends AbstractJdbcDao implements ItemDao {
     }
 
     @Override
-    public Item get(long id) throws DataAccessException {
+    public Item get(Long id) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, id);
 
-        return template.queryOne(
-                GET_BY_ID,
-                params,
-                new ItemMapper(new CategoryMapper()));
+        return template.queryOne(GET_BY_ID, params, new ItemMapper());
     }
 
 

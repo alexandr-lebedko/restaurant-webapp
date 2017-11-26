@@ -5,14 +5,12 @@ import net.lebedko.entity.general.Price;
 import java.util.Objects;
 
 public class Item {
-
     private Long id;
     private Title title;
     private Description description;
     private Category category;
     private Price price;
     private String imageId;
-
 
     public Item(Title title, Description description, Category category, Price price, String imageId) {
         this(null, title, description,category, price, imageId);

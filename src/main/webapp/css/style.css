@@ -302,9 +302,28 @@ tr.order-content {
 
 /*admin invoice end*/
 
+/*general styling*/
+
+.item-image {
+    width: 10rem;
+    height: 10rem;
+}
+
+#image-preview {
+    width: 10rem;
+    height: 10rem;
+    display: none;
+}
+
 .unselectable {
     user-select: none;
 }
+
+#item-modal .modal-content {
+    width: 800px !important;
+}
+
+/*general styling end*/
 
 footer {
     margin-top: 90px;

@@ -15,7 +15,7 @@ public class CategoryValidator implements IValidator<Category> {
 
     @Override
     public void validate(Category category, Errors errors) {
-        if (notValidLength(category) || notContainsSupportedLocales(category)) {
+        if (notValidLength(category)) {
             errors.register("invalid-category", PageErrorNames.INVALID_CATEGORY);
         }
     }
@@ -25,9 +25,5 @@ public class CategoryValidator implements IValidator<Category> {
                 .map(String::length)
                 .anyMatch(length ->
                         (length < MIN_TITLE_LENGTH) || (length > MAX_TITLE_LENGTH));
-    }
-
-    private boolean notContainsSupportedLocales(Category category) {
-        return !SupportedLocales.containsSupportedLocales(category.getTitle().getMap().keySet());
     }
 }

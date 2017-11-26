@@ -12,9 +12,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * alexandr.lebedko : 07.09.2017.
- */
 public class ItemServiceImpl implements ItemService {
     private ServiceTemplate template;
     private FileService fileService;
@@ -27,7 +24,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item insertItemAndImage(final Item item, final InputStream image) throws ServiceException {
+    public Item insert(final Item item, final InputStream image) throws ServiceException {
         String imageId = fileService.saveImg(image);
         try {
             return template.doTxService(() ->
@@ -39,7 +36,24 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item get(long id) throws ServiceException {
+    public void update(Item item) {
+        template.doTxService(() -> itemDao.update(item));
+    }
+
+    @Override
+    public void update(Item item, InputStream image) {
+        String imageId = fileService.saveImg(image);
+        try {
+            template.doTxService(() -> itemDao.update(
+                    new Item(item.getId(), item.getTitle(), item.getDescription(), item.getCategory(), item.getPrice(), imageId)));
+        } catch (ServiceException e) {
+            fileService.deleteFile(imageId);
+            throw e;
+        }
+    }
+
+    @Override
+    public Item get(Long id) throws ServiceException {
         return template.doTxService(() -> itemDao.get(id));
     }
 

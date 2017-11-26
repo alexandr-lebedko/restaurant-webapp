@@ -14,6 +14,7 @@
 <c:url var="orders" value="${URL.ADMIN_NEW_ORDERS}"/>
 <c:url var="invoices" value="${URL.ADMIN_UNPAID_INVOICES}"/>
 <c:url var="categories" value="${URL.ADMIN_CATEGORIES}"/>
+<c:url var="items" value="${URL.ADMIN_ITEMS}"/>
 <c:url var="signOut" value="${URL.SIGN_OUT}"/>
 
 <c:url var="enPage" value="${pageUrl}">
@@ -62,6 +63,13 @@
                         <a class="nav-link" href="${categories}">
                             <i class="fa fa-th" aria-hidden="true"></i>
                             <span><fmt:message key="categories"/> </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="${items}">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                            <span><fmt:message key="items"/> </span>
                         </a>
                     </li>
 

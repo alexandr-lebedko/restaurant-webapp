@@ -1,7 +1,10 @@
 package net.lebedko.web.util;
 
+import net.lebedko.entity.general.Price;
 import net.lebedko.entity.general.StringI18N;
 import net.lebedko.entity.item.Category;
+import net.lebedko.entity.item.Description;
+import net.lebedko.entity.item.Title;
 import net.lebedko.i18n.SupportedLocales;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.util.constant.Attribute;
@@ -49,4 +52,41 @@ public class CommandUtils {
 
         return new Category(id, title);
     }
+
+    public static Title parseTitle(IContext context) {
+        String uaTitleString = ofNullable(context.getRequestParameter(Attribute.TITLE_UA)).orElse("");
+        String enTitleString = ofNullable(context.getRequestParameter(Attribute.TITLE_EN)).orElse("");
+        String ruTitleString = ofNullable(context.getRequestParameter(Attribute.TITLE_RU)).orElse("");
+
+        StringI18N localizedValue = new StringI18N();
+        localizedValue.add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), uaTitleString);
+        localizedValue.add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), enTitleString);
+        localizedValue.add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), ruTitleString);
+
+        return new Title(localizedValue);
+    }
+
+    public static Description parseDescription(IContext context) {
+        String uaDescriptionString = ofNullable(context.getRequestParameter(Attribute.DESCRIPTION_UA)).orElse("");
+        String enDescriptionString = ofNullable(context.getRequestParameter(Attribute.DESCRIPTION_EN)).orElse("");
+        String ruDescriptionString = ofNullable(context.getRequestParameter(Attribute.DESCRIPTION_RU)).orElse("");
+
+        StringI18N localizedValue = new StringI18N();
+        localizedValue.add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), uaDescriptionString);
+        localizedValue.add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), enDescriptionString);
+        localizedValue.add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), ruDescriptionString);
+
+        return new Description(localizedValue);
+    }
+
+    public static Price parsePrice(IContext context) {
+        Double value = -1d;
+        try {
+            value = Double.valueOf(context.getRequestParameter(Attribute.PRICE));
+        } catch (NumberFormatException e) {
+            LOG.error("Price parse failed", e);
+        }
+        return new Price(value);
+    }
+
 }

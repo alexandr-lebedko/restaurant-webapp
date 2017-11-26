@@ -41,4 +41,9 @@ public class CategoryServiceImpl implements CategoryService {
         template.doTxService(() -> categoryDao.delete(id));
     }
 
+    @Override
+    public Category getById(Long id) {
+        return template.doTxService(()->categoryDao.getById(id));
+    }
+
 }

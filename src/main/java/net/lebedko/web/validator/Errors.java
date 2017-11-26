@@ -25,4 +25,10 @@ public class Errors {
         return errorsMap.entrySet();
     }
 
+    @Override
+    public String toString() {
+        return "Errors{" +
+                "errorsMap=" + errorsMap +
+                '}';
+    }
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -86,5 +87,14 @@ public class WebContext implements IContext {
     @Override
     public void destroySession() {
         request.getSession().invalidate();
+    }
+
+    @Override
+    public InputStream getInputStream(String name) {
+        try {
+            return request.getPart(name).getInputStream();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -32,14 +32,10 @@ public class ClientGetMenuCommand extends AbstractCommand {
         final Long categoryId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), DEFAULT_CATEGORY);
         final Collection<Category> categories = categoryService.getAll();
 
-        System.out.println("Categories: " + categories);
-
         Category requestedCategory = categories.stream()
                 .filter(category -> categoryId.equals(category.getId()))
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
-
-        System.out.println("REQUESTED CATEGORY : " + requestedCategory);
 
         Collection<Item> items = itemService.getByCategory(requestedCategory);
 

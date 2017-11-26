@@ -6,10 +6,6 @@ import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.admin.*;
 import net.lebedko.web.command.impl.auth.*;
 import net.lebedko.web.command.impl.client.*;
-import net.lebedko.web.util.constant.WebConstant;
-import net.lebedko.web.util.constant.WebConstant.COMMAND;
-import net.lebedko.web.validator.item.*;
-import net.lebedko.web.validator.ImageValidator;
 import net.lebedko.web.validator.user.UserValidator;
 
 import java.util.HashMap;
@@ -32,11 +28,9 @@ public class CommandFactoryImpl implements ICommandFactory {
 
         commandMap.put(GET_SIGN_IN, new SignInGetCommand());
         commandMap.put(POST_SIGN_IN, new SignInPostCommand(userService));
-
         commandMap.put(GET_SIGN_UP, new SignUpGetCommand());
-        commandMap.put(SIGN_OUT, new SignOutCommand());
-
         commandMap.put(POST_SIGN_UP, new SignUpPostCommand(userService, new UserValidator()));
+        commandMap.put(SIGN_OUT, new SignOutCommand());
 
         commandMap.put(CLIENT_GET_ORDER, new ClientGetOrderCommand(orderService, orderItemService));
         commandMap.put(CLIENT_GET_ORDERS, new ClientGetOrdersCommand(orderService));
@@ -68,18 +62,11 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(ADMIN_MODIFY_CATEGORY, new AdminModifyCategoryCommand(orderService, invoiceService, categoryService));
         commandMap.put(ADMIN_CREATE_CATEGORY, new AdminCreateNewCategoryCommand(orderService, invoiceService, categoryService));
         commandMap.put(ADMIN_DELETE_CATEGORY, new AdminDeleteCategoryCommand(orderService, invoiceService, categoryService));
-
-//        commandMap.put(GET_NEW_DISH, new NewDishGetCommand());
-
-//        commandMap.put(GET_NEW_CATEGORY, new NewCategoryGetCommand());
-//
-//        commandMap.put(POST_NEW_CATEGORY, new NewCategoryPostCommand(categoryService, new CategoryValidator(), fileService, new ImageValidator()));
-
-        commandMap.put(GET_ADMIN_MENU, new AdminMenuGetCommand(categoryService));
-
-        commandMap.put(GET_ADMIN_NEW_ITEM, new NewItemGetCommand(categoryService));
-        commandMap.put(POST_ADMIN_NEW_ITEM, new NewItemPostCommand(
-                new ImageValidator(), new MenuItemValidator(), categoryService, itemService));
+        commandMap.put(ADMIN_GET_ITEMS, new AdminGetItemsCommand(orderService, invoiceService, itemService, categoryService));
+        commandMap.put(ADMIN_MODIFY_ITEM, new AdminModifyItemCommand(orderService, invoiceService, itemService, categoryService));
+        commandMap.put(ADMIN_MODIFY_ITEM_IMAGE, new AdminModifyItemImageCommand(orderService, invoiceService, itemService, categoryService));
+        commandMap.put(ADMIN_CREATE_ITEM, new AdminCreateItemCommand(orderService, invoiceService, itemService, categoryService));
+        commandMap.put(ADMIN_ITEM_FORM, new AdminGetItemFormCommand(orderService, invoiceService, categoryService));
     }
 
     @Override

@@ -29,6 +29,8 @@ public final class WebConstant {
         public static final String ADMIN_ORDERS_PAGE = PREFIX + "admin/orders" + SUFFIX;
         public static final String ADMIN_INVOICES = PREFIX + "admin/invoices" + SUFFIX;
         public static final String ADMIN_INVOICE = PREFIX + "admin/invoice" + SUFFIX;
+        public static final String ADMIN_ITEMS = PREFIX + "admin/items" + SUFFIX;
+        public static final String ADMIN_ITEM_FORM = PREFIX + "admin/item" + SUFFIX;
     }
 
     public static final class COMMAND {
@@ -48,9 +50,6 @@ public final class WebConstant {
         public static final String CLIENT_CREATE_ORDER = POST_PREFIX + URL.CLIENT_ORDER_FORM;
         public static final String CLIENT_CLEAR_ORDER_BUCKET = POST_PREFIX + URL.CLIENT_CLEAR_ORDER_BUCKET;
 
-        public static final String GET_ADMIN_MENU = GET_PREFIX + URL.ADMIN_MENU;
-        public static final String GET_ADMIN_NEW_CATEGORY = GET_PREFIX + URL.ADMIN_NEW_CATEGORY;
-
         public static final String ADMIN_GET_MAIN = GET_PREFIX + URL.ADMIN_MAIN;
         public static final String GET_ADMIN_NEW_ORDERS = GET_PREFIX + URL.ADMIN_NEW_ORDERS;
         public static final String GET_ADMIN_ORDER_DETAILS = GET_PREFIX + URL.ADMIN_ORDER_DETAILS;
@@ -64,12 +63,14 @@ public final class WebConstant {
         public static final String ADMIN_GET_UNPAID_INVOICES = GET_PREFIX + URL.ADMIN_UNPAID_INVOICES;
         public static final String ADMIN_GET_INVOICE = GET_PREFIX + URL.ADMIN_INVOICE;
         public static final String ADMIN_GET_CATEGORIES = GET_PREFIX + URL.ADMIN_CATEGORIES;
-        public static final String ADMIN_MODIFY_CATEGORY= POST_PREFIX + URL.ADMIN_MODIFY_CATEGORY;
-        public static final String ADMIN_CREATE_CATEGORY= POST_PREFIX + URL.ADMIN_CREATE_CATEGORY;
-        public static final String ADMIN_DELETE_CATEGORY= POST_PREFIX + URL.ADMIN_DELETE_CATEGORY;
-
-        public static final String GET_ADMIN_NEW_ITEM = GET_PREFIX + URL.NEW_ITEM_URL;
-        public static final String POST_ADMIN_NEW_ITEM = POST_PREFIX + URL.NEW_ITEM_URL;
+        public static final String ADMIN_MODIFY_CATEGORY = POST_PREFIX + URL.ADMIN_MODIFY_CATEGORY;
+        public static final String ADMIN_CREATE_CATEGORY = POST_PREFIX + URL.ADMIN_CREATE_CATEGORY;
+        public static final String ADMIN_DELETE_CATEGORY = POST_PREFIX + URL.ADMIN_DELETE_CATEGORY;
+        public static final String ADMIN_GET_ITEMS = GET_PREFIX + URL.ADMIN_ITEMS;
+        public static final String ADMIN_MODIFY_ITEM = POST_PREFIX + URL.ADMIN_MODIFY_ITEM;
+        public static final String ADMIN_MODIFY_ITEM_IMAGE = POST_PREFIX + URL.ADMIN_MODIFY_ITEM_IMAGE;
+        public static final String ADMIN_CREATE_ITEM = POST_PREFIX + URL.ADMIN_CREATE_ITEM;
+        public static final String ADMIN_ITEM_FORM = GET_PREFIX + URL.ADMIN_CREATE_ITEM;
 
         public static final String CLIENT_GET_MENU = GET_PREFIX + URL.CLIENT_MENU;
         public static final String CLIENT_GET_INVOICE = GET_PREFIX + URL.CLIENT_INVOICE;

@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <div class="modal" id="categoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal category-modal" id="categoryModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-light">
@@ -125,7 +125,7 @@
             </div>
         </div>
 
-        <div class="modal" id="newCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal category-modal" id="newCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
 

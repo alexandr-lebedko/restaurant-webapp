@@ -7,12 +7,16 @@ import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.IValidator;
 
 public class PriceValidator implements IValidator<Price> {
+    private static final Double MIN_VALUE = 0d;
+
     @Override
     public void validate(Price price, Errors errors) {
-        if (price.isValid()) {
-            return;
+        if (notValid(price)) {
+            errors.register("invalid-price", PageErrorNames.INVALID_PRICE);
         }
+    }
 
-        errors.register("invalid-price", PageErrorNames.INVALID_PRICE);
+    private boolean notValid(Price price) {
+        return price.getValue() < MIN_VALUE;
     }
 }
