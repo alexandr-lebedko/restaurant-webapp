@@ -27,4 +27,6 @@ public interface InvoiceDao {
     Collection<Invoice> getByState(InvoiceState state) throws DataAccessException;
 
     Collection<Invoice> get(User user);
+
+    void delete(Invoice invoice);
 }

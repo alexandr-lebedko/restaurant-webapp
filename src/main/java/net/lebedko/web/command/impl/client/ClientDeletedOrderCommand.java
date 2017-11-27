@@ -12,6 +12,7 @@ import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
 public class ClientRejectModifiedOrderCommand extends AbstractCommand {
+    private static final IResponseAction ORDERS_REDIRECT = new RedirectAction(URL.CLIENT_ORDERS);
     private OrderService orderService;
 
     public ClientRejectModifiedOrderCommand(OrderService orderService) {
@@ -23,12 +24,7 @@ public class ClientRejectModifiedOrderCommand extends AbstractCommand {
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
 
-
-        //TODO : implement correctly!!!!
-
-//        orderService.reject(orderId, user);
-
-        return new RedirectAction(URL.CLIENT_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=").concat(orderId.toString()));
-
+        orderService.delete(orderId, user);
+        return ORDERS_REDIRECT;
     }
 }

@@ -137,6 +137,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void delete(Long id, User user) {
+        template.doTxService(() -> {
+            final Order order = of(orderDao.getByOrderIdAndUser(id, user))
+                    .filter(o -> (o.getState() == OrderState.MODIFIED) || (o.getState() == OrderState.NEW))
+                    .orElseThrow(IllegalStateException::new);
+
+            orderDao.delete(order);
+
+            Collection<Order> orders = orderDao.get(order.getInvoice());
+            if (orders.isEmpty()) {
+                invoiceService.delete(order.getInvoice());
+            }
+
+        });
+    }
+
+    @Override
     public Collection<Order> getOrders(OrderState state) throws ServiceException {
         return template.doTxService(() -> orderDao.getByState(state));
     }

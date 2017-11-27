@@ -106,6 +106,11 @@ public class InvoiceServiceImpl implements InvoiceService {
         template.doTxService(() -> invoiceDao.update(invoice));
     }
 
+    @Override
+    public void delete(Invoice invoice) {
+        template.doTxService(()->invoiceDao.delete(invoice));
+    }
+
     private boolean newOrdModified(OrderState state) {
         return (state == OrderState.NEW) || (state == OrderState.MODIFIED);
     }

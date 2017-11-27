@@ -2,7 +2,6 @@ package net.lebedko.service;
 
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
-import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.exception.ServiceException;
@@ -11,9 +10,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.Collection;
 import java.util.Map;
 
-/**
- * alexandr.lebedko : 02.10.2017.
- */
 public interface OrderService {
 
     Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId);
@@ -28,7 +24,7 @@ public interface OrderService {
 
     Collection<Order> getOrders(Invoice invoice) throws ServiceException;
 
-     void submitModifiedOrder(Long id, User user);
+    void submitModifiedOrder(Long id, User user);
 
     void deleteModified(Long id, User user);
 
@@ -36,6 +32,7 @@ public interface OrderService {
 
     void reject(Long id);
 
-    void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException;
+    void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds);
 
+    void delete(Long id, User user);
 }
