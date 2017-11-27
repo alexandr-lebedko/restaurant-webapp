@@ -12,11 +12,8 @@
     <div class="container main-content">
         <div class="row justify-content-end">
             <div class="col-lg-8">
-
                 <h4 class="text-center mb-3"><fmt:message key="invoices"/></h4>
-
-                <table class="table table-bordered table-text-center">
-
+                <table class="table table-bordered table-text-center table-hover">
                     <thead class="bg-light">
                     <tr>
                         <th><fmt:message key="id"/></th>
@@ -24,28 +21,20 @@
                         <th><fmt:message key="date"/></th>
                         <th><fmt:message key="time"/></th>
                         <th><fmt:message key="total"/></th>
-                        <th><i class="fa fa-money" aria-hidden="true"></i></th>
                     </tr>
                     </thead>
-
                     <tbody class="table-sm">
                     <c:forEach var="invoice" items="${requestScope.get(Attribute.INVOICES)}">
-
                         <c:url var="invoiceUrl" value="${URL.CLIENT_INVOICE}">
                             <c:param name="${Attribute.INVOICE_ID}" value="${invoice.id}"/>
                         </c:url>
-
-                        <tr>
-                            <td>
-                                <a class="badge badge-info" href="${invoiceUrl}">${invoice.id}</a>
-                            </td>
+                        <tr class="row-link" data-url="${invoiceUrl}">
+                            <td>${invoice.id}</td>
                             <td class="${invoice.state}"><fmt:message key="${invoice.state}"/></td>
                             <td>${invoice.createdOn.toLocalDate()}</td>
                             <td>${invoice.createdOn.toLocalTime()}</td>
                             <td>${invoice.amount.value}</td>
-                            <td><span class="badge badge-success">Pay</span></td>
                         </tr>
-
                     </c:forEach>
                     </tbody>
                 </table>

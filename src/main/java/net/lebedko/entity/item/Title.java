@@ -1,15 +1,10 @@
 package net.lebedko.entity.item;
 
-import net.lebedko.entity.Validatable;
 import net.lebedko.entity.general.StringI18N;
 
 import java.util.Objects;
 
 import static net.lebedko.util.Util.*;
-
-/**
- * alexandr.lebedko : 30.07.2017.
- */
 
 public class Title {
     private StringI18N value;

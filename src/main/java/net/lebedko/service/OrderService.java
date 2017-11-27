@@ -28,7 +28,7 @@ public interface OrderService {
 
     Collection<Order> getOrders(Invoice invoice) throws ServiceException;
 
-    public void submitModifiedOrder(Long id, User user);
+     void submitModifiedOrder(Long id, User user);
 
     void deleteModified(Long id, User user);
 

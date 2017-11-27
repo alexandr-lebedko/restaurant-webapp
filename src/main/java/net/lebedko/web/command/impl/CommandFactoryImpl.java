@@ -48,7 +48,6 @@ public class CommandFactoryImpl implements ICommandFactory {
 
         commandMap.put(ADMIN_GET_MAIN, new AdminGetNewOrdersCommand(orderService, invoiceService));
         commandMap.put(GET_ADMIN_NEW_ORDERS, new AdminGetNewOrdersCommand(orderService, invoiceService));
-        commandMap.put(GET_ADMIN_ORDER_DETAILS, new AdminGetOrderCommandCommand(orderService, orderItemService, invoiceService));
         commandMap.put(ADMIN_PROCESS_ORDER, new AdminProcessOrderCommand(orderService, invoiceService));
         commandMap.put(ADMIN_REJECT_ORDER, new AdminRejectOrderCommand(orderService, invoiceService));
         commandMap.put(ADMIN_MODIFY_ORDER, new AdminModifyOrderCommand(orderService, invoiceService));
@@ -63,6 +62,7 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(ADMIN_CREATE_CATEGORY, new AdminCreateNewCategoryCommand(orderService, invoiceService, categoryService));
         commandMap.put(ADMIN_DELETE_CATEGORY, new AdminDeleteCategoryCommand(orderService, invoiceService, categoryService));
         commandMap.put(ADMIN_GET_ITEMS, new AdminGetItemsCommand(orderService, invoiceService, itemService, categoryService));
+        commandMap.put(ADMIN_GET_ORDER, new AdminGetOrderCommand(orderService, invoiceService, orderItemService));
         commandMap.put(ADMIN_MODIFY_ITEM, new AdminModifyItemCommand(orderService, invoiceService, itemService, categoryService));
         commandMap.put(ADMIN_MODIFY_ITEM_IMAGE, new AdminModifyItemImageCommand(orderService, invoiceService, itemService, categoryService));
         commandMap.put(ADMIN_CREATE_ITEM, new AdminCreateItemCommand(orderService, invoiceService, itemService, categoryService));

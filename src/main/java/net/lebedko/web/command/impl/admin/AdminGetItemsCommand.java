@@ -42,6 +42,7 @@ public class AdminGetItemsCommand extends AbstractAdminCommand {
         Collection<Item> items = itemService.getByCategory(category);
 
         context.addRequestAttribute(Attribute.CATEGORIES, categories);
+        context.addRequestAttribute(Attribute.CATEGORY, category);
         context.addRequestAttribute(Attribute.ITEMS, items);
 
         return ITEMS_FORWARD;

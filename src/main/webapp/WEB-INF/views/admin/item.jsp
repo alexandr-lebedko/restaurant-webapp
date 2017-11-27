@@ -27,7 +27,6 @@
                         </c:forEach>
                     </div>
                 </c:if>
-
                 <form method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-4">
@@ -37,7 +36,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group">
@@ -67,7 +65,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group">
@@ -94,16 +91,15 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="font-weight-bold" for="price"><fmt:message key="price"/></label>
-                                <input type="number" class="form-control form-control-sm" name="${Attribute.PRICE}" id="price"
+                                <input type="number" class="form-control form-control-sm" name="${Attribute.PRICE}"
+                                       id="price"
                                        value="${item.price.value}"/>
                             </div>
                         </div>
-
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="font-weight-bold" for="category"><fmt:message key="category"/></label>

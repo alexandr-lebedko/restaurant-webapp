@@ -30,7 +30,7 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
 
         orderService.modify(getOrderId(context), getItemIdAndQuantityByOrderItemIds(context));
 
-        return new RedirectAction(URL.ADMIN_ORDER_DETAILS
+        return new RedirectAction(URL.ADMIN_ORDER
                 .concat("?").concat(Attribute.ORDER_ID).concat("=").concat(getOrderId(context).toString()));
     }
 

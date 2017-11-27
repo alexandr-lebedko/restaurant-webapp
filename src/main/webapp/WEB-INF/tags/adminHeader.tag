@@ -60,16 +60,16 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="${categories}">
-                            <i class="fa fa-th" aria-hidden="true"></i>
-                            <span><fmt:message key="categories"/> </span>
+                        <a class="nav-link" href="${items}">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                            <span><fmt:message key="items"/> </span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="${items}">
-                            <i class="fa fa-bars" aria-hidden="true"></i>
-                            <span><fmt:message key="items"/> </span>
+                        <a class="nav-link" href="${categories}">
+                            <i class="fa fa-th" aria-hidden="true"></i>
+                            <span><fmt:message key="categories"/> </span>
                         </a>
                     </li>
 

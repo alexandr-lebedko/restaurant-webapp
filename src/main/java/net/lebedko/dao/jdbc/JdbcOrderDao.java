@@ -39,18 +39,6 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     }
 
     @Override
-    public OrderItem insert(OrderItem item) throws DataAccessException {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, item.getOrder().getId());
-        params.put(2, item.getItem().getId());
-        params.put(3, item.getQuantity());
-
-        Long id = template.insertAndReturnKey(INSERT_ORDER_ITEM, params);
-
-        return new OrderItem(id, item.getOrder(), item.getItem(), item.getQuantity());
-    }
-
-    @Override
     public Order insert(Order order) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, order.getInvoice().getId());
@@ -105,32 +93,11 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     }
 
     @Override
-    public Collection<OrderItem> getByOrder(Order order) throws DataAccessException {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, order.getId());
-
-        return template.queryAll(GET_ORDER_ITEMS_BY_ORDER, params, new OrderItemMapper(order));
-    }
-
-    @Override
     public Order getById(Long id) throws DataAccessException {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, id);
 
         return template.queryOne(GET_BY_ID, params, new OrderMapper(new InvoiceMapper()));
-    }
-
-    @Override
-    public Collection<OrderItem> getOrderItemsByInvoice(Invoice invoice) throws DataAccessException {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, invoice.getId());
-
-
-        return template.queryAll(
-                GET_ORDER_ITEMS_BY_INVOICE,
-                params,
-                new OrderItemMapper(new ItemMapper(), new OrderMapper(invoice), null)
-        );
     }
 
     @Override

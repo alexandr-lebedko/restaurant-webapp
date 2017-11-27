@@ -194,5 +194,34 @@ $(document).ready(function () {
 
         modal.find('#' + category).prop('selected', true);
     });
+
+    $('.delete-row-button.NEW').on('click', function (e) {
+        if ($(this).closest("tr").siblings().length > 0) {
+            $(this).closest("tr").remove()
+        }
+    })
+
+    $('.row-link').on('click', function () {
+        location.href = $(this).data('url')
+    })
+
+    // add item to order bucket request
+    $('.item-card').on('click', function (e) {
+        var url = $(this).data('url')
+        var attr = $(this).data('attr')
+        var value = $(this).data('value')
+
+        var form = $('<form>', {
+            action: url,
+            method: 'post'
+        }).append($('<input>', {
+                type: 'hidden',
+                name: attr,
+                value: value
+            }
+        ));
+        $(document.body).append(form)
+        form.submit();
+    })
 })
 

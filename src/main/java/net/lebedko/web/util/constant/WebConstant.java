@@ -31,6 +31,7 @@ public final class WebConstant {
         public static final String ADMIN_INVOICE = PREFIX + "admin/invoice" + SUFFIX;
         public static final String ADMIN_ITEMS = PREFIX + "admin/items" + SUFFIX;
         public static final String ADMIN_ITEM_FORM = PREFIX + "admin/item" + SUFFIX;
+        public static final String ADMIN_ORDER = PREFIX + "admin/order" + SUFFIX;
     }
 
     public static final class COMMAND {
@@ -52,7 +53,7 @@ public final class WebConstant {
 
         public static final String ADMIN_GET_MAIN = GET_PREFIX + URL.ADMIN_MAIN;
         public static final String GET_ADMIN_NEW_ORDERS = GET_PREFIX + URL.ADMIN_NEW_ORDERS;
-        public static final String GET_ADMIN_ORDER_DETAILS = GET_PREFIX + URL.ADMIN_ORDER_DETAILS;
+        public static final String ADMIN_GET_ORDER = GET_PREFIX + URL.ADMIN_ORDER;
         public static final String ADMIN_PROCESS_ORDER = POST_PREFIX + URL.ADMIN_PROCESS_ORDER;
         public static final String ADMIN_REJECT_ORDER = POST_PREFIX + URL.ADMIN_REJECT_ORDER;
         public static final String ADMIN_MODIFY_ORDER = POST_PREFIX + URL.ADMIN_MODIFY_ORDER;

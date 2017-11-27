@@ -9,18 +9,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<c:if test="${!empty items}">
-    <c:set var="requestedCategory" value="${items.get(0).category}"/>
-</c:if>
-
-<style>
-    tr:hover td, tr:hover th {
-        cursor: pointer;
-        background-color: rgba(224, 224, 224, 0.15);
-    }
-
-</style>
-
+<c:set var="requestedCategory" value="${requestScope.get(Attribute.CATEGORY)}"/>
 <t:page pageUrl="${URL.ADMIN_ITEMS}">
     <div class="container main-content">
         <div class="row justify-content-between">
@@ -32,7 +21,6 @@
                             <c:url var="categoryUrl" value="${URL.ADMIN_ITEMS}">
                                 <c:param name="${Attribute.CATEGORY_ID}" value="${category.id}"/>
                             </c:url>
-
                             <a class="nav-link" id="${requestedCategory.equals(category) ? 'current-category':''}"
                                href="${categoryUrl}">${category.title.get(lang)}</a>
                         </li>
@@ -44,8 +32,7 @@
                 <c:url var="newItem" value="${URL.ADMIN_CREATE_ITEM}"/>
                 <a class="float-right mb-3 btn pl-4 pr-4 rounded-0 btn-outline-success" href="${newItem}"><fmt:message
                         key="create"/></a>
-
-                <table class="table border">
+                <table class="table border" id="admin-items-table">
                     <tbody>
                     <c:forEach var="item" items="${requestScope.get(Attribute.ITEMS)}">
                         <c:set var="imageId" value="${item.imageId}"/>
@@ -59,13 +46,9 @@
                         <c:set var="enDescription" value="${item.description.value.get(SupportedLocales.EN_CODE)}"/>
                         <c:set var="uaDescription" value="${item.description.value.get(SupportedLocales.UA_CODE)}"/>
                         <c:set var="price" value="${item.price.value}"/>
-
                         <tr>
-                            <td>
-                                <img class="item-image" data-toggle="modal" data-target="#image-modal" data-id="${id}"
-                                     src="${imageUrl}"
-                                     style="width: 10rem; height:10rem">
-                            </td>
+                            <td><img class="item-image" data-toggle="modal" data-target="#image-modal" data-id="${id}"
+                                     src="${imageUrl}"></td>
                             <td colspan="4" data-toggle="modal" data-target="#item-modal" data-id="${id}"
                                 data-title-ua="${uaTitle}" data-title-en="${enTitle}" data-title-ru="${ruTitle}"
                                 data-description-ua="${uaDescription}" data-description-en="${enDescription}"
@@ -92,6 +75,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
+
                             </td>
                         </tr>
                     </c:forEach>
@@ -104,18 +88,14 @@
     <div class="modal" tabindex="-1" id="image-modal" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-
                 <div class="modal-header bg-light">
                     <h5 class="modal-title text-warning"><fmt:message key="image.modify"/></h5>
                     <i class="fa fa-times" role="button" aria-hidden="true" data-dismiss="modal"></i>
                 </div>
-
                 <div class="modal-body">
-
                     <div class="row justify-content-center mb-3">
                         <img id="image-preview"/>
                     </div>
-
                     <div class="row justify-content-center">
                         <c:url var="updateImage" value="${URL.ADMIN_MODIFY_ITEM_IMAGE}"/>
                         <form method="post" action="${updateImage}" id="updateImage" enctype="multipart/form-data">
@@ -124,9 +104,7 @@
                                    required>
                         </form>
                     </div>
-
                 </div>
-
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-warning rounded-0" form="updateImage"><fmt:message
                             key="submit"/></button>
@@ -144,7 +122,6 @@
                     </h5>
                     <i class="fa fa-times" role="button" aria-hidden="true" data-dismiss="modal"></i>
                 </div>
-
                 <div class="modal-body">
                     <c:if test="${requestScope.get(Attribute.MODIFIED_ITEM) ne null}">
                         <div class="alert alert-warning" id="item-alert">
@@ -153,16 +130,12 @@
                             </c:forEach>
                         </div>
                     </c:if>
-
                     <c:set var="item" value="${requestScope.get(Attribute.MODIFIED_ITEM)}"/>
                     <c:url var="updateItem" value="${URL.ADMIN_MODIFY_ITEM}"/>
                     <form method="post" action="${updateItem}" id="updateForm">
-
                         <input type="hidden" id="itemId" name="${Attribute.ITEM_ID}" value="${item.id}">
                         <input type="hidden" id="imageId" name="${Attribute.IMAGE_ID}" value="${item.imageId}">
-
                         <div class="row">
-
                             <div class="col">
                                 <label class="col-form-label">
                                     <span class="text-muted font-weight-bold">Назва</span>
@@ -170,7 +143,6 @@
                                 <input name="${Attribute.TITLE_UA}" class="form-control uaTitle"
                                        value="${item.title.value.get(SupportedLocales.RU_CODE)}"/>
                             </div>
-
                             <div class="col">
                                 <label class="col-form-label">
                                     <span class="text-muted font-weight-bold">Title</span>
@@ -178,7 +150,6 @@
                                 <input name="${Attribute.TITLE_EN}" class="form-control enTitle"
                                        value="${item.title.value.get(SupportedLocales.EN_CODE)}"/>
                             </div>
-
                             <div class="col">
                                 <label class="col-form-label">
                                     <span class="text-muted font-weight-bold">Название</span>
@@ -186,30 +157,28 @@
                                 <input name="${Attribute.TITLE_RU}" class="form-control ruTitle"
                                        value="${item.title.value.get(SupportedLocales.RU_CODE)}"/>
                             </div>
-
                         </div>
-
                         <div class="row">
                             <div class="col">
                                 <label class="col-form-label">
                                     <span class="text-muted font-weight-bold">Опис</span>
                                 </label>
-                                <textarea name="${Attribute.DESCRIPTION_UA}"
-                                          class="h-25 form-control uaDescription">${item.description.value.get(SupportedLocales.UA_CODE)}</textarea>
+                                <textarea name="${Attribute.DESCRIPTION_UA}" rows="5"
+                                          class="form-control uaDescription">${item.description.value.get(SupportedLocales.UA_CODE)}</textarea>
                             </div>
                             <div class="col">
                                 <label class="col-form-label">
                                     <span class="text-muted font-weight-bold">Description</span>
                                 </label>
-                                <textarea name="${Attribute.DESCRIPTION_EN}"
-                                          class="h-25 form-control enDescription">${item.description.value.get(SupportedLocales.EN_CODE)}</textarea>
+                                <textarea name="${Attribute.DESCRIPTION_EN}" rows="5"
+                                          class="form-control enDescription">${item.description.value.get(SupportedLocales.EN_CODE)}</textarea>
                             </div>
                             <div class="col">
                                 <label class="col-form-label">
                                     <span class="text-muted font-weight-bold">Описание</span>
                                 </label>
-                                <textarea name="${Attribute.DESCRIPTION_RU}"
-                                          class="h-25 form-control ruDescription">${item.description.value.get(SupportedLocales.RU_CODE)}</textarea>
+                                <textarea name="${Attribute.DESCRIPTION_RU}" rows="5"
+                                          class="form-control ruDescription">${item.description.value.get(SupportedLocales.RU_CODE)}</textarea>
                             </div>
                         </div>
 
@@ -243,7 +212,6 @@
                         </div>
                     </form>
                 </div>
-
                 <div class="modal-footer justify-content-between">
                     <form>
                         <button class="btn btn-danger rounded-0 float-left">
@@ -257,7 +225,6 @@
             </div>
         </div>
     </div>
-
     <c:if test="${requestScope.get(Attribute.MODIFIED_ITEM) ne null}">
         <script>
             $('#item-modal').modal('show');

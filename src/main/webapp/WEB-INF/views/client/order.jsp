@@ -13,11 +13,8 @@
 <t:page pageUrl="${URL.CLIENT_ORDER.concat('?').concat(Attribute.ORDER_ID).concat('=').concat(param.get(Attribute.ORDER_ID))}">
     <div class="container main-content">
         <div class="row justify-content-between">
-
             <div class="col-lg-3">
-
                 <h5 class="mb-3 mt-3 text-center"><fmt:message key="order.details"/></h5>
-
                 <table class="table table-lg border">
                     <tbody>
                     <tr>
@@ -42,13 +39,10 @@
                     </tr>
                     </tbody>
                 </table>
-
             </div>
 
-            <div class="col-lg-8">
-
+            <div class="col-lg-8 unselectable">
                 <h4 class="mb-3 text-center"><fmt:message key="order.content"/></h4>
-
                 <table class="table table-bordered table-text-center">
                     <thead class="bg-light">
                     <tr>
@@ -59,42 +53,30 @@
                         <th scope="col"><fmt:message key="total"/></th>
                     </tr>
                     </thead>
-
                     <tbody class="table-sm">
-
-                    <c:set var="overallAmount" value="0"/>
+                    <c:set var="total" value="0"/>
                     <c:forEach var="orderItem" items="${orderItems}">
-
-                        <c:url var="imageUrl" value="${URL.IMAGE_PREFIX.concat(orderItem.item.pictureId)}"/>
-                        <c:set var="title" value="${orderItem.item.title.value.get(lang)}"/>
-                        <c:set var="price" value="${orderItem.item.price.value}"/>
-                        <c:set var="amount" value="${orderItem.quantity}"/>
-                        <c:set var="total" value="${amount*price}"/>
-                        <c:set var="overallAmount" value="${total + overallAmount}"/>
-
+                        <c:url var="imageUrl" value="${URL.IMAGE_PREFIX.concat(orderItem.item.imageId)}"/>
+                        <c:set var="total" value="${total+orderItem.price.value}"/>
                         <tr>
                             <td><img src="${imageUrl}"/></td>
-                            <td>${title}</td>
-                            <td>${price}</td>
-                            <td>${amount}</td>
-                            <td>${total}</td>
+                            <td>${orderItem.item.title.value.get(lang)}</td>
+                            <td>${orderItem.item.price.value}</td>
+                            <td>${orderItem.quantity}</td>
+                            <td>${orderItem.price.value}</td>
                         </tr>
-
                     </c:forEach>
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <th class="pt-3 pb-3 bg-light">${overallAmount}</th>
+                        <th class="pt-3 pb-3 bg-light">${total}</th>
                     </tr>
                     </tbody>
                 </table>
-
-
                 <div class="row justify-content-end">
-
-                    <c:if test="${order.state eq State.MODIFIED}">
+                    <c:if test="${order.state eq OrderState.MODIFIED}">
                         <div class="col-3">
                             <c:url var="submitOrder" value="${URL.CLIENT_SUBMIT_MODIFIED_ORDER}"/>
                             <form method="post" action="${submitOrder}">
@@ -105,8 +87,7 @@
                             </form>
                         </div>
                     </c:if>
-
-                    <c:if test="${order.state eq State.NEW || order.state eq State.MODIFIED}">
+                    <c:if test="${order.state eq OrderState.NEW || order.state eq OrderState.MODIFIED}">
                         <div class="col-3">
                             <c:url var="modifyOrder" value="${URL.CLIENT_MODIFY_ORDER}"/>
                             <form method="post" action="${modifyOrder}">
@@ -116,21 +97,16 @@
                                 </button>
                             </form>
                         </div>
-
                         <div class="col-3">
                             <c:url var="rejectOrder" value="${URL.CLIENT_REJECT_ORDER}"/>
                             <form method="post" action="${rejectOrder}">
                                 <input name="${Attribute.ORDER_ID}" value="${order.id}" type="hidden">
-                                <button class="btn btn-danger btn-lg rounded-0">
-                                    <fmt:message key="reject"/>
-                                </button>
+                                <button class="btn btn-danger btn-lg rounded-0"><fmt:message key="reject"/></button>
                             </form>
                         </div>
                     </c:if>
-
                 </div>
             </div>
-
         </div>
     </div>
 </t:page>

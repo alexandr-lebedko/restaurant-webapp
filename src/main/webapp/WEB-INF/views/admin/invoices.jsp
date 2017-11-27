@@ -27,7 +27,6 @@
             <div class="col-lg-3">
                 <c:url var="unpaidInvoices" value="${URL.ADMIN_UNPAID_INVOICES}"/>
                 <c:url var="paidInvoices" value="${URL.ADMIN_PAID_INVOICES}"/>
-
                 <ul class="nav flex-column border" id="admin-orders-nav">
                     <li class="nav-item ${state eq InvoiceState.UNPAID ? 'active' : ''}">
                         <a class="nav-link" href="${unpaidInvoices}">
@@ -41,10 +40,10 @@
                     </li>
                 </ul>
             </div>
-
             <c:if test="${!empty requestScope.get(Attribute.INVOICES)}">
-                <div class="col-lg-8">
-                    <table class="table table-sm border table-text-center">
+                <div class="col-lg-8 unselectable">
+                    <h4 class="text-center mb-3"><fmt:message key="invoices"/></h4>
+                    <table class="table border table-bordered table-text-center table-hover">
                         <thead>
                         <tr>
                             <th><fmt:message key="id"/></th>
@@ -53,24 +52,20 @@
                             <th><fmt:message key="date"/></th>
                             <th><fmt:message key="time"/></th>
                             <th><fmt:message key="total"/></th>
-                            <th><i class="fa fa-info"></i></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-sm">
                         <c:forEach var="invoice" items="${requestScope.get(Attribute.INVOICES)}">
-
-                            <c:url var="details" value="${URL.ADMIN_INVOICE}">
+                            <c:url var="orderInfo" value="${URL.ADMIN_INVOICE}">
                                 <c:param name="${Attribute.INVOICE_ID}" value="${invoice.id}"/>
                             </c:url>
-
-                            <tr>
+                            <tr data-url="${orderInfo}" class="row-link">
                                 <td>${invoice.id}</td>
                                 <td>${invoice.user.fullName}</td>
                                 <td><fmt:message key="${invoice.state}"/></td>
                                 <td>${invoice.createdOn.toLocalDate()}</td>
                                 <td>${invoice.createdOn.toLocalTime()}</td>
                                 <td>${invoice.amount.value}</td>
-                                <td><a class="badge badge-info" href="${details}"><fmt:message key="info"/></a></td>
                             </tr>
                         </c:forEach>
                         </tbody>

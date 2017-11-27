@@ -13,9 +13,7 @@ public class URL {
     public static final String SIGN_UP = PREFIX + "signUp";
     public static final String SIGN_OUT = PREFIX + "signOut";
 
-    //    public static final String ADMIN_NEW_CATEGORY = PREFIX + "admin/menu/category/new";
     public static final String ADMIN_MAIN = PREFIX + "admin/main";
-    public static final String ADMIN_MENU = PREFIX + "admin/menu";
     public static final String ADMIN_INVOICE = PREFIX + "admin/invoice";
     public static final String ADMIN_CATEGORIES = PREFIX + "admin/categories";
     public static final String ADMIN_NEW_ORDERS = PREFIX + "admin/orders/new";
@@ -23,7 +21,6 @@ public class URL {
     public static final String ADMIN_MODIFIED_ORDERS = PREFIX + "admin/orders/modified";
     public static final String ADMIN_REJECTED_ORDERS = PREFIX + "admin/orders/rejected";
     public static final String ADMIN_INVOICES = PREFIX + "admin/invoices";
-    public static final String ADMIN_ORDER_DETAILS = PREFIX + "admin/order/details";
     public static final String ADMIN_PROCESS_ORDER = PREFIX + "admin/order/process";
     public static final String ADMIN_REJECT_ORDER = PREFIX + "admin/order/reject";
     public static final String ADMIN_MODIFY_ORDER = PREFIX + "admin/order/modify";
@@ -36,7 +33,7 @@ public class URL {
     public static final String ADMIN_CREATE_ITEM = PREFIX + "admin/item/create";
     public static final String ADMIN_MODIFY_ITEM = PREFIX + "admin/item/modify";
     public static final String ADMIN_MODIFY_ITEM_IMAGE = PREFIX + "admin/item/image/modify";
-
+    public static final String ADMIN_ORDER = PREFIX + "admin/order";
 
     public static final String CLIENT_MENU = PREFIX + "client/menu";
     public static final String CLIENT_ORDER = PREFIX + "client/order";

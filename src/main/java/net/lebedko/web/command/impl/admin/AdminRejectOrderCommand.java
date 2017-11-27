@@ -11,7 +11,7 @@ import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
 public class AdminRejectOrderCommand extends AbstractAdminCommand {
-    private final static String URL_TEMPLATE = URL.ADMIN_ORDER_DETAILS.concat("?").concat(Attribute.ORDER_ID).concat("=");
+    private final static String URL_TEMPLATE = URL.ADMIN_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=");
 
     public AdminRejectOrderCommand(OrderService orderService, InvoiceService invoiceService) {
         super(orderService, invoiceService);

@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderDao orderDao;
 
-    public OrderServiceImpl(
+    OrderServiceImpl(
             ServiceTemplate template,
             InvoiceService invoiceService,
             OrderItemService orderItemService,
@@ -93,6 +93,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException {
+        //TODO: REFACTOR METHOD!!!
         template.doTxService(() -> {
 
             final Order order = orderDao.getById(orderId);
@@ -159,6 +160,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void deleteModified(Long id, User user) {
+        template.doTxService(() -> {
+            ofNullable(orderDao.getByOrderIdAndUser(id, user))
+                    .ifPresent(orderDao::delete);
+        });
+
 
     }
 }

@@ -47,13 +47,10 @@ public class ClientModifyOrderCommand extends AbstractCommand {
                 getOrderBucket(context),
                 orderItems);
 
-        final Long bucketAmount = mergedBucket.entrySet()
-                .stream()
-                .map(Map.Entry::getValue)
-                .reduce(0L, Long::sum);
-
         context.addSessionAttribute(Attribute.ORDER_BUCKET, mergedBucket);
-        context.addSessionAttribute(Attribute.ORDER_BUCKET_AMOUNT, bucketAmount);
+        context.addSessionAttribute(Attribute.ORDER_BUCKET_AMOUNT, mergedBucket.values()
+                .stream()
+                .reduce(0L, Long::sum));
 
         return CLIENT_ORDER_REDIRECT;
     }

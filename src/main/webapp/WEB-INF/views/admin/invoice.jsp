@@ -4,8 +4,6 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page import="net.lebedko.web.util.constant.URL" %>
 <%@ page import="net.lebedko.web.util.constant.Attribute" %>
-<%@ page import="net.lebedko.entity.invoice.InvoiceState" %>
-
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
@@ -15,6 +13,7 @@
         <div class="row justify-content-between">
             <div class="col-lg-3">
                 <c:set var="invoice" value="${requestScope.get(Attribute.INVOICE)}"/>
+                <h5 class="text-center mb-3"><fmt:message key="invoice.details"/></h5>
                 <table class="table border">
                     <tbody>
                     <tr>
@@ -43,81 +42,34 @@
                     </tr>
                     </tbody>
                 </table>
-
-                <c:if test="${invoice.state eq State.CLOSED}">
-                    <form method="post" id="invoice-submit">
-                        <input type="hidden" name="${Attribute.INVOICE_ID}" value="${invoice.id}">
-                        <button class="btn btn-block btn-success rounded-0"><fmt:message key="invoice.submit"/></button>
-                    </form>
-                </c:if>
             </div>
-
-            <div class="col-lg-8">
-
-                <table class="table table-text-center table-bordered table-sm">
+            <div class="col-lg-7 unselectable">
+                <h4 class="text-center mb-3"><fmt:message key="invoice.content"/></h4>
+                <table class="table table-text-center table-bordered table-hover">
                     <thead>
                     <tr>
                         <th><fmt:message key="order"/></th>
                         <th><fmt:message key="state"/></th>
                         <th><fmt:message key="date"/></th>
                         <th><fmt:message key="time"/></th>
-                        <th><i class="fa fa-trash pr-3"></i></th>
-                        <th><i class="fa fa-info"></i></th>
                     </tr>
                     </thead>
-
-                    <tbody>
+                    <tbody class="table-sm">
                     <c:forEach var="entry" items="${requestScope.get(Attribute.ITEMS_TO_ORDER)}">
                         <c:set var="order" value="${entry.key}"/>
-
-                        <tr>
+                        <c:url var="orderUrl" value="${URL.ADMIN_ORDER}">
+                            <c:param name="${Attribute.ORDER_ID}" value="${order.id}"/>
+                        </c:url>
+                        <tr class="row-link" data-url="${orderUrl}">
                             <td>${order.id}</td>
                             <td class="${order.state} "><fmt:message key="${order.state}"/></td>
                             <td>${order.createdOn.toLocalDate()}</td>
                             <td>${order.createdOn.toLocalTime()}</td>
-
-                            <td>
-                                <span class="badge badge-danger span-btn">
-                                    <fmt:message key="delete"/>
-                                </span>
-                            </td>
-                            <td>
-                                <span class="info-btn badge-light badge span-btn">
-                                    <fmt:message key="info"/>
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr class="order-content">
-                            <td colspan="6">
-                                <h6 class="mt-3 mb-3"><fmt:message key="order.content"/></h6>
-
-                                <table class="table table-bordered inner-table mb-4">
-                                    <thead>
-                                    <tr>
-                                        <th><fmt:message key="item"/></th>
-                                        <th><fmt:message key="quantity"/></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="orderItem" items="${entry.value}">
-                                        <tr>
-                                            <td>${orderItem.item.title.value.get(lang)}</td>
-                                            <td>${orderItem.quantity}</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
-
-            <style>
-
-            </style>
         </div>
     </div>
 </t:page>

@@ -2,11 +2,9 @@ package net.lebedko.entity.general;
 
 import net.lebedko.entity.Validatable;
 
-import static java.util.Optional.ofNullable;
+import java.util.Objects;
 
-/**
- * alexandr.lebedko : 30.07.2017.
- */
+import static java.util.Optional.ofNullable;
 
 public class Price implements Validatable {
     private Double value;
@@ -29,8 +27,17 @@ public class Price implements Validatable {
         return value;
     }
 
-    public static Price sum(Price price1, Price price2) {
-        return new Price(price1.getValue() + price2.getValue());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Price price = (Price) o;
+        return Objects.equals(value, price.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 
     @Override
@@ -39,4 +46,9 @@ public class Price implements Validatable {
                 +value +
                 '}';
     }
+
+    public static Price sum(Price price1, Price price2) {
+        return new Price(price1.getValue() + price2.getValue());
+    }
+
 }

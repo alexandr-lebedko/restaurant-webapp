@@ -11,7 +11,7 @@ import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
 public class AdminProcessOrderCommand extends AbstractAdminCommand {
-    private static final String URL_TEMPLATE = URL.ADMIN_ORDER_DETAILS.concat("?").concat(Attribute.ORDER_ID).concat("=");
+    private static final String URL_TEMPLATE = URL.ADMIN_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=");
 
     public AdminProcessOrderCommand(OrderService orderService, InvoiceService invoiceService) {
         super(orderService, invoiceService);
