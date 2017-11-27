@@ -30,4 +30,5 @@ public interface InvoiceService {
 
     Collection<Invoice> getByState(InvoiceState state) throws ServiceException;
 
+    void update(Invoice invoice);
 }

@@ -2,6 +2,7 @@ package net.lebedko.service.impl;
 
 import net.lebedko.dao.OrderDao;
 import net.lebedko.dao.exception.DataAccessException;
+import net.lebedko.entity.general.Price;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
@@ -17,6 +18,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static net.lebedko.entity.order.OrderState.MODIFIED;
 
@@ -49,10 +51,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId) throws ServiceException {
         return template.doTxService(() -> {
-
                     final Invoice invoice = invoiceService.getUnpaidOrCreate(user);
                     final Order order = orderDao.insert(new Order(invoice));
-
                     insertOrderContent(order, quantityToItemId);
 
                     return order;
@@ -74,10 +74,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void process(Long orderId) throws ServiceException {
         template.doTxService(() -> {
-            ofNullable(orderDao.getById(orderId))
-                    .filter(order -> order.getState() == OrderState.NEW)
-                    .map(order -> new Order(order.getId(), order.getInvoice(), OrderState.PROCESSED, order.getCreatedOn()))
-                    .ifPresent(orderDao::update);
+            final Order order = of(orderDao.getById(orderId))
+                    .filter(o -> o.getState().equals(OrderState.NEW))
+                    .map(o -> new Order(o.getId(), o.getInvoice(), OrderState.PROCESSED, o.getCreatedOn()))
+                    .orElseThrow(NullPointerException::new);
+
+            final Price sum = orderItemService.getOrderItems(order).stream()
+                    .map(OrderItem::getPrice)
+                    .reduce(new Price(0d), Price::sum);
+
+            final Invoice invoice = of(order.getInvoice())
+                    .map(i -> new Invoice(i.getId(), i.getUser(), i.getState(), sum, i.getCreatedOn()))
+                    .orElseThrow(NullPointerException::new);
+
+            invoiceService.update(invoice);
+            orderDao.update(order);
         });
     }
 

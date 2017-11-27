@@ -42,7 +42,7 @@ public class ClientCreateOrderCommand extends AbstractCommand {
 
         try {
             User user = context.getSessionAttribute(User.class, Attribute.USER);
-//            orderService.createOrder(user, orderContent);
+            orderService.createOrder(user, quantityToItem);
 
             context.removeSessionAttribute(Attribute.ORDER_BUCKET);
             context.removeSessionAttribute(Attribute.ORDER_BUCKET_AMOUNT);

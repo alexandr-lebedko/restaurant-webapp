@@ -30,6 +30,6 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItem insert(OrderItem orderItem) {
-        return null;
+        return template.doTxService(()->orderItemDao.insert(orderItem));
     }
 }
