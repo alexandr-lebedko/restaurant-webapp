@@ -5,7 +5,7 @@ import net.lebedko.entity.general.StringI18N;
 import net.lebedko.entity.item.Category;
 import net.lebedko.entity.item.Description;
 import net.lebedko.entity.item.Title;
-import net.lebedko.i18n.SupportedLocales;
+import net.lebedko.util.SupportedLocales;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.util.constant.Attribute;
 import org.apache.logging.log4j.LogManager;

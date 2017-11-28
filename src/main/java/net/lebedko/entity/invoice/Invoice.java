@@ -4,6 +4,7 @@ import net.lebedko.entity.general.Price;
 import net.lebedko.entity.user.User;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Invoice {
     private Long id;
@@ -48,58 +49,31 @@ public class Invoice {
         return createdOn;
     }
 
-    public static Builder Builder() {
-        return new Builder();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Invoice invoice = (Invoice) o;
+        return Objects.equals(id, invoice.id) &&
+                Objects.equals(user, invoice.user) &&
+                state == invoice.state &&
+                Objects.equals(amount, invoice.amount) &&
+                Objects.equals(createdOn, invoice.createdOn);
     }
 
-    public static Builder Builder(Invoice invoice) {
-        return new Builder(invoice);
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, state, amount, createdOn);
     }
 
-    public static class Builder {
-        private Long id;
-        private User user;
-        private InvoiceState state;
-        private Price amount;
-        private LocalDateTime createdOn;
-
-        private Builder(Invoice invoice) {
-            this.id = invoice.getId();
-            this.user = invoice.getUser();
-            this.state = invoice.getState();
-            this.amount = invoice.getAmount();
-        }
-
-        private Builder() {
-        }
-
-        public Builder setId(Long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder setUser(User user) {
-            this.user = user;
-            return this;
-        }
-
-        public Builder setState(InvoiceState state) {
-            this.state = state;
-            return this;
-        }
-
-        public Builder setCreation(LocalDateTime creation) {
-            this.createdOn = creation;
-            return this;
-        }
-
-        public Builder setPrice(Price price) {
-            this.amount = price;
-            return this;
-        }
-
-        public Invoice build() {
-            return new Invoice(id, user, state, amount, createdOn);
-        }
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "id=" + id +
+                ", user=" + user +
+                ", state=" + state +
+                ", amount=" + amount +
+                ", createdOn=" + createdOn +
+                '}';
     }
 }

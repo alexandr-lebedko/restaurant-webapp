@@ -5,13 +5,7 @@ import net.lebedko.entity.item.Item;
 
 import java.util.Collection;
 
-public interface ItemDao {
-
-    Item insert(Item item);
-
-    void update(Item item);
+public interface ItemDao extends GenericDao<Item, Long>{
 
     Collection<Item> getByCategory(Category category);
-
-    Item get(Long id);
 }

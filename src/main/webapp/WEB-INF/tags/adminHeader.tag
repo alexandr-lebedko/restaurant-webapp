@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ tag import="net.lebedko.web.util.constant.URL" %>
-<%@ tag import="net.lebedko.i18n.SupportedLocales" %>
+<%@ tag import="net.lebedko.util.SupportedLocales" %>
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>

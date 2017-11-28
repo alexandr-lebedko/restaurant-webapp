@@ -21,8 +21,8 @@ import java.io.InputStream;
 import java.util.Objects;
 
 public class AdminModifyItemImageCommand extends AbstractAdminCommand {
-    private static final IResponseAction ITEMS_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ITEMS);
     private static final String URL_TEMPLATE = URL.ADMIN_ITEMS.concat("?").concat(Attribute.ITEM_ID).concat("=");
+    private static final IResponseAction ITEMS_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ITEMS);
     private ItemService itemService;
     private CategoryService categoryService;
     private ImageValidator imageValidator;

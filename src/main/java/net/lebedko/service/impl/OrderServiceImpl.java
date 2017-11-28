@@ -1,7 +1,6 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.OrderDao;
-import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.entity.general.Price;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
@@ -12,15 +11,15 @@ import net.lebedko.service.InvoiceService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderItemService;
 import net.lebedko.service.OrderService;
-import net.lebedko.service.exception.ServiceException;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
-import static net.lebedko.entity.order.OrderState.MODIFIED;
 
 public class OrderServiceImpl implements OrderService {
     private ServiceTemplate template;
@@ -44,12 +43,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrder(Long id, User user) throws ServiceException {
+    public Order getByUserAndId(Long id, User user) {
         return template.doTxService(() -> orderDao.getByOrderIdAndUser(id, user));
     }
 
     @Override
-    public Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId) throws ServiceException {
+    public Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId) {
         return template.doTxService(() -> {
                     final Invoice invoice = invoiceService.getUnpaidOrCreate(user);
                     final Order order = orderDao.insert(new Order(invoice));
@@ -60,32 +59,32 @@ public class OrderServiceImpl implements OrderService {
         );
     }
 
-    private void insertOrderContent(Order order, Collection<Pair<Long, Long>> quantityToItemId) throws DataAccessException {
+    private void insertOrderContent(Order order, Collection<Pair<Long, Long>> quantityToItemId) {
         quantityToItemId.stream()
                 .map(e -> new OrderItem(order, itemService.get(e.getLeft()), e.getRight()))
                 .forEach(orderItemService::insert);
     }
 
     @Override
-    public Collection<Order> getOrders(User user) {
+    public Collection<Order> getByUser(User user) {
         return template.doTxService(() -> orderDao.getByUser(user));
     }
 
     @Override
-    public void process(Long orderId) throws ServiceException {
+    public void process(Long orderId) {
         template.doTxService(() -> {
-            final Order order = of(orderDao.getById(orderId))
+            final Order order = of(orderDao.findById(orderId))
                     .filter(o -> o.getState().equals(OrderState.NEW))
                     .map(o -> new Order(o.getId(), o.getInvoice(), OrderState.PROCESSED, o.getCreatedOn()))
-                    .orElseThrow(NullPointerException::new);
-
+                    .orElseThrow(IllegalArgumentException::new);
             final Price sum = orderItemService.getOrderItems(order).stream()
                     .map(OrderItem::getPrice)
                     .reduce(new Price(0d), Price::sum);
-
-            final Invoice invoice = of(order.getInvoice())
-                    .map(i -> new Invoice(i.getId(), i.getUser(), i.getState(), sum, i.getCreatedOn()))
-                    .orElseThrow(NullPointerException::new);
+            final Invoice invoice = new Invoice(order.getInvoice().getId(),
+                    order.getInvoice().getUser(),
+                    order.getInvoice().getState(),
+                    sum,
+                    order.getInvoice().getCreatedOn());
 
             invoiceService.update(invoice);
             orderDao.update(order);
@@ -93,9 +92,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void reject(Long id) throws ServiceException {
+    public void reject(Long id) {
         template.doTxService(() -> {
-            ofNullable(orderDao.getById(id))
+            ofNullable(orderDao.findById(id))
                     .filter(order -> order.getState() == OrderState.NEW)
                     .map(order -> new Order(order.getId(), order.getInvoice(), OrderState.REJECTED, order.getCreatedOn()))
                     .ifPresent(orderDao::update);
@@ -103,11 +102,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) throws ServiceException {
+    public void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) {
         //TODO: REFACTOR METHOD!!!
         template.doTxService(() -> {
 
-            final Order order = orderDao.getById(orderId);
+            final Order order = orderDao.findById(orderId);
             final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
 
             List<OrderItem> itemsToUpdate = orderItems.stream()
@@ -130,9 +129,9 @@ public class OrderServiceImpl implements OrderService {
 
 //            orderItemDao.update(itemsToUpdate);
 //            orderItemDao.delete(itemsToDelete);
-            orderDao.update(Order.builder(order)
-                    .setState(MODIFIED)
-                    .build());
+//            orderDao.update(Order.builder(order)
+//                    .setState(MODIFIED)
+//                    .build());
         });
     }
 
@@ -143,56 +142,45 @@ public class OrderServiceImpl implements OrderService {
                     .filter(o -> (o.getState() == OrderState.MODIFIED) || (o.getState() == OrderState.NEW))
                     .orElseThrow(IllegalStateException::new);
 
-            orderDao.delete(order);
-
-            Collection<Order> orders = orderDao.get(order.getInvoice());
-            if (orders.isEmpty()) {
+            orderDao.delete(order.getId());
+            if (orderDao.getByInvoice(order.getInvoice()).isEmpty()) {
                 invoiceService.delete(order.getInvoice());
             }
-
         });
     }
 
     @Override
-    public Collection<Order> getOrders(OrderState state) throws ServiceException {
+    public Collection<Order> getByState(OrderState state) {
         return template.doTxService(() -> orderDao.getByState(state));
     }
 
     @Override
-    public Collection<Order> getOrders(Invoice invoice) throws ServiceException {
-        return template.doTxService(() -> orderDao.get(invoice));
+    public Collection<Order> getByInvoice(Invoice invoice) {
+        return template.doTxService(() -> orderDao.getByInvoice(invoice));
     }
 
     @Override
     public void submitModifiedOrder(Long id, User user) {
         template.doTxService(() -> {
-            Order order = ofNullable(orderDao.getByOrderIdAndUser(id, user))
-                    .orElseThrow(NoSuchElementException::new);
-
+            Order order = orderDao.getByOrderIdAndUser(id, user);
             if (order.getState() != OrderState.MODIFIED) {
                 throw new IllegalStateException("Cannot submit order which not in 'MODIFIED' state");
             }
-
-            Order newOrder = Order.builder(order)
-                    .setState(OrderState.NEW)
-                    .build();
-
-            orderDao.update(newOrder);
+            orderDao.update(new Order(order.getId(), order.getInvoice(), OrderState.NEW, order.getCreatedOn()));
         });
     }
 
     @Override
-    public Order getOrder(Long orderId) throws ServiceException {
-        return orderDao.getById(orderId);
+    public Order getById(Long id) {
+        return orderDao.findById(id);
     }
 
     @Override
     public void deleteModified(Long id, User user) {
         template.doTxService(() -> {
             ofNullable(orderDao.getByOrderIdAndUser(id, user))
+                    .map(Order::getId)
                     .ifPresent(orderDao::delete);
         });
-
-
     }
 }

@@ -11,29 +11,24 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
-/**
- * alexandr.lebedko : 10.08.2017.
- */
 public class FileServiceImpl implements FileService {
-
-
     @Override
     public String saveImg(InputStream inputStream) throws ServiceException {
-        String fileName = generateUniqueImageName();
-
-        File file = new File(new File(Image.DESTINATION_FOLDER), fileName);
         try {
-            Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            String fileName = generateUniqueImageName();
+            Files.copy(inputStream,
+                    new File(new File(Image.DESTINATION_FOLDER), fileName).toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+            return fileName;
         } catch (IOException e) {
             throw new ServiceException(e);
         }
-        return fileName;
     }
 
     @Override
-    public boolean deleteFile(String fileName) {
+    public void deleteFile(String fileName) {
         File file = new File(new File(Image.DESTINATION_FOLDER), fileName);
-        return file.delete();
+        file.delete();
     }
 
     private String generateUniqueImageName() {

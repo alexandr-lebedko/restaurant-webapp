@@ -39,11 +39,9 @@ public class AdminGetItemsCommand extends AbstractAdminCommand {
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
 
-        Collection<Item> items = itemService.getByCategory(category);
-
         context.addRequestAttribute(Attribute.CATEGORIES, categories);
         context.addRequestAttribute(Attribute.CATEGORY, category);
-        context.addRequestAttribute(Attribute.ITEMS, items);
+        context.addRequestAttribute(Attribute.ITEMS, itemService.getByCategory(category));
 
         return ITEMS_FORWARD;
     }

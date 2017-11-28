@@ -1,6 +1,5 @@
 package net.lebedko.dao.jdbc.mapper;
 
-import net.lebedko.dao.jdbc.JdbcCategoryDao;
 import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.entity.general.StringI18N;
 import net.lebedko.entity.item.Category;
@@ -8,7 +7,7 @@ import net.lebedko.entity.item.Category;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static net.lebedko.i18n.SupportedLocales.*;
+import static net.lebedko.util.SupportedLocales.*;
 
 public class CategoryMapper implements Mapper<Category> {
     private static final String CATEGORY_ID = "c_id";

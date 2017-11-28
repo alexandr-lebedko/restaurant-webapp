@@ -12,11 +12,10 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
-import net.lebedko.web.util.constant.WebConstant;
 
 import java.util.Collection;
 
-import static net.lebedko.web.util.constant.WebConstant.*;
+import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class ClientGetInvoiceCommand extends AbstractCommand {
     private IResponseAction INVOICE_FORWARD = new ForwardAction(PAGE.CLIENT_INVOICE);
@@ -31,12 +30,11 @@ public class ClientGetInvoiceCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        Long invoiceId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.INVOICE_ID), -1L);
-        User user = context.getSessionAttribute(User.class, Attribute.USER);
+        final Long invoiceId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.INVOICE_ID), -1L);
+        final User user = context.getSessionAttribute(User.class, Attribute.USER);
 
-
-        Invoice invoice = invoiceService.getInvoice(invoiceId, user);
-        Collection<OrderItem> orderItems = orderItemService.getOrderItems(invoice);
+        final Invoice invoice = invoiceService.getInvoice(invoiceId, user);
+        final Collection<OrderItem> orderItems = orderItemService.getOrderItems(invoice);
 
         context.addRequestAttribute(Attribute.INVOICE, invoice);
         context.addRequestAttribute(Attribute.ORDER_ITEMS, orderItems);

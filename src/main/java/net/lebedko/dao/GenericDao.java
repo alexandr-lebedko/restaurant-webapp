@@ -1,21 +1,13 @@
 package net.lebedko.dao;
 
-import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.entity.Entity;
-import net.lebedko.entity.Validatable;
+public interface GenericDao<T, ID> {
 
-/**
- * alexandr.lebedko : 21.04.2017.
- */
+    T insert(T entity);
 
-public interface GenericDao<T extends Validatable & Entity> {
+    T findById(ID id);
 
-    T insert(T entity) throws DataAccessException;
+    void update(T t);
 
-    T findById(int id) throws DataAccessException;
-
-    void update(T t) throws DataAccessException;
-
-    void delete(int id) throws DataAccessException;
+    void delete(ID id);
 
 }

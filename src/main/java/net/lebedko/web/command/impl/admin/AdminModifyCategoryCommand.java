@@ -45,7 +45,6 @@ public class AdminModifyCategoryCommand extends AbstractAdminCommand {
         final Errors errors = new Errors();
 
         validator.validate(category, errors);
-
         if (!errors.hasErrors()) {
             try {
                 categoryService.update(category);
@@ -54,11 +53,9 @@ public class AdminModifyCategoryCommand extends AbstractAdminCommand {
                 errors.register("categoryExists", PageErrorNames.CATEGORY_EXISTS);
             }
         }
-
         context.addErrors(errors);
         context.addRequestAttribute(Attribute.CATEGORIES, categoryService.getAll());
         context.addRequestAttribute(Attribute.MODIFIED_CATEGORY, category);
-
         return CATEGORIES_FORWARD;
     }
 }

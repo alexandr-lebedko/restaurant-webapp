@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static java.util.Objects.nonNull;
-import static net.lebedko.i18n.SupportedLocales.*;
+import static net.lebedko.util.SupportedLocales.*;
 
 public class ItemMapper implements Mapper<Item> {
 

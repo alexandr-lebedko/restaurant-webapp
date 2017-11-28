@@ -1,9 +1,6 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.DaoFactory;
-import net.lebedko.dao.TransactionManager;
-import net.lebedko.dao.jdbc.connection.ThreadLocalConnectionProvider;
-import net.lebedko.dao.jdbc.transaction.JdbcThreadLocalTransactionManager;
 import net.lebedko.service.*;
 
 public class ServiceFactoryImpl implements ServiceFactory {

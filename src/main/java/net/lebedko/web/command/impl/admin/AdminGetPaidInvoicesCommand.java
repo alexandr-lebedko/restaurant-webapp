@@ -21,7 +21,6 @@ public class AdminGetPaidInvoicesCommand extends AbstractAdminCommand{
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         context.addRequestAttribute(Attribute.INVOICE_STATE, InvoiceState.PAID);
         context.addRequestAttribute(Attribute.INVOICES, invoiceService.getByState(InvoiceState.PAID));
-
         return INVOICES_FORWARD;
     }
 }

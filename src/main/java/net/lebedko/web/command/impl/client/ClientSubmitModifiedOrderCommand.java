@@ -11,9 +11,8 @@ import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
-import java.util.NoSuchElementException;
-
 public class ClientSubmitModifiedOrderCommand extends AbstractCommand {
+private static final String URL_TEMPLATE = URL.CLIENT_ORDER.concat("?").concat("=");
     private OrderService orderService;
 
     public ClientSubmitModifiedOrderCommand(OrderService orderService) {
@@ -26,7 +25,6 @@ public class ClientSubmitModifiedOrderCommand extends AbstractCommand {
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
 
         orderService.submitModifiedOrder(orderId, user);
-
-        return new RedirectAction(URL.CLIENT_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=").concat(orderId.toString()));
+        return new RedirectAction(URL_TEMPLATE.concat(orderId.toString()));
     }
 }

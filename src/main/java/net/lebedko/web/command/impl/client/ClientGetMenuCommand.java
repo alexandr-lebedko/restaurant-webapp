@@ -31,17 +31,14 @@ public class ClientGetMenuCommand extends AbstractCommand {
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         final Long categoryId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), DEFAULT_CATEGORY);
         final Collection<Category> categories = categoryService.getAll();
-
-        Category requestedCategory = categories.stream()
+        final Category requestedCategory = categories.stream()
                 .filter(category -> categoryId.equals(category.getId()))
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
-
-        Collection<Item> items = itemService.getByCategory(requestedCategory);
+        final Collection<Item> items = itemService.getByCategory(requestedCategory);
 
         context.addRequestAttribute(Attribute.CATEGORIES, categories);
         context.addRequestAttribute(Attribute.ITEMS, items);
-
         return new ForwardAction(WebConstant.PAGE.CLIENT_MENU);
     }
 

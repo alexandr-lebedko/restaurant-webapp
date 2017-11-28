@@ -14,7 +14,6 @@ import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,14 +37,12 @@ public class ClientModifyOrderCommand extends AbstractCommand {
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
 
-        final Order order = orderService.getOrder(orderId);
+        final Order order = orderService.getById(orderId);
         final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
 
         orderService.deleteModified(orderId, user);
 
-        final Map<Item, Long> mergedBucket = mergeBucketAndOrderItems(
-                getOrderBucket(context),
-                orderItems);
+        final Map<Item, Long> mergedBucket = mergeBucketAndOrderItems(getOrderBucket(context), orderItems);
 
         context.addSessionAttribute(Attribute.ORDER_BUCKET, mergedBucket);
         context.addSessionAttribute(Attribute.ORDER_BUCKET_AMOUNT, mergedBucket.values()

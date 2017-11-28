@@ -1,7 +1,7 @@
 <%@tag description="Header for unauthenticated user" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ tag import="net.lebedko.i18n.SupportedLocales" %>
+<%@ tag import="net.lebedko.util.SupportedLocales" %>
 <%@ tag import="net.lebedko.web.util.constant.URL" %>
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>

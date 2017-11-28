@@ -18,30 +18,17 @@ public class OrderMapper implements Mapper<Order> {
 
     private InvoiceMapper invoiceMapper;
     private Invoice invoice;
-    private OrderState state;
 
-
-    public OrderMapper(Invoice invoice) {
-        this(invoice, null);
-
+    public OrderMapper() {
+        this(new InvoiceMapper());
     }
 
-    public OrderMapper(OrderState state) {
-        this(null, state);
+    public OrderMapper(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     public OrderMapper(InvoiceMapper invoiceMapper) {
-        this(invoiceMapper, null, null);
-    }
-
-    public OrderMapper(Invoice invoice, OrderState state) {
-        this(new InvoiceMapper(), invoice, state);
-    }
-
-    public OrderMapper(InvoiceMapper invoiceMapper, Invoice invoice, OrderState state) {
         this.invoiceMapper = invoiceMapper;
-        this.invoice = invoice;
-        this.state = state;
     }
 
     @Override
@@ -55,7 +42,7 @@ public class OrderMapper implements Mapper<Order> {
     }
 
     private OrderState getState(ResultSet rs) throws SQLException {
-        return nonNull(state) ? state : OrderState.valueOf(rs.getString(STATE));
+        return OrderState.valueOf(rs.getString(STATE));
     }
 
     private Invoice getInvoice(ResultSet rs) throws SQLException {

@@ -22,7 +22,6 @@ public class AdminGetUnpaidInvoicesCommand extends AbstractAdminCommand {
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         context.addRequestAttribute(Attribute.INVOICE_STATE, InvoiceState.UNPAID);
         context.addRequestAttribute(Attribute.INVOICES, invoiceService.getByState(InvoiceState.UNPAID));
-
         return INVOICES_FORWARD;
     }
 }

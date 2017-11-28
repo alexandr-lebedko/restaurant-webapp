@@ -55,8 +55,7 @@
                     </tr>
                     </thead>
                     <tbody class="table-sm">
-                    <c:forEach var="entry" items="${requestScope.get(Attribute.ITEMS_TO_ORDER)}">
-                        <c:set var="order" value="${entry.key}"/>
+                    <c:forEach var="order" items="${requestScope.get(Attribute.ORDERS)}">
                         <c:url var="orderUrl" value="${URL.ADMIN_ORDER}">
                             <c:param name="${Attribute.ORDER_ID}" value="${order.id}"/>
                         </c:url>

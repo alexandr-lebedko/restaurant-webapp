@@ -21,8 +21,7 @@ public class AdminGetNewOrdersCommand extends AbstractAdminCommand {
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         context.addRequestAttribute(Attribute.ORDER_STATE, OrderState.NEW);
-        context.addRequestAttribute(Attribute.ORDERS, orderService.getOrders(OrderState.NEW));
-
+        context.addRequestAttribute(Attribute.ORDERS, orderService.getByState(OrderState.NEW));
         return ORDERS_FORWARD;
     }
 }

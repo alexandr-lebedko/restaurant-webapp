@@ -1,23 +1,18 @@
 package net.lebedko.entity.general;
 
-import net.lebedko.entity.Validatable;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * alexandr.lebedko : 03.08.2017.
- */
-public class StringI18N implements Validatable {
+public class StringI18N {
     private Map<Locale, String> stringsToLocale = new HashMap<>();
 
     public StringI18N() {
     }
 
     public StringI18N(Map<Locale, String> stringsToLocale) {
-        this.stringsToLocale = new HashMap(stringsToLocale);
+        this.stringsToLocale = new HashMap<>(stringsToLocale);
     }
 
     public void add(Locale locale, String value) {
@@ -37,25 +32,12 @@ public class StringI18N implements Validatable {
     }
 
     @Override
-    public boolean isValid() {
-        return !stringsToLocale.isEmpty() && noEmptyStrings();
-    }
-
-    private boolean noEmptyStrings() {
-        return stringsToLocale.entrySet().stream()
-                .allMatch(entry -> !entry.getValue().isEmpty());
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
-
         if (o == null || getClass() != o.getClass())
             return false;
-
         StringI18N that = (StringI18N) o;
-
         return Objects.equals(stringsToLocale, that.stringsToLocale);
     }
 
@@ -70,5 +52,4 @@ public class StringI18N implements Validatable {
                 "stringsToLocale=" + stringsToLocale +
                 '}';
     }
-
 }

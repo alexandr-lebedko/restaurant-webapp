@@ -12,7 +12,7 @@ import net.lebedko.web.util.constant.Attribute;
 
 import java.util.Collection;
 
-import static net.lebedko.web.util.constant.WebConstant.*;
+import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class ClientGetInvoicesCommand extends AbstractCommand {
     private static final IResponseAction INVOICES_FORWARD = new ForwardAction(PAGE.CLIENT_INVOICES);
@@ -28,7 +28,6 @@ public class ClientGetInvoicesCommand extends AbstractCommand {
         final Collection<Invoice> invoices = invoiceService.getInvoices(user);
 
         context.addRequestAttribute(Attribute.INVOICES, invoices);
-
         return INVOICES_FORWARD;
     }
 }

@@ -4,7 +4,6 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
-import net.lebedko.service.exception.ServiceException;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
@@ -14,15 +13,15 @@ public interface OrderService {
 
     Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId);
 
-    Order getOrder(Long orderId, User user) throws ServiceException;
+    Order getById(Long id);
 
-    Order getOrder(Long orderId) throws ServiceException;
+    Order getByUserAndId(Long orderId, User user);
 
-    Collection<Order> getOrders(User user) throws ServiceException;
+    Collection<Order> getByUser(User user);
 
-    Collection<Order> getOrders(OrderState state) throws ServiceException;
+    Collection<Order> getByState(OrderState state);
 
-    Collection<Order> getOrders(Invoice invoice) throws ServiceException;
+    Collection<Order> getByInvoice(Invoice invoice);
 
     void submitModifiedOrder(Long id, User user);
 

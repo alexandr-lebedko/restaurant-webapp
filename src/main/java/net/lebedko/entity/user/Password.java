@@ -1,6 +1,7 @@
 package net.lebedko.entity.user;
 
-import net.lebedko.entity.Validatable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -10,12 +11,9 @@ import static java.util.Objects.requireNonNull;
 import static java.util.Objects.nonNull;
 import static net.lebedko.util.Util.removeExtraSpaces;
 
-public abstract class Password implements Validatable {
-    protected static final int min_length = 8;
-
+public abstract class Password {
     String passwordString;
     String passwordHash;
-
 
     public abstract String getPasswordString();
 
@@ -26,7 +24,6 @@ public abstract class Password implements Validatable {
         if (!(o instanceof Password)) return false;
 
         Password other = (Password) o;
-
         return Objects.equals(this.getPasswordHash(), other.getPasswordHash());
     }
 
@@ -43,17 +40,13 @@ public abstract class Password implements Validatable {
     }
 
     private static class PasswordImpl extends Password {
-        protected static final String MD_ALGORITHM = "MD5";
+        private static final Logger LOG = LogManager.getLogger();
+        private static final String MD_ALGORITHM = "MD5";
 
 
         private PasswordImpl(String passwordString) {
             requireNonNull(passwordString, "Argument cannot be null");
             this.passwordString = removeExtraSpaces(passwordString).trim();
-        }
-
-        @Override
-        public boolean isValid() {
-            return passwordString.length() >= min_length;
         }
 
         @Override
@@ -76,7 +69,7 @@ public abstract class Password implements Validatable {
                 }
                 passwordHash = sb.toString();
             } catch (NoSuchAlgorithmException e) {
-                /*NOP*/
+                LOG.error(e);
             }
             return passwordHash;
         }
@@ -84,10 +77,8 @@ public abstract class Password implements Validatable {
     }
 
     private static class HashedPassword extends Password {
-
         private HashedPassword(String passwordHash) {
             requireNonNull(passwordHash, "Argument cannot be null");
-
             this.passwordHash = passwordHash;
         }
 
@@ -99,16 +90,8 @@ public abstract class Password implements Validatable {
         @Override
         public String getPasswordString() {
             //TODO: is it really good ??
-            throw new UnsupportedOperationException("Cannot convert hashed string to password string ");
+            throw new UnsupportedOperationException("Cannot convert hashed string to password string");
         }
-
-        @Override
-        public boolean isValid() {
-
-            //TODO: is it really good ??
-            throw new UnsupportedOperationException("Cannot define validity of hashed string");
-        }
-
     }
 
 }

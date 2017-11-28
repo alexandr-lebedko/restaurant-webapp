@@ -4,23 +4,18 @@ import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.exception.UniqueViolationException;
 import net.lebedko.dao.TransactionManager;
 import net.lebedko.service.exception.ServiceException;
-import net.lebedko.util.VoidCallable;
 
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
-/**
- * alexandr.lebedko : 11.05.2017.
- */
-
-public class ServiceTemplate {
+class ServiceTemplate {
     private TransactionManager txManager;
 
-    public ServiceTemplate(TransactionManager txManager) {
+    ServiceTemplate(TransactionManager txManager) {
         this.txManager = Objects.requireNonNull(txManager);
     }
 
-    public <T> T doTxService(Callable<T> work) throws ServiceException {
+    <T> T doTxService(Callable<T> work) {
         try {
             return txManager.tx(work);
         } catch (UniqueViolationException e) {
@@ -30,7 +25,7 @@ public class ServiceTemplate {
         }
     }
 
-    public void doTxService(VoidCallable work) throws ServiceException {
+    void doTxService(Runnable work) {
         try {
             txManager.tx(work);
         } catch (UniqueViolationException e) {

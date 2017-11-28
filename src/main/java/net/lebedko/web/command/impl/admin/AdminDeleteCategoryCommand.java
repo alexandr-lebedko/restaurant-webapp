@@ -22,10 +22,7 @@ public class AdminDeleteCategoryCommand extends AbstractAdminCommand {
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), -1L);
-
-        categoryService.delete(id);
-
+        categoryService.delete(CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), -1L));
         return CATEGORIES_REDIRECT;
     }
 }

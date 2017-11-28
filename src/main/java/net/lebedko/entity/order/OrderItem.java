@@ -3,9 +3,6 @@ package net.lebedko.entity.order;
 import net.lebedko.entity.general.Price;
 import net.lebedko.entity.item.Item;
 
-/**
- * alexandr.lebedko : 30.09.2017.
- */
 public class OrderItem {
     private Long id;
     private Order order;

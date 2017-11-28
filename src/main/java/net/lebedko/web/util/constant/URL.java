@@ -20,7 +20,6 @@ public class URL {
     public static final String ADMIN_PROCESSED_ORDERS = PREFIX + "admin/orders/processed";
     public static final String ADMIN_MODIFIED_ORDERS = PREFIX + "admin/orders/modified";
     public static final String ADMIN_REJECTED_ORDERS = PREFIX + "admin/orders/rejected";
-    public static final String ADMIN_INVOICES = PREFIX + "admin/invoices";
     public static final String ADMIN_PROCESS_ORDER = PREFIX + "admin/order/process";
     public static final String ADMIN_REJECT_ORDER = PREFIX + "admin/order/reject";
     public static final String ADMIN_MODIFY_ORDER = PREFIX + "admin/order/modify";

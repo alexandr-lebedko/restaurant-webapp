@@ -22,18 +22,16 @@ public class OrderItemMapper implements Mapper<OrderItem> {
     private Order order;
 
     public OrderItemMapper(Order order) {
-        this(order, new ItemMapper());
+        this.order = order;
+    }
+    public OrderItemMapper(OrderMapper orderMapper){
+        this.orderMapper = orderMapper;
     }
 
     public OrderItemMapper(ItemMapper itemMapper, OrderMapper orderMapper, Order order) {
         this.itemMapper = itemMapper;
         this.orderMapper = orderMapper;
         this.order = order;
-    }
-
-    public OrderItemMapper(Order order, ItemMapper mapper) {
-        this.order = order;
-        this.itemMapper = mapper;
     }
 
     @Override

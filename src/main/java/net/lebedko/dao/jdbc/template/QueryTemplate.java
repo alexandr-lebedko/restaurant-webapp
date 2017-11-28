@@ -9,11 +9,10 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
-
-/**
- * alexandr.lebedko : 21.04.2017.
- */
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 
 public class QueryTemplate {
 
@@ -25,8 +24,8 @@ public class QueryTemplate {
     }
 
     public QueryTemplate(ConnectionProvider connectionProvider, ExceptionTranslator exceptionTranslator) {
-        this.connectionProvider = Objects.requireNonNull(connectionProvider, "Connection provider cannot be null!");
-        this.exceptionTranslator = Objects.requireNonNull(exceptionTranslator, "Exception Translator cannot be null");
+        this.connectionProvider = connectionProvider;
+        this.exceptionTranslator = exceptionTranslator;
     }
 
     public <T> T queryOne(String sql, Map<Integer, Object> params, Mapper<T> mapper) throws DataAccessException {
@@ -103,19 +102,17 @@ public class QueryTemplate {
         return collection;
     }
 
-    public <T> boolean insertBatch(String sql, Collection<T> elements, EntityMapper<T> mapper) throws DataAccessException {
+    public <T> boolean insertBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) throws DataAccessException {
         int butchCount = 0;
-
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
             prepareBatch(ps, elements, mapper);
-
             return ps.executeBatch().length == butchCount;
         } catch (SQLException e) {
             throw exceptionTranslator.translate(e);
         }
     }
 
-    public <T> boolean updateBatch(String sql, Collection<T> elements, EntityMapper<T> mapper) throws DataAccessException {
+    public <T> boolean updateBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) throws DataAccessException {
         int butchCount = 0;
 
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
@@ -127,18 +124,9 @@ public class QueryTemplate {
         }
     }
 
-    private <T> void prepareBatch(PreparedStatement ps, Collection<T> elements, EntityMapper<T> mapper) throws SQLException {
+    private <T> void prepareBatch(PreparedStatement ps, Collection<T> elements, EntityToParamsMapper<T> mapper) throws SQLException {
         for (T t : elements) {
             putParamsToPreparedStatement(ps, mapper.map(t));
-        }
-    }
-
-    public void updateProcedure(String sql, Map<Integer, Object> params) throws DataAccessException {
-        try (CallableStatement callableStatement = connectionProvider.getConnection().prepareCall(sql)) {
-            putParamsToPreparedStatement(callableStatement, params);
-            callableStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw exceptionTranslator.translate(e);
         }
     }
 

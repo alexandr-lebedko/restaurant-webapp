@@ -27,12 +27,11 @@ public class AdminGetOrderCommand extends AbstractAdminCommand {
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
-        final Order order = orderService.getOrder(orderId);
+        final Order order = orderService.getById(orderId);
         final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
 
         context.addRequestAttribute(Attribute.ORDER, order);
         context.addRequestAttribute(Attribute.ORDER_ITEMS, orderItems);
-
         return ORDER_FORWARD;
     }
 }

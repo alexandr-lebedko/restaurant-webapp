@@ -13,7 +13,6 @@ import static net.lebedko.web.util.constant.WebConstant.*;
 
 public class ClientGetOrdersCommand extends AbstractCommand {
     private final static IResponseAction ORDERS_FORWARD = new ForwardAction(PAGE.CLIENT_ORDERS);
-
     private OrderService orderService;
 
     public ClientGetOrdersCommand(OrderService orderService) {
@@ -22,10 +21,7 @@ public class ClientGetOrdersCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        final User user = context.getSessionAttribute(User.class, Attribute.USER);
-
-        context.addRequestAttribute(Attribute.ORDERS, orderService.getOrders(user));
-
+        context.addRequestAttribute(Attribute.ORDERS, orderService.getByUser(context.getSessionAttribute(User.class, Attribute.USER)));
         return ORDERS_FORWARD;
     }
 

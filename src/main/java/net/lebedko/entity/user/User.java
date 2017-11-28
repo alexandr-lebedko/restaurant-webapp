@@ -1,16 +1,11 @@
 package net.lebedko.entity.user;
 
-import net.lebedko.entity.Entity;
-import net.lebedko.entity.Validatable;
-
 import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
 
 public class User{
-
-
     private Long id;
     private FullName fullName;
     private EmailAddress email;

@@ -24,7 +24,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item insert(final Item item, final InputStream image) throws ServiceException {
+    public Item insert(final Item item, final InputStream image) {
         String imageId = fileService.saveImg(image);
         try {
             return template.doTxService(() ->
@@ -53,14 +53,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item get(Long id) throws ServiceException {
-        return template.doTxService(() -> itemDao.get(id));
+    public Item get(Long id) {
+        return template.doTxService(() -> itemDao.findById(id));
     }
 
     @Override
-    public List<Item> get(List<Long> ids) throws ServiceException {
+    public List<Item> get(List<Long> ids) {
         return template.doTxService(() -> ids.stream()
-                .map(itemDao::get)
+                .map(itemDao::findById)
                 .collect(Collectors.toList()));
     }
 

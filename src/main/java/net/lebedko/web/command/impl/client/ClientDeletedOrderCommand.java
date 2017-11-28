@@ -11,11 +11,11 @@ import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
-public class ClientRejectModifiedOrderCommand extends AbstractCommand {
+public class ClientDeletedOrderCommand extends AbstractCommand {
     private static final IResponseAction ORDERS_REDIRECT = new RedirectAction(URL.CLIENT_ORDERS);
     private OrderService orderService;
 
-    public ClientRejectModifiedOrderCommand(OrderService orderService) {
+    public ClientDeletedOrderCommand(OrderService orderService) {
         this.orderService = orderService;
     }
 

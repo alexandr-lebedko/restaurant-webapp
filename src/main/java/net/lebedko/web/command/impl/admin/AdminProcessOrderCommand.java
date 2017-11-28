@@ -19,9 +19,9 @@ public class AdminProcessOrderCommand extends AbstractAdminCommand {
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
-        orderService.process(orderId);
+        final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
 
+        orderService.process(orderId);
         return new RedirectAction(URL_TEMPLATE.concat(orderId.toString()));
     }
 }

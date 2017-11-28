@@ -20,8 +20,7 @@ public class AdminGetRejectedOrdersCommand  extends AbstractAdminCommand{
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         context.addRequestAttribute(Attribute.ORDER_STATE, OrderState.REJECTED);
-        context.addRequestAttribute(Attribute.ORDERS, orderService.getOrders(OrderState.REJECTED));
-
+        context.addRequestAttribute(Attribute.ORDERS, orderService.getByState(OrderState.REJECTED));
         return ORDERS_FORWARD;
     }
 }

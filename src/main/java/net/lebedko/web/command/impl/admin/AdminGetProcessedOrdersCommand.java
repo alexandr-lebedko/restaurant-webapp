@@ -20,8 +20,7 @@ public class AdminGetProcessedOrdersCommand extends AbstractAdminCommand {
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         context.addRequestAttribute(Attribute.ORDER_STATE, OrderState.PROCESSED);
-        context.addRequestAttribute(Attribute.ORDERS, orderService.getOrders(OrderState.PROCESSED));
-
+        context.addRequestAttribute(Attribute.ORDERS, orderService.getByState(OrderState.PROCESSED));
         return ORDERS_FORWARD;
     }
 }

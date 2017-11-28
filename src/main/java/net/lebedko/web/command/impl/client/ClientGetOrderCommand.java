@@ -12,12 +12,9 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
-import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.util.constant.WebConstant.PAGE;
 
 import java.util.Collection;
-
-import static java.util.Objects.nonNull;
 
 public class ClientGetOrderCommand extends AbstractCommand {
     private static final IResponseAction ORDER_FORWARD = new ForwardAction(PAGE.CLIENT_ORDER);
@@ -35,12 +32,11 @@ public class ClientGetOrderCommand extends AbstractCommand {
         final Long orderId =CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
         final User user =  context.getSessionAttribute(User.class, Attribute.USER);
 
-        final Order order = orderService.getOrder(orderId, user);
+        final Order order = orderService.getByUserAndId(orderId, user);
         final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
 
         context.addRequestAttribute(Attribute.ORDER, order);
         context.addRequestAttribute(Attribute.ORDER_ITEMS, orderItems);
-
         return ORDER_FORWARD;
     }
 }

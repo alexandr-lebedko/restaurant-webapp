@@ -22,7 +22,6 @@ public class AdminRejectOrderCommand extends AbstractAdminCommand {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
 
         orderService.reject(id);
-
         return new RedirectAction(URL_TEMPLATE.concat(id.toString()));
     }
 }

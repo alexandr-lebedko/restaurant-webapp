@@ -1,46 +1,28 @@
 package net.lebedko.entity.user;
 
-import net.lebedko.entity.Validatable;
+public class LastName {
 
-import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
-import static net.lebedko.util.Util.removeExtraSpaces;
-
-/**
- * Created by alexandr.lebedko on 18.03.2017.
- */
-public class LastName implements Validatable {
-
-    private FirstName name;
+    private String value;
 
     public LastName(String name) {
-        requireNonNull(name, "Last Name cannot be null!");
-        this.name = new FirstName(removeExtraSpaces(name));
+        this.value = name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LastName that = (LastName) o;
-        return Objects.equals(name, that.name);
+        LastName lastName = (LastName) o;
+        return value != null ? value.equals(lastName.value) : lastName.value == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
-    }
-
-
-    @Override
-    public boolean isValid() {
-        return name.isValid();
+        return value != null ? value.hashCode() : 0;
     }
 
     @Override
     public String toString() {
-        return name.toString();
+        return value;
     }
-
 }

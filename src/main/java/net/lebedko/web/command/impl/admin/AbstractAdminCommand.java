@@ -39,7 +39,7 @@ public abstract class AbstractAdminCommand extends AbstractCommand {
             context.addRequestAttribute("unprocessedInvoiceNum", unprocessedInvoices.size());
         }
 
-        Collection<Order> unprocessedOrders = orderService.getOrders(OrderState.NEW);
+        Collection<Order> unprocessedOrders = orderService.getByState(OrderState.NEW);
         if (!unprocessedOrders.isEmpty()) {
             context.addRequestAttribute("unprocessedOrderNum", unprocessedOrders.size());
         }

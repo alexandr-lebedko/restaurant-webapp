@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="net.lebedko.web.util.constant.URL" %>
 <%@ page import="net.lebedko.web.util.constant.Attribute" %>
-<%@ page import="net.lebedko.i18n.SupportedLocales" %>
+<%@ page import="net.lebedko.util.SupportedLocales" %>
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 

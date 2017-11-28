@@ -4,16 +4,15 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collection;
 
-import static net.lebedko.i18n.SupportedLocales.EN_CODE;
-import static net.lebedko.i18n.SupportedLocales.UA_CODE;
-import static net.lebedko.i18n.SupportedLocales.RU_CODE;
+import static net.lebedko.util.SupportedLocales.EN_CODE;
+import static net.lebedko.util.SupportedLocales.UA_CODE;
+import static net.lebedko.util.SupportedLocales.RU_CODE;
 
 import net.lebedko.dao.CategoryDao;
 import net.lebedko.dao.jdbc.mapper.CategoryMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.item.Category;
-import net.lebedko.i18n.SupportedLocales;
-
+import net.lebedko.util.SupportedLocales;
 
 public class JdbcCategoryDao extends AbstractJdbcDao implements CategoryDao {
     private static final String INSERT = QUERIES.getProperty("category.insert");
@@ -21,9 +20,7 @@ public class JdbcCategoryDao extends AbstractJdbcDao implements CategoryDao {
     private static final String UPDATE = QUERIES.getProperty("category.update");
     private static final String GET_BY_ID = QUERIES.getProperty("category.getById");
     private static final String DELETE = QUERIES.getProperty("category.delete");
-
     private static final CategoryMapper MAPPER = new CategoryMapper();
-
 
     public JdbcCategoryDao(QueryTemplate template) {
         super(template);
@@ -62,7 +59,7 @@ public class JdbcCategoryDao extends AbstractJdbcDao implements CategoryDao {
     }
 
     @Override
-    public Category getById(Long id) {
+    public Category findById(Long id) {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, id);
 

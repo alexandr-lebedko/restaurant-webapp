@@ -44,13 +44,6 @@ public final class WebConstant {
         public static final String POST_SIGN_IN = POST_PREFIX + URL.SIGN_IN;
         public static final String SIGN_OUT = GET_PREFIX + URL.SIGN_OUT;
 
-        public static final String GET_CLIENT_MAIN = GET_PREFIX + URL.CLIENT_CATEGORIES;
-        public static final String CLIENT_GET_ITEMS = GET_PREFIX + URL.CLIENT_ITEM_ADD;
-        public static final String CLIENT_ADD_ITEM_TO_BUCKET = POST_PREFIX + URL.CLIENT_ITEM_ADD;
-        public static final String CLIENT_GET_ORDER_FORM = GET_PREFIX + URL.CLIENT_ORDER_FORM;
-        public static final String CLIENT_CREATE_ORDER = POST_PREFIX + URL.CLIENT_ORDER_FORM;
-        public static final String CLIENT_CLEAR_ORDER_BUCKET = POST_PREFIX + URL.CLIENT_CLEAR_ORDER_BUCKET;
-
         public static final String ADMIN_GET_MAIN = GET_PREFIX + URL.ADMIN_MAIN;
         public static final String GET_ADMIN_NEW_ORDERS = GET_PREFIX + URL.ADMIN_NEW_ORDERS;
         public static final String ADMIN_GET_ORDER = GET_PREFIX + URL.ADMIN_ORDER;
@@ -79,11 +72,14 @@ public final class WebConstant {
                 + URL.CLIENT_PAY_INVOICE;
         public static final String CLIENT_GET_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
         public static final String CLIENT_GET_INVOICES = GET_PREFIX + URL.CLIENT_INVOICES;
-        public static final String CLIENT_CLOSE_INVOICE = POST_PREFIX + URL.CLIENT_CLOSE_INVOICE;
         public static final String CLIENT_GET_ORDER = GET_PREFIX + URL.CLIENT_ORDER;
         public static final String CLIENT_REJECT_ORDER = POST_PREFIX + URL.CLIENT_REJECT_ORDER;
         public static final String CLIENT_SUBMIT_MODIFIED_ORDER = POST_PREFIX + URL.CLIENT_SUBMIT_MODIFIED_ORDER;
         public static final String CLIENT_MODIFY_ORDER = POST_PREFIX + URL.CLIENT_MODIFY_ORDER;
+        public static final String CLIENT_ADD_ITEM_TO_BUCKET = POST_PREFIX + URL.CLIENT_ITEM_ADD;
+        public static final String CLIENT_GET_ORDER_FORM = GET_PREFIX + URL.CLIENT_ORDER_FORM;
+        public static final String CLIENT_CREATE_ORDER = POST_PREFIX + URL.CLIENT_ORDER_FORM;
+        public static final String CLIENT_CLEAR_ORDER_BUCKET = POST_PREFIX + URL.CLIENT_CLEAR_ORDER_BUCKET;
     }
 
 }

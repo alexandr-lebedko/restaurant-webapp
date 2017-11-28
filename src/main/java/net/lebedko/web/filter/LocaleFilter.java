@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import static java.util.Objects.nonNull;
-import static net.lebedko.i18n.SupportedLocales.*;
+import static net.lebedko.util.SupportedLocales.*;
 
 /**
  * alexandr.lebedko : 22.08.2017.

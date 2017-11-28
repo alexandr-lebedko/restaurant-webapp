@@ -7,10 +7,7 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.constant.WebConstant.PAGE;
 
-/**
- * alexandr.lebedko : 20.09.2017.
- */
-public class OrderGetCommand extends AbstractCommand {
+public class ClientGetOrderFormCommand extends AbstractCommand {
     private static final IResponseAction ORDER_FORM_FORWARD = new ForwardAction(PAGE.CLIENT_ORDER_FORM);
 
     @Override

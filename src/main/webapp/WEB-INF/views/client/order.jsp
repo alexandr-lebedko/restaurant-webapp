@@ -76,35 +76,30 @@
                     </tbody>
                 </table>
                 <div class="row justify-content-end">
-                    <c:if test="${order.state eq OrderState.MODIFIED}">
-                        <div class="col-3">
-                            <c:url var="submitOrder" value="${URL.CLIENT_SUBMIT_MODIFIED_ORDER}"/>
-                            <form method="post" action="${submitOrder}">
-                                <input name="${Attribute.ORDER_ID}" value="${order.id}" type="hidden">
-                                <button class="btn btn-success btn-lg rounded-0">
-                                    <fmt:message key="submit"/>
-                                </button>
-                            </form>
-                        </div>
-                    </c:if>
-                    <c:if test="${order.state eq OrderState.NEW || order.state eq OrderState.MODIFIED}">
-                        <div class="col-3">
-                            <c:url var="modifyOrder" value="${URL.CLIENT_MODIFY_ORDER}"/>
-                            <form method="post" action="${modifyOrder}">
-                                <input name="${Attribute.ORDER_ID}" value="${order.id}" type="hidden">
-                                <button class="btn btn-warning btn-lg rounded-0">
-                                    <fmt:message key="modify"/>
-                                </button>
-                            </form>
-                        </div>
-                        <div class="col-3">
-                            <c:url var="rejectOrder" value="${URL.CLIENT_REJECT_ORDER}"/>
-                            <form method="post" action="${rejectOrder}">
-                                <input name="${Attribute.ORDER_ID}" value="${order.id}" type="hidden">
-                                <button class="btn btn-danger btn-lg rounded-0"><fmt:message key="reject"/></button>
-                            </form>
-                        </div>
-                    </c:if>
+                    <c:url var="submitOrder" value="${URL.CLIENT_SUBMIT_MODIFIED_ORDER}"/>
+                    <form method="post" action="${submitOrder}">
+                        <input name="${Attribute.ORDER_ID}" value="${order.id}" type="hidden">
+                        <button ${order.state eq OrderState.MODIFIED? "":"disabled"}
+                                class="btn btn-success btn-lg rounded-0 mr-3">
+                            <fmt:message key="submit"/>
+                        </button>
+                    </form>
+
+                    <c:url var="modifyOrder" value="${URL.CLIENT_MODIFY_ORDER}"/>
+                    <form method="post" action="${modifyOrder}">
+                        <input name="${Attribute.ORDER_ID}" value="${order.id}" type="hidden">
+                        <button ${(order.state eq OrderState.NEW || order.state eq OrderState.MODIFIED)?"":"disabled"}
+                                class="btn btn-warning btn-lg mr-3 rounded-0">
+                            <fmt:message key="modify"/>
+                        </button>
+                    </form>
+
+                    <c:url var="rejectOrder" value="${URL.CLIENT_REJECT_ORDER}"/>
+                    <form method="post" action="${rejectOrder}">
+                        <input name="${Attribute.ORDER_ID}" value="${order.id}" type="hidden">
+                        <button ${(order.state eq OrderState.NEW || order.state eq OrderState.MODIFIED)?"":"disabled"}
+                                class="btn btn-danger btn-lg mr-3 rounded-0"><fmt:message key="reject"/></button>
+                    </form>
                 </div>
             </div>
         </div>

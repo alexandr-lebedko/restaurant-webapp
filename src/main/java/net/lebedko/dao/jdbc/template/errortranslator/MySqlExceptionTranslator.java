@@ -7,9 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
-/**
- * alexandr.lebedko : 10.05.2017.
- */
 public class MySqlExceptionTranslator implements ExceptionTranslator {
     private static final Logger LOG = LogManager.getLogger();
 
@@ -22,10 +19,12 @@ public class MySqlExceptionTranslator implements ExceptionTranslator {
 
         LOG.error("MySQL ERROR CODE: " + errorCode);
 
-        if (errorCode == DUPLICATE_ENTRY)
+        if (errorCode == DUPLICATE_ENTRY) {
             return new UniqueViolationException(e);
-        if (errorCode == DUPLICATE_KEY)
+        }
+        if (errorCode == DUPLICATE_KEY) {
             return new UniqueViolationException(e);
+        }
 
         return new DataAccessException(e);
     }

@@ -2,21 +2,18 @@ package net.lebedko.dao.jdbc.transaction;
 
 import java.util.Stack;
 
-
-/**
- * alexandr.lebedko : 04.07.2017.
- */
 public class TransactionCounter {
     //value to push in stack when starting or joining transaction
     private static final Object CHIP = new Object();
 
     private Stack<Object> chipStack = new Stack<>();
 
-    public void addTx() {
+
+    public void pushTx() {
         chipStack.push(CHIP);
     }
 
-    public void removeTx() {
+    public void popTx() {
         if (chipStack.empty()) {
             throw new IllegalStateException("Counter is empty!");
         }
@@ -27,7 +24,6 @@ public class TransactionCounter {
         if (chipStack.empty()) {
             throw new IllegalStateException("Counter is empty!");
         }
-
         return chipStack.size() > 1;
     }
 }

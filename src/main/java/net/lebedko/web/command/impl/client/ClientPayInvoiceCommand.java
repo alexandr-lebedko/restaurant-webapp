@@ -42,19 +42,17 @@ public class ClientPayInvoiceCommand extends AbstractCommand {
         try {
             invoiceService.payInvoice(invoiceId, user);
             return new RedirectAction(INVOICE_URL_TEMPLATE.concat(invoiceId.toString()));
-
         } catch (IllegalStateException e) {
             LOG.error(e);
             errors.register("invoiceHasUnprocessedOrders", PageErrorNames.INVOICE_PAY_ERROR);
             context.addErrors(errors);
         }
 
-        Invoice invoice = invoiceService.getInvoice(invoiceId, user);
-        Collection<OrderItem> orderItems = orderItemService.getOrderItems(invoice);
+        final Invoice invoice = invoiceService.getInvoice(invoiceId, user);
+        final Collection<OrderItem> orderItems = orderItemService.getOrderItems(invoice);
 
         context.addRequestAttribute(Attribute.INVOICE, invoice);
         context.addRequestAttribute(Attribute.ORDER_ITEMS, orderItems);
-
         return INVOICE_FORWARD;
     }
 }
