@@ -102,23 +102,15 @@ public class QueryTemplate {
         return collection;
     }
 
-    public <T> boolean insertBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) throws DataAccessException {
-        int butchCount = 0;
-        try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
-            prepareBatch(ps, elements, mapper);
-            return ps.executeBatch().length == butchCount;
-        } catch (SQLException e) {
-            throw exceptionTranslator.translate(e);
-        }
+    public <T> void insertBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) throws DataAccessException {
+        updateBatch(sql, elements, mapper);
     }
 
-    public <T> boolean updateBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) throws DataAccessException {
-        int butchCount = 0;
+    public <T> void updateBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) throws DataAccessException {
 
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
             prepareBatch(ps, elements, mapper);
-
-            return ps.executeUpdate() == butchCount;
+            ps.executeBatch();
         } catch (SQLException e) {
             throw exceptionTranslator.translate(e);
         }
@@ -127,11 +119,13 @@ public class QueryTemplate {
     private <T> void prepareBatch(PreparedStatement ps, Collection<T> elements, EntityToParamsMapper<T> mapper) throws SQLException {
         for (T t : elements) {
             putParamsToPreparedStatement(ps, mapper.map(t));
+            ps.addBatch();
         }
     }
 
     private void putParamsToPreparedStatement(PreparedStatement ps, Map<Integer, Object> params) throws SQLException {
-        for (Map.Entry<Integer, Object> param : params.entrySet())
+        for (Map.Entry<Integer, Object> param : params.entrySet()) {
             ps.setObject(param.getKey(), param.getValue());
+        }
     }
 }
