@@ -17,21 +17,26 @@ public class OrderItemMapper implements Mapper<OrderItem> {
     private static final String ITEM_ID = "oi_item";
     private static final String AMOUNT = "oi_item_number";
 
-    private ItemMapper itemMapper;
+    private ItemMapper itemMapper = new ItemMapper();
     private OrderMapper orderMapper;
     private Order order;
 
     public OrderItemMapper(Order order) {
+        this();
         this.order = order;
-    }
-    public OrderItemMapper(OrderMapper orderMapper){
-        this.orderMapper = orderMapper;
     }
 
-    public OrderItemMapper(ItemMapper itemMapper, OrderMapper orderMapper, Order order) {
+    public OrderItemMapper(OrderMapper orderMapper) {
+        this(new ItemMapper(), orderMapper);
+    }
+
+    public OrderItemMapper() {
+        this(new ItemMapper(), new OrderMapper());
+    }
+
+    public OrderItemMapper(ItemMapper itemMapper, OrderMapper orderMapper) {
         this.itemMapper = itemMapper;
         this.orderMapper = orderMapper;
-        this.order = order;
     }
 
     @Override

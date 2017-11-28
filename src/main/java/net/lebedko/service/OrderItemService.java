@@ -13,4 +13,8 @@ public interface OrderItemService {
     Collection<OrderItem> getOrderItems(Invoice invoice);
 
     Collection<OrderItem> getOrderItems(Order order);
+
+    void delete(Collection<OrderItem> orderItems);
+
+    void update(Collection<OrderItem> orderItems);
 }

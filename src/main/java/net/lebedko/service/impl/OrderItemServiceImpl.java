@@ -31,4 +31,14 @@ public class OrderItemServiceImpl implements OrderItemService {
     public OrderItem insert(OrderItem orderItem) {
         return template.doTxService(() -> orderItemDao.insert(orderItem));
     }
+
+    @Override
+    public void delete(Collection<OrderItem> orderItems) {
+        template.doTxService(() -> orderItemDao.delete(orderItems));
+    }
+
+    @Override
+    public void update(Collection<OrderItem> orderItems) {
+        template.doTxService(() -> orderItemDao.update(orderItems));
+    }
 }

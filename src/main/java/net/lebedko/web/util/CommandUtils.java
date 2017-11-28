@@ -23,6 +23,14 @@ public class CommandUtils {
     private CommandUtils() {
     }
 
+    public static Long parseToLong(String value) {
+        return parseToLong(value, null);
+    }
+
+    public static List<Long> parseToLongList(List<String> values) {
+        return parseToLongList(values, null);
+    }
+
     public static Long parseToLong(String value, Long defaultValue) {
         Long result = defaultValue;
         try {

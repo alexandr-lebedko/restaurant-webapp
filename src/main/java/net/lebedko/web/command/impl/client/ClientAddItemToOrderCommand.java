@@ -27,7 +27,7 @@ public class ClientAddItemToOrderCommand extends AbstractCommand {
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         final Map<Item, Long> orderBucket = ofNullable(context.getSessionAttribute(Map.class, Attribute.ORDER_BUCKET))
-                .orElse(new HashMap());
+                .orElse(new HashMap<>());
         final Item item = getItem(context, orderBucket);
 
         addToOrder(orderBucket, item);

@@ -11,12 +11,17 @@ import net.lebedko.service.InvoiceService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderItemService;
 import net.lebedko.service.OrderService;
+import net.lebedko.util.SupportedLocales;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
@@ -102,40 +107,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void modify(Long orderId, Map<Long, Pair<Long, Long>> itemIdAndQuantityByOrderItemIds) {
-        //TODO: REFACTOR METHOD!!!
-        template.doTxService(() -> {
-
-            final Order order = orderDao.findById(orderId);
-            final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
-
-            List<OrderItem> itemsToUpdate = orderItems.stream()
-                    .filter(orderItem -> itemIdAndQuantityByOrderItemIds.containsKey(orderItem.getId()))
-                    .filter(orderItem -> {
-                        Long quantity = itemIdAndQuantityByOrderItemIds.get(orderItem.getId()).getRight();
-                        return quantity > 0 && quantity < orderItem.getQuantity();
-                    })
-                    .map(orderItem -> new OrderItem(
-                            orderItem.getId(),
-                            orderItem.getOrder(),
-                            orderItem.getItem(),
-                            itemIdAndQuantityByOrderItemIds.get(orderItem.getId()).getRight()))
-                    .collect(Collectors.toList());
-
-            List<OrderItem> itemsToDelete = orderItems.stream()
-                    .filter(orderItem -> !itemIdAndQuantityByOrderItemIds.containsKey(orderItem.getId()))
-                    .collect(Collectors.toList());
-
-
-//            orderItemDao.update(itemsToUpdate);
-//            orderItemDao.delete(itemsToDelete);
-//            orderDao.update(Order.builder(order)
-//                    .setState(MODIFIED)
-//                    .build());
-        });
-    }
-
-    @Override
     public void delete(Long id, User user) {
         template.doTxService(() -> {
             final Order order = of(orderDao.getByOrderIdAndUser(id, user))
@@ -182,5 +153,42 @@ public class OrderServiceImpl implements OrderService {
                     .map(Order::getId)
                     .ifPresent(orderDao::delete);
         });
+    }
+
+    @Override
+    public void modify(Pair<Order, Collection<OrderItem>> itemsToOrder) {
+        final Order order = itemsToOrder.getKey();
+        if (order.getState() != OrderState.NEW) {
+            throw new IllegalArgumentException("Cannot modify not 'NEW' order. Order state is: " + order.getState());
+        }
+
+        final Map<Long, OrderItem> modifiedOrderItemsToId = itemsToOrder.getValue().stream()
+                .collect(Collectors.toMap(OrderItem::getId, Function.identity()));
+
+        final Map<Long, OrderItem> oldOrderItemsToId = orderItemService.getOrderItems(order).stream()
+                .collect(Collectors.toMap(OrderItem::getId, Function.identity()));
+
+        final Collection<OrderItem> orderItemsToDelete = getOrderItemsToDelete(modifiedOrderItemsToId, oldOrderItemsToId);
+        final Collection<OrderItem> orderItemsToUpdate = getOrderItemsToUpdate(modifiedOrderItemsToId, oldOrderItemsToId);
+
+        template.doTxService(() -> {
+            orderItemService.delete(orderItemsToDelete);
+            orderItemService.update(orderItemsToUpdate);
+            orderDao.update(new Order(order.getId(), order.getInvoice(), OrderState.MODIFIED, order.getCreatedOn()));
+        });
+
+    }
+
+    private Collection<OrderItem> getOrderItemsToDelete(Map<Long, OrderItem> modifiedOrderItemsToId, Map<Long, OrderItem> oldOrderItemsToId) {
+        Map<Long, OrderItem> orderItemsToId = new HashMap<>(oldOrderItemsToId);
+        orderItemsToId.keySet().removeAll(modifiedOrderItemsToId.keySet());
+        return orderItemsToId.values();
+    }
+
+    private Collection<OrderItem> getOrderItemsToUpdate(Map<Long, OrderItem> modifiedOrderItemsToId, Map<Long, OrderItem> oldOrderItemsToId) {
+        return modifiedOrderItemsToId.entrySet().stream()
+                .filter(oi -> oi.getValue().getQuantity() < oldOrderItemsToId.get(oi.getKey()).getQuantity())
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
     }
 }
