@@ -12,7 +12,7 @@ import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
 public class ClientSubmitModifiedOrderCommand extends AbstractCommand {
-private static final String URL_TEMPLATE = URL.CLIENT_ORDER.concat("?").concat("=");
+    private static final String URL_TEMPLATE = URL.CLIENT_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=");
     private OrderService orderService;
 
     public ClientSubmitModifiedOrderCommand(OrderService orderService) {
@@ -22,7 +22,7 @@ private static final String URL_TEMPLATE = URL.CLIENT_ORDER.concat("?").concat("
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
-        final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
+        final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
 
         orderService.submitModifiedOrder(orderId, user);
         return new RedirectAction(URL_TEMPLATE.concat(orderId.toString()));
