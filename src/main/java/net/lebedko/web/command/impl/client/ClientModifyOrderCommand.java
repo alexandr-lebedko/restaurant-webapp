@@ -40,7 +40,7 @@ public class ClientModifyOrderCommand extends AbstractCommand {
         final Order order = orderService.getById(orderId);
         final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
 
-        orderService.deleteModified(orderId, user);
+        orderService.delete(orderId, user);
 
         final Map<Item, Long> mergedBucket = mergeBucketAndOrderItems(getOrderBucket(context), orderItems);
 

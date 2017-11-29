@@ -144,15 +144,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteModified(Long id, User user) {
-        template.doTxService(() -> {
-            ofNullable(orderDao.getByOrderIdAndUser(id, user))
-                    .map(Order::getId)
-                    .ifPresent(orderDao::delete);
-        });
-    }
-
-    @Override
     public void modify(Pair<Order, Collection<OrderItem>> itemsToOrder) {
         final Order order = itemsToOrder.getKey();
         if (order.getState() != OrderState.NEW) {

@@ -25,8 +25,6 @@ public interface OrderService {
 
     void submitModifiedOrder(Long id, User user);
 
-    void deleteModified(Long id, User user);
-
     void process(Long id);
 
     void reject(Long id);
