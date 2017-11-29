@@ -11,17 +11,13 @@ import net.lebedko.service.InvoiceService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderItemService;
 import net.lebedko.service.OrderService;
-import net.lebedko.util.SupportedLocales;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
@@ -82,13 +78,14 @@ public class OrderServiceImpl implements OrderService {
                     .filter(o -> o.getState().equals(OrderState.NEW))
                     .map(o -> new Order(o.getId(), o.getInvoice(), OrderState.PROCESSED, o.getCreatedOn()))
                     .orElseThrow(IllegalArgumentException::new);
-            final Price sum = orderItemService.getOrderItems(order).stream()
+            final Price orderSum = orderItemService.getOrderItems(order).stream()
                     .map(OrderItem::getPrice)
                     .reduce(new Price(0d), Price::sum);
+
             final Invoice invoice = new Invoice(order.getInvoice().getId(),
                     order.getInvoice().getUser(),
                     order.getInvoice().getState(),
-                    sum,
+                    Price.sum(order.getInvoice().getAmount(), orderSum),
                     order.getInvoice().getCreatedOn());
 
             invoiceService.update(invoice);
