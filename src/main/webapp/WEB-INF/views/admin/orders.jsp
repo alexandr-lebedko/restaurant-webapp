@@ -9,30 +9,26 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<c:set var="orderState" value="${requestScope.get(Attribute.ORDER_STATE)}"/>
-<c:choose>
-    <c:when test="${orderState eq OrderState.MODIFIED}">
-        <c:set var="pageUrl" value="${URL.ADMIN_MODIFIED_ORDERS}"/>
-    </c:when>
-    <c:when test="${orderState eq OrderState.PROCESSED}">
-        <c:set var="pageUrl" value="${URL.ADMIN_PROCESSED_ORDERS}"/>
-    </c:when>
-    <c:when test="${orderState eq OrderState.REJECTED}">
-        <c:set var="pageUrl" value="${URL.ADMIN_PROCESSED_ORDERS}"/>
-    </c:when>
-    <c:when test="${orderState eq OrderState.NEW}">
-        <c:set var="pageUrl" value="${URL.ADMIN_NEW_ORDERS}"/>
-    </c:when>
-</c:choose>
+<c:set var="pageUrl"
+       value="${URL.ADMIN_ORDERS.concat('?').concat(Attribute.ORDER_STATE).concat('=').concat(requestScope.get(Attribute.ORDER_STATE))}"/>
 
 <t:page pageUrl="${pageUrl}">
     <div class="container main-content">
         <div class="row justify-content-between">
             <div class="col-lg-3">
-                <c:url var="newOrders" value="${URL.ADMIN_NEW_ORDERS}"/>
-                <c:url var="processedOrders" value="${URL.ADMIN_PROCESSED_ORDERS}"/>
-                <c:url var="rejectedOrders" value="${URL.ADMIN_REJECTED_ORDERS}"/>
-                <c:url var="modifiedOrders" value="${URL.ADMIN_MODIFIED_ORDERS}"/>
+                <c:url var="newOrders" value="${URL.ADMIN_ORDERS}">
+                    <c:param name="${Attribute.ORDER_STATE}" value="${OrderState.NEW}"/>
+                </c:url>
+                <c:url var="processedOrders" value="${URL.ADMIN_ORDERS}">
+                    <c:param name="${Attribute.ORDER_STATE}" value="${OrderState.PROCESSED}"/>
+                </c:url>
+                <c:url var="rejectedOrders" value="${URL.ADMIN_ORDERS}">
+                    <c:param name="${Attribute.ORDER_STATE}" value="${OrderState.REJECTED}"/>
+                </c:url>
+                <c:url var="modifiedOrders" value="${URL.ADMIN_ORDERS}">
+                    <c:param name="${Attribute.ORDER_STATE}" value="${OrderState.MODIFIED}"/>
+                </c:url>
+
                 <ul class="nav flex-column border" id="admin-orders-nav">
                     <li class="nav-item ${orderState eq OrderState.NEW ? 'active' : ''}">
                         <a class="nav-link" href="${newOrders}">

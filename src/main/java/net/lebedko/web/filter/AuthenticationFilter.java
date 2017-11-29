@@ -2,6 +2,7 @@ package net.lebedko.web.filter;
 
 import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserRole;
+import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,9 +18,6 @@ import java.io.IOException;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-/**
- * alexandr.lebedko : 08.09.2017.
- */
 @WebFilter(urlPatterns = {
         "/app/signIn/", "/app/signIn",
         "/app/signUp/", "/app/signUp"
@@ -45,15 +43,15 @@ public class AuthenticationFilter extends AbstractFilter {
         if (isNull(session))
             return false;
 
-        return nonNull(request.getSession().getAttribute("user"));
+        return nonNull(request.getSession().getAttribute(Attribute.USER));
     }
 
     private void redirectToMainPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserRole role = ((User) (request.getSession().getAttribute("user"))).getRole();
+        UserRole role = ((User) (request.getSession().getAttribute(Attribute.USER))).getRole();
 
         if (role == UserRole.ADMIN) {
             LOG.debug("REDIRECTING TO ADMIN MAIN PAGE");
-            response.sendRedirect(request.getContextPath() + URL.ADMIN_MAIN);
+            response.sendRedirect(request.getContextPath() + URL.ADMIN_ORDERS);
         } else {
             LOG.debug("REDIRECTING TO CLIENT MAIN PAGE");
             response.sendRedirect(request.getContextPath() + URL.CLIENT_MENU);

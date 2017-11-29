@@ -46,14 +46,10 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(CLIENT_SUBMIT_MODIFIED_ORDER, new ClientSubmitModifiedOrderCommand(orderService));
         commandMap.put(CLIENT_PAY_INVOICE, new ClientPayInvoiceCommand(invoiceService, orderItemService));
 
-        commandMap.put(ADMIN_GET_MAIN, new AdminGetNewOrdersCommand(orderService, invoiceService));
-        commandMap.put(GET_ADMIN_NEW_ORDERS, new AdminGetNewOrdersCommand(orderService, invoiceService));
+        commandMap.put(ADMIN_GET_ORDERS, new AdminGetOrdersCommand(orderService, invoiceService));
         commandMap.put(ADMIN_PROCESS_ORDER, new AdminProcessOrderCommand(orderService, invoiceService));
         commandMap.put(ADMIN_REJECT_ORDER, new AdminRejectOrderCommand(orderService, invoiceService));
         commandMap.put(ADMIN_MODIFY_ORDER, new AdminModifyOrderCommand(orderService, invoiceService, itemService));
-        commandMap.put(ADMIN_GET_PROCESSED_ORDERS, new AdminGetProcessedOrdersCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_GET_REJECTED_ORDERS, new AdminGetRejectedOrdersCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_GET_MODIFIED_ORDERS, new AdminGetModifiedOrdersCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_PAID_INVOICES, new AdminGetPaidInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_UNPAID_INVOICES, new AdminGetUnpaidInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_INVOICE, new AdminGetInvoiceCommand(orderService, orderItemService, invoiceService));

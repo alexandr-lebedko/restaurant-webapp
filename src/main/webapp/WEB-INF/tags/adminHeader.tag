@@ -10,8 +10,7 @@
 <%@attribute name="pageUrl" required="true" %>
 
 
-<c:url var="main" value="${URL.ADMIN_MAIN}"/>
-<c:url var="orders" value="${URL.ADMIN_NEW_ORDERS}"/>
+<c:url var="orders" value="${URL.ADMIN_ORDERS}"/>
 <c:url var="invoices" value="${URL.ADMIN_UNPAID_INVOICES}"/>
 <c:url var="categories" value="${URL.ADMIN_CATEGORIES}"/>
 <c:url var="items" value="${URL.ADMIN_ITEMS}"/>
