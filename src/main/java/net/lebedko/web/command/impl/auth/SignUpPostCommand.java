@@ -24,7 +24,7 @@ import static net.lebedko.web.util.constant.PageErrorNames.USER_EXISTS;
 import static net.lebedko.web.util.constant.WebConstant.*;
 
 public class SignUpPostCommand extends AbstractCommand implements ICommand {
-    private static final IResponseAction MAIN_PAGE_REDIRECT = new RedirectAction(URL.CLIENT_CATEGORIES);
+    private static final IResponseAction MAIN_PAGE_REDIRECT = new RedirectAction(URL.CLIENT_MENU);
     private static final IResponseAction SIGN_UP_PAGE_FORWARD = new ForwardAction(PAGE.SIGN_UP);
 
     private UserService userService;

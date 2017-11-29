@@ -56,7 +56,7 @@ public class AuthenticationFilter extends AbstractFilter {
             response.sendRedirect(request.getContextPath() + URL.ADMIN_MAIN);
         } else {
             LOG.debug("REDIRECTING TO CLIENT MAIN PAGE");
-            response.sendRedirect(request.getContextPath() + URL.CLIENT_CATEGORIES);
+            response.sendRedirect(request.getContextPath() + URL.CLIENT_MENU);
         }
     }
 }

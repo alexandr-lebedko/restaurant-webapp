@@ -61,7 +61,7 @@ public class AuthorizationFilter extends AbstractFilter {
     }
 
     private void redirectToClientMain(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect(req.getContextPath() + URL.CLIENT_CATEGORIES);
+        resp.sendRedirect(req.getContextPath() + URL.CLIENT_MENU);
     }
 
     private boolean isAdmin(HttpServletRequest request) {
