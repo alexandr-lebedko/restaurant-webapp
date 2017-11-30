@@ -4,8 +4,7 @@ public class URL {
 
     public static final String CONTROLLER_NAME = "app";
     public static final String IMAGE_CONTROLLER = "images";
-    public static final String CONTROLLER_PATTERN = CONTROLLER_NAME + "/*";
-
+    public static final String CONTROLLER_PATTERN = "/" + CONTROLLER_NAME + "/*";
     public static final String IMAGE_PREFIX = "/" + IMAGE_CONTROLLER + "/";
     public static final String PREFIX = "/" + CONTROLLER_NAME + "/";
 

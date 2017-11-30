@@ -1,4 +1,4 @@
-package net.lebedko.web;
+package net.lebedko.web.controller;
 
 import net.lebedko.web.util.constant.Image;
 
@@ -14,12 +14,9 @@ import java.nio.file.Files;
 
 import static net.lebedko.web.util.constant.Image.DESTINATION_FOLDER;
 
-/**
- * alexandr.lebedko : 10.08.2017.
- */
 @WebServlet(urlPatterns = "/images/*",
         initParams = @WebInitParam(name = "imagesFolder", value = DESTINATION_FOLDER))
-public class ImageServlet extends HttpServlet {
+public class ImageController extends HttpServlet {
     private String imagesFolder;
 
     @Override

@@ -1,4 +1,4 @@
-package net.lebedko.web;
+package net.lebedko.web.controller;
 
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.command.impl.CommandFactoryImpl;
@@ -16,33 +16,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
-/**
- * alexandr.lebedko : 10.06.2017
- */
-@WebServlet("/" + URL.CONTROLLER_PATTERN)
+@WebServlet(URL.CONTROLLER_PATTERN)
 @MultipartConfig
 public class FrontController extends HttpServlet {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOG = LogManager.getLogger();
     private static final ICommandFactory commandFactory = new CommandFactoryImpl();
 
     @Override
     protected void service(final HttpServletRequest req,
                            final HttpServletResponse resp) throws ServletException, IOException {
-        final String cmd = parseRequest(req);
+        try {
+            final String cmd = parseCommandName(req);
+            LOG.info("REQUESTED CMD: " + cmd);
 
-        logger.info("REQUESTED CMD: " + cmd);
+            final ICommand command = commandFactory.getCommand(cmd);
+            final IResponseAction responseAction = command.execute(new WebContext(req, resp));
 
-        final ICommand command = commandFactory.getCommand(cmd);
-        final IResponseAction responseAction = command.execute(new WebContext(req, resp));
-
-        responseAction.executeResponse(req, resp);
-
-        logger.info("CMD: " + cmd + " EXECUTED");
+            responseAction.executeResponse(req, resp);
+            LOG.info("CMD: " + cmd + " EXECUTED");
+        } catch (NoSuchElementException e) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 
-
-    private String parseRequest(HttpServletRequest request) {
+    private String parseCommandName(HttpServletRequest request) {
         String cmd = request.getMethod() + ":" + request.getRequestURI().substring(request.getContextPath().length());
 
         final int lastIndex = cmd.length() - 1;
