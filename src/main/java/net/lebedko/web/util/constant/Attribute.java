@@ -19,7 +19,6 @@ public class Attribute {
     public static final String ORDERS = "orders";
     public static final String ORDER_ID = "orderId";
     public static final String ORDER_STATE = "orderState";
-    public static final String ORDER_DETAILS = "orderDetails";
     public static final String ORDER_BUCKET = "orderContent";
     public static final String ORDER_BUCKET_AMOUNT = "bucketAmount";
     public static final String ORDERS_NUM = "ordersNum";
@@ -36,7 +35,6 @@ public class Attribute {
     public static final String ITEM_ID = "itemId";
     public static final String ITEM = "item";
     public static final String ITEMS = "items";
-    public static final String ITEMS_TO_ORDER = "itemsToOrder";
     public static final String MODIFIED_ITEM = "modifiedItem";
     public static final String IMAGE_ID = "imageId";
     public static final String IMAGE_ERRORS = "imageErrors";
@@ -52,5 +50,4 @@ public class Attribute {
     public static final String DESCRIPTION_UA = "descriptionUa";
 
     public static final String PRICE = "price";
-    public static final String LOCALE = "lang";
 }

@@ -10,14 +10,8 @@ public final class WebConstant {
 
         public static final String SIGN_IN = PREFIX + "signIn" + SUFFIX;
         public static final String SIGN_UP = PREFIX + "signUp" + SUFFIX;
-        public static final String ADMIN_MENU = PREFIX + "admin/menu" + SUFFIX;
-        public static final String ADMIN_MAIN = PREFIX + "admin/main" + SUFFIX;
-        public static final String NEW_CATEGORY = PREFIX + "admin/newCategory" + SUFFIX;
-        public static final String NEW_ITEM_PAGE = PREFIX + "admin/newItem" + SUFFIX;
 
         public static final String CLIENT_MENU = PREFIX + "client/menu" + SUFFIX;
-        public static final String CLIENT_MAIN = PREFIX + "client/categories" + SUFFIX;
-        public static final String CLIENT_MENU_ITEMS = PREFIX + "client/items" + SUFFIX;
         public static final String CLIENT_ORDER_FORM = PREFIX + "client/orderForm" + SUFFIX;
         public static final String CLIENT_ORDERS = PREFIX + "client/orders" + SUFFIX;
         public static final String CLIENT_ORDER = PREFIX + "client/order" + SUFFIX;
@@ -25,7 +19,6 @@ public final class WebConstant {
         public static final String CLIENT_INVOICE = PREFIX + "client/invoice" + SUFFIX;
 
         public static final String ADMIN_CATEGORIES = PREFIX + "admin/categories" + SUFFIX;
-        public static final String ADMIN_ORDER_DETAILS = PREFIX + "admin/orderDetails" + SUFFIX;
         public static final String ADMIN_ORDERS = PREFIX + "admin/orders" + SUFFIX;
         public static final String ADMIN_INVOICES = PREFIX + "admin/invoices" + SUFFIX;
         public static final String ADMIN_INVOICE = PREFIX + "admin/invoice" + SUFFIX;
@@ -44,12 +37,11 @@ public final class WebConstant {
         public static final String POST_SIGN_IN = POST_PREFIX + URL.SIGN_IN;
         public static final String SIGN_OUT = GET_PREFIX + URL.SIGN_OUT;
 
-        public static final String ADMIN_GET_ORDERS = GET_PREFIX + URL.ADMIN_ORDERS;
-        public static final String ADMIN_GET_ORDER = GET_PREFIX + URL.ADMIN_ORDER;
         public static final String ADMIN_GET_ITEMS = GET_PREFIX + URL.ADMIN_ITEMS;
-        public static final String ADMIN_GET_PAID_INVOICES = GET_PREFIX + URL.ADMIN_PAID_INVOICES;
-        public static final String ADMIN_GET_UNPAID_INVOICES = GET_PREFIX + URL.ADMIN_UNPAID_INVOICES;
+        public static final String ADMIN_GET_ORDER = GET_PREFIX + URL.ADMIN_ORDER;
+        public static final String ADMIN_GET_ORDERS = GET_PREFIX + URL.ADMIN_ORDERS;
         public static final String ADMIN_GET_INVOICE = GET_PREFIX + URL.ADMIN_INVOICE;
+        public static final String ADMIN_GET_INVOICES = GET_PREFIX + URL.ADMIN_INVOICES;
         public static final String ADMIN_GET_CATEGORIES = GET_PREFIX + URL.ADMIN_CATEGORIES;
         public static final String ADMIN_PROCESS_ORDER = POST_PREFIX + URL.ADMIN_PROCESS_ORDER;
         public static final String ADMIN_REJECT_ORDER = POST_PREFIX + URL.ADMIN_REJECT_ORDER;
@@ -64,8 +56,7 @@ public final class WebConstant {
 
         public static final String CLIENT_GET_MENU = GET_PREFIX + URL.CLIENT_MENU;
         public static final String CLIENT_GET_INVOICE = GET_PREFIX + URL.CLIENT_INVOICE;
-        public static final String CLIENT_PAY_INVOICE = POST_PREFIX
-                + URL.CLIENT_PAY_INVOICE;
+        public static final String CLIENT_PAY_INVOICE = POST_PREFIX + URL.CLIENT_PAY_INVOICE;
         public static final String CLIENT_GET_ORDERS = GET_PREFIX + URL.CLIENT_ORDERS;
         public static final String CLIENT_GET_INVOICES = GET_PREFIX + URL.CLIENT_INVOICES;
         public static final String CLIENT_GET_ORDER = GET_PREFIX + URL.CLIENT_ORDER;

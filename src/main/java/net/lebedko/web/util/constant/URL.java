@@ -15,6 +15,7 @@ public class URL {
     public static final String ADMIN_ORDER = PREFIX + "admin/order";
     public static final String ADMIN_ORDERS = PREFIX + "admin/orders";
     public static final String ADMIN_INVOICE = PREFIX + "admin/invoice";
+    public static final String ADMIN_INVOICES = PREFIX + "admin/invoices";
     public static final String ADMIN_CATEGORIES = PREFIX + "admin/categories";
     public static final String ADMIN_PROCESS_ORDER = PREFIX + "admin/order/process";
     public static final String ADMIN_REJECT_ORDER = PREFIX + "admin/order/reject";

@@ -1,13 +1,12 @@
 package net.lebedko.web.command;
 
-/**
- * alexandr.lebedko : 12.06.2017
- */
+import net.lebedko.web.command.impl.CommandFactoryImpl;
+
 public interface ICommandFactory {
 
     ICommand getCommand(String cmd);
 
-    static ICommandFactory getCommandFactory(){
-        return null;
+    static ICommandFactory getCommandFactory() {
+        return CommandFactoryImpl.getInstance();
     }
 }

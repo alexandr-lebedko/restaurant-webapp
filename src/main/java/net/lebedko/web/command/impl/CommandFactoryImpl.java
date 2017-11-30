@@ -14,10 +14,15 @@ import java.util.Map;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.*;
 
 public class CommandFactoryImpl implements ICommandFactory {
+    private static final ICommandFactory INSTANCE = new CommandFactoryImpl();
+
+    public static ICommandFactory getInstance() {
+        return INSTANCE;
+    }
 
     private Map<String, ICommand> commandMap = new HashMap<>();
 
-    public CommandFactoryImpl() {
+    private CommandFactoryImpl() {
         final ServiceFactory serviceFactory = ServiceFactory.getServiceFactory();
         final UserService userService = serviceFactory.getUserService();
         final OrderService orderService = serviceFactory.getOrderService();
@@ -50,15 +55,14 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(ADMIN_PROCESS_ORDER, new AdminProcessOrderCommand(orderService));
         commandMap.put(ADMIN_REJECT_ORDER, new AdminRejectOrderCommand(orderService));
         commandMap.put(ADMIN_MODIFY_ORDER, new AdminModifyOrderCommand(orderService, itemService));
-        commandMap.put(ADMIN_GET_PAID_INVOICES, new AdminGetPaidInvoicesCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_GET_UNPAID_INVOICES, new AdminGetUnpaidInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_INVOICE, new AdminGetInvoiceCommand(orderService, invoiceService));
+        commandMap.put(ADMIN_GET_INVOICES, new AdminGetInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_CATEGORIES, new AdminGetCategoriesCommand(orderService, categoryService));
+        commandMap.put(ADMIN_GET_ITEMS, new AdminGetItemsCommand(orderService, itemService, categoryService));
+        commandMap.put(ADMIN_GET_ORDER, new AdminGetOrderCommand(orderService, orderItemService));
         commandMap.put(ADMIN_MODIFY_CATEGORY, new AdminModifyCategoryCommand(orderService, categoryService));
         commandMap.put(ADMIN_CREATE_CATEGORY, new AdminCreateNewCategoryCommand(orderService, categoryService));
         commandMap.put(ADMIN_DELETE_CATEGORY, new AdminDeleteCategoryCommand(orderService, categoryService));
-        commandMap.put(ADMIN_GET_ITEMS, new AdminGetItemsCommand(orderService, itemService, categoryService));
-        commandMap.put(ADMIN_GET_ORDER, new AdminGetOrderCommand(orderService, orderItemService));
         commandMap.put(ADMIN_MODIFY_ITEM, new AdminModifyItemCommand(orderService, itemService, categoryService));
         commandMap.put(ADMIN_MODIFY_ITEM_IMAGE, new AdminModifyItemImageCommand(orderService, itemService, categoryService));
         commandMap.put(ADMIN_CREATE_ITEM, new AdminCreateItemCommand(orderService, itemService, categoryService));

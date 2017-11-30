@@ -1,7 +1,6 @@
 package net.lebedko.web.controller;
 
 import net.lebedko.web.response.IResponseAction;
-import net.lebedko.web.command.impl.CommandFactoryImpl;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.ICommandFactory;
 import net.lebedko.web.command.impl.WebContext;
@@ -22,7 +21,7 @@ import java.util.NoSuchElementException;
 @MultipartConfig
 public class FrontController extends HttpServlet {
     private static final Logger LOG = LogManager.getLogger();
-    private static final ICommandFactory commandFactory = new CommandFactoryImpl();
+    private static final ICommandFactory commandFactory = ICommandFactory.getCommandFactory();
 
     @Override
     protected void service(final HttpServletRequest req,
