@@ -11,12 +11,12 @@ import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.constant.Attribute;
 
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class AdminGetInvoicesCommand extends AbstractAdminCommand {
     private static final IResponseAction INVOICES_FORWARD = new ForwardAction(PAGE.ADMIN_INVOICES);
-    private static final InvoiceState DEFAULT_STATE = InvoiceState.UNPAID;
     private InvoiceService invoiceService;
 
     public AdminGetInvoicesCommand(OrderService orderService, InvoiceService invoiceService) {
@@ -36,12 +36,11 @@ public class AdminGetInvoicesCommand extends AbstractAdminCommand {
     }
 
     private InvoiceState parseState(IContext context) {
-        InvoiceState state = DEFAULT_STATE;
         try {
-            state = InvoiceState.valueOf(context.getRequestParameter(Attribute.INVOICE_STATE));
-        } catch (NullPointerException | IllegalArgumentException e) {
+            return InvoiceState.valueOf(context.getRequestParameter(Attribute.INVOICE_STATE));
+        } catch (IllegalArgumentException | NullPointerException e) {
             LOG.error(e);
+            throw new NoSuchElementException();
         }
-        return state;
     }
 }

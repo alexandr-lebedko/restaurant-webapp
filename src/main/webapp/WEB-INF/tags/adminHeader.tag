@@ -4,6 +4,7 @@
 <%@ tag import="net.lebedko.web.util.constant.URL" %>
 <%@ tag import="net.lebedko.util.SupportedLocales" %>
 <%@ tag import="net.lebedko.web.util.constant.Attribute" %>
+<%@ tag import="net.lebedko.entity.invoice.InvoiceState" %>
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
@@ -12,7 +13,9 @@
 
 
 <c:url var="orders" value="${URL.ADMIN_ORDERS}"/>
-<c:url var="invoices" value="${URL.ADMIN_INVOICES}"/>
+<c:url var="invoices" value="${URL.ADMIN_INVOICES}">
+    <c:param name="${Attribute.INVOICE_STATE}" value="${InvoiceState.UNPAID}"/>
+</c:url>
 <c:url var="categories" value="${URL.ADMIN_CATEGORIES}"/>
 <c:url var="items" value="${URL.ADMIN_ITEMS}"/>
 <c:url var="signOut" value="${URL.SIGN_OUT}"/>
@@ -52,7 +55,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link badged"  href="${invoices}">
+                        <a class="nav-link badged" href="${invoices}">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
                             <span><fmt:message key="page.header.invoices"/> </span>
                         </a>

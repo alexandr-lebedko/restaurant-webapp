@@ -24,10 +24,10 @@
         <div class="row justify-content-between">
             <div class="col-lg-3">
                 <c:url var="unpaidInvoices" value="${URL.ADMIN_INVOICES}">
-                    <c:param name="${Attribute.INVOICE_ID}" value="${InvoiceState.UNPAID}"/>
+                    <c:param name="${Attribute.INVOICE_STATE}" value="${InvoiceState.UNPAID}"/>
                 </c:url>
                 <c:url var="paidInvoices" value="${URL.ADMIN_INVOICES}">
-                    <c:param name="${Attribute.INVOICE_ID}" value="${InvoiceState.PAID}"/>
+                    <c:param name="${Attribute.INVOICE_STATE}" value="${InvoiceState.PAID}"/>
                 </c:url>
                 <ul class="nav flex-column border" id="admin-orders-nav">
                     <li class="nav-item ${state eq InvoiceState.UNPAID ? 'active' : ''}">
