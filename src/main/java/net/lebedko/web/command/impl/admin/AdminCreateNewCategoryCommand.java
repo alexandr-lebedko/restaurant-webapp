@@ -25,12 +25,12 @@ public class AdminCreateNewCategoryCommand extends AbstractAdminCommand {
     private CategoryService categoryService;
     private CategoryValidator categoryValidator;
 
-    public AdminCreateNewCategoryCommand(OrderService orderService, InvoiceService invoiceService, CategoryService categoryService) {
-        this(orderService, invoiceService, categoryService, new CategoryValidator());
+    public AdminCreateNewCategoryCommand(OrderService orderService, CategoryService categoryService) {
+        this(orderService, categoryService, new CategoryValidator());
     }
 
-    public AdminCreateNewCategoryCommand(OrderService orderService, InvoiceService invoiceService, CategoryService categoryService, CategoryValidator categoryValidator) {
-        super(orderService, invoiceService);
+    public AdminCreateNewCategoryCommand(OrderService orderService, CategoryService categoryService, CategoryValidator categoryValidator) {
+        super(orderService);
         this.categoryService = categoryService;
         this.categoryValidator = categoryValidator;
     }

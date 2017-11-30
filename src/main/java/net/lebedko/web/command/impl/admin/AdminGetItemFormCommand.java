@@ -14,8 +14,8 @@ public class AdminGetItemFormCommand extends AbstractAdminCommand {
     private static final IResponseAction ITEM_FORM_FORWARD = new ForwardAction(PAGE.ADMIN_ITEM_FORM);
     private CategoryService categoryService;
 
-    public AdminGetItemFormCommand(OrderService orderService, InvoiceService invoiceService, CategoryService categoryService) {
-        super(orderService, invoiceService);
+    public AdminGetItemFormCommand(OrderService orderService, CategoryService categoryService) {
+        super(orderService);
         this.categoryService = categoryService;
     }
 

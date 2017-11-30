@@ -2,7 +2,6 @@ package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderState;
-import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
@@ -17,8 +16,8 @@ public class AdminGetOrdersCommand extends AbstractAdminCommand {
     private static final IResponseAction ORDERS_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ORDERS);
     private static final OrderState DEFAULT_STATE = OrderState.NEW;
 
-    public AdminGetOrdersCommand(OrderService orderService, InvoiceService invoiceService) {
-        super(orderService, invoiceService);
+    public AdminGetOrdersCommand(OrderService orderService) {
+        super(orderService);
     }
 
     @Override

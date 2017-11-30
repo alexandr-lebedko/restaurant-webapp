@@ -2,11 +2,9 @@ package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
-import net.lebedko.service.InvoiceService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
-import net.lebedko.util.SupportedLocales;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
@@ -14,9 +12,9 @@ import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
 
-import java.util.*;
+import java.util.List;
+import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,8 +26,8 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
     private static final String URL_TEMPLATE = URL.ADMIN_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=");
     private ItemService itemService;
 
-    public AdminModifyOrderCommand(OrderService orderService, InvoiceService invoiceService, ItemService itemService) {
-        super(orderService, invoiceService);
+    public AdminModifyOrderCommand(OrderService orderService, ItemService itemService) {
+        super(orderService);
         this.itemService = itemService;
     }
 
@@ -41,7 +39,7 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
     }
 
     private Long getOrderId(IContext context) {
-        return parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
+        return parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
     }
 
     private Pair<Order, Collection<OrderItem>> parseRequest(IContext context) {

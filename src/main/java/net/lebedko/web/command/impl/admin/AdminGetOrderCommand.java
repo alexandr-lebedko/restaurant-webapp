@@ -19,14 +19,14 @@ public class AdminGetOrderCommand extends AbstractAdminCommand {
     private static final IResponseAction ORDER_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ORDER);
     private OrderItemService orderItemService;
 
-    public AdminGetOrderCommand(OrderService orderService, InvoiceService invoiceService, OrderItemService orderItemService) {
-        super(orderService, invoiceService);
+    public AdminGetOrderCommand(OrderService orderService, OrderItemService orderItemService) {
+        super(orderService);
         this.orderItemService = orderItemService;
     }
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
+        final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
         final Order order = orderService.getById(orderId);
         final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
 

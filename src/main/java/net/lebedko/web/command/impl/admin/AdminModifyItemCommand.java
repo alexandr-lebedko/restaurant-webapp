@@ -6,7 +6,6 @@ import net.lebedko.entity.item.Description;
 import net.lebedko.entity.item.Item;
 import net.lebedko.entity.item.Title;
 import net.lebedko.service.CategoryService;
-import net.lebedko.service.InvoiceService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -31,20 +30,20 @@ public class AdminModifyItemCommand extends AbstractAdminCommand {
     private ItemService itemService;
     private ItemValidator itemValidator;
 
-    public AdminModifyItemCommand(OrderService orderService, InvoiceService invoiceService, CategoryService categoryService, ItemService itemService, ItemValidator itemValidator) {
-        super(orderService, invoiceService);
+    public AdminModifyItemCommand(OrderService orderService, ItemService itemService, CategoryService categoryService) {
+        this(orderService, categoryService, itemService, new ItemValidator());
+    }
+
+    public AdminModifyItemCommand(OrderService orderService, CategoryService categoryService, ItemService itemService, ItemValidator itemValidator) {
+        super(orderService);
         this.categoryService = categoryService;
         this.itemService = itemService;
         this.itemValidator = itemValidator;
     }
 
-    public AdminModifyItemCommand(OrderService orderService, InvoiceService invoiceService, ItemService itemService, CategoryService categoryService) {
-        this(orderService, invoiceService, categoryService, itemService, new ItemValidator());
-    }
-
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        final Long categoryId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), -1L);
+        final Long categoryId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID));
         final Item item = parseItem(context, categoryId);
         final Errors errors = new Errors();
 

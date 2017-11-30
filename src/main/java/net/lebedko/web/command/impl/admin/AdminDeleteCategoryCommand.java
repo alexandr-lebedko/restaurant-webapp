@@ -15,8 +15,8 @@ public class AdminDeleteCategoryCommand extends AbstractAdminCommand {
     private static final IResponseAction CATEGORIES_REDIRECT = new RedirectAction(URL.ADMIN_CATEGORIES);
     private CategoryService categoryService;
 
-    public AdminDeleteCategoryCommand(OrderService orderService, InvoiceService invoiceService, CategoryService categoryService) {
-        super(orderService, invoiceService);
+    public AdminDeleteCategoryCommand(OrderService orderService, CategoryService categoryService) {
+        super(orderService);
         this.categoryService = categoryService;
     }
 

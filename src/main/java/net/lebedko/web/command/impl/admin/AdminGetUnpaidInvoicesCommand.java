@@ -9,13 +9,15 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.constant.Attribute;
 
-import static net.lebedko.web.util.constant.WebConstant.*;
+import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class AdminGetUnpaidInvoicesCommand extends AbstractAdminCommand {
     private static final IResponseAction INVOICES_FORWARD = new ForwardAction(PAGE.ADMIN_INVOICES);
+    private InvoiceService invoiceService;
 
     public AdminGetUnpaidInvoicesCommand(OrderService orderService, InvoiceService invoiceService) {
-        super(orderService, invoiceService);
+        super(orderService);
+        this.invoiceService = invoiceService;
     }
 
     @Override

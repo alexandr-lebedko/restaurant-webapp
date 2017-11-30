@@ -27,12 +27,12 @@ public class AdminModifyItemImageCommand extends AbstractAdminCommand {
     private CategoryService categoryService;
     private ImageValidator imageValidator;
 
-    public AdminModifyItemImageCommand(OrderService orderService, InvoiceService invoiceService, ItemService itemService, CategoryService categoryService) {
-        this(orderService, invoiceService, itemService, categoryService, new ImageValidator());
+    public AdminModifyItemImageCommand(OrderService orderService, ItemService itemService, CategoryService categoryService) {
+        this(orderService, itemService, categoryService, new ImageValidator());
     }
 
-    public AdminModifyItemImageCommand(OrderService orderService, InvoiceService invoiceService, ItemService itemService, CategoryService categoryService, ImageValidator imageValidator) {
-        super(orderService, invoiceService);
+    public AdminModifyItemImageCommand(OrderService orderService, ItemService itemService, CategoryService categoryService, ImageValidator imageValidator) {
+        super(orderService);
         this.itemService = itemService;
         this.categoryService = categoryService;
         this.imageValidator = imageValidator;
@@ -45,7 +45,7 @@ public class AdminModifyItemImageCommand extends AbstractAdminCommand {
 
         imageValidator.validate(context.getInputStream(Attribute.IMAGE_ID), errors);
 
-        final Long itemId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ITEM_ID), -1L);
+        final Long itemId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ITEM_ID));
         final Item item = Objects.requireNonNull(itemService.get(itemId));
         final InputStream imageStream = context.getInputStream(Attribute.IMAGE_ID);
 

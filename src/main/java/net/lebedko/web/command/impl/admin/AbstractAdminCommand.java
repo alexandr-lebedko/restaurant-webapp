@@ -1,6 +1,5 @@
 package net.lebedko.web.command.impl.admin;
 
-import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.service.InvoiceService;
@@ -9,18 +8,15 @@ import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.util.constant.Attribute;
 
 import java.util.Collection;
 
-import static net.lebedko.entity.invoice.InvoiceState.UNPAID;
-
 public abstract class AbstractAdminCommand extends AbstractCommand {
     protected OrderService orderService;
-    protected InvoiceService invoiceService;
 
-    public AbstractAdminCommand(OrderService orderService, InvoiceService invoiceService) {
+    public AbstractAdminCommand(OrderService orderService) {
         this.orderService = orderService;
-        this.invoiceService = invoiceService;
     }
 
     @Override
@@ -33,15 +29,9 @@ public abstract class AbstractAdminCommand extends AbstractCommand {
     }
 
     private void addOrderAndInvoiceStatistics(IContext context) {
-
-        Collection<Invoice> unprocessedInvoices = invoiceService.getByState(UNPAID);
-        if (!unprocessedInvoices.isEmpty()){
-            context.addRequestAttribute("unprocessedInvoiceNum", unprocessedInvoices.size());
-        }
-
         Collection<Order> unprocessedOrders = orderService.getByState(OrderState.NEW);
         if (!unprocessedOrders.isEmpty()) {
-            context.addRequestAttribute("unprocessedOrderNum", unprocessedOrders.size());
+            context.addRequestAttribute(Attribute.ORDERS_NUM, unprocessedOrders.size());
         }
     }
 

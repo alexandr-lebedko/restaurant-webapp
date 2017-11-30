@@ -36,7 +36,7 @@ public class FrontController extends HttpServlet {
 
             responseAction.executeResponse(req, resp);
             LOG.info("CMD: " + cmd + " EXECUTED");
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | NullPointerException e) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }

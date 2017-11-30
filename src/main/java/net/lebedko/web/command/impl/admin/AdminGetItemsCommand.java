@@ -23,8 +23,8 @@ public class AdminGetItemsCommand extends AbstractAdminCommand {
     private ItemService itemService;
     private CategoryService categoryService;
 
-    public AdminGetItemsCommand(OrderService orderService, InvoiceService invoiceService, ItemService itemService, CategoryService categoryService) {
-        super(orderService, invoiceService);
+    public AdminGetItemsCommand(OrderService orderService, ItemService itemService, CategoryService categoryService) {
+        super(orderService);
         this.itemService = itemService;
         this.categoryService = categoryService;
     }

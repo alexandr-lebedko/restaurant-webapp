@@ -2,7 +2,6 @@ package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.item.Category;
 import net.lebedko.service.CategoryService;
-import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
@@ -24,16 +23,12 @@ public class AdminModifyCategoryCommand extends AbstractAdminCommand {
     private CategoryService categoryService;
     private CategoryValidator validator;
 
-    public AdminModifyCategoryCommand(OrderService orderService, InvoiceService invoiceService, CategoryService categoryService) {
-        this(orderService, invoiceService, categoryService, new CategoryValidator());
+    public AdminModifyCategoryCommand(OrderService orderService, CategoryService categoryService) {
+        this(orderService, categoryService, new CategoryValidator());
     }
 
-    public AdminModifyCategoryCommand(
-            OrderService orderService,
-            InvoiceService invoiceService,
-            CategoryService categoryService,
-            CategoryValidator validator) {
-        super(orderService, invoiceService);
+    public AdminModifyCategoryCommand(OrderService orderService, CategoryService categoryService, CategoryValidator validator) {
+        super(orderService);
         this.categoryService = categoryService;
         this.validator = validator;
     }
@@ -53,9 +48,9 @@ public class AdminModifyCategoryCommand extends AbstractAdminCommand {
                 errors.register("categoryExists", PageErrorNames.CATEGORY_EXISTS);
             }
         }
-        context.addErrors(errors);
         context.addRequestAttribute(Attribute.CATEGORIES, categoryService.getAll());
         context.addRequestAttribute(Attribute.MODIFIED_CATEGORY, category);
+        context.addErrors(errors);
         return CATEGORIES_FORWARD;
     }
 }

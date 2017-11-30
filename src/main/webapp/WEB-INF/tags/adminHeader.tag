@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ tag import="net.lebedko.web.util.constant.URL" %>
 <%@ tag import="net.lebedko.util.SupportedLocales" %>
+<%@ tag import="net.lebedko.web.util.constant.Attribute" %>
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
@@ -45,7 +46,7 @@
                     <li class="nav-item">
                         <a class="nav-link badged" href="${orders}">
                             <i class="fa fa-list-ul" aria-hidden="true"></i>
-                            <span class="badge">${unprocessedOrderNum}</span>
+                            <span class="badge">${sessionScope.get(Attribute.ORDERS_NUM)}</span>
                             <span><fmt:message key="page.header.orders"/> </span>
                         </a>
                     </li>
@@ -53,7 +54,6 @@
                     <li class="nav-item">
                         <a class="nav-link badged"  href="${invoices}">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
-                            <span class="badge">${unprocessedInvoiceNum}</span>
                             <span><fmt:message key="page.header.invoices"/> </span>
                         </a>
                     </li>

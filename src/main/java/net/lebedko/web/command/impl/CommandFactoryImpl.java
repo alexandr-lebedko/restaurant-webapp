@@ -46,23 +46,23 @@ public class CommandFactoryImpl implements ICommandFactory {
         commandMap.put(CLIENT_SUBMIT_MODIFIED_ORDER, new ClientSubmitModifiedOrderCommand(orderService));
         commandMap.put(CLIENT_PAY_INVOICE, new ClientPayInvoiceCommand(invoiceService, orderItemService));
 
-        commandMap.put(ADMIN_GET_ORDERS, new AdminGetOrdersCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_PROCESS_ORDER, new AdminProcessOrderCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_REJECT_ORDER, new AdminRejectOrderCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_MODIFY_ORDER, new AdminModifyOrderCommand(orderService, invoiceService, itemService));
+        commandMap.put(ADMIN_GET_ORDERS, new AdminGetOrdersCommand(orderService));
+        commandMap.put(ADMIN_PROCESS_ORDER, new AdminProcessOrderCommand(orderService));
+        commandMap.put(ADMIN_REJECT_ORDER, new AdminRejectOrderCommand(orderService));
+        commandMap.put(ADMIN_MODIFY_ORDER, new AdminModifyOrderCommand(orderService, itemService));
         commandMap.put(ADMIN_GET_PAID_INVOICES, new AdminGetPaidInvoicesCommand(orderService, invoiceService));
         commandMap.put(ADMIN_GET_UNPAID_INVOICES, new AdminGetUnpaidInvoicesCommand(orderService, invoiceService));
-        commandMap.put(ADMIN_GET_INVOICE, new AdminGetInvoiceCommand(orderService, orderItemService, invoiceService));
-        commandMap.put(ADMIN_GET_CATEGORIES, new AdminGetCategoriesCommand(orderService, invoiceService, categoryService));
-        commandMap.put(ADMIN_MODIFY_CATEGORY, new AdminModifyCategoryCommand(orderService, invoiceService, categoryService));
-        commandMap.put(ADMIN_CREATE_CATEGORY, new AdminCreateNewCategoryCommand(orderService, invoiceService, categoryService));
-        commandMap.put(ADMIN_DELETE_CATEGORY, new AdminDeleteCategoryCommand(orderService, invoiceService, categoryService));
-        commandMap.put(ADMIN_GET_ITEMS, new AdminGetItemsCommand(orderService, invoiceService, itemService, categoryService));
-        commandMap.put(ADMIN_GET_ORDER, new AdminGetOrderCommand(orderService, invoiceService, orderItemService));
-        commandMap.put(ADMIN_MODIFY_ITEM, new AdminModifyItemCommand(orderService, invoiceService, itemService, categoryService));
-        commandMap.put(ADMIN_MODIFY_ITEM_IMAGE, new AdminModifyItemImageCommand(orderService, invoiceService, itemService, categoryService));
-        commandMap.put(ADMIN_CREATE_ITEM, new AdminCreateItemCommand(orderService, invoiceService, itemService, categoryService));
-        commandMap.put(ADMIN_ITEM_FORM, new AdminGetItemFormCommand(orderService, invoiceService, categoryService));
+        commandMap.put(ADMIN_GET_INVOICE, new AdminGetInvoiceCommand(orderService, invoiceService));
+        commandMap.put(ADMIN_GET_CATEGORIES, new AdminGetCategoriesCommand(orderService, categoryService));
+        commandMap.put(ADMIN_MODIFY_CATEGORY, new AdminModifyCategoryCommand(orderService, categoryService));
+        commandMap.put(ADMIN_CREATE_CATEGORY, new AdminCreateNewCategoryCommand(orderService, categoryService));
+        commandMap.put(ADMIN_DELETE_CATEGORY, new AdminDeleteCategoryCommand(orderService, categoryService));
+        commandMap.put(ADMIN_GET_ITEMS, new AdminGetItemsCommand(orderService, itemService, categoryService));
+        commandMap.put(ADMIN_GET_ORDER, new AdminGetOrderCommand(orderService, orderItemService));
+        commandMap.put(ADMIN_MODIFY_ITEM, new AdminModifyItemCommand(orderService, itemService, categoryService));
+        commandMap.put(ADMIN_MODIFY_ITEM_IMAGE, new AdminModifyItemImageCommand(orderService, itemService, categoryService));
+        commandMap.put(ADMIN_CREATE_ITEM, new AdminCreateItemCommand(orderService, itemService, categoryService));
+        commandMap.put(ADMIN_ITEM_FORM, new AdminGetItemFormCommand(orderService, categoryService));
     }
 
     @Override

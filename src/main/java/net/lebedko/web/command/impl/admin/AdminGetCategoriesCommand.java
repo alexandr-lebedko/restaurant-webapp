@@ -15,8 +15,8 @@ public class AdminGetCategoriesCommand extends AbstractAdminCommand {
     private IResponseAction CATEGORIES_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_CATEGORIES);
     private CategoryService categoryService;
 
-    public AdminGetCategoriesCommand(OrderService orderService, InvoiceService invoiceService, CategoryService categoryService) {
-        super(orderService, invoiceService);
+    public AdminGetCategoriesCommand(OrderService orderService, CategoryService categoryService) {
+        super(orderService);
         this.categoryService = categoryService;
     }
 

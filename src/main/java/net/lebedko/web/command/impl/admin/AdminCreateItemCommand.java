@@ -35,17 +35,16 @@ public class AdminCreateItemCommand extends AbstractAdminCommand {
     private ItemValidator itemValidator;
     private ImageValidator imageValidator;
 
-    public AdminCreateItemCommand(OrderService orderService, InvoiceService invoiceService, ItemService itemService, CategoryService categoryService) {
-        this(orderService, invoiceService, itemService, categoryService, new ItemValidator(), new ImageValidator());
+    public AdminCreateItemCommand(OrderService orderService, ItemService itemService, CategoryService categoryService) {
+        this(orderService,itemService, categoryService, new ItemValidator(), new ImageValidator());
     }
 
     public AdminCreateItemCommand(OrderService orderService,
-                                  InvoiceService invoiceService,
                                   ItemService itemService,
                                   CategoryService categoryService,
                                   ItemValidator itemValidator,
                                   ImageValidator imageValidator) {
-        super(orderService, invoiceService);
+        super(orderService);
         this.categoryService = categoryService;
         this.itemService = itemService;
         this.itemValidator = itemValidator;

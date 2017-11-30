@@ -1,6 +1,7 @@
 package net.lebedko.web.util.constant;
 
 public class Attribute {
+
     private Attribute() {
     }
 
@@ -21,7 +22,7 @@ public class Attribute {
     public static final String ORDER_DETAILS = "orderDetails";
     public static final String ORDER_BUCKET = "orderContent";
     public static final String ORDER_BUCKET_AMOUNT = "bucketAmount";
-    public static final String ADMIN_NEW_ORDERS = "adminNewOrders";
+    public static final String ORDERS_NUM = "ordersNum";
 
     public static final String ORDER_ITEM_ID = "orderItemId";
     public static final String ORDER_ITEM_QUANTITY = "orderItemQuantity";

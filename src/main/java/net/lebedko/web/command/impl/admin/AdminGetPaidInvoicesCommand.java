@@ -10,11 +10,13 @@ import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.WebConstant;
 
-public class AdminGetPaidInvoicesCommand extends AbstractAdminCommand{
+public class AdminGetPaidInvoicesCommand extends AbstractAdminCommand {
     private static final IResponseAction INVOICES_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_INVOICES);
+    private InvoiceService invoiceService;
 
     public AdminGetPaidInvoicesCommand(OrderService orderService, InvoiceService invoiceService) {
-        super(orderService, invoiceService);
+        super(orderService);
+        this.invoiceService = invoiceService;
     }
 
     @Override
