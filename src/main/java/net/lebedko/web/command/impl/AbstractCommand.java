@@ -4,7 +4,6 @@ import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.IResponseAction;
-import net.lebedko.web.validator.Errors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
