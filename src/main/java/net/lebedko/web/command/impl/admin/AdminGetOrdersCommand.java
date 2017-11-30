@@ -11,10 +11,10 @@ import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.WebConstant;
 
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 public class AdminGetOrdersCommand extends AbstractAdminCommand {
     private static final IResponseAction ORDERS_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ORDERS);
-    private static final OrderState DEFAULT_STATE = OrderState.NEW;
 
     public AdminGetOrdersCommand(OrderService orderService) {
         super(orderService);
@@ -32,12 +32,11 @@ public class AdminGetOrdersCommand extends AbstractAdminCommand {
     }
 
     private OrderState parseState(IContext context) {
-        OrderState orderState = DEFAULT_STATE;
         try {
-            orderState = OrderState.valueOf(context.getRequestParameter(Attribute.ORDER_STATE));
+            return OrderState.valueOf(context.getRequestParameter(Attribute.ORDER_STATE));
         } catch (IllegalArgumentException | NullPointerException e) {
             LOG.error(e);
+            throw new NoSuchElementException();
         }
-        return orderState;
     }
 }
