@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.Objects.nonNull;
-import static net.lebedko.util.Util.removeExtraSpaces;
+import static net.lebedko.entity.general.StringI18N.removeExtraSpaces;
 
 public abstract class Password {
     String passwordString;
@@ -42,7 +42,6 @@ public abstract class Password {
     private static class PasswordImpl extends Password {
         private static final Logger LOG = LogManager.getLogger();
         private static final String MD_ALGORITHM = "MD5";
-
 
         private PasswordImpl(String passwordString) {
             requireNonNull(passwordString, "Argument cannot be null");

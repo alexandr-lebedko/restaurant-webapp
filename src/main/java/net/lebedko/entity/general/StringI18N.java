@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class StringI18N {
     private Map<Locale, String> stringsToLocale = new HashMap<>();
@@ -51,5 +52,17 @@ public class StringI18N {
         return "StringI18N{" +
                 "stringsToLocale=" + stringsToLocale +
                 '}';
+    }
+
+    public static String removeExtraSpaces(String value) {
+        return value.replaceAll("[\\s]{2,}", " ");
+    }
+
+    public static StringI18N removeExtraSpaces(StringI18N value) {
+        return new StringI18N(value.getMap().entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> removeExtraSpaces(entry.getValue())
+                )));
     }
 }

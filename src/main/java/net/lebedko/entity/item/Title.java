@@ -4,7 +4,7 @@ import net.lebedko.entity.general.StringI18N;
 
 import java.util.Objects;
 
-import static net.lebedko.util.Util.*;
+import static net.lebedko.entity.general.StringI18N.removeExtraSpaces;
 
 public class Title {
     private StringI18N value;

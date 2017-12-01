@@ -2,7 +2,7 @@ package net.lebedko.entity.user;
 
 import java.util.Objects;
 
-import static net.lebedko.util.Util.removeExtraSpaces;
+import static net.lebedko.entity.general.StringI18N.removeExtraSpaces;
 
 public class FirstName {
 
