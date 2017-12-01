@@ -8,11 +8,11 @@ import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
+import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
 public class ClientSubmitModifiedOrderCommand extends AbstractCommand {
-    private static final String URL_TEMPLATE = URL.CLIENT_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=");
     private OrderService orderService;
 
     public ClientSubmitModifiedOrderCommand(OrderService orderService) {
@@ -25,6 +25,9 @@ public class ClientSubmitModifiedOrderCommand extends AbstractCommand {
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
 
         orderService.submitModifiedOrder(orderId, user);
-        return new RedirectAction(URL_TEMPLATE.concat(orderId.toString()));
+        return new RedirectAction(
+                QueryBuilder.base(URL.CLIENT_ORDER)
+                        .addParam(Attribute.ORDER_ID, orderId.toString())
+                        .toString());
     }
 }

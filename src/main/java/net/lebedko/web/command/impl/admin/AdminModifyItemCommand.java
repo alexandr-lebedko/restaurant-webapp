@@ -14,6 +14,7 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
+import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.util.constant.URL;
@@ -51,7 +52,12 @@ public class AdminModifyItemCommand extends AbstractAdminCommand {
         try {
             if (!errors.hasErrors()) {
                 itemService.update(item);
-                return new RedirectAction(ITEMS_TEMPLATE.concat(categoryId.toString()));
+
+                return new RedirectAction(
+                        QueryBuilder.base(URL.ADMIN_ITEMS)
+                                .addParam(Attribute.CATEGORY_ID, categoryId.toString())
+                                .toString()
+                );
             }
         } catch (IllegalArgumentException e) {
             LOG.error(e);

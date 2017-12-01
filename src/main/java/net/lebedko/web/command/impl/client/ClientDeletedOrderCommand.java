@@ -22,7 +22,7 @@ public class ClientDeletedOrderCommand extends AbstractCommand {
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
-        final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
+        final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
 
         orderService.delete(orderId, user);
         return ORDERS_REDIRECT;

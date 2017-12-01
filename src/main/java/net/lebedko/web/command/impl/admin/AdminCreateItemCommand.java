@@ -15,6 +15,7 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
+import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.util.constant.URL;
@@ -27,7 +28,6 @@ import java.io.InputStream;
 import static net.lebedko.web.util.constant.WebConstant.*;
 
 public class AdminCreateItemCommand extends AbstractAdminCommand {
-    private static final String URL_TEMPLATE = URL.ADMIN_ITEMS.concat("?").concat(Attribute.CATEGORY_ID).concat("=");
     private static final IResponseAction ITEM_FORWARD = new ForwardAction(PAGE.ADMIN_ITEM_FORM);
 
     private CategoryService categoryService;
@@ -36,14 +36,10 @@ public class AdminCreateItemCommand extends AbstractAdminCommand {
     private ImageValidator imageValidator;
 
     public AdminCreateItemCommand(OrderService orderService, ItemService itemService, CategoryService categoryService) {
-        this(orderService,itemService, categoryService, new ItemValidator(), new ImageValidator());
+        this(orderService, itemService, categoryService, new ItemValidator(), new ImageValidator());
     }
 
-    public AdminCreateItemCommand(OrderService orderService,
-                                  ItemService itemService,
-                                  CategoryService categoryService,
-                                  ItemValidator itemValidator,
-                                  ImageValidator imageValidator) {
+    public AdminCreateItemCommand(OrderService orderService, ItemService itemService, CategoryService categoryService, ItemValidator itemValidator, ImageValidator imageValidator) {
         super(orderService);
         this.categoryService = categoryService;
         this.itemService = itemService;
@@ -63,7 +59,12 @@ public class AdminCreateItemCommand extends AbstractAdminCommand {
         if (!errors.hasErrors()) {
             try {
                 itemService.insert(item, imageInput);
-                return new RedirectAction(URL_TEMPLATE.concat(item.getCategory().getId().toString()));
+
+                return new RedirectAction(
+                        QueryBuilder.base(URL.ADMIN_ITEMS)
+                                .addParam(Attribute.CATEGORY_ID, item.getCategory().getId().toString())
+                                .toString()
+                );
             } catch (IllegalArgumentException e) {
                 LOG.error("Item exists", e);
                 errors.register("itemExists", PageErrorNames.ITEM_EXISTS);
@@ -82,7 +83,6 @@ public class AdminCreateItemCommand extends AbstractAdminCommand {
         Description description = CommandUtils.parseDescription(context);
         Category category = categoryService.getById(CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), -1L));
         Price price = CommandUtils.parsePrice(context);
-
         return new Item(title, description, category, price, null);
     }
 

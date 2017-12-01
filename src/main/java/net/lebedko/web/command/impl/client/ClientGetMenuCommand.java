@@ -11,9 +11,10 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
-import net.lebedko.web.util.constant.WebConstant;
 
 import java.util.Collection;
+
+import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class ClientGetMenuCommand extends AbstractCommand {
     private static final Long DEFAULT_CATEGORY = 1L;
@@ -39,7 +40,7 @@ public class ClientGetMenuCommand extends AbstractCommand {
 
         context.addRequestAttribute(Attribute.CATEGORIES, categories);
         context.addRequestAttribute(Attribute.ITEMS, items);
-        return new ForwardAction(WebConstant.PAGE.CLIENT_MENU);
+        return new ForwardAction(PAGE.CLIENT_MENU);
     }
 
 }

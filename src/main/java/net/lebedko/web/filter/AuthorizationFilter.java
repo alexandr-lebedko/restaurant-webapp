@@ -2,6 +2,7 @@ package net.lebedko.web.filter;
 
 import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserRole;
+import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
 import javax.servlet.*;
@@ -56,7 +57,7 @@ public class AuthorizationFilter extends AbstractFilter {
     }
 
     private void redirectToAdminMain(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + URL.ADMIN_ORDERS);
+        response.sendRedirect(request.getContextPath() + URL.ADMIN_MAIN);
 
     }
 
@@ -65,11 +66,11 @@ public class AuthorizationFilter extends AbstractFilter {
     }
 
     private boolean isAdmin(HttpServletRequest request) {
-        return UserRole.ADMIN == ((User)request.getSession().getAttribute("user")).getRole();
+        return UserRole.ADMIN == ((User)request.getSession().getAttribute(Attribute.USER)).getRole();
     }
 
     private boolean isClient(HttpServletRequest request) {
-        return UserRole.CLIENT == ((User)request.getSession().getAttribute("user")).getRole();
+        return UserRole.CLIENT == ((User)request.getSession().getAttribute(Attribute.USER)).getRole();
     }
 
     private boolean isToAdminPages(HttpServletRequest request) {

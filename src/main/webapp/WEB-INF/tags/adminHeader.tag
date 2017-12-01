@@ -12,9 +12,7 @@
 
 <%@attribute name="pageUrl" required="true" %>
 
-<c:url var="orders" value="${URL.ADMIN_ORDERS}">
-    <c:param name="${Attribute.ORDER_STATE}" value="${OrderState.NEW}"/>
-</c:url>
+<c:url var="orders" value="${URL.ADMIN_MAIN}"/>
 <c:url var="invoices" value="${URL.ADMIN_INVOICES}">
     <c:param name="${Attribute.INVOICE_STATE}" value="${InvoiceState.UNPAID}"/>
 </c:url>

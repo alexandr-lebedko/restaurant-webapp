@@ -5,6 +5,7 @@ import net.lebedko.entity.general.StringI18N;
 import net.lebedko.entity.item.Category;
 import net.lebedko.entity.item.Description;
 import net.lebedko.entity.item.Title;
+import net.lebedko.entity.user.*;
 import net.lebedko.util.SupportedLocales;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.util.constant.Attribute;
@@ -97,4 +98,36 @@ public class CommandUtils {
         return new Price(value);
     }
 
+    public static Password parsePassword(IContext context) {
+        return ofNullable(context.getRequestParameter(Attribute.PASSWORD))
+                .map(Password::createPasswordFromString)
+                .orElse(Password.createPasswordFromString(""));
+    }
+
+    public static EmailAddress parseEmail(IContext context) {
+        return ofNullable(context.getRequestParameter(Attribute.EMAIL))
+                .map(EmailAddress::new)
+                .orElse(new EmailAddress(""));
+    }
+
+    public static FirstName parseFirstName(IContext context) {
+        return ofNullable(context.getRequestParameter(Attribute.FIRST_NAME))
+                .map(FirstName::new)
+                .orElse(new FirstName(""));
+    }
+
+    public static LastName parsLastName(IContext context) {
+        return ofNullable(context.getRequestParameter(Attribute.LAST_NAME))
+                .map(LastName::new)
+                .orElse(new LastName(""));
+    }
+
+    public static User parseUser(IContext context) {
+        return new User(new FullName(parseFirstName(context), parsLastName(context)),
+                parseEmail(context),
+                parsePassword(context),
+                UserRole.CLIENT);
+    }
 }
+
+

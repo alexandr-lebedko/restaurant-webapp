@@ -9,6 +9,7 @@ import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
+import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 import org.apache.commons.lang3.tuple.Pair;
@@ -23,7 +24,6 @@ import static net.lebedko.web.util.CommandUtils.parseToLongList;
 
 
 public class AdminModifyOrderCommand extends AbstractAdminCommand {
-    private static final String URL_TEMPLATE = URL.ADMIN_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=");
     private ItemService itemService;
 
     public AdminModifyOrderCommand(OrderService orderService, ItemService itemService) {
@@ -35,7 +35,10 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         orderService.modify(parseRequest(context));
 
-        return new RedirectAction(URL_TEMPLATE.concat(getOrderId(context).toString()));
+        return new RedirectAction(
+                QueryBuilder.base(URL.ADMIN_ORDER)
+                        .addParam(Attribute.ORDER_ID, getOrderId(context).toString())
+                        .toString());
     }
 
     private Long getOrderId(IContext context) {

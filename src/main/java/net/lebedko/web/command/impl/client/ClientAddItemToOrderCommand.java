@@ -8,6 +8,7 @@ import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
+import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
@@ -17,7 +18,6 @@ import java.util.Map;
 import static java.util.Optional.ofNullable;
 
 public class ClientAddItemToOrderCommand extends AbstractCommand {
-    private static final String URL_TEMPLATE = URL.CLIENT_MENU.concat("?").concat(Attribute.CATEGORY_ID).concat("=");
     private ItemService itemService;
 
     public ClientAddItemToOrderCommand(ItemService itemService) {
@@ -36,7 +36,10 @@ public class ClientAddItemToOrderCommand extends AbstractCommand {
                 .stream()
                 .reduce(0L, Long::sum));
 
-        return new RedirectAction(URL_TEMPLATE.concat(Long.toString(item.getCategory().getId())));
+        return new RedirectAction(QueryBuilder.base(URL.CLIENT_MENU)
+                .addParam(Attribute.CATEGORY_ID, Long.toString(item.getCategory().getId()))
+                .toString()
+        );
     }
 
     private void addToOrder(Map<Item, Long> content, Item item) {

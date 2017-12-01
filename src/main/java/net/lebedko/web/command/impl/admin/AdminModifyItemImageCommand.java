@@ -2,7 +2,6 @@ package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.item.Item;
 import net.lebedko.service.CategoryService;
-import net.lebedko.service.InvoiceService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -11,6 +10,7 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
+import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.util.constant.WebConstant;
@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.util.Objects;
 
 public class AdminModifyItemImageCommand extends AbstractAdminCommand {
-    private static final String URL_TEMPLATE = URL.ADMIN_ITEMS.concat("?").concat(Attribute.ITEM_ID).concat("=");
     private static final IResponseAction ITEMS_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ITEMS);
     private ItemService itemService;
     private CategoryService categoryService;
@@ -51,12 +50,17 @@ public class AdminModifyItemImageCommand extends AbstractAdminCommand {
 
         if (!errors.hasErrors()) {
             itemService.update(item, imageStream);
-            return new RedirectAction(URL_TEMPLATE.concat(item.getCategory().toString()));
+
+            return new RedirectAction(
+                    QueryBuilder.base(URL.ADMIN_ITEMS)
+                            .addParam(Attribute.ITEM_ID, item.getCategory().toString())
+                            .toString()
+            );
         }
+
         context.addRequestAttribute(Attribute.CATEGORIES, categoryService.getAll());
         context.addRequestAttribute(Attribute.ITEMS, itemService.getByCategory(item.getCategory()));
         context.addRequestAttribute(Attribute.IMAGE_ERRORS, errors);
-
         return ITEMS_FORWARD;
     }
 

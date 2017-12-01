@@ -9,7 +9,7 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.constant.Attribute;
 
-import static net.lebedko.web.util.constant.WebConstant.*;
+import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class ClientGetOrdersCommand extends AbstractCommand {
     private final static IResponseAction ORDERS_FORWARD = new ForwardAction(PAGE.CLIENT_ORDERS);

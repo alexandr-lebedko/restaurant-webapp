@@ -1,9 +1,7 @@
 package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.item.Category;
-import net.lebedko.entity.item.Item;
 import net.lebedko.service.CategoryService;
-import net.lebedko.service.InvoiceService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -15,6 +13,7 @@ import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.WebConstant;
 
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 public class AdminGetItemsCommand extends AbstractAdminCommand {
     private static final IResponseAction ITEMS_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ITEMS);
@@ -37,7 +36,7 @@ public class AdminGetItemsCommand extends AbstractAdminCommand {
         final Category category = categories.stream()
                 .filter(c -> c.getId().equals(id))
                 .findFirst()
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(NoSuchElementException::new);
 
         context.addRequestAttribute(Attribute.CATEGORIES, categories);
         context.addRequestAttribute(Attribute.CATEGORY, category);

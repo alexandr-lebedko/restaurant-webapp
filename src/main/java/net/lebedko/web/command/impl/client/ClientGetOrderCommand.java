@@ -29,7 +29,7 @@ public class ClientGetOrderCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        final Long orderId =CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
+        final Long orderId =CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
         final User user =  context.getSessionAttribute(User.class, Attribute.USER);
 
         final Order order = orderService.getByUserAndId(orderId, user);

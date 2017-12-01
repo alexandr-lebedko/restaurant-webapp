@@ -11,20 +11,20 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.command.IContext;
+import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.validator.Errors;
 
 import static java.util.Objects.isNull;
-import static java.util.Optional.ofNullable;
 import static net.lebedko.web.util.constant.PageErrorNames.USER_NOT_EXISTS;
 import static net.lebedko.web.util.constant.PageErrorNames.WRONG_PASSWORD;
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class SignInPostCommand extends AbstractCommand {
     private static final IResponseAction SIGN_IN_PAGE_FORWARD = new ForwardAction(PAGE.SIGN_IN);
-    private static final IResponseAction MAIN_ADMIN_PAGE_REDIRECT = new RedirectAction(URL.ADMIN_ORDERS);
-    private static final IResponseAction MAIN_CLIENT_PAGE_REDIRECT = new RedirectAction(URL.CLIENT_MENU);
+    private static final IResponseAction CLIENT_MAIN_REDIRECT = new RedirectAction(URL.CLIENT_MENU);
+    private static final IResponseAction ADMIN_MAIN_REDIRECT = new RedirectAction(URL.ADMIN_MAIN);
 
     private UserService userService;
 
@@ -36,12 +36,8 @@ public class SignInPostCommand extends AbstractCommand {
     protected IResponseAction doExecute(final IContext context) throws ServiceException {
         final Errors errors = new Errors();
 
-        final Password password = ofNullable(context.getRequestParameter(Attribute.PASSWORD))
-                .map(Password::createPasswordFromString)
-                .orElse(Password.createPasswordFromString(""));
-        final EmailAddress emailAddress = ofNullable(context.getRequestParameter(Attribute.EMAIL))
-                .map(EmailAddress::new)
-                .orElse(new EmailAddress(""));
+        final Password password = CommandUtils.parsePassword(context);
+        final EmailAddress emailAddress = CommandUtils.parseEmail(context);
         final User user = userService.findByEmail(emailAddress);
 
         if (isNull(user)) {
@@ -66,9 +62,9 @@ public class SignInPostCommand extends AbstractCommand {
 
     private IResponseAction mainPageRedirectAction(User user) {
         if (user.getRole() == UserRole.CLIENT) {
-            return MAIN_CLIENT_PAGE_REDIRECT;
+            return CLIENT_MAIN_REDIRECT;
         } else {
-            return MAIN_ADMIN_PAGE_REDIRECT;
+            return ADMIN_MAIN_REDIRECT;
         }
     }
 

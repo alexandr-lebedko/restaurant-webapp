@@ -6,11 +6,11 @@ import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
+import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
 public class AdminProcessOrderCommand extends AbstractAdminCommand {
-    private static final String URL_TEMPLATE = URL.ADMIN_ORDER.concat("?").concat(Attribute.ORDER_ID).concat("=");
 
     public AdminProcessOrderCommand(OrderService orderService) {
         super(orderService);
@@ -21,6 +21,10 @@ public class AdminProcessOrderCommand extends AbstractAdminCommand {
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
 
         orderService.process(orderId);
-        return new RedirectAction(URL_TEMPLATE.concat(orderId.toString()));
+
+        return new RedirectAction(
+                QueryBuilder.base(URL.ADMIN_ORDER)
+                        .addParam(Attribute.ORDER_ID, orderId.toString())
+                        .toString());
     }
 }

@@ -15,7 +15,9 @@ import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -34,7 +36,7 @@ public class ClientModifyOrderCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID), -1L);
+        final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
 
         final Order order = orderService.getById(orderId);
