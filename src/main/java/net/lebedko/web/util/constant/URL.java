@@ -8,10 +8,6 @@ public class URL {
     public static final String IMAGE_PREFIX = "/" + IMAGE_CONTROLLER + "/";
     public static final String PREFIX = "/" + CONTROLLER_NAME + "/";
 
-    public static final String SIGN_IN = PREFIX + "signIn";
-    public static final String SIGN_UP = PREFIX + "signUp";
-    public static final String SIGN_OUT = PREFIX + "signOut";
-
     public static final String ADMIN_ORDER = PREFIX + "admin/order";
     public static final String ADMIN_ORDERS = PREFIX + "admin/orders";
     public static final String ADMIN_INVOICE = PREFIX + "admin/invoice";
@@ -42,4 +38,12 @@ public class URL {
     public static final String CLIENT_PAY_INVOICE = PREFIX + "client/invoice/pay";
     public static final String CLIENT_INVOICES = PREFIX + "client/invoices";
     public static final String CLIENT_CLEAR_ORDER_BUCKET = PREFIX + "client/order/clear";
+
+    public static final String SIGN_IN = PREFIX + "signIn";
+    public static final String SIGN_UP = PREFIX + "signUp";
+    public static final String SIGN_OUT = PREFIX + "signOut";
+
+    public static final String SIGN_UP_IMG ="/img/restaurant_pickup1600.png";
+    public static final String SIGN_IN_IMG ="/img/restaurant1600.png";
+
 }

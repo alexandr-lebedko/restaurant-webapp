@@ -42,15 +42,13 @@ public class SignInPostCommand extends AbstractCommand {
         final EmailAddress emailAddress = ofNullable(context.getRequestParameter(Attribute.EMAIL))
                 .map(EmailAddress::new)
                 .orElse(new EmailAddress(""));
-
         final User user = userService.findByEmail(emailAddress);
 
         if (isNull(user)) {
             errors.register("user not exists", USER_NOT_EXISTS);
-            context.addErrors(errors);
             context.addRequestAttribute(Attribute.EMAIL, emailAddress);
             context.addRequestAttribute(Attribute.PASSWORD, password);
-
+            context.addErrors(errors);
             return SIGN_IN_PAGE_FORWARD;
         }
 
@@ -59,7 +57,6 @@ public class SignInPostCommand extends AbstractCommand {
             context.addRequestAttribute(Attribute.EMAIL, emailAddress);
             context.addRequestAttribute(Attribute.PASSWORD, password);
             context.addErrors(errors);
-
             return SIGN_IN_PAGE_FORWARD;
         }
 

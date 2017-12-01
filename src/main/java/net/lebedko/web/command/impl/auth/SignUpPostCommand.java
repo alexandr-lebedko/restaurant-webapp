@@ -15,13 +15,14 @@ import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.RedirectAction;
+import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.user.UserValidator;
 
 import static java.util.Optional.ofNullable;
 import static net.lebedko.web.util.constant.PageErrorNames.USER_EXISTS;
-import static net.lebedko.web.util.constant.WebConstant.*;
+import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class SignUpPostCommand extends AbstractCommand implements ICommand {
     private static final IResponseAction MAIN_PAGE_REDIRECT = new RedirectAction(URL.CLIENT_MENU);
@@ -37,49 +38,40 @@ public class SignUpPostCommand extends AbstractCommand implements ICommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        User user = retrieveUser(context);
-
         final Errors errors = new Errors();
+        final User user = retrieveUser(context);
         userValidator.validate(user, errors);
 
         if (errors.hasErrors()) {
-            context.addRequestAttribute("errors", errors);
-            context.addRequestAttribute("user", user);
+            context.addRequestAttribute(Attribute.USER, user);
+            context.addErrors(errors);
             LOG.info("Attempt to register invalid user: " + user);
-
             return SIGN_UP_PAGE_FORWARD;
         }
-
         try {
             userService.register(user);
-            context.addSessionAttribute("user", user);
-
+            context.addSessionAttribute(Attribute.USER, user);
             return MAIN_PAGE_REDIRECT;
-
         } catch (IllegalArgumentException e) {
             LOG.info("Attempt to insert existent user: " + user, e);
             errors.register("user exists", USER_EXISTS);
         }
+
+        context.addRequestAttribute(Attribute.USER, user);
         context.addErrors(errors);
-        context.addSessionAttribute("user", user);
         return SIGN_UP_PAGE_FORWARD;
     }
 
-
     private static User retrieveUser(IContext context) {
-        String firstNameString = ofNullable(context.getRequestParameter("firstName")).orElse("");
-        String lastNameString = ofNullable(context.getRequestParameter("lastName")).orElse("");
-        String emailString = ofNullable(context.getRequestParameter("email")).orElse("");
-        String passwordString = ofNullable(context.getRequestParameter("password")).orElse("");
+        String firstNameString = ofNullable(context.getRequestParameter(Attribute.FIRST_NAME)).orElse("");
+        String lastNameString = ofNullable(context.getRequestParameter(Attribute.LAST_NAME)).orElse("");
+        String emailString = ofNullable(context.getRequestParameter(Attribute.EMAIL)).orElse("");
+        String passwordString = ofNullable(context.getRequestParameter(Attribute.PASSWORD)).orElse("");
 
         return new User(
-                new FullName(
-                        new FirstName(firstNameString),
-                        new LastName(lastNameString)
-                ),
+                new FullName(new FirstName(firstNameString), new LastName(lastNameString)),
                 new EmailAddress(emailString),
                 Password.createPasswordFromString(passwordString),
-                UserRole.CLIENT
-        );
+                UserRole.CLIENT);
     }
 }

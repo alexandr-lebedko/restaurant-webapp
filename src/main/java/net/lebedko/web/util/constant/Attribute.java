@@ -6,6 +6,8 @@ public class Attribute {
     }
 
     public static final String USER = "user";
+    public static final String FIRST_NAME="firstName";
+    public static final String LAST_NAME="lastName";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
 
