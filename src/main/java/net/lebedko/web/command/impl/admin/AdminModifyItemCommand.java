@@ -25,7 +25,6 @@ import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class AdminModifyItemCommand extends AbstractAdminCommand {
     private static final IResponseAction ITEMS_FORWARD = new ForwardAction(PAGE.ADMIN_ITEMS);
-    private static final String ITEMS_TEMPLATE = URL.ADMIN_ITEMS.concat("?").concat(Attribute.CATEGORY_ID).concat("=");
 
     private CategoryService categoryService;
     private ItemService itemService;
@@ -72,7 +71,7 @@ public class AdminModifyItemCommand extends AbstractAdminCommand {
     }
 
     private Item parseItem(IContext context, Long categoryId) {
-        final Long itemId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ITEM_ID), -1L);
+        final Long itemId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ITEM_ID));
         final Title title = CommandUtils.parseTitle(context);
         final Description description = CommandUtils.parseDescription(context);
         final Price price = CommandUtils.parsePrice(context);

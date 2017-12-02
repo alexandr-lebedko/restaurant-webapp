@@ -30,10 +30,10 @@ public class ClientGetInvoiceCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        final Long invoiceId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.INVOICE_ID));
+        final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.INVOICE_ID));
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
 
-        final Invoice invoice = invoiceService.getInvoice(invoiceId, user);
+        final Invoice invoice = invoiceService.getInvoice(id, user);
         final Collection<OrderItem> orderItems = orderItemService.getOrderItems(invoice);
 
         context.addRequestAttribute(Attribute.INVOICE, invoice);

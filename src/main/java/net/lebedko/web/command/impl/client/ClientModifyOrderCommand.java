@@ -1,5 +1,6 @@
 package net.lebedko.web.command.impl.client;
 
+import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.OrderBucket;
@@ -30,11 +31,12 @@ public class ClientModifyOrderCommand extends AbstractCommand {
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
+
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
+        final Order order = orderService.getById(id);
+        final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
 
-        final Collection<OrderItem> orderItems = orderItemService.getOrderItems(orderService.getById(id));
         final OrderBucket bucket = CommandUtils.getOrderBucketFromSession(context);
-
         orderItems.forEach(oi -> bucket.add(oi.getItem(), oi.getQuantity()));
 
         orderService.delete(id, user);
