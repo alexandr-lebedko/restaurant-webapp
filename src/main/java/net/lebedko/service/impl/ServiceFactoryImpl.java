@@ -31,7 +31,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
         this.orderItemService = new OrderItemServiceImpl(serviceTemplate, daoFactory.getOrderItemDao());
         this.invoiceService = new InvoiceServiceImpl(serviceTemplate, daoFactory.getInvoiceDao());
 
-        this.orderService = new OrderServiceImpl(serviceTemplate, invoiceService, orderItemService, itemService, daoFactory.getOrderDao());
+        this.orderService = new OrderServiceImpl(serviceTemplate, invoiceService, orderItemService, daoFactory.getOrderDao());
         ((InvoiceServiceImpl) invoiceService).setOrderService(orderService);
     }
 

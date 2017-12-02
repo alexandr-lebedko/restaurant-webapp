@@ -23,15 +23,13 @@ public class OrderServiceImpl implements OrderService {
     private ServiceTemplate template;
     private InvoiceService invoiceService;
     private OrderItemService orderItemService;
-    private ItemService itemService;
 
     private OrderDao orderDao;
 
-    OrderServiceImpl(ServiceTemplate template, InvoiceService invoiceService, OrderItemService orderItemService, ItemService itemService, OrderDao orderDao) {
+    OrderServiceImpl(ServiceTemplate template, InvoiceService invoiceService, OrderItemService orderItemService, OrderDao orderDao) {
         this.template = template;
         this.invoiceService = invoiceService;
         this.orderItemService = orderItemService;
-        this.itemService = itemService;
         this.orderDao = orderDao;
     }
 
