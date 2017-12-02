@@ -36,7 +36,7 @@
                                 </thead>
 
                                 <tbody class="table-sm">
-                                <c:forEach var="orderItem" items="${orderContent}" varStatus="status">
+                                <c:forEach var="orderItem" items="${orderContent.content}" varStatus="status">
                                     <c:url var="imageUrl" value="${URL.IMAGE_PREFIX.concat(orderItem.key.imageId)}"/>
                                     <tr>
                                         <td><input name="${Attribute.ITEM_ID}" value="${orderItem.key.id}" readonly size="3"></td>

@@ -1,4 +1,4 @@
-<%@tag description="Header for unauthenticated user" pageEncoding="utf-8" %>
+<%@tag description="Header for unauthenticated user" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ tag import="net.lebedko.web.util.constant.URL" %>
@@ -58,7 +58,8 @@
                     <li class="nav-item" id="order-bucket-nav">
                         <a class="nav-link" href="${orderCart}">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            <span id="bucket-amount" class="badge">${sessionScope.get(Attribute.ORDER_BUCKET_AMOUNT)}</span>
+                            <span id="bucket-amount"
+                                  class="badge">${sessionScope.get(Attribute.ORDER_BUCKET).size}</span>
                             <span><fmt:message key="page.header.orderCart"/></span>
                         </a>
                     </li>

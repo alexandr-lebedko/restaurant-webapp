@@ -13,7 +13,6 @@ public class ClientDeleteBucketCommand extends AbstractCommand {
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
         context.removeSessionAttribute(Attribute.ORDER_BUCKET);
-        context.removeSessionAttribute(Attribute.ORDER_BUCKET_AMOUNT);
 
         return ORDER_FORM_REDIRECT;
     }

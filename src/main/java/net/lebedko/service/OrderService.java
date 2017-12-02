@@ -11,7 +11,7 @@ import java.util.Collection;
 
 public interface OrderService {
 
-    Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId);
+    void createOrder(User user, OrderBucket bucket);
 
     Order getById(Long id);
 

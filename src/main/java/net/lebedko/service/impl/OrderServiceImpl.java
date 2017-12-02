@@ -7,10 +7,7 @@ import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
-import net.lebedko.service.InvoiceService;
-import net.lebedko.service.ItemService;
-import net.lebedko.service.OrderItemService;
-import net.lebedko.service.OrderService;
+import net.lebedko.service.*;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
@@ -30,12 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderDao orderDao;
 
-    OrderServiceImpl(
-            ServiceTemplate template,
-            InvoiceService invoiceService,
-            OrderItemService orderItemService,
-            ItemService itemService,
-            OrderDao orderDao) {
+    OrderServiceImpl(ServiceTemplate template, InvoiceService invoiceService, OrderItemService orderItemService, ItemService itemService, OrderDao orderDao) {
         this.template = template;
         this.invoiceService = invoiceService;
         this.orderItemService = orderItemService;
@@ -48,22 +40,15 @@ public class OrderServiceImpl implements OrderService {
         return template.doTxService(() -> orderDao.getByOrderIdAndUser(id, user));
     }
 
-    @Override
-    public Order createOrder(User user, Collection<Pair<Long, Long>> quantityToItemId) {
-        return template.doTxService(() -> {
-                    final Invoice invoice = invoiceService.getUnpaidOrCreate(user);
-                    final Order order = orderDao.insert(new Order(invoice));
-                    insertOrderContent(order, quantityToItemId);
+    public void createOrder(User user, OrderBucket bucket) {
+        template.doTxService(() -> {
+            final Invoice invoice = invoiceService.getUnpaidOrCreate(user);
+            final Order order = orderDao.insert(new Order(invoice));
 
-                    return order;
-                }
-        );
-    }
-
-    private void insertOrderContent(Order order, Collection<Pair<Long, Long>> quantityToItemId) {
-        quantityToItemId.stream()
-                .map(e -> new OrderItem(order, itemService.get(e.getLeft()), e.getRight()))
-                .forEach(orderItemService::insert);
+            bucket.getContent().entrySet().stream()
+                    .map(e -> new OrderItem(order, e.getKey(), e.getValue()))
+                    .forEach(orderItemService::insert);
+        });
     }
 
     @Override
@@ -74,15 +59,17 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void process(Long orderId) {
         template.doTxService(() -> {
-            final Order order = of(orderDao.findById(orderId))
+            final Order order = ofNullable(orderDao.findById(orderId))
                     .filter(o -> o.getState().equals(OrderState.NEW))
                     .map(o -> new Order(o.getId(), o.getInvoice(), OrderState.PROCESSED, o.getCreatedOn()))
                     .orElseThrow(IllegalArgumentException::new);
+
             final Price orderSum = orderItemService.getOrderItems(order).stream()
                     .map(OrderItem::getPrice)
                     .reduce(new Price(0d), Price::sum);
 
-            final Invoice invoice = new Invoice(order.getInvoice().getId(),
+            final Invoice invoice = new Invoice(
+                    order.getInvoice().getId(),
                     order.getInvoice().getUser(),
                     order.getInvoice().getState(),
                     Price.sum(order.getInvoice().getAmount(), orderSum),

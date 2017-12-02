@@ -1,6 +1,8 @@
 package net.lebedko.web.command.impl.client;
 
+import net.lebedko.entity.item.Item;
 import net.lebedko.entity.user.User;
+import net.lebedko.service.OrderBucket;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
@@ -10,11 +12,8 @@ import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
-import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -28,30 +27,32 @@ public class ClientCreateOrderCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        final Collection<Pair<Long, Long>> quantityToItem = parseOrderForm(context);
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
+        final OrderBucket bucket = parseBucketForm(context);
 
-        orderService.createOrder(user, quantityToItem);
-
+        orderService.createOrder(user, bucket);
         context.removeSessionAttribute(Attribute.ORDER_BUCKET);
-        context.removeSessionAttribute(Attribute.ORDER_BUCKET_AMOUNT);
 
         return ORDERS_REDIRECT;
     }
 
-    private Collection<Pair<Long, Long>> parseOrderForm(IContext context) {
-        final List<Long> ids = context.getRequestParameters(Attribute.ITEM_ID).stream()
-                .map(value -> CommandUtils.parseToLong(value, -1L))
-                .filter(value -> value > 0)
-                .collect(toList());
-        final List<Long> amounts = context.getRequestParameters(Attribute.ORDER_ITEM_QUANTITY).stream()
-                .map(value -> CommandUtils.parseToLong(value, -1L))
-                .filter(value -> value > 0)
+
+    private OrderBucket parseBucketForm(IContext context) {
+        final OrderBucket sessionBucket = CommandUtils.getOrderBucketFromSession(context);
+
+        final List<Item> items = context.getRequestParameters(Attribute.ITEM_ID).stream()
+                .map(CommandUtils::parseToLong)
+                .map(sessionBucket::getItem)
                 .collect(toList());
 
-        return IntStream.range(0, ids.size())
-                .boxed()
-                .map(i -> Pair.of(ids.get(i), amounts.get(i)))
+        final List<Long> quantities = context.getRequestParameters(Attribute.ITEM_ID).stream()
+                .map(CommandUtils::parseToLong)
                 .collect(toList());
+
+        final OrderBucket formBucket = new OrderBucket();
+        for (int i = 0; i < items.size(); i++) {
+            formBucket.add(items.get(i), quantities.get(i));
+        }
+        return formBucket;
     }
 }

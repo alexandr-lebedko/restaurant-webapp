@@ -6,6 +6,7 @@ import net.lebedko.entity.item.Category;
 import net.lebedko.entity.item.Description;
 import net.lebedko.entity.item.Title;
 import net.lebedko.entity.user.*;
+import net.lebedko.service.OrderBucket;
 import net.lebedko.util.SupportedLocales;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.util.constant.Attribute;
@@ -127,6 +128,11 @@ public class CommandUtils {
                 parseEmail(context),
                 parsePassword(context),
                 UserRole.CLIENT);
+    }
+
+    public static OrderBucket getOrderBucketFromSession(IContext context) {
+        return ofNullable(context.getSessionAttribute(OrderBucket.class, Attribute.ORDER_BUCKET))
+                .orElseGet(OrderBucket::new);
     }
 }
 
