@@ -8,13 +8,8 @@ import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.*;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
@@ -34,8 +29,28 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order getById(Long id) {
+        return orderDao.findById(id);
+    }
+
+    @Override
     public Order getByUserAndId(Long id, User user) {
         return template.doTxService(() -> orderDao.getByOrderIdAndUser(id, user));
+    }
+
+    @Override
+    public Collection<Order> getByUser(User user) {
+        return template.doTxService(() -> orderDao.getByUser(user));
+    }
+
+    @Override
+    public Collection<Order> getByState(OrderState state) {
+        return template.doTxService(() -> orderDao.getByState(state));
+    }
+
+    @Override
+    public Collection<Order> getByInvoice(Invoice invoice) {
+        return template.doTxService(() -> orderDao.getByInvoice(invoice));
     }
 
     public void createOrder(User user, OrderBucket bucket) {
@@ -47,11 +62,6 @@ public class OrderServiceImpl implements OrderService {
                     .map(e -> new OrderItem(order, e.getKey(), e.getValue()))
                     .forEach(orderItemService::insert);
         });
-    }
-
-    @Override
-    public Collection<Order> getByUser(User user) {
-        return template.doTxService(() -> orderDao.getByUser(user));
     }
 
     @Override
@@ -103,16 +113,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Collection<Order> getByState(OrderState state) {
-        return template.doTxService(() -> orderDao.getByState(state));
-    }
-
-    @Override
-    public Collection<Order> getByInvoice(Invoice invoice) {
-        return template.doTxService(() -> orderDao.getByInvoice(invoice));
-    }
-
-    @Override
     public void submitModifiedOrder(Long id, User user) {
         template.doTxService(() -> {
             Order order = orderDao.getByOrderIdAndUser(id, user);
@@ -124,44 +124,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getById(Long id) {
-        return orderDao.findById(id);
-    }
-
-    @Override
-    public void modify(Pair<Order, Collection<OrderItem>> itemsToOrder) {
-        final Order order = itemsToOrder.getKey();
-        if (order.getState() != OrderState.NEW) {
-            throw new IllegalArgumentException("Cannot modify not 'NEW' order. Order state is: " + order.getState());
-        }
-
-        final Map<Long, OrderItem> modifiedOrderItemsToId = itemsToOrder.getValue().stream()
-                .collect(Collectors.toMap(OrderItem::getId, Function.identity()));
-
-        final Map<Long, OrderItem> oldOrderItemsToId = orderItemService.getOrderItems(order).stream()
-                .collect(Collectors.toMap(OrderItem::getId, Function.identity()));
-
-        final Collection<OrderItem> orderItemsToDelete = getOrderItemsToDelete(modifiedOrderItemsToId, oldOrderItemsToId);
-        final Collection<OrderItem> orderItemsToUpdate = getOrderItemsToUpdate(modifiedOrderItemsToId, oldOrderItemsToId);
-
+    public void modify(Collection<OrderItem> orderItems) {
         template.doTxService(() -> {
-            orderItemService.delete(orderItemsToDelete);
-            orderItemService.update(orderItemsToUpdate);
+            final Order order = orderItems.stream()
+                    .map(OrderItem::getOrder)
+                    .filter(o -> o.getState() == OrderState.NEW)
+                    .findFirst()
+                    .orElseThrow(IllegalArgumentException::new);
+
+            orderItemService.deleteByOrder(order);
+            orderItems.forEach(orderItemService::insert);
             orderDao.update(new Order(order.getId(), order.getInvoice(), OrderState.MODIFIED, order.getCreatedOn()));
         });
-
-    }
-
-    private Collection<OrderItem> getOrderItemsToDelete(Map<Long, OrderItem> modifiedOrderItemsToId, Map<Long, OrderItem> oldOrderItemsToId) {
-        Map<Long, OrderItem> orderItemsToId = new HashMap<>(oldOrderItemsToId);
-        orderItemsToId.keySet().removeAll(modifiedOrderItemsToId.keySet());
-        return orderItemsToId.values();
-    }
-
-    private Collection<OrderItem> getOrderItemsToUpdate(Map<Long, OrderItem> modifiedOrderItemsToId, Map<Long, OrderItem> oldOrderItemsToId) {
-        return modifiedOrderItemsToId.entrySet().stream()
-                .filter(oi -> oi.getValue().getQuantity() < oldOrderItemsToId.get(oi.getKey()).getQuantity())
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
     }
 }

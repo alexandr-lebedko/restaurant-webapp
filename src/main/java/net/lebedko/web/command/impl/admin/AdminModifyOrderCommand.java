@@ -1,5 +1,6 @@
 package net.lebedko.web.command.impl.admin;
 
+import net.lebedko.entity.item.Item;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.service.ItemService;
@@ -8,17 +9,17 @@ import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
-import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.NoSuchElementException;
 import java.util.stream.IntStream;
 
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
 import static net.lebedko.web.util.CommandUtils.parseToLong;
 import static net.lebedko.web.util.CommandUtils.parseToLongList;
 
@@ -33,7 +34,9 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
 
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
-        orderService.modify(parseRequest(context));
+        final Collection<OrderItem> modifiedOrderItems = parseOrderItems(context);
+
+        orderService.modify(modifiedOrderItems);
 
         return new RedirectAction(
                 QueryBuilder.base(URL.ADMIN_ORDER)
@@ -45,17 +48,19 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
         return parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
     }
 
-    private Pair<Order, Collection<OrderItem>> parseRequest(IContext context) {
-        final Order order = orderService.getById(CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID)));
+    private Collection<OrderItem> parseOrderItems(IContext context) {
+        final Order order = ofNullable(getOrderId(context))
+                .map(orderService::getById)
+                .orElseThrow(NoSuchElementException::new);
 
-        final List<Long> orderItemIds = parseToLongList(context.getRequestParameters(Attribute.ORDER_ITEM_ID));
-        final List<Long> itemIds = parseToLongList(context.getRequestParameters(Attribute.ITEM_ID));
-        final List<Long> itemQuantities = parseToLongList(context.getRequestParameters(Attribute.ORDER_ITEM_QUANTITY));
+        final List<Item> items = parseToLongList(context.getRequestParameters(Attribute.ITEM_ID)).stream()
+                .map(itemService::get)
+                .collect(toList());
+        final List<Long> quantities = parseToLongList(context.getRequestParameters(Attribute.ORDER_ITEM_QUANTITY));
 
-        final Collection<OrderItem> orderItems = IntStream.range(0, orderItemIds.size())
-                .mapToObj(i -> new OrderItem(orderItemIds.get(i), order, itemService.get(itemIds.get(i)), itemQuantities.get(i)))
-                .collect(Collectors.toList());
+        return IntStream.range(0, items.size())
+                .mapToObj(i -> new OrderItem(order, items.get(i), quantities.get(i)))
+                .collect(toList());
 
-        return Pair.of(order, orderItems);
     }
 }

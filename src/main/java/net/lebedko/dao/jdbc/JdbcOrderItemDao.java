@@ -16,6 +16,7 @@ public class JdbcOrderItemDao extends AbstractJdbcDao implements OrderItemDao {
     private static final String INSERT = QUERIES.getProperty("orderItem.insert");
     private static final String UPDATE = QUERIES.getProperty("orderItem.update");
     private static final String DELETE = QUERIES.getProperty("orderItem.delete");
+    private static final String DELETE_BY_ORDER = QUERIES.getProperty("orderItem.deleteByOrder");
     private static final String GET_BY_ORDER = QUERIES.getProperty("orderItem.getByOrder");
     private static final String GET_BY_INVOICE = QUERIES.getProperty("orderItem.getByInvoice");
 
@@ -73,6 +74,14 @@ public class JdbcOrderItemDao extends AbstractJdbcDao implements OrderItemDao {
         params.put(1, invoice.getId());
 
         return template.queryAll(GET_BY_INVOICE, params, new OrderItemMapper(new OrderMapper(invoice)));
+    }
+
+    @Override
+    public void deleteByOrder(Order order) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, order.getId());
+
+        template.update(DELETE_BY_ORDER, params);
     }
 
     @Override

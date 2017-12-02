@@ -38,6 +38,11 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    public void deleteByOrder(Order order) {
+        template.doTxService(()->orderItemDao.deleteByOrder(order));
+    }
+
+    @Override
     public void update(Collection<OrderItem> orderItems) {
         template.doTxService(() -> orderItemDao.update(orderItems));
     }

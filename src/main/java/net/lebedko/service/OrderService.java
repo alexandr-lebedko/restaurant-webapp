@@ -29,7 +29,7 @@ public interface OrderService {
 
     void reject(Long id);
 
-    void modify(Pair<Order, Collection<OrderItem>> itemsToOrder);
+    void modify(Collection<OrderItem> orderItems);
 
     void delete(Long id, User user);
 }

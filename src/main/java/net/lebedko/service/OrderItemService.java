@@ -16,5 +16,7 @@ public interface OrderItemService {
 
     void delete(Collection<OrderItem> orderItems);
 
+    void deleteByOrder(Order order);
+
     void update(Collection<OrderItem> orderItems);
 }

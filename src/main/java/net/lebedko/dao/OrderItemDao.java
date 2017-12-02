@@ -15,4 +15,6 @@ public interface OrderItemDao extends GenericDao<OrderItem, Long> {
     Collection<OrderItem> getByOrder(Order order);
 
     Collection<OrderItem> getByInvoice(Invoice invoice);
+
+    void deleteByOrder(Order order);
 }
