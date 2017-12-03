@@ -30,12 +30,15 @@ public class OrderBucket {
 
     public Long getSize() {
         if (!sizeCalculated) {
-            size = quantityToItem.values().stream()
-                    .reduce(0L, Long::sum);
+            size = calculateSize();
             sizeCalculated = true;
         }
-
         return size;
+    }
+
+    private Long calculateSize() {
+        return quantityToItem.values().stream()
+                .reduce(0L, Long::sum);
     }
 
     public Map<Item, Long> getContent() {
