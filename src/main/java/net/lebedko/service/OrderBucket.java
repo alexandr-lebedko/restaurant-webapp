@@ -29,13 +29,11 @@ public class OrderBucket {
     }
 
     public Long getSize() {
-        if (sizeCalculated) {
-            return size;
+        if (!sizeCalculated) {
+            size = quantityToItem.values().stream()
+                    .reduce(0L, Long::sum);
+            sizeCalculated = true;
         }
-        sizeCalculated = true;
-
-        size = quantityToItem.values().stream()
-                .reduce(0L, Long::sum);
 
         return size;
     }
