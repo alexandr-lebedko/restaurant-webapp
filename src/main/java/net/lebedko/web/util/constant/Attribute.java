@@ -6,8 +6,8 @@ public class Attribute {
     }
 
     public static final String USER = "user";
-    public static final String FIRST_NAME="firstName";
-    public static final String LAST_NAME="lastName";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
 
@@ -52,4 +52,6 @@ public class Attribute {
     public static final String DESCRIPTION_UA = "descriptionUa";
 
     public static final String PRICE = "price";
+    public static final String PAGE_NUM = "p";
+    public static final String PAGED_DATA = "pagedDate";
 }
