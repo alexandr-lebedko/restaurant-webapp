@@ -5,7 +5,6 @@
 <%@ tag import="net.lebedko.util.SupportedLocales" %>
 <%@ tag import="net.lebedko.web.util.constant.Attribute" %>
 <%@ tag import="net.lebedko.entity.invoice.InvoiceState" %>
-<%@ tag import="net.lebedko.entity.order.OrderState" %>
 
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>

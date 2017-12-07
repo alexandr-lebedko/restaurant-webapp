@@ -1,6 +1,6 @@
 <%@tag description="Main header tag, to be used in every page" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/header" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@tag import="net.lebedko.entity.user.UserRole" %>
 <%@tag import="net.lebedko.web.util.constant.Attribute" %>
