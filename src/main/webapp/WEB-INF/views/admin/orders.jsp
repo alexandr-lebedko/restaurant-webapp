@@ -28,7 +28,6 @@
                 <c:url var="modifiedOrders" value="${URL.ADMIN_ORDERS}">
                     <c:param name="${Attribute.ORDER_STATE}" value="${OrderState.MODIFIED}"/>
                 </c:url>
-
                 <ul class="nav flex-column border" id="admin-orders-nav">
                     <li class="nav-item ${orderState eq OrderState.NEW ? 'active' : ''}">
                         <a class="nav-link" href="${newOrders}">
@@ -53,7 +52,7 @@
                 </ul>
             </div>
             <div class="col-lg-8">
-                <c:if test="${!empty orders}">
+                <c:if test="${!empty requestScope.get(Attribute.PAGED_DATA).content}">
                     <h4 class="text-center mb-3"><fmt:message key="orders"/></h4>
                     <table class="table table-hover table-bordered" id="admin-orders">
                         <thead>
@@ -66,7 +65,7 @@
                         </tr>
                         </thead>
                         <tbody class="table-sm">
-                        <c:forEach var="order" items="${orders}">
+                        <c:forEach var="order" items="${requestScope.get(Attribute.PAGED_DATA).content}">
                             <c:url var="orderInfo" value="${URL.ADMIN_ORDER}">
                                 <c:param name="${Attribute.ORDER_ID}" value="${order.id}"/>
                             </c:url>
@@ -79,10 +78,14 @@
                                 <td><a href="${invoiceInfo}">${order.invoice.id}</a></td>
                                 <td>${order.createdOn.toLocalDate()}</td>
                                 <td>${order.createdOn.toLocalTime()}</td>
-                            <tr/>
+                            </tr>
                         </c:forEach>
                         </tbody>
                     </table>
+
+                    <t:paging pagingUrl="${URL.ADMIN_ORDERS}"
+                              params="${param}"
+                              data="${requestScope.get(Attribute.PAGED_DATA)}"/>
                 </c:if>
             </div>
         </div>

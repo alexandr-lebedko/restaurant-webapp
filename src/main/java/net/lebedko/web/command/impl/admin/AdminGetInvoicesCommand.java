@@ -1,5 +1,6 @@
 package net.lebedko.web.command.impl.admin;
 
+import net.lebedko.dao.paging.Page;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.service.InvoiceService;
@@ -8,9 +9,9 @@ import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 
-import java.util.Collection;
 import java.util.NoSuchElementException;
 
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
@@ -27,10 +28,10 @@ public class AdminGetInvoicesCommand extends AbstractAdminCommand {
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         final InvoiceState state = parseState(context);
-        final Collection<Invoice> invoices = invoiceService.getByState(state);
+        final Page<Invoice> invoicesPage = invoiceService.getByState(state, CommandUtils.parsePageable(context));
 
         context.addRequestAttribute(Attribute.INVOICE_STATE, state);
-        context.addRequestAttribute(Attribute.INVOICES, invoices);
+        context.addRequestAttribute(Attribute.PAGED_DATA, invoicesPage);
 
         return INVOICES_FORWARD;
     }

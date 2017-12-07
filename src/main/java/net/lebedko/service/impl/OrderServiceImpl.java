@@ -1,6 +1,8 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.OrderDao;
+import net.lebedko.dao.paging.Page;
+import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.general.Price;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
@@ -39,13 +41,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Collection<Order> getByUser(User user) {
-        return template.doTxService(() -> orderDao.getByUser(user));
+    public Collection<Order> getByState(OrderState state) {
+        return template.doTxService(() -> orderDao.getByState(state));
     }
 
     @Override
-    public Collection<Order> getByState(OrderState state) {
-        return template.doTxService(() -> orderDao.getByState(state));
+    public Page<Order> getByUser(User user, Pageable pageable) {
+        return template.doTxService(()->orderDao.getByUser(user, pageable));
+    }
+
+    @Override
+    public Page<Order> getByState(OrderState state, Pageable pageable) {
+        return template.doTxService(() -> orderDao.getByState(state, pageable));
     }
 
     @Override
@@ -53,6 +60,7 @@ public class OrderServiceImpl implements OrderService {
         return template.doTxService(() -> orderDao.getByInvoice(invoice));
     }
 
+    @Override
     public void createOrder(User user, OrderBucket bucket) {
         template.doTxService(() -> {
             final Invoice invoice = invoiceService.getUnpaidOrCreate(user);

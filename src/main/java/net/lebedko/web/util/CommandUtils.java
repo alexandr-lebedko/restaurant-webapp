@@ -1,5 +1,6 @@
 package net.lebedko.web.util;
 
+import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.general.Price;
 import net.lebedko.entity.general.StringI18N;
 import net.lebedko.entity.item.Category;
@@ -133,6 +134,19 @@ public class CommandUtils {
     public static OrderBucket getOrderBucketFromSession(IContext context) {
         return ofNullable(context.getSessionAttribute(OrderBucket.class, Attribute.ORDER_BUCKET))
                 .orElseGet(OrderBucket::new);
+    }
+
+    public static Pageable parsePageable(IContext context) {
+        Integer pageNum = 1;
+        try {
+            Integer value = Math.abs(Integer.valueOf(context.getRequestParameter(Attribute.PAGE_NUM)));
+            if (value > 0) {
+                pageNum = value;
+            }
+        } catch (NumberFormatException | NullPointerException e) {
+            LOG.error("Page num parse error ", e);
+        }
+        return new Pageable(pageNum);
     }
 }
 

@@ -4,8 +4,11 @@ import net.lebedko.dao.InvoiceDao;
 import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.mapper.InvoiceMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
+import net.lebedko.dao.paging.Page;
+import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceState;
+import net.lebedko.entity.order.Order;
 import net.lebedko.entity.user.User;
 
 import java.sql.Timestamp;
@@ -18,10 +21,11 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     private static final String UPDATE = QUERIES.getProperty("invoice.update");
     private static final String GET_BY_ID = QUERIES.getProperty("invoice.getById");
     private static final String GET_BY_USER_AND_STATE = QUERIES.getProperty("invoice.getByUserAndState");
-    private static final String GET_UNPAID_OR_CLOSED_BY_USER = QUERIES.getProperty("invoice.getUnpaidOrClosedByUser");
-    private static final String GET_CURRENT_INVOICE = QUERIES.getProperty("invoice.getCurrentInvoice");
+    private static final String GET_PAGED_BY_USER = QUERIES.getProperty("invoice.getPagedByUser");
+    private static final String GET_PAGED_BY_STATE = QUERIES.getProperty("invoice.getPagedByState");
+    private static final String COUNT_BY_USER = QUERIES.getProperty("invoice.countByUser");
+    private static final String COUNT_BY_STATE = QUERIES.getProperty("invoice.countByState");
     private static final String GET_BY_STATE = QUERIES.getProperty("invoice.getByState");
-    private static final String GET_BY_USER = QUERIES.getProperty("invoice.getByUser");
     private static final String DELETE = QUERIES.getProperty("invoice.delete");
 
     public JdbcInvoiceDao(QueryTemplate template) {
@@ -70,23 +74,6 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     }
 
     @Override
-    public Invoice getUnpaidOrClosedByUser(User user) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, user.getId());
-
-        return template.queryOne(GET_UNPAID_OR_CLOSED_BY_USER, params, new InvoiceMapper(user));
-    }
-
-//    @Override
-//    public Invoice getCurrentInvoice(User user) throws DataAccessException {
-//        Map<Integer, Object> params = new HashMap<>();
-//        params.put(1, user.getId());
-//
-//
-//        return template.queryOne(GET_CURRENT_INVOICE, params, new InvoiceMapper(user));
-//    }
-
-    @Override
     public Collection<Invoice> getByState(InvoiceState state) {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, state.name());
@@ -95,11 +82,42 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     }
 
     @Override
-    public Collection<Invoice> getByUser(User user) {
+    public Page<Invoice> getByUser(User user, Pageable pageable) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, user.getId());
+        params.put(2, pageable.getPageSize());
+        params.put(3, pageable.getOffset());
+
+        final Collection<Invoice> invoices = template.queryAll(GET_PAGED_BY_USER, params, new InvoiceMapper());
+        final Integer total = countInvoicesByUser(user);
+
+        return new Page<>(invoices, total, pageable.getPageNumber());
+    }
+
+    private Integer countInvoicesByUser(User user) {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, user.getId());
 
-        return template.queryAll(GET_BY_USER, params, new InvoiceMapper(user));
+        return template.queryOne(COUNT_BY_USER, params, (rs) -> rs.getInt("total"));
+    }
+
+    @Override
+    public Page<Invoice> getByState(InvoiceState state, Pageable pageable) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, state.name());
+        params.put(2, pageable.getPageSize());
+        params.put(3, pageable.getOffset());
+
+        Collection<Invoice> invoices = template.queryAll(GET_PAGED_BY_STATE, params, new InvoiceMapper());
+        Integer total = countInvoicesByUser(state);
+
+        return new Page<>(invoices, total, pageable.getPageNumber());
+    }
+
+    private Integer countInvoicesByUser(InvoiceState state) {
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, state.name());
+        return template.queryOne(COUNT_BY_STATE, params, (rs) -> rs.getInt("total"));
     }
 
     @Override

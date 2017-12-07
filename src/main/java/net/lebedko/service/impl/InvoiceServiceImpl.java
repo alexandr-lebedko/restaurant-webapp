@@ -1,6 +1,8 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.InvoiceDao;
+import net.lebedko.dao.paging.Page;
+import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.entity.order.Order;
@@ -10,7 +12,6 @@ import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
 
-import java.util.Collection;
 import java.util.NoSuchElementException;
 
 import static java.util.Objects.nonNull;
@@ -43,8 +44,13 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public Collection<Invoice> getInvoices(User user) {
-        return template.doTxService(() -> invoiceDao.getByUser(user));
+    public Page<Invoice> getInvoices(User user, Pageable pageable) {
+        return template.doTxService(() -> invoiceDao.getByUser(user, pageable));
+    }
+
+    @Override
+    public Page<Invoice> getByState(InvoiceState state, Pageable pageable) {
+        return template.doTxService(()->invoiceDao.getByState(state, pageable));
     }
 
     @Override
@@ -81,11 +87,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     private Invoice createInvoice(User user) {
         return template.doTxService(() -> invoiceDao.insert(new Invoice(user)));
-    }
-
-    @Override
-    public Collection<Invoice> getByState(InvoiceState state) {
-        return template.doTxService(() -> invoiceDao.getByState(state));
     }
 
     @Override

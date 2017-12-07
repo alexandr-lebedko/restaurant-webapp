@@ -1,5 +1,7 @@
 package net.lebedko.web.command.impl.client;
 
+import net.lebedko.dao.paging.Page;
+import net.lebedko.entity.order.Order;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.OrderService;
 import net.lebedko.service.exception.ServiceException;
@@ -7,6 +9,7 @@ import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
@@ -21,7 +24,10 @@ public class ClientGetOrdersCommand extends AbstractCommand {
 
     @Override
     protected IResponseAction doExecute(IContext context) throws ServiceException {
-        context.addRequestAttribute(Attribute.ORDERS, orderService.getByUser(context.getSessionAttribute(User.class, Attribute.USER)));
+        final User user = context.getSessionAttribute(User.class, Attribute.USER);
+        final Page<Order> orderPage = orderService.getByUser(user, CommandUtils.parsePageable(context));
+
+        context.addRequestAttribute(Attribute.PAGED_DATA, orderPage);
         return ORDERS_FORWARD;
     }
 

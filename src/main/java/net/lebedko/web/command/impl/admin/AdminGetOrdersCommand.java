@@ -1,5 +1,6 @@
 package net.lebedko.web.command.impl.admin;
 
+import net.lebedko.dao.paging.Page;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.service.OrderService;
@@ -7,10 +8,10 @@ import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.WebConstant;
 
-import java.util.Collection;
 import java.util.NoSuchElementException;
 
 public class AdminGetOrdersCommand extends AbstractAdminCommand {
@@ -23,10 +24,10 @@ public class AdminGetOrdersCommand extends AbstractAdminCommand {
     @Override
     protected IResponseAction _doExecute(IContext context) throws ServiceException {
         final OrderState orderState = parseState(context);
-        final Collection<Order> orders = orderService.getByState(orderState);
+        final Page<Order> ordersPage = orderService.getByState(orderState, CommandUtils.parsePageable(context));
 
         context.addRequestAttribute(Attribute.ORDER_STATE, orderState);
-        context.addRequestAttribute(Attribute.ORDERS, orders);
+        context.addRequestAttribute(Attribute.PAGED_DATA, ordersPage);
 
         return ORDERS_FORWARD;
     }

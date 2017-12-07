@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -42,7 +42,8 @@
                     </li>
                 </ul>
             </div>
-            <c:if test="${!empty requestScope.get(Attribute.INVOICES)}">
+
+            <c:if test="${not empty requestScope.get(Attribute.PAGED_DATA).content}">
                 <div class="col-lg-8 unselectable">
                     <h4 class="text-center mb-3"><fmt:message key="invoices"/></h4>
                     <table class="table border table-bordered table-text-center table-hover">
@@ -57,7 +58,7 @@
                         </tr>
                         </thead>
                         <tbody class="table-sm">
-                        <c:forEach var="invoice" items="${requestScope.get(Attribute.INVOICES)}">
+                        <c:forEach var="invoice" items="${requestScope.get(Attribute.PAGED_DATA).content}">
                             <c:url var="orderInfo" value="${URL.ADMIN_INVOICE}">
                                 <c:param name="${Attribute.INVOICE_ID}" value="${invoice.id}"/>
                             </c:url>
@@ -72,6 +73,10 @@
                         </c:forEach>
                         </tbody>
                     </table>
+
+                    <t:paging pagingUrl="${URL.ADMIN_INVOICES}"
+                              params="${params}"
+                              data="${requestScope.get(Attribute.PAGED_DATA)}"/>
                 </div>
             </c:if>
         </div>

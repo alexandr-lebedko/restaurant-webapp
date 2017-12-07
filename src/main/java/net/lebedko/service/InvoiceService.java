@@ -1,10 +1,10 @@
 package net.lebedko.service;
 
+import net.lebedko.dao.paging.Page;
+import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.entity.user.User;
-
-import java.util.Collection;
 
 public interface InvoiceService {
 
@@ -12,15 +12,15 @@ public interface InvoiceService {
 
     Invoice getInvoice(Long invoiceId, User user);
 
-    Collection<Invoice> getInvoices(User user);
+    Page<Invoice> getInvoices(User user, Pageable pageable);
+
+    Page<Invoice> getByState(InvoiceState state, Pageable pageable);
 
     Invoice getUnpaidOrCreate(User user);
 
     Invoice getUnpaid(User user);
 
     void payInvoice(Long id, User user);
-
-    Collection<Invoice> getByState(InvoiceState state);
 
     void update(Invoice invoice);
 

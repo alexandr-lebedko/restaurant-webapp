@@ -1,11 +1,12 @@
 package net.lebedko.service;
 
+import net.lebedko.dao.paging.Page;
+import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
 
@@ -17,9 +18,11 @@ public interface OrderService {
 
     Order getByUserAndId(Long orderId, User user);
 
-    Collection<Order> getByUser(User user);
-
     Collection<Order> getByState(OrderState state);
+
+    Page<Order> getByUser(User user, Pageable pageable);
+
+    Page<Order> getByState(OrderState state, Pageable pageable);
 
     Collection<Order> getByInvoice(Invoice invoice);
 
