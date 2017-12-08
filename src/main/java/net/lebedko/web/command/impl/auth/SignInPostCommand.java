@@ -5,7 +5,6 @@ import net.lebedko.entity.user.Password;
 import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserRole;
 import net.lebedko.service.UserService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
@@ -33,7 +32,7 @@ public class SignInPostCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(final IContext context) throws ServiceException {
+    protected IResponseAction doExecute(final IContext context) {
         final Errors errors = new Errors();
 
         final Password password = CommandUtils.parsePassword(context);

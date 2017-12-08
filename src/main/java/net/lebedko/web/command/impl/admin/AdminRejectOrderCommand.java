@@ -1,7 +1,6 @@
 package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.service.OrderService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
@@ -17,7 +16,7 @@ public class AdminRejectOrderCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) throws ServiceException {
+    protected IResponseAction _doExecute(IContext context) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
         orderService.reject(id);
 

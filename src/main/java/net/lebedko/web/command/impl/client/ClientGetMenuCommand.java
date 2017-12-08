@@ -4,7 +4,6 @@ import net.lebedko.entity.item.Category;
 import net.lebedko.entity.item.Item;
 import net.lebedko.service.CategoryService;
 import net.lebedko.service.ItemService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
@@ -31,7 +30,7 @@ private static final IResponseAction MENU_FORWARD = new ForwardAction(PAGE.CLIEN
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) throws ServiceException {
+    protected IResponseAction doExecute(IContext context) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), DEFAULT_CATEGORY);
 
         final Collection<Category> categories = categoryService.getAll();

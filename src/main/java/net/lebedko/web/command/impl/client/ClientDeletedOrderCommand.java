@@ -2,7 +2,6 @@ package net.lebedko.web.command.impl.client;
 
 import net.lebedko.entity.user.User;
 import net.lebedko.service.OrderService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
@@ -20,7 +19,7 @@ public class ClientDeletedOrderCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) throws ServiceException {
+    protected IResponseAction doExecute(IContext context) {
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
 

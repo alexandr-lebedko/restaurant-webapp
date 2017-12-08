@@ -2,10 +2,8 @@ package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
-import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderItemService;
 import net.lebedko.service.OrderService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
@@ -25,7 +23,7 @@ public class AdminGetOrderCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) throws ServiceException {
+    protected IResponseAction _doExecute(IContext context) {
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
         final Order order = orderService.getById(orderId);
         final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);

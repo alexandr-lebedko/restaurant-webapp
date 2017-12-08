@@ -4,7 +4,6 @@ import net.lebedko.dao.paging.Page;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
@@ -23,7 +22,7 @@ public class ClientGetInvoicesCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) throws ServiceException {
+    protected IResponseAction doExecute(IContext context) {
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
         final Page<Invoice> invoicesPage = invoiceService.getInvoices(user, CommandUtils.parsePageable(context));
 

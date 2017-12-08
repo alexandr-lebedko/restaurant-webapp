@@ -4,7 +4,6 @@ import net.lebedko.entity.item.Item;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.OrderBucket;
 import net.lebedko.service.OrderService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
@@ -26,7 +25,7 @@ public class ClientCreateOrderCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) throws ServiceException {
+    protected IResponseAction doExecute(IContext context) {
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
         final OrderBucket bucket = parseBucketForm(context);
 

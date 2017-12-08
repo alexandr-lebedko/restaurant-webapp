@@ -5,7 +5,6 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
@@ -26,7 +25,7 @@ public class AdminGetInvoicesCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) throws ServiceException {
+    protected IResponseAction _doExecute(IContext context){
         final InvoiceState state = parseState(context);
         final Page<Invoice> invoicesPage = invoiceService.getByState(state, CommandUtils.parsePageable(context));
 

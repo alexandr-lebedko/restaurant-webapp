@@ -2,7 +2,6 @@ package net.lebedko.web.command.impl.auth;
 
 import net.lebedko.entity.user.User;
 import net.lebedko.service.UserService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
@@ -31,7 +30,7 @@ public class SignUpPostCommand extends AbstractCommand implements ICommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) throws ServiceException {
+    protected IResponseAction doExecute(IContext context){
         final Errors errors = new Errors();
         final User user = CommandUtils.parseUser(context);
         userValidator.validate(user, errors);

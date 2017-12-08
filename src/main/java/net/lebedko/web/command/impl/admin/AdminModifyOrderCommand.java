@@ -5,7 +5,6 @@ import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
@@ -33,7 +32,7 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) throws ServiceException {
+    protected IResponseAction _doExecute(IContext context) {
         final Collection<OrderItem> modifiedOrderItems = parseOrderItems(context);
 
         orderService.modify(modifiedOrderItems);

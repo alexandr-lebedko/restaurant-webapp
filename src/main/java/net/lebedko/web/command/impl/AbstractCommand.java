@@ -1,6 +1,5 @@
 package net.lebedko.web.command.impl;
 
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.IResponseAction;
@@ -18,5 +17,5 @@ public abstract class AbstractCommand implements ICommand {
         return responseAction;
     }
 
-    protected abstract IResponseAction doExecute(IContext context) throws ServiceException;
+    protected abstract IResponseAction doExecute(IContext context) ;
 }

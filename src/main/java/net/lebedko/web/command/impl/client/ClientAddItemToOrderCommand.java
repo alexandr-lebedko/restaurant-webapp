@@ -3,7 +3,6 @@ package net.lebedko.web.command.impl.client;
 import net.lebedko.entity.item.Item;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderBucket;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
@@ -23,7 +22,7 @@ public class ClientAddItemToOrderCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) throws ServiceException {
+    protected IResponseAction doExecute(IContext context) {
         final OrderBucket bucket = getOrderBucket(context);
         final Item item = getItem(context, bucket);
 
@@ -37,7 +36,7 @@ public class ClientAddItemToOrderCommand extends AbstractCommand {
         );
     }
 
-    private Item getItem(IContext context, OrderBucket bucket) throws ServiceException {
+    private Item getItem(IContext context, OrderBucket bucket) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ITEM_ID));
         return ofNullable(bucket.getItem(id))
                 .orElse(itemService.get(id));

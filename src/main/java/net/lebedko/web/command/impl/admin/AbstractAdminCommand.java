@@ -2,9 +2,7 @@ package net.lebedko.web.command.impl.admin;
 
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderState;
-import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
@@ -20,7 +18,7 @@ public abstract class AbstractAdminCommand extends AbstractCommand {
     }
 
     @Override
-    protected final IResponseAction doExecute(IContext context) throws ServiceException {
+    protected final IResponseAction doExecute(IContext context) {
         IResponseAction responseAction = _doExecute(context);
 
         addOrderAndInvoiceStatistics(context);
@@ -36,5 +34,5 @@ public abstract class AbstractAdminCommand extends AbstractCommand {
     }
 
 
-    protected abstract IResponseAction _doExecute(IContext context) throws ServiceException;
+    protected abstract IResponseAction _doExecute(IContext context);
 }

@@ -4,7 +4,6 @@ import net.lebedko.dao.paging.Page;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.service.OrderService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
@@ -22,7 +21,7 @@ public class AdminGetOrdersCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) throws ServiceException {
+    protected IResponseAction _doExecute(IContext context) {
         final OrderState orderState = parseState(context);
         final Page<Order> ordersPage = orderService.getByState(orderState, CommandUtils.parsePageable(context));
 
