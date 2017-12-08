@@ -1,7 +1,6 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.service.FileService;
-import net.lebedko.service.exception.ServiceException;
 import net.lebedko.web.util.constant.Image;
 
 import java.io.File;
@@ -13,7 +12,7 @@ import java.util.UUID;
 
 public class FileServiceImpl implements FileService {
     @Override
-    public String saveImg(InputStream inputStream) throws ServiceException {
+    public String saveImg(InputStream inputStream) {
         try {
             String fileName = generateUniqueImageName();
             Files.copy(inputStream,
@@ -21,7 +20,7 @@ public class FileServiceImpl implements FileService {
                     StandardCopyOption.REPLACE_EXISTING);
             return fileName;
         } catch (IOException e) {
-            throw new ServiceException(e);
+            throw new RuntimeException(e);
         }
     }
 

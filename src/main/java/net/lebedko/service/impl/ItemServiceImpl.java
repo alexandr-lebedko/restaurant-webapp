@@ -1,11 +1,11 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.ItemDao;
+import net.lebedko.dao.TransactionManager;
 import net.lebedko.entity.item.Category;
 import net.lebedko.entity.item.Item;
 import net.lebedko.service.FileService;
 import net.lebedko.service.ItemService;
-import net.lebedko.service.exception.ServiceException;
 
 import java.io.InputStream;
 import java.util.Collection;
@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemServiceImpl implements ItemService {
-    private ServiceTemplate template;
+    private TransactionManager txManager;
     private FileService fileService;
     private ItemDao itemDao;
 
-    public ItemServiceImpl(ServiceTemplate template, FileService fileService, ItemDao itemDao) {
-        this.template = template;
+    public ItemServiceImpl(TransactionManager txManager, FileService fileService, ItemDao itemDao) {
+        this.txManager = txManager;
         this.fileService = fileService;
         this.itemDao = itemDao;
     }
@@ -27,9 +27,9 @@ public class ItemServiceImpl implements ItemService {
     public Item insert(final Item item, final InputStream image) {
         String imageId = fileService.saveImg(image);
         try {
-            return template.doTxService(() ->
+            return txManager.tx(() ->
                     itemDao.insert(new Item(item.getTitle(), item.getDescription(), item.getCategory(), item.getPrice(), imageId)));
-        } catch (ServiceException e) {
+        } catch (RuntimeException e) {
             fileService.deleteFile(imageId);
             throw e;
         }
@@ -37,16 +37,16 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void update(Item item) {
-        template.doTxService(() -> itemDao.update(item));
+        txManager.tx(() -> itemDao.update(item));
     }
 
     @Override
     public void update(Item item, InputStream image) {
         String imageId = fileService.saveImg(image);
         try {
-            template.doTxService(() -> itemDao.update(
+            txManager.tx(() -> itemDao.update(
                     new Item(item.getId(), item.getTitle(), item.getDescription(), item.getCategory(), item.getPrice(), imageId)));
-        } catch (ServiceException e) {
+        } catch (RuntimeException e) {
             fileService.deleteFile(imageId);
             throw e;
         }
@@ -54,18 +54,18 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item get(Long id) {
-        return template.doTxService(() -> itemDao.findById(id));
+        return txManager.tx(() -> itemDao.findById(id));
     }
 
     @Override
     public List<Item> get(List<Long> ids) {
-        return template.doTxService(() -> ids.stream()
+        return txManager.tx(() -> ids.stream()
                 .map(itemDao::findById)
                 .collect(Collectors.toList()));
     }
 
     @Override
     public Collection<Item> getByCategory(Category category) {
-        return template.doTxService(() -> itemDao.getByCategory(category));
+        return txManager.tx(() -> itemDao.getByCategory(category));
     }
 }

@@ -1,27 +1,27 @@
 package net.lebedko.service.impl;
 
+import net.lebedko.dao.TransactionManager;
 import net.lebedko.dao.UserDao;
 import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.UserService;
-import net.lebedko.service.exception.ServiceException;
 
 public class UserServiceImpl implements UserService {
-    private ServiceTemplate template;
+    private TransactionManager txManager;
     private UserDao userDao;
 
-    public UserServiceImpl(ServiceTemplate template, UserDao userDao) {
-        this.template = template;
+    public UserServiceImpl(TransactionManager txManager, UserDao userDao) {
+        this.txManager = txManager;
         this.userDao = userDao;
     }
 
     @Override
     public User register(User user) {
-        return template.doTxService(() -> userDao.insert(user));
+        return txManager.tx(() -> userDao.insert(user));
     }
 
     @Override
     public User findByEmail(EmailAddress address) {
-        return template.doTxService(() -> userDao.findByEmail(address));
+        return txManager.tx(() -> userDao.findByEmail(address));
     }
 }

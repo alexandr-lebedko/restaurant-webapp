@@ -1,6 +1,7 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.OrderDao;
+import net.lebedko.dao.TransactionManager;
 import net.lebedko.dao.paging.Page;
 import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.general.Price;
@@ -17,14 +18,14 @@ import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 
 public class OrderServiceImpl implements OrderService {
-    private ServiceTemplate template;
+    private TransactionManager txManager;
     private InvoiceService invoiceService;
     private OrderItemService orderItemService;
 
     private OrderDao orderDao;
 
-    OrderServiceImpl(ServiceTemplate template, InvoiceService invoiceService, OrderItemService orderItemService, OrderDao orderDao) {
-        this.template = template;
+    OrderServiceImpl(TransactionManager txManager, InvoiceService invoiceService, OrderItemService orderItemService, OrderDao orderDao) {
+        this.txManager = txManager;
         this.invoiceService = invoiceService;
         this.orderItemService = orderItemService;
         this.orderDao = orderDao;
@@ -32,37 +33,37 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getById(Long id) {
-        return orderDao.findById(id);
+        return txManager.tx(() -> orderDao.findById(id));
     }
 
     @Override
     public Order getByUserAndId(Long id, User user) {
-        return template.doTxService(() -> orderDao.getByOrderIdAndUser(id, user));
+        return txManager.tx(() -> orderDao.getByOrderIdAndUser(id, user));
     }
 
     @Override
     public Collection<Order> getByState(OrderState state) {
-        return template.doTxService(() -> orderDao.getByState(state));
+        return txManager.tx(() -> orderDao.getByState(state));
     }
 
     @Override
     public Page<Order> getByUser(User user, Pageable pageable) {
-        return template.doTxService(()->orderDao.getByUser(user, pageable));
+        return txManager.tx(() -> orderDao.getByUser(user, pageable));
     }
 
     @Override
     public Page<Order> getByState(OrderState state, Pageable pageable) {
-        return template.doTxService(() -> orderDao.getByState(state, pageable));
+        return txManager.tx(() -> orderDao.getByState(state, pageable));
     }
 
     @Override
     public Collection<Order> getByInvoice(Invoice invoice) {
-        return template.doTxService(() -> orderDao.getByInvoice(invoice));
+        return txManager.tx(() -> orderDao.getByInvoice(invoice));
     }
 
     @Override
     public void createOrder(User user, OrderBucket bucket) {
-        template.doTxService(() -> {
+        txManager.tx(() -> {
             final Invoice invoice = invoiceService.getUnpaidOrCreate(user);
             final Order order = orderDao.insert(new Order(invoice));
 
@@ -74,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void process(Long orderId) {
-        template.doTxService(() -> {
+        txManager.tx(() -> {
             final Order order = ofNullable(orderDao.findById(orderId))
                     .filter(o -> o.getState().equals(OrderState.NEW))
                     .map(o -> new Order(o.getId(), o.getInvoice(), OrderState.PROCESSED, o.getCreatedOn()))
@@ -98,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void reject(Long id) {
-        template.doTxService(() -> {
+        txManager.tx(() -> {
             ofNullable(orderDao.findById(id))
                     .filter(order -> order.getState() == OrderState.NEW)
                     .map(order -> new Order(order.getId(), order.getInvoice(), OrderState.REJECTED, order.getCreatedOn()))
@@ -108,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delete(Long id, User user) {
-        template.doTxService(() -> {
+        txManager.tx(() -> {
             final Order order = of(orderDao.getByOrderIdAndUser(id, user))
                     .filter(o -> (o.getState() == OrderState.MODIFIED) || (o.getState() == OrderState.NEW))
                     .orElseThrow(IllegalStateException::new);
@@ -122,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void submitModifiedOrder(Long id, User user) {
-        template.doTxService(() -> {
+        txManager.tx(() -> {
             Order order = orderDao.getByOrderIdAndUser(id, user);
             if (order.getState() != OrderState.MODIFIED) {
                 throw new IllegalStateException("Cannot submit order which not in 'MODIFIED' state");
@@ -133,7 +134,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void modify(Collection<OrderItem> orderItems) {
-        template.doTxService(() -> {
+        txManager.tx(() -> {
             final Order order = orderItems.stream()
                     .map(OrderItem::getOrder)
                     .filter(o -> o.getState() == OrderState.NEW)

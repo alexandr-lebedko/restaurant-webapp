@@ -6,9 +6,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.Callable;
 
-/**
- * alexandr.lebedko : 04.07.2017.
- */
 public abstract class TransactionManager {
 
     protected static final Logger LOG = LogManager.getLogger();

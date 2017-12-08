@@ -1,7 +1,15 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.DaoFactory;
-import net.lebedko.service.*;
+import net.lebedko.dao.TransactionManager;
+import net.lebedko.service.InvoiceService;
+import net.lebedko.service.CategoryService;
+import net.lebedko.service.ItemService;
+import net.lebedko.service.OrderService;
+import net.lebedko.service.UserService;
+import net.lebedko.service.OrderItemService;
+import net.lebedko.service.ServiceFactory;
+import net.lebedko.service.FileService;
 
 public class ServiceFactoryImpl implements ServiceFactory {
     private static final ServiceFactory INSTANCE = new ServiceFactoryImpl();
@@ -10,8 +18,6 @@ public class ServiceFactoryImpl implements ServiceFactory {
         return INSTANCE;
     }
 
-    private DaoFactory daoFactory;
-    private ServiceTemplate serviceTemplate;
     private UserService userService;
     private CategoryService categoryService;
     private ItemService itemService;
@@ -21,17 +27,17 @@ public class ServiceFactoryImpl implements ServiceFactory {
     private FileService fileService;
 
     private ServiceFactoryImpl() {
-        this.daoFactory = DaoFactory.getInstance();
-        this.serviceTemplate = new ServiceTemplate(daoFactory.getTxManager());
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        TransactionManager txManager = daoFactory.getTxManager();
 
         this.fileService = new FileServiceImpl();
-        this.userService = new UserServiceImpl(serviceTemplate, daoFactory.getUserDao());
-        this.itemService = new ItemServiceImpl(serviceTemplate, new FileServiceImpl(), daoFactory.getItemDao());
-        this.categoryService = new CategoryServiceImpl(serviceTemplate, daoFactory.getCategoryDao());
-        this.orderItemService = new OrderItemServiceImpl(serviceTemplate, daoFactory.getOrderItemDao());
-        this.invoiceService = new InvoiceServiceImpl(serviceTemplate, daoFactory.getInvoiceDao());
+        this.userService = new UserServiceImpl(txManager, daoFactory.getUserDao());
+        this.itemService = new ItemServiceImpl(txManager, new FileServiceImpl(), daoFactory.getItemDao());
+        this.categoryService = new CategoryServiceImpl(txManager, daoFactory.getCategoryDao());
+        this.orderItemService = new OrderItemServiceImpl(txManager, daoFactory.getOrderItemDao());
+        this.invoiceService = new InvoiceServiceImpl(txManager, daoFactory.getInvoiceDao());
 
-        this.orderService = new OrderServiceImpl(serviceTemplate, invoiceService, orderItemService, daoFactory.getOrderDao());
+        this.orderService = new OrderServiceImpl(txManager, invoiceService, orderItemService, daoFactory.getOrderDao());
         ((InvoiceServiceImpl) invoiceService).setOrderService(orderService);
     }
 

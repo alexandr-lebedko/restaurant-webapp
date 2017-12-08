@@ -1,6 +1,7 @@
 package net.lebedko.service.impl;
 
 import net.lebedko.dao.OrderItemDao;
+import net.lebedko.dao.TransactionManager;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
@@ -9,41 +10,41 @@ import net.lebedko.service.OrderItemService;
 import java.util.Collection;
 
 public class OrderItemServiceImpl implements OrderItemService {
-    private ServiceTemplate template;
+    private TransactionManager txManager;
     private OrderItemDao orderItemDao;
 
-    public OrderItemServiceImpl(ServiceTemplate template, OrderItemDao orderItemDao) {
-        this.template = template;
+    public OrderItemServiceImpl(TransactionManager txManager, OrderItemDao orderItemDao) {
+        this.txManager = txManager;
         this.orderItemDao = orderItemDao;
     }
 
     @Override
     public Collection<OrderItem> getOrderItems(Invoice invoice) {
-        return template.doTxService(() -> orderItemDao.getByInvoice(invoice));
+        return txManager.tx(() -> orderItemDao.getByInvoice(invoice));
     }
 
     @Override
     public Collection<OrderItem> getOrderItems(Order order) {
-        return template.doTxService(() -> orderItemDao.getByOrder(order));
+        return txManager.tx(() -> orderItemDao.getByOrder(order));
     }
 
     @Override
     public OrderItem insert(OrderItem orderItem) {
-        return template.doTxService(() -> orderItemDao.insert(orderItem));
+        return txManager.tx(() -> orderItemDao.insert(orderItem));
     }
 
     @Override
     public void delete(Collection<OrderItem> orderItems) {
-        template.doTxService(() -> orderItemDao.delete(orderItems));
+        txManager.tx(() -> orderItemDao.delete(orderItems));
     }
 
     @Override
     public void deleteByOrder(Order order) {
-        template.doTxService(()->orderItemDao.deleteByOrder(order));
+        txManager.tx(() -> orderItemDao.deleteByOrder(order));
     }
 
     @Override
     public void update(Collection<OrderItem> orderItems) {
-        template.doTxService(() -> orderItemDao.update(orderItems));
+     txManager.tx(() -> orderItemDao.update(orderItems));
     }
 }
