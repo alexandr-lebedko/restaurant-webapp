@@ -164,21 +164,21 @@
                                 <label class="col-form-label">
                                     <span class="text-muted font-weight-bold">Опис</span>
                                 </label>
-                                <textarea name="${Attribute.DESCRIPTION_UA}" rows="5"
+                                <textarea name="${Attribute.DESCRIPTION_UA}" rows="6"
                                           class="form-control uaDescription">${item.description.value.get(SupportedLocales.UA_CODE)}</textarea>
                             </div>
                             <div class="col">
                                 <label class="col-form-label">
                                     <span class="text-muted font-weight-bold">Description</span>
                                 </label>
-                                <textarea name="${Attribute.DESCRIPTION_EN}" rows="5"
+                                <textarea name="${Attribute.DESCRIPTION_EN}" rows="6"
                                           class="form-control enDescription">${item.description.value.get(SupportedLocales.EN_CODE)}</textarea>
                             </div>
                             <div class="col">
                                 <label class="col-form-label">
                                     <span class="text-muted font-weight-bold">Описание</span>
                                 </label>
-                                <textarea name="${Attribute.DESCRIPTION_RU}" rows="5"
+                                <textarea name="${Attribute.DESCRIPTION_RU}" rows="6"
                                           class="form-control ruDescription">${item.description.value.get(SupportedLocales.RU_CODE)}</textarea>
                             </div>
                         </div>
