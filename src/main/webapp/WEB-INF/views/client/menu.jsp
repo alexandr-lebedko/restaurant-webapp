@@ -52,7 +52,7 @@
                                  data-attr="${Attribute.ITEM_ID}" data-value="${item.id}">
                                 <img class="card-img-top" src="${imageUrl}">
                                 <div class="order-text-block text-center">
-                                    <fmt:message key="page.items.order"/>
+                                    <fmt:message key="make.order"/>
                                 </div>
                                 <div class="card-body">
                                     <h6 class="card-title">${item.title.value.get(lang)}</h6>

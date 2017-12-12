@@ -25,12 +25,12 @@
                 <ul class="nav flex-column border" id="admin-orders-nav">
                     <li class="nav-item ${state eq InvoiceState.UNPAID ? 'active' : ''}">
                         <a class="nav-link" href="${unpaidInvoices}">
-                            <fmt:message key="UNPAID"/>
+                            <fmt:message key="invoices.unpaid"/>
                         </a>
                     </li>
                     <li class="nav-item ${state eq InvoiceState.PAID ? 'active' : ''}">
                         <a class="nav-link" href="${paidInvoices}">
-                            <fmt:message key="PAID"/>
+                            <fmt:message key="invoices.paid"/>
                         </a>
                     </li>
                 </ul>

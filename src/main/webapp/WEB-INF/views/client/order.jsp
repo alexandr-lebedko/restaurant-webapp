@@ -98,7 +98,9 @@
                     <form method="post" action="${rejectOrder}">
                         <input name="${Attribute.ORDER_ID}" value="${order.id}" type="hidden">
                         <button ${(order.state eq OrderState.NEW || order.state eq OrderState.MODIFIED)?"":"disabled"}
-                                class="btn btn-danger btn-lg mr-3 rounded-0"><fmt:message key="reject"/></button>
+                                class="btn btn-danger btn-lg mr-3 rounded-0">
+                            <fmt:message key="reject"/>
+                        </button>
                     </form>
                 </div>
             </div>

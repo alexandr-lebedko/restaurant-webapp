@@ -31,10 +31,9 @@
                                     <th scope="col"><fmt:message key="title"/></th>
                                     <th scope="col"><fmt:message key="price"/></th>
                                     <th scope="col"><fmt:message key="quantity"/></th>
-                                    <th scope="col"><fmt:message key="page.items.remove"/></th>
+                                    <th scope="col"><fmt:message key="remove"/></th>
                                 </tr>
                                 </thead>
-
                                 <tbody class="table-sm">
                                 <c:forEach var="orderItem" items="${orderContent.content}" varStatus="status">
                                     <c:url var="imageUrl" value="${URL.IMAGE_PREFIX.concat(orderItem.key.imageId)}"/>
@@ -68,7 +67,7 @@
                     <div class="col-lg-8">
                         <div class="alert alert-info" role="alert">
                             <h5 class="p-5 text-center">
-                                <fmt:message key="page.items.emptyCard"/>
+                                <fmt:message key="emptyCard"/>
                             </h5>
                         </div>
                     </div>

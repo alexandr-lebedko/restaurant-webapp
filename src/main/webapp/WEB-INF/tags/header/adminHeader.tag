@@ -12,13 +12,13 @@
 <%@attribute name="pageUrl" required="true" %>
 
 <c:url var="orders" value="${URL.ADMIN_MAIN}"/>
-<c:url var="invoices" value="${URL.ADMIN_INVOICES}">
-    <c:param name="${Attribute.INVOICE_STATE}" value="${InvoiceState.UNPAID}"/>
-</c:url>
 <c:url var="categories" value="${URL.ADMIN_CATEGORIES}"/>
 <c:url var="items" value="${URL.ADMIN_ITEMS}"/>
 <c:url var="signOut" value="${URL.SIGN_OUT}"/>
 <c:url var="enPage" value="${pageUrl}">
+    <c:url var="invoices" value="${URL.ADMIN_INVOICES}">
+    <c:param name="${Attribute.INVOICE_STATE}" value="${InvoiceState.UNPAID}"/>
+</c:url>
     <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.EN_CODE}"/>
 </c:url>
 <c:url var="ruPage" value="${pageUrl}">
@@ -39,25 +39,25 @@
                         <a class="nav-link badged" href="${orders}">
                             <i class="fa fa-list-ul" aria-hidden="true"></i>
                             <span class="badge">${sessionScope.get(Attribute.ORDERS_NUM)}</span>
-                            <span><fmt:message key="page.header.orders"/> </span>
+                            <span><fmt:message key="orders"/></span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link badged" href="${invoices}">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
-                            <span><fmt:message key="page.header.invoices"/> </span>
+                            <span><fmt:message key="invoices"/></span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${items}">
                             <i class="fa fa-bars" aria-hidden="true"></i>
-                            <span><fmt:message key="items"/> </span>
+                            <span><fmt:message key="items"/></span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${categories}">
                             <i class="fa fa-th" aria-hidden="true"></i>
-                            <span><fmt:message key="categories"/> </span>
+                            <span><fmt:message key="categories"/></span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -80,7 +80,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${signOut}">
                             <i class="fa fa-sign-out" aria-hidden="true"></i>
-                            <span><fmt:message key="page.header.signOut"/> </span>
+                            <span><fmt:message key="signOut"/></span>
                         </a>
                     </li>
                 </ul>

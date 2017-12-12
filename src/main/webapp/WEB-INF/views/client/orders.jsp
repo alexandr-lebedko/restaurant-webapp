@@ -14,7 +14,9 @@
             <c:set var="orders" value="${requestScope.get(Attribute.PAGED_DATA).content}"/>
             <c:if test="${not empty orders}">
                 <div class="col-lg-8 unselectable">
-                    <h4 class="text-center mb-3 "><fmt:message key="orders"/></h4>
+                    <h4 class="text-center mb-3 ">
+                        <fmt:message key="orders"/>
+                    </h4>
                     <table class="table border table-bordered  table-hover table-text-center">
                         <thead class="bg-light">
                         <tr>

@@ -13,7 +13,9 @@
         <div class="row justify-content-end">
             <div class="col-lg-8">
                 <c:if test="${not empty requestScope.get(Attribute.PAGED_DATA).content}">
-                    <h4 class="text-center mb-3"><fmt:message key="invoices"/></h4>
+                    <h4 class="text-center mb-3">
+                        <fmt:message key="invoices"/>
+                    </h4>
                     <table class="table table-bordered table-text-center table-hover">
                         <thead class="bg-light">
                         <tr>

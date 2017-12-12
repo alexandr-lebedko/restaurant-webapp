@@ -8,19 +8,16 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
+<%@attribute name="pageUrl" required="true" %>
+
 <c:url var="signOut" value="${URL.SIGN_OUT}"/>
 <c:url var="orderCart" value="${URL.CLIENT_ORDER_FORM}"/>
 <c:url var="orders" value="${URL.CLIENT_ORDERS}"/>
 <c:url var="invoices" value="${URL.CLIENT_INVOICES}"/>
 <c:url var="categories" value="${URL.CLIENT_MENU}"/>
-
-
-<%@attribute name="pageUrl" required="true" %>
-
 <c:url var="enPage" value="${pageUrl}">
     <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.EN_CODE}"/>
 </c:url>
-
 <c:url var="ruPage" value="${pageUrl}">
     <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.RU_CODE}"/>
 </c:url>
@@ -52,7 +49,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${orders}">
                             <i class="fa fa-list-ul" aria-hidden="true"></i>
-                            <span><fmt:message key="page.header.orders"/></span>
+                            <span><fmt:message key="orders"/></span>
                         </a>
                     </li>
                     <li class="nav-item" id="order-bucket-nav">
@@ -60,7 +57,7 @@
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             <span id="bucket-amount"
                                   class="badge">${sessionScope.get(Attribute.ORDER_BUCKET).size}</span>
-                            <span><fmt:message key="page.header.orderCart"/></span>
+                            <span><fmt:message key="orderCart"/></span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -83,7 +80,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${signOut}">
                             <i class="fa fa-sign-out" aria-hidden="true"></i>
-                            <span><fmt:message key="page.header.signOut"/> </span>
+                            <span><fmt:message key="signOut"/> </span>
                         </a>
                     </li>
                 </ul>

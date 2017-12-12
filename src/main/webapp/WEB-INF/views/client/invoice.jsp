@@ -42,14 +42,15 @@
                     </tr>
                     </tbody>
                 </table>
-                <c:url var="payInvoice" value="${URL.CLIENT_PAY_INVOICE}"/>
-                <form id="pay-invoice-form" method="post" action="${payInvoice}">
-                    <input type="hidden" name="${Attribute.INVOICE_ID}" value="${invoice.id}">
-                    <button ${invoice.state eq InvoiceState.PAID? "disabled":''}
-                            class="btn btn-block btn-lg btn-success rounded-0">
-                        <fmt:message key="invoice.pay"/>
-                    </button>
-                </form>
+                <c:if test="${invoice.state eq InvoiceState.UNPAID}">
+                    <c:url var="payInvoice" value="${URL.CLIENT_PAY_INVOICE}"/>
+                    <form id="pay-invoice-form" method="post" action="${payInvoice}">
+                        <input type="hidden" name="${Attribute.INVOICE_ID}" value="${invoice.id}">
+                        <button class="btn btn-block btn-lg btn-success rounded-0">
+                            <fmt:message key="invoice.pay"/>
+                        </button>
+                    </form>
+                </c:if>
             </div>
             <div class="col-lg-8">
                 <c:if test="${!empty errors}">
@@ -95,11 +96,12 @@
                     </c:forEach>
                     </tbody>
                 </table>
-                <button ${invoice.state eq InvoiceState.PAID ? "disabled":""}
-                        type="submit" form="pay-invoice-form"
-                        class="btn float-right btn-success rounded-0 font-weight-bold p-3">
-                    <fmt:message key="invoice.pay"/>
-                </button>
+                <c:if test="${invoice.state eq InvoiceState.UNPAID}">
+                    <button type="submit" form="pay-invoice-form"
+                            class="btn float-right btn-success rounded-0 font-weight-bold p-3">
+                        <fmt:message key="invoice.pay"/>
+                    </button>
+                </c:if>
             </div>
         </div>
     </div>

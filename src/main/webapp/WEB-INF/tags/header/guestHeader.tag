@@ -32,13 +32,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${signIn}">
                             <i class="fa fa-sign-in" aria-hidden="true"></i>
-                            <span><fmt:message key="page.signUp.signIn"/></span>
+                            <span><fmt:message key="signIn"/></span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${signUp}">
                             <i class="fa fa-user-plus" aria-hidden="true"></i>
-                            <span><fmt:message key="page.signIn.signUp"/></span>
+                            <span><fmt:message key="signUp"/></span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">

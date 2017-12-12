@@ -3,8 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${lang}"/>
-<fmt:setBundle basename="localization"/>
+<%--<fmt:setLocale value="${lang}"/>--%>
+<%--<fmt:setBundle basename="localization"/>--%>
 <%@ attribute name="pageUrl" required="true" %>
 
 
@@ -29,7 +29,6 @@
     <c:url value="/css/style.css" var="customCss"/>
     <link href='${customCss}' rel="stylesheet"/>
 </head>
-
 <body>
 <t:header pageUrl="${pageUrl}"/>
 <jsp:doBody/>
