@@ -10,7 +10,8 @@
 <fmt:setBundle basename="localization"/>
 
 <c:set var="requestedCategory" value="${requestScope.get(Attribute.CATEGORY)}"/>
-<t:page pageUrl="${URL.ADMIN_ITEMS}">
+
+<t:page pageUrl="${URL.ADMIN_ITEMS.concat('?').concat(Attribute.CATEGORY_ID).concat('=').concat(requestedCategory.id)}">
     <div class="container main-content">
         <div class="row justify-content-between">
 

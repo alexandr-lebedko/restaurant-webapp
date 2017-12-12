@@ -10,14 +10,7 @@
 <fmt:setBundle basename="localization"/>
 
 <c:set var="state" value="${requestScope.get(Attribute.INVOICE_STATE)}"/>
-<c:choose>
-    <c:when test="${state eq InvoiceState.UNPAID}">
-        <c:set var="pageUrl" value="${URL.ADMIN_UNPAID_INVOICES}"/>
-    </c:when>
-    <c:when test="${state eq InvoiceState.PAID}">
-        <c:set var="pageUrl" value="${URL.ADMIN_PAID_INVOICES}"/>
-    </c:when>
-</c:choose>
+<c:set var="pageUrl" value="${URL.ADMIN_INVOICES.concat('?').concat(Attribute.INVOICE_STATE).concat('=').concat(state)}"/>
 
 <t:page pageUrl="${pageUrl}">
     <div class="container main-content">
@@ -45,7 +38,9 @@
 
             <c:if test="${not empty requestScope.get(Attribute.PAGED_DATA).content}">
                 <div class="col-lg-8 unselectable">
-                    <h4 class="text-center mb-3"><fmt:message key="invoices"/></h4>
+                    <h4 class="text-center mb-3">
+                        <fmt:message key="invoices"/>
+                    </h4>
                     <table class="table border table-bordered table-text-center table-hover">
                         <thead>
                         <tr>
