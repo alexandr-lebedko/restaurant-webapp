@@ -1,11 +1,9 @@
 package net.lebedko.dao.jdbc.template;
 
-import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.connection.ConnectionProvider;
 import net.lebedko.dao.jdbc.template.errortranslator.ExceptionTranslator;
 import net.lebedko.dao.jdbc.template.errortranslator.MySqlExceptionTranslator;
 
-import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +26,7 @@ public class QueryTemplate {
         this.exceptionTranslator = exceptionTranslator;
     }
 
-    public <T> T queryOne(String sql, Map<Integer, Object> params, Mapper<T> mapper) throws DataAccessException {
+    public <T> T queryOne(String sql, Map<Integer, Object> params, Mapper<T> mapper) {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
             putParamsToPreparedStatement(ps, params);
             return getOne(ps.executeQuery(), mapper);
@@ -38,11 +36,11 @@ public class QueryTemplate {
     }
 
 
-    public <T> Collection<T> queryAll(String sql, Mapper<T> mapper) throws DataAccessException {
+    public <T> Collection<T> queryAll(String sql, Mapper<T> mapper) {
         return queryAll(sql, Collections.emptyMap(), mapper);
     }
 
-    public <T> Collection<T> queryAll(String sql, Map<Integer, Object> params, Mapper<T> mapper) throws DataAccessException {
+    public <T> Collection<T> queryAll(String sql, Map<Integer, Object> params, Mapper<T> mapper) {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
             putParamsToPreparedStatement(ps, params);
             return getAll(ps.executeQuery(), mapper);
@@ -51,7 +49,7 @@ public class QueryTemplate {
         }
     }
 
-    public void update(String sql, Map<Integer, Object> params) throws DataAccessException {
+    public void update(String sql, Map<Integer, Object> params) {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
             putParamsToPreparedStatement(ps, params);
             ps.executeUpdate();
@@ -60,12 +58,12 @@ public class QueryTemplate {
         }
     }
 
-    public void update(String sql) throws DataAccessException {
+    public void update(String sql) {
         update(sql, Collections.emptyMap());
     }
 
 
-    public long insertAndReturnKey(String sql, Map<Integer, Object> params) throws DataAccessException {
+    public long insertAndReturnKey(String sql, Map<Integer, Object> params) {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             putParamsToPreparedStatement(ps, params);
             ps.executeUpdate();
@@ -77,7 +75,7 @@ public class QueryTemplate {
         }
     }
 
-    public boolean insert(String sql, Map<Integer, Object> params) throws DataAccessException {
+    public boolean insert(String sql, Map<Integer, Object> params) {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
             putParamsToPreparedStatement(ps, params);
             return ps.executeUpdate() > 0;
@@ -102,12 +100,11 @@ public class QueryTemplate {
         return collection;
     }
 
-    public <T> void insertBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) throws DataAccessException {
+    public <T> void insertBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) {
         updateBatch(sql, elements, mapper);
     }
 
-    public <T> void updateBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) throws DataAccessException {
-
+    public <T> void updateBatch(String sql, Collection<T> elements, EntityToParamsMapper<T> mapper) {
         try (PreparedStatement ps = connectionProvider.getConnection().prepareStatement(sql)) {
             prepareBatch(ps, elements, mapper);
             ps.executeBatch();
