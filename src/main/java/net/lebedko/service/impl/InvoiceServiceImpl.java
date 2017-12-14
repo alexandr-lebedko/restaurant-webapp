@@ -65,16 +65,22 @@ public class InvoiceServiceImpl implements InvoiceService {
                     .filter(inv -> inv.getUser().equals(user))
                     .orElseThrow(NoSuchElementException::new);
 
-            orderService.getByInvoice(invoice).stream()
-                    .map(Order::getState)
-                    .filter(this::newOrdModified)
-                    .findFirst()
-                    .ifPresent(order -> {
-                        throw new IllegalStateException("Invoice has new or modified orders and cannot be paid!");
-                    });
+            if (invoice.getState().equals(InvoiceState.PAID)) {
+                throw new IllegalStateException("Invoice already closed");
+            }
+
+            if (hasUnprocessedOrders(invoice)) {
+                throw new IllegalStateException("Invoice has new or modified orders and cannot be paid!");
+            }
 
             invoiceDao.update(new Invoice(invoice.getId(), invoice.getUser(), InvoiceState.PAID, invoice.getAmount(), invoice.getCreatedOn()));
         });
+    }
+
+    private boolean hasUnprocessedOrders(Invoice invoice) {
+        return orderService.getByInvoice(invoice).stream()
+                .map(Order::getState)
+                .anyMatch(state -> (state == OrderState.NEW) || (state == OrderState.MODIFIED));
     }
 
     @Override
@@ -98,8 +104,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     public void delete(Invoice invoice) {
         txManager.tx(() -> invoiceDao.delete(invoice.getId()));
     }
-
-    private boolean newOrdModified(OrderState state) {
-        return (state == OrderState.NEW) || (state == OrderState.MODIFIED);
-    }
+//
+//    private boolean newOrdModified(OrderState state) {
+//        return (state == OrderState.NEW) || (state == OrderState.MODIFIED);
+//    }
 }
