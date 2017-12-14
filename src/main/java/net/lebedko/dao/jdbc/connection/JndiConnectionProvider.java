@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class JndiConnectionProvider implements ConnectionProvider {
+    private static final String DATA_SOURCE_NAME = "jdbc/restaurant";
     private static final Logger LOG = LogManager.getLogger();
     private DataSource dataSource;
 
@@ -19,11 +20,11 @@ public class JndiConnectionProvider implements ConnectionProvider {
         try {
             Context initContext = new InitialContext();
             Context envContext = (Context) initContext.lookup("java:comp/env");
-            dataSource = (DataSource) envContext.lookup("jdbc/restaurant");
+            dataSource = (DataSource) envContext.lookup(DATA_SOURCE_NAME);
             LOG.debug("DataSource created");
         } catch (NamingException e) {
-            LOG.error("Failed to initialize DataSource");
-            throw new RuntimeException("Failed to initialize DataSource", e);
+            LOG.error("Failed to initialize DataSource", e);
+            throw new RuntimeException();
         }
     }
 
