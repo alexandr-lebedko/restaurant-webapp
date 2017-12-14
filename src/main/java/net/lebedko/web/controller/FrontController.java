@@ -35,8 +35,12 @@ public class FrontController extends HttpServlet {
 
             responseAction.executeResponse(req, resp);
             LOG.info("CMD: " + cmd + " EXECUTED");
-        } catch (NoSuchElementException | NullPointerException e) {
+        } catch (NoSuchElementException e) {
+            LOG.error(e);
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }catch (Exception e){
+            LOG.error(e);
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 

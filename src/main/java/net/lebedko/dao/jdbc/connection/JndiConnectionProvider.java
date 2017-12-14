@@ -24,7 +24,6 @@ public class JndiConnectionProvider implements ConnectionProvider {
             LOG.debug("DataSource created");
         } catch (NamingException e) {
             LOG.error("Failed to initialize DataSource", e);
-            throw new RuntimeException();
         }
     }
 
