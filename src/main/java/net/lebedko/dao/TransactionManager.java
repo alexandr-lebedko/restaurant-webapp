@@ -1,6 +1,5 @@
 package net.lebedko.dao;
 
-import net.lebedko.dao.exception.DataAccessException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,18 +9,18 @@ public abstract class TransactionManager {
 
     protected static final Logger LOG = LogManager.getLogger();
 
-    protected abstract void begin() throws DataAccessException;
+    protected abstract void begin();
 
-    protected abstract void rollback() throws DataAccessException;
+    protected abstract void rollback();
 
-    protected abstract void commit() throws DataAccessException;
+    protected abstract void commit();
 
-    public final <T> T tx(Callable<T> work) throws DataAccessException {
+    public final <T> T tx(Callable<T> work) {
         try {
             begin();
             T result = work.call();
             commit();
-            return  result;
+            return result;
         } catch (RuntimeException e) {
             rollback();
             throw e;
@@ -31,7 +30,7 @@ public abstract class TransactionManager {
         }
     }
 
-    public final void tx(Runnable work) throws DataAccessException {
+    public final void tx(Runnable work) {
         try {
             begin();
             work.run();
