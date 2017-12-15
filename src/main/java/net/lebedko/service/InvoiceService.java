@@ -18,8 +18,6 @@ public interface InvoiceService {
 
     Invoice getUnpaidOrCreate(User user);
 
-    Invoice getUnpaid(User user);
-
     void payInvoice(Long id, User user);
 
     void update(Invoice invoice);

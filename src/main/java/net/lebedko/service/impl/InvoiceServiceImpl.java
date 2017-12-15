@@ -54,11 +54,6 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public Invoice getUnpaid(User user) {
-        return txManager.tx(() -> invoiceDao.getByUserAndState(user, InvoiceState.UNPAID));
-    }
-
-    @Override
     public void payInvoice(Long id, User user) {
         txManager.tx(() -> {
             Invoice invoice = ofNullable(invoiceDao.findById(id))
@@ -86,13 +81,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice getUnpaidOrCreate(User user) {
         return txManager.tx(() -> {
-            Invoice unpaidInvoice = getUnpaid(user);
-            return nonNull(unpaidInvoice) ? unpaidInvoice : createInvoice(user);
-        });
-    }
+            Invoice unpaidInvoice = invoiceDao.getByUserAndState(user, InvoiceState.UNPAID);
 
-    private Invoice createInvoice(User user) {
-        return txManager.tx(() -> invoiceDao.insert(new Invoice(user)));
+            return nonNull(unpaidInvoice) ? unpaidInvoice : invoiceDao.insert(new Invoice(user));
+        });
     }
 
     @Override
@@ -104,8 +96,4 @@ public class InvoiceServiceImpl implements InvoiceService {
     public void delete(Invoice invoice) {
         txManager.tx(() -> invoiceDao.delete(invoice.getId()));
     }
-//
-//    private boolean newOrdModified(OrderState state) {
-//        return (state == OrderState.NEW) || (state == OrderState.MODIFIED);
-//    }
 }
