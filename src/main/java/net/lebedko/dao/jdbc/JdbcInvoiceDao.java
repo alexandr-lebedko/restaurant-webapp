@@ -1,14 +1,12 @@
 package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.InvoiceDao;
-import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.mapper.InvoiceMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.dao.paging.Page;
 import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceState;
-import net.lebedko.entity.order.Order;
 import net.lebedko.entity.user.User;
 
 import java.sql.Timestamp;
@@ -25,7 +23,6 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     private static final String GET_PAGED_BY_STATE = QUERIES.getProperty("invoice.getPagedByState");
     private static final String COUNT_BY_USER = QUERIES.getProperty("invoice.countByUser");
     private static final String COUNT_BY_STATE = QUERIES.getProperty("invoice.countByState");
-    private static final String GET_BY_STATE = QUERIES.getProperty("invoice.getByState");
     private static final String DELETE = QUERIES.getProperty("invoice.delete");
 
     public JdbcInvoiceDao(QueryTemplate template) {
@@ -71,14 +68,6 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
         params.put(3, invoice.getId());
 
         template.update(UPDATE, params);
-    }
-
-    @Override
-    public Collection<Invoice> getByState(InvoiceState state) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, state.name());
-
-        return template.queryAll(GET_BY_STATE, params, new InvoiceMapper());
     }
 
     @Override

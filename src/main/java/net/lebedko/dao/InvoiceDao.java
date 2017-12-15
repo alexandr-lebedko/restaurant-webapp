@@ -12,8 +12,6 @@ public interface InvoiceDao extends GenericDao<Invoice, Long> {
 
     Invoice getByUserAndState(User user, InvoiceState state);
 
-    Collection<Invoice> getByState(InvoiceState state);
-
     Page<Invoice> getByUser(User user, Pageable pageable);
 
     Page<Invoice> getByState(InvoiceState state, Pageable pageable);
