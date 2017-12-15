@@ -1,15 +1,15 @@
 package net.lebedko;
 
+import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.general.*;
+import net.lebedko.entity.invoice.Invoice;
+import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.entity.user.*;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import net.lebedko.entity.user.UserRole;
-
-/**
- * alexandr.lebedko : 04.05.2017.
- */
 
 public class EntityGenerator {
 
@@ -35,6 +35,21 @@ public class EntityGenerator {
         return getRandom(passwords);
     }
 
+    public static Invoice getInvoice() {
+        return new Invoice(getLong(), getUser(), getInvoiceState(), getPrice(), LocalDateTime.now());
+    }
+
+    public static InvoiceState getInvoiceState() {
+        return InvoiceState.values()[new Random().nextInt(InvoiceState.values().length)];
+    }
+
+    public static Long getLong() {
+        return new Random().nextLong();
+    }
+
+    public static Pageable getPageable() {
+        return new Pageable(new Random().nextInt(10));
+    }
 
     public static EmailAddress[] getEmailAddresses() {
         return emailAddresses;
