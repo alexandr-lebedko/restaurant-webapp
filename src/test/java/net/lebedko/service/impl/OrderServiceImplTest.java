@@ -3,7 +3,6 @@ package net.lebedko.service.impl;
 import net.lebedko.EntityGenerator;
 import net.lebedko.dao.OrderDao;
 import net.lebedko.dao.TransactionManager;
-import net.lebedko.dao.TransactionManagerStub;
 import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;

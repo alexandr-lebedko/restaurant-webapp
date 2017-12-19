@@ -2,7 +2,6 @@ package net.lebedko.service.impl;
 
 import net.lebedko.dao.CategoryDao;
 import net.lebedko.dao.TransactionManager;
-import net.lebedko.dao.TransactionManagerStub;
 import net.lebedko.entity.item.Category;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +15,9 @@ import static org.mockito.Mockito.*;
 public class CategoryServiceImplTest {
 
     private CategoryServiceImpl categoryService;
-    private TransactionManager txManager = new TransactionManagerStub();
 
+    @Mock
+    private TransactionManager txManager;
     @Mock
     private CategoryDao categoryDao;
     @Mock

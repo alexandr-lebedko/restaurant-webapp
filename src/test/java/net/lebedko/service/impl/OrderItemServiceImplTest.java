@@ -3,7 +3,6 @@ package net.lebedko.service.impl;
 import net.lebedko.EntityGenerator;
 import net.lebedko.dao.OrderItemDao;
 import net.lebedko.dao.TransactionManager;
-import net.lebedko.dao.TransactionManagerStub;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
@@ -20,8 +19,8 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderItemServiceImplTest {
-
-    private TransactionManager txManager = new TransactionManagerStub();
+    @Mock
+    private TransactionManager txManager;
 
     @Mock
     private OrderItemDao orderItemDao;

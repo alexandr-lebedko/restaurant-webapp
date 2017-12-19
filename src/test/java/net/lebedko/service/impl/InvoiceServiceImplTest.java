@@ -3,7 +3,6 @@ package net.lebedko.service.impl;
 import net.lebedko.EntityGenerator;
 import net.lebedko.dao.InvoiceDao;
 import net.lebedko.dao.TransactionManager;
-import net.lebedko.dao.TransactionManagerStub;
 import net.lebedko.dao.paging.Pageable;
 import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceState;
@@ -29,8 +28,9 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InvoiceServiceImplTest {
-    private TransactionManager txManager = new TransactionManagerStub();
 
+    @Mock
+    private TransactionManager txManager;
     @Mock
     private InvoiceDao invoiceDao;
     @Mock

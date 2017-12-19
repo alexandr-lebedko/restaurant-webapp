@@ -2,7 +2,6 @@ package net.lebedko.service.impl;
 
 import net.lebedko.EntityGenerator;
 import net.lebedko.dao.TransactionManager;
-import net.lebedko.dao.TransactionManagerStub;
 import net.lebedko.dao.UserDao;
 import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.entity.user.User;
@@ -19,7 +18,8 @@ public class UserServiceImplTest {
     @Mock
     private UserDao userDao;
 
-    private TransactionManager txManager = new TransactionManagerStub();
+    @Mock
+    private TransactionManager txManager;
 
     private UserServiceImpl userService;
 
