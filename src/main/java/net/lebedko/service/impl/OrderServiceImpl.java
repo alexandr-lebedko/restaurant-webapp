@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
             final Order order = ofNullable(orderDao.findById(orderId))
                     .filter(o -> o.getState().equals(OrderState.NEW))
                     .map(o -> new Order(o.getId(), o.getInvoice(), OrderState.PROCESSED, o.getCreatedOn()))
-                    .orElseThrow(IllegalArgumentException::new);
+                    .orElseThrow(IllegalStateException::new);
 
             final Price orderSum = orderItemService.getOrderItems(order).stream()
                     .map(OrderItem::getPrice)
@@ -139,7 +139,7 @@ public class OrderServiceImpl implements OrderService {
                     .map(OrderItem::getOrder)
                     .filter(o -> o.getState() == OrderState.NEW)
                     .findFirst()
-                    .orElseThrow(IllegalArgumentException::new);
+                    .orElseThrow(IllegalStateException::new);
 
             orderItemService.deleteByOrder(order);
             orderItems.forEach(orderItemService::insert);
