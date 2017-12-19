@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import net.lebedko.entity.user.UserRole;
+import net.lebedko.service.OrderBucket;
 import net.lebedko.util.SupportedLocales;
 
 public class EntityGenerator {
@@ -53,6 +54,10 @@ public class EntityGenerator {
         return getRandom(emailAddresses);
     }
 
+    public static OrderState getOrderState() {
+        return getRandom(OrderState.values());
+    }
+
     public static Invoice getInvoice() {
         return new Invoice(getLong(), getUser(), getInvoiceState(), getPrice(), LocalDateTime.now());
     }
@@ -78,7 +83,17 @@ public class EntityGenerator {
     }
 
     public static Order getOrder() {
-        return new Order(getLong(), getInvoice(), getRandom(OrderState.values()), LocalDateTime.now());
+        return new Order(getLong(), getInvoice(), getOrderState(), LocalDateTime.now());
+    }
+
+    public static OrderBucket getOrderBucket() {
+        OrderBucket orderBucket = new OrderBucket();
+        int limit = 1 + new Random().nextInt(10);
+
+        for (int i = 0; i < limit; i++) {
+            orderBucket.add(getItem(), getLong());
+        }
+        return orderBucket;
     }
 
     public static OrderItem getOrderItem() {
