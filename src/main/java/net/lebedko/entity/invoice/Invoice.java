@@ -54,8 +54,7 @@ public class Invoice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invoice invoice = (Invoice) o;
-        return Objects.equals(id, invoice.id) &&
-                Objects.equals(user, invoice.user) &&
+        return Objects.equals(user, invoice.user) &&
                 state == invoice.state &&
                 Objects.equals(amount, invoice.amount) &&
                 Objects.equals(createdOn, invoice.createdOn);
@@ -63,7 +62,7 @@ public class Invoice {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, state, amount, createdOn);
+        return Objects.hash(user, state, amount, createdOn);
     }
 
     @Override

@@ -3,6 +3,8 @@ package net.lebedko.entity.order;
 import net.lebedko.entity.general.Price;
 import net.lebedko.entity.item.Item;
 
+import java.util.Objects;
+
 public class OrderItem {
     private Long id;
     private Order order;
@@ -38,6 +40,22 @@ public class OrderItem {
 
     public Price getPrice() {
         return new Price(item.getPrice().getValue() * quantity);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItem orderItem = (OrderItem) o;
+        return Objects.equals(id, orderItem.id) &&
+                Objects.equals(order, orderItem.order) &&
+                Objects.equals(item, orderItem.item) &&
+                Objects.equals(quantity, orderItem.quantity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, order, item, quantity);
     }
 
     @Override
