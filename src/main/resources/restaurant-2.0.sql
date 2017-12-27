@@ -30,6 +30,23 @@ CREATE TABLE items (
   CONSTRAINT UNIQUE (i_en_title, i_category)
 );
 
+CREATE TABLE users (
+  u_id            BIGINT AUTO_INCREMENT PRIMARY KEY,
+  u_role          ENUM ('CLIENT', 'ADMIN'),
+  u_email         VARCHAR(30) NOT NULL UNIQUE,
+  u_first_name    VARCHAR(20) NOT NULL,
+  u_last_name     VARCHAR(20) NOT NULL,
+  u_password_hash CHAR(32)    NOT NULL
+);
+
+CREATE TABLE invoices (
+  inv_id       BIGINT AUTO_INCREMENT PRIMARY KEY,
+  inv_user     BIGINT        NOT NULL,
+  inv_price    DOUBLE(10, 2) NOT NULL CHECK (inv_price >= 0.0),
+  inv_state    ENUM ('PAID', 'UNPAID'),
+  inv_creation TIMESTAMP     NOT NULL
+);
+
 CREATE TABLE orders (
   o_id       BIGINT AUTO_INCREMENT PRIMARY KEY,
   o_invoice  BIGINT       NOT NULL,
@@ -47,19 +64,3 @@ CREATE TABLE order_items (
   CONSTRAINT FOREIGN KEY (oi_item) REFERENCES items (i_id)
 );
 
-CREATE TABLE users (
-  u_id            BIGINT AUTO_INCREMENT PRIMARY KEY,
-  u_role          ENUM ('CLIENT', 'ADMIN'),
-  u_email         VARCHAR(30) NOT NULL UNIQUE,
-  u_first_name    VARCHAR(20) NOT NULL,
-  u_last_name     VARCHAR(20) NOT NULL,
-  u_password_hash CHAR(32)    NOT NULL
-);
-
-CREATE TABLE invoices (
-  inv_id       BIGINT AUTO_INCREMENT PRIMARY KEY,
-  inv_user     BIGINT        NOT NULL,
-  inv_price    DOUBLE(10, 2) NOT NULL CHECK (inv_price >= 0.0),
-  inv_state    ENUM ('ACTIVE','CLOSED','PAID', 'UNPAID'),
-  inv_creation TIMESTAMP     NOT NULL
-);
