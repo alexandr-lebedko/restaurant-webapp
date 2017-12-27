@@ -1,7 +1,7 @@
 package net.lebedko.dao.jdbc.template.errortranslator;
 
 import net.lebedko.dao.exception.DataAccessException;
-import net.lebedko.dao.exception.UniqueViolationException;
+import net.lebedko.dao.exception.EntityExistsException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,10 +20,10 @@ public class MySqlExceptionTranslator implements ExceptionTranslator {
         LOG.error("MySQL ERROR CODE: " + errorCode);
 
         if (errorCode == DUPLICATE_ENTRY) {
-            return new UniqueViolationException(e);
+            return new EntityExistsException(e);
         }
         if (errorCode == DUPLICATE_KEY) {
-            return new UniqueViolationException(e);
+            return new EntityExistsException(e);
         }
 
         return new DataAccessException(e);
