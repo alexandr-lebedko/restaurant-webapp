@@ -20,7 +20,7 @@ import net.lebedko.entity.user.UserRole;
 import net.lebedko.service.OrderBucket;
 import net.lebedko.util.SupportedLocales;
 
-public cggit EntityGenerator {
+public class EntityGenerator {
 
     public static User getUser() {
         return new User(getFullName(), getEmailAddress(), getPassword(), getUserRole());
