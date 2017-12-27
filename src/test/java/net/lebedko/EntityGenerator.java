@@ -20,7 +20,7 @@ import net.lebedko.entity.user.UserRole;
 import net.lebedko.service.OrderBucket;
 import net.lebedko.util.SupportedLocales;
 
-public class EntityGenerator {
+public cggit EntityGenerator {
 
     public static User getUser() {
         return new User(getFullName(), getEmailAddress(), getPassword(), getUserRole());
@@ -100,10 +100,6 @@ public class EntityGenerator {
         return new OrderItem(getOrder(), getItem(), getLong());
     }
 
-    public static boolean getBoolean() {
-        return new Random().nextBoolean();
-    }
-
     private static String[] imageIds = {
             UUID.randomUUID().toString(),
             UUID.randomUUID().toString(),
@@ -149,81 +145,71 @@ public class EntityGenerator {
     private static Category[] categories = createCategories();
 
     private static Title[] createTitles() {
-        Map<Locale, String> localeToString = new HashMap<>();
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Суп");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Soup");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Суп");
-
-        Title soup = new Title(new StringI18N(localeToString));
-        localeToString.clear();
-
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Мусс");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Pure");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Мус");
-
-        Title pure = new Title(new StringI18N(localeToString));
-        localeToString.clear();
-
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Торт");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Cake");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Тiстечко");
-
-        Title cake = new Title(new StringI18N(localeToString));
-
-        return new Title[]{soup, pure, cake};
+        return new Title[]{
+                new Title(StringI18N.builder()
+                        .add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Суп")
+                        .add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Soup")
+                        .add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Суп")
+                        .build()
+                ),
+                new Title(StringI18N.builder()
+                        .add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Мусс")
+                        .add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Pure")
+                        .add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Мус")
+                        .build()
+                ),
+                new Title(StringI18N.builder()
+                        .add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Торт")
+                        .add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Cake")
+                        .add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Тiстечко")
+                        .build()
+                )};
     }
 
     private static Description[] createDescriptions() {
-        Map<Locale, String> localeToString = new HashMap<>();
-
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Очень вкусное блюдо!");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Very tasty dish!");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Дуже смачна страва!");
-
-        Description dishDescription = new Description(new StringI18N(localeToString));
-        localeToString.clear();
-
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Классический украинский суп");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Classic ukrainian soup");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Класичний український суп");
-
-        Description soupDescription = new Description(new StringI18N(localeToString));
-        localeToString.clear();
-
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Ароматные охотничьи колбаски");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Fragrant hunting sausages");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Ароматнi мисливськi ковбаски");
-
-        Description sausagesDescription = new Description(new StringI18N(localeToString));
-        localeToString.clear();
-
-        return new Description[]{dishDescription, soupDescription, sausagesDescription};
+        return new Description[]{
+                new Description(StringI18N.builder()
+                        .add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Очень вкусное блюдо!")
+                        .add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Very tasty dish!")
+                        .add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Дуже смачна страва!")
+                        .build()
+                ),
+                new Description(StringI18N.builder()
+                        .add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Классический украинский суп")
+                        .add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Classic ukrainian soup")
+                        .add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Класичний український суп")
+                        .build()
+                ),
+                new Description(StringI18N.builder()
+                        .add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Ароматные охотничьи колбаски")
+                        .add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Fragrant hunting sausages")
+                        .add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Ароматнi мисливськi ковбаски")
+                        .build()
+                )
+        };
     }
 
     private static Category[] createCategories() {
-        Map<Locale, String> localeToString = new HashMap<>();
-
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Супы");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Soups");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Супи");
-
-        Category soups = new Category(new StringI18N(localeToString));
-        localeToString.clear();
-
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Паста");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Pasta");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Паста");
-
-        Category pasta = new Category(new StringI18N(localeToString));
-        localeToString.clear();
-
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Мясо");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Meat");
-        localeToString.put(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "М'ясо");
-
-        Category meat = new Category(new StringI18N(localeToString));
-
-        return new Category[]{soups, pasta, meat};
+        return new Category[]{
+                new Category(StringI18N.builder()
+                        .add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Супы")
+                        .add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Soups")
+                        .add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Супи")
+                        .build()
+                ),
+                new Category(StringI18N.builder()
+                        .add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Паста")
+                        .add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Pasta")
+                        .add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "Паста")
+                        .build()
+                ),
+                new Category(StringI18N.builder()
+                        .add(SupportedLocales.getByCode(SupportedLocales.RU_CODE), "Мясо")
+                        .add(SupportedLocales.getByCode(SupportedLocales.EN_CODE), "Meat")
+                        .add(SupportedLocales.getByCode(SupportedLocales.UA_CODE), "М'ясо")
+                        .build()
+                )
+        };
     }
 
     private static <T> T getRandom(T[] t) {

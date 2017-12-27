@@ -65,4 +65,27 @@ public class StringI18N {
                         entry -> removeExtraSpaces(entry.getValue())
                 )));
     }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Map<Locale, String> localeToString;
+
+        private Builder() {
+            this.localeToString = new HashMap<>();
+        }
+
+        public Builder add(Locale locale, String value) {
+            localeToString.put(locale, value);
+            return this;
+        }
+
+        public StringI18N build() {
+            return new StringI18N(localeToString);
+        }
+
+
+    }
 }
