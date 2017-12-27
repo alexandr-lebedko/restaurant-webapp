@@ -18,11 +18,12 @@ import static net.lebedko.util.SupportedLocales.UA_CODE;
 public class JdbcItemDao extends AbstractJdbcDao implements ItemDao {
     private static final String INSERT = QUERIES.getProperty("item.insert");
     private static final String UPDATE = QUERIES.getProperty("item.update");
+    private static final String DELETE= QUERIES.getProperty("item.delete");
     private static final String GET_BY_CATEGORY = QUERIES.getProperty("item.getByCategory");
     private static final String GET_BY_ID = QUERIES.getProperty("item.getById");
 
 
-    JdbcItemDao(QueryTemplate template) {
+    public JdbcItemDao(QueryTemplate template) {
         super(template);
     }
 
@@ -80,6 +81,9 @@ public class JdbcItemDao extends AbstractJdbcDao implements ItemDao {
 
     @Override
     public void delete(Long id) {
-        //TODO: implement method
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, id);
+
+        template.update(DELETE, params);
     }
 }

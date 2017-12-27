@@ -14,6 +14,7 @@ import java.util.Map;
 
 public class JdbcOrderItemDao extends AbstractJdbcDao implements OrderItemDao {
     private static final String INSERT = QUERIES.getProperty("orderItem.insert");
+    private static final String FIND_BY_ID = QUERIES.getProperty("orderItem.findById");
     private static final String UPDATE = QUERIES.getProperty("orderItem.update");
     private static final String DELETE = QUERIES.getProperty("orderItem.delete");
     private static final String DELETE_BY_ORDER = QUERIES.getProperty("orderItem.deleteByOrder");
@@ -104,7 +105,9 @@ public class JdbcOrderItemDao extends AbstractJdbcDao implements OrderItemDao {
 
     @Override
     public OrderItem findById(Long id) {
-        //TODO
-        return null;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, id);
+
+        return template.queryOne(FIND_BY_ID, params, new OrderItemMapper());
     }
 }
