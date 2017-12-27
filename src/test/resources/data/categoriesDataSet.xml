@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <categories c_id="1" c_ukr_title="Чай" c_en_title="Tea" c_ru_title="Чай"/>
+    <categories c_id="2" c_ukr_title="Кава" c_en_title="Coffee" c_ru_title="Кофе"/>
+    <categories c_id="3" c_ukr_title="Десерти" c_en_title="Desserts" c_ru_title="Десерты"/>
+</dataset>

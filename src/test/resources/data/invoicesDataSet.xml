@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <users u_id="1"
+           u_role="CLIENT"
+           u_email="test.user@gmail.com"
+           u_first_name="Boris" u_last_name="Blade"
+           u_password_hash="25d55ad283aa40af464c76d713c7ad"/>
+    <users u_id="2"
+           u_role="CLIENT"
+           u_email="user@gmail.com"
+           u_first_name="Tony" u_last_name="Ferguson"
+           u_password_hash="25d55ad283aa40af464c76d713c7ad"/>
+    <invoices inv_id="1"
+              inv_user="1"
+              inv_price="123.45"
+              inv_state="UNPAID"
+              inv_creation="2038-01-19 03:14:07"/>
+    <invoices inv_id="2"
+              inv_user="1"
+              inv_price="33.45"
+              inv_state="UNPAID"
+              inv_creation="2018-01-19 03:14:07"/>
+    <invoices inv_id="3"
+              inv_user="2"
+              inv_price="77.45"
+              inv_state="UNPAID"
+              inv_creation="2011-01-19 03:14:07"/>
+    <invoices inv_id="4"
+              inv_user="2"
+              inv_price="77.45"
+              inv_state="PAID"
+              inv_creation="2011-01-19 03:14:07"/>
+</dataset>

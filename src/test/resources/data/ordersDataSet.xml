@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <users u_id="1"
+           u_role="CLIENT"
+           u_email="test.user@gmail.com"
+           u_first_name="Boris" u_last_name="Blade"
+           u_password_hash="25d55ad283aa40af464c76d713c7ad"/>
+
+    <invoices inv_id="1"
+              inv_user="1"
+              inv_price="123.45"
+              inv_state="UNPAID"
+              inv_creation="2018-01-19 03:14:07"/>
+
+    <orders o_id="1" o_invoice="1" o_state="NEW" o_creation="2018-01-19 03:14:07"/>
+    <orders o_id="2" o_invoice="1" o_state="PROCESSED" o_creation="2018-01-19 04:14:07"/>
+    <orders o_id="3" o_invoice="1" o_state="PROCESSED" o_creation="2018-01-19 05:14:07"/>
+    <orders o_id="4" o_invoice="1" o_state="NEW" o_creation="2018-01-19 06:14:07"/>
+    <orders o_id="6" o_invoice="1" o_state="MODIFIED" o_creation="2018-01-19 06:16:07"/>
+</dataset>

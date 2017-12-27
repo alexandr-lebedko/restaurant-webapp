@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <users u_id="1" u_role="CLIENT" u_email="test.user@gmail.com" u_first_name="Boris" u_last_name="Blade"
+           u_password_hash="25d55ad283aa40af464c76d713c7ad"/>
+
+    <invoices inv_id="1" inv_user="1" inv_price="123.45" inv_state="UNPAID"
+              inv_creation="2018-01-19 03:14:07"/>
+
+    <categories c_id="1" c_ukr_title="Чай" c_en_title="Tea" c_ru_title="Чай"/>
+    <categories c_id="3" c_ukr_title="Десерти" c_en_title="Desserts" c_ru_title="Десерты"/>
+
+    <items i_id="1" i_category="1" i_price="123.21" i_image_id="abc1"
+           i_ukr_title="Лiптон" i_ru_title="Липтон" i_en_title="Lipton"
+           i_ukr_description="Запашний чай зi средиземноморскими ароматами"
+           i_en_description="Fragrant tea with mediterranean aromas"
+           i_ru_description="Ароматный чай со средиземноморскими ароматами"/>
+
+    <items i_id="2" i_category="1" i_price="111.21" i_image_id="abc2"
+           i_ukr_title="Ерл Грей" i_ru_title="Эрл Грей" i_en_title="Earl Grey"
+           i_ukr_description="Китайський чай, приправлений бергамотом"
+           i_en_description="Chinese tea, flavored with bergamot"
+           i_ru_description="Китайский чай, ароматизированный бергамотом"/>
+
+    <items i_id="3" i_category="3" i_price="151.21" i_image_id="abc3"
+           i_ukr_title="Чізкейк" i_ru_title="Чизкейк" i_en_title="cheesecake"
+           i_ukr_description="Десертний торт, зроблений з вершками та м'яким сиром на крекері 'Грайм'"
+           i_en_description="Rich dessert cake made with cream and soft cheese on a graham cracker"
+           i_ru_description="Десертный торт, сделанный со сливками и мягким сыром на крекере 'Грайм'"/>
+
+    <orders o_id="1" o_invoice="1" o_state="NEW" o_creation="2018-01-19 03:14:07"/>
+    <orders o_id="2" o_invoice="1" o_state="NEW" o_creation="2018-01-20 03:14:07"/>
+
+    <order_items oi_id="1" oi_order="1" oi_item="1" oi_item_number="1"/>
+    <order_items oi_id="2" oi_order="1" oi_item="1" oi_item_number="13"/>
+    <order_items oi_id="3" oi_order="1" oi_item="3" oi_item_number="3"/>
+    <order_items oi_id="4" oi_order="1" oi_item="2" oi_item_number="3"/>
+
+    <order_items oi_id="5" oi_order="2" oi_item="2" oi_item_number="3"/>
+    <order_items oi_id="6" oi_order="2" oi_item="1" oi_item_number="3"/>
+</dataset>
