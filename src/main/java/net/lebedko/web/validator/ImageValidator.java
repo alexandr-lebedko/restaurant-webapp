@@ -10,9 +10,6 @@ import java.io.InputStream;
 import static java.util.Objects.isNull;
 import static net.lebedko.web.util.constant.PageErrorNames.INVALID_IMAGE;
 
-/**
- * alexandr.lebedko : 10.08.2017.
- */
 public class ImageValidator implements IValidator<InputStream> {
     private static final Logger LOG = LogManager.getLogger();
 

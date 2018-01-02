@@ -4,7 +4,6 @@ import net.lebedko.entity.user.FirstName;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.IValidator;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
