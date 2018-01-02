@@ -5,12 +5,9 @@ import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.IValidator;
 
-/**
- * alexandr.lebedko : 04.08.2017.
- */
 public class CategoryValidator implements IValidator<Category> {
     private static final int MIN_TITLE_LENGTH = 2;
-    private static final int MAX_TITLE_LENGTH = 50;
+    private static final int MAX_TITLE_LENGTH = 25;
 
     @Override
     public void validate(Category category, Errors errors) {
