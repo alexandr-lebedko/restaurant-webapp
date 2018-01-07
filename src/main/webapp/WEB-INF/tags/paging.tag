@@ -21,7 +21,7 @@
         <c:param name="${Attribute.PAGE_NUM}" value="${currPageNum-1}"/>
     </c:url>
 
-    <c:url var="nextPageUrl" value="${URL.CLIENT_ORDERS}">
+    <c:url var="nextPageUrl" value="${pagingUrl}">
         <c:forEach var="paramEntry" items="${params}">
             <c:if test="${paramEntry.key ne Attribute.PAGE_NUM}">
                 <c:param name="${paramEntry.key}" value="${paramEntry.value}"/>

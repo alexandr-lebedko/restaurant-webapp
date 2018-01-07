@@ -8,7 +8,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<t:page pageUrl="${URL.ADMIN_CATEGORIES}">
+<t:page>
     <div class="container main-content">
         <div class="row justify-content-end table-hover">
             <div class="col-lg-8 unselectable">

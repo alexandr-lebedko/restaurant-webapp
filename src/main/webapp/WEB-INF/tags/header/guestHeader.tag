@@ -6,7 +6,8 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<%@attribute name="pageUrl" type="java.lang.String" required="true" %>
+<c:set var="pageUrl" value="${requestScope['javax.servlet.forward.servlet_path']
+         .concat(requestScope['javax.servlet.forward.path_info'])}"/>
 
 <c:url var="enPage" value="${pageUrl}">
     <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.EN_CODE}"/>
@@ -52,7 +53,6 @@
                                     Русский
                                 </c:when>
                             </c:choose>
-
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="${enPage}">English</a>

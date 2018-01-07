@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -8,8 +8,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-
-<t:page pageUrl="${URL.ADMIN_ORDER.concat('?').concat(Attribute.ORDER_ID).concat('=').concat(param.get(Attribute.ORDER_ID))}">
+<t:page>
     <div class="container main-content">
         <div class="row justify-content-between">
             <c:set var="order" value="${requestScope.get(Attribute.ORDER)}"/>
@@ -59,7 +58,6 @@
             </div>
 
             <div class="col-lg-7 text-center unselectable">
-
                 <h4 class="mb-3"><fmt:message key="order.content"/></h4>
                 <c:url var="modifyOrder" value="${URL.ADMIN_MODIFY_ORDER}"/>
                 <form method="post" action="${modifyOrder}" id="order-content-form">
@@ -78,7 +76,8 @@
                         <c:forEach var="orderItem" items="${requestScope.get(Attribute.ORDER_ITEMS)}">
                             <c:url var="imageUrl" value="${URL.IMAGE_PREFIX.concat(orderItem.item.imageId)}"/>
                             <tr>
-                                <td><input readonly name="${Attribute.ORDER_ITEM_ID}" size="3" value="${orderItem.id}"></td>
+                                <td><input readonly name="${Attribute.ORDER_ITEM_ID}" size="3" value="${orderItem.id}">
+                                </td>
                                 <td><img src="${imageUrl}"></td>
                                 <td>${orderItem.item.title.value.get(lang)}
                                     <input type="hidden" name="${Attribute.ITEM_ID}" value="${orderItem.item.id}"/>

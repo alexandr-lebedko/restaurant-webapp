@@ -8,22 +8,6 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<c:choose>
-    <c:when test="${param.get(Attribute.CATEGORY_ID) ne null}">
-        <c:set var="pageUrl"
-               value="${URL.CLIENT_MENU.concat('?').concat(Attribute.CATEGORY_ID).concat('=').concat(param.get(Attribute.CATEGORY_ID))}"/>
-    </c:when>
-    <c:otherwise>
-        <c:set var="pageUrl" value="${URL.CLIENT_MENU}"/>
-    </c:otherwise>
-</c:choose>
-
-<c:set var="categories" value="${requestScope.get(Attribute.CATEGORIES)}"/>
-<c:set var="items" value="${requestScope.get(Attribute.ITEMS)}"/>
-<c:if test="${!empty items}">
-    <c:set var="requestedCategory" value="${items.get(0).category}"/>
-</c:if>
-
 <t:page pageUrl="${pageUrl}">
     <div class="container main-content">
         <div class="row justify-content-between">
@@ -34,8 +18,7 @@
                             <c:url var="categoryUrl" value="${URL.CLIENT_MENU}">
                                 <c:param name="${Attribute.CATEGORY_ID}" value="${category.id}"/>
                             </c:url>
-                            <a class="nav-link" id="${requestedCategory.equals(category) ? 'current-category':''}"
-                               href="${categoryUrl}">
+                            <a class="nav-link" id="${param.categoryId == category.id ? 'current-category':''}" href="${categoryUrl}">
                                     ${category.title.get(lang)}
                             </a>
                         </li>

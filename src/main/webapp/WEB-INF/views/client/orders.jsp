@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -8,7 +8,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<t:page pageUrl="${URL.CLIENT_ORDERS}">
+<t:page>
     <div class="container main-content">
         <div class="row justify-content-end">
             <c:set var="orders" value="${requestScope.get(Attribute.PAGED_DATA).content}"/>

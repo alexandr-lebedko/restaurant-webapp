@@ -5,16 +5,15 @@
 <%@tag import="net.lebedko.entity.user.UserRole" %>
 <%@tag import="net.lebedko.web.util.constant.Attribute" %>
 
-<%@attribute name="pageUrl" type="java.lang.String" required="true" %>
 <c:set var="role" value="${sessionScope.get(Attribute.USER).role}"/>
 <c:choose>
     <c:when test="${UserRole.ADMIN eq role}">
-        <t:adminHeader pageUrl="${pageUrl}"/>
+        <t:adminHeader/>
     </c:when>
     <c:when test="${UserRole.CLIENT eq role}">
-        <t:clientHeader pageUrl="${pageUrl}"/>
+        <t:clientHeader/>
     </c:when>
     <c:when test="${role eq null}">
-        <t:guestHeader pageUrl="${pageUrl}"/>
+        <t:guestHeader/>
     </c:when>
 </c:choose>

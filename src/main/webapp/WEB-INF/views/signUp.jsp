@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -8,7 +8,7 @@
 <fmt:setBundle basename="localization"/>
 
 
-<t:page pageUrl="${URL.SIGN_UP}">
+<t:page>
     <div class="container main-content" id="sign-up-page">
         <div class="row justify-content-between">
             <div id="image-area" class="col-sm-12 col-md-6 col-lg-4">

@@ -10,9 +10,8 @@
 <fmt:setBundle basename="localization"/>
 
 <c:set var="state" value="${requestScope.get(Attribute.INVOICE_STATE)}"/>
-<c:set var="pageUrl" value="${URL.ADMIN_INVOICES.concat('?').concat(Attribute.INVOICE_STATE).concat('=').concat(state)}"/>
 
-<t:page pageUrl="${pageUrl}">
+<t:page>
     <div class="container main-content">
         <div class="row justify-content-between">
             <div class="col-lg-3">
@@ -68,9 +67,8 @@
                         </c:forEach>
                         </tbody>
                     </table>
-
                     <t:paging pagingUrl="${URL.ADMIN_INVOICES}"
-                              params="${params}"
+                              params="${param}"
                               data="${requestScope.get(Attribute.PAGED_DATA)}"/>
                 </div>
             </c:if>

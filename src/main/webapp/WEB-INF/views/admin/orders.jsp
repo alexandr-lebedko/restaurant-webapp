@@ -9,8 +9,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<c:set var="pageUrl"
-       value="${URL.ADMIN_ORDERS.concat('?').concat(Attribute.ORDER_STATE).concat('=').concat(requestScope.get(Attribute.ORDER_STATE))}"/>
+<c:set var="pageUrl"/>
 
 <t:page pageUrl="${pageUrl}">
     <div class="container main-content">

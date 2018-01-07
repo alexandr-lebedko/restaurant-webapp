@@ -3,13 +3,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--<fmt:setLocale value="${lang}"/>--%>
-<%--<fmt:setBundle basename="localization"/>--%>
-<%@ attribute name="pageUrl" required="true" %>
-
-
 <!DOCTYPE html>
 <html>
+
 <head>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -29,9 +25,14 @@
     <c:url value="/css/style.css" var="customCss"/>
     <link href='${customCss}' rel="stylesheet"/>
 </head>
+
+<%@ attribute name="pageUrl" required="false" %>
+
 <body>
-<t:header pageUrl="${pageUrl}"/>
+<t:header/>
+
 <jsp:doBody/>
+
 <t:footer/>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <fmt:setBundle basename="localization"/>
 
 
-<t:page pageUrl="${URL.CLIENT_ORDER.concat('?').concat(Attribute.ORDER_ID).concat('=').concat(param.get(Attribute.ORDER_ID))}">
+<t:page>
     <div class="container main-content">
         <div class="row justify-content-between">
             <div class="col-lg-3">

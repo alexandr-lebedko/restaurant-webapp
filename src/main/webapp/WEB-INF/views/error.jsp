@@ -6,10 +6,10 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<t:page pageUrl="">
+<t:page>
     <c:set var="code" value="${requestScope['javax.servlet.error.status_code']}"/>
     <div class="container main-content">
-        <div class="row bg-light p-5 ${code == 404 ? 'text-warning':'text-danger'} align-items-center">
+        <div class="row bg-light p-5 ${'404' == code ? 'text-warning':'text-danger'} align-items-center">
             <div class="col">
                 <i class="fa fa-exclamation-triangle fa-5x align-bottom pl-5"></i>
             </div>
@@ -18,4 +18,5 @@
                 <h4><fmt:message key="${code}"/></h4>
             </div>
         </div>
+    </div>
 </t:page>

@@ -8,7 +8,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<t:page pageUrl="${URL.CLIENT_ORDER_FORM}">
+<t:page>
     <div class="container main-content">
         <div class="row justify-content-end">
             <c:choose>

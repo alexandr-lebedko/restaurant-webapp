@@ -9,20 +9,31 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<%@attribute name="pageUrl" required="true" %>
-
 <c:url var="orders" value="${URL.ADMIN_MAIN}"/>
 <c:url var="categories" value="${URL.ADMIN_CATEGORIES}"/>
 <c:url var="items" value="${URL.ADMIN_ITEMS}"/>
 <c:url var="signOut" value="${URL.SIGN_OUT}"/>
-<c:url var="enPage" value="${pageUrl}">
-    <c:url var="invoices" value="${URL.ADMIN_INVOICES}">
+<c:url var="invoices" value="${URL.ADMIN_INVOICES}">
     <c:param name="${Attribute.INVOICE_STATE}" value="${InvoiceState.UNPAID}"/>
 </c:url>
+
+<c:set var="pageUrl" value="${requestScope['javax.servlet.forward.servlet_path']
+         .concat(requestScope['javax.servlet.forward.path_info'])}"/>
+<c:url var="enPage" value="${pageUrl}">
     <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.EN_CODE}"/>
+    <c:forEach var="paramEntry" items="${param}">
+        <c:if test="${paramEntry.key ne SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}">
+            <c:param name="${paramEntry.key}" value="${paramEntry.value}"/>
+        </c:if>
+    </c:forEach>
 </c:url>
 <c:url var="ruPage" value="${pageUrl}">
     <c:param name="${SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}" value="${SupportedLocales.RU_CODE}"/>
+    <c:forEach var="paramEntry" items="${param}">
+        <c:if test="${paramEntry.key ne SupportedLocales.LOCALE_REQUEST_ATTRIBUTE_NAME}">
+            <c:param name="${paramEntry.key}" value="${paramEntry.value}"/>
+        </c:if>
+    </c:forEach>
 </c:url>
 
 <header class="bg-light">

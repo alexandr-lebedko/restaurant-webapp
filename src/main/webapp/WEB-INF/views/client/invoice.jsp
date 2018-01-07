@@ -9,8 +9,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<t:page pageUrl="${URL.CLIENT_INVOICE.concat('?').concat(Attribute.INVOICE_ID).concat('=').concat(param.get(Attribute.INVOICE_ID))}">
-
+<t:page>
     <div class="container main-content">
         <div class="row justify-content-between">
             <div class="col-lg-3">
