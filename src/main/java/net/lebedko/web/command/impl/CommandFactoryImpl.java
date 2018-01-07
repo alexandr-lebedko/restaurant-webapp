@@ -10,7 +10,9 @@ import net.lebedko.web.validator.user.UserValidator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
+import static java.util.Optional.ofNullable;
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.*;
 
 public class CommandFactoryImpl implements ICommandFactory {
@@ -71,7 +73,8 @@ public class CommandFactoryImpl implements ICommandFactory {
 
     @Override
     public ICommand getCommand(String cmd) {
-        return commandMap.get(cmd);
+        return ofNullable(commandMap.get(cmd))
+                .orElseThrow(NoSuchElementException::new);
     }
 
 }
