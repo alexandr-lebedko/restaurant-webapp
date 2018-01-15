@@ -7,9 +7,6 @@ import net.lebedko.entity.item.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 import static java.util.Objects.nonNull;
 import static net.lebedko.util.SupportedLocales.*;
@@ -43,37 +40,33 @@ public class ItemMapper implements Mapper<Item> {
 
     @Override
     public Item map(ResultSet rs) throws SQLException {
-        return new Item(mapId(rs), mapTitle(rs), mapDescription(rs), mapCategory(rs), mapPrice(rs), mapImageId(rs));
-    }
-
-    private String mapImageId(ResultSet rs) throws SQLException {
-        return rs.getString(IMAGE_ID);
-    }
-
-    private Long mapId(ResultSet rs) throws SQLException {
-        return rs.getLong(ID);
-    }
-
-    private Price mapPrice(ResultSet rs) throws SQLException {
-        return new Price(rs.getDouble(PRICE));
+        return new Item(
+                rs.getLong(ID),
+                mapTitle(rs),
+                mapDescription(rs),
+                mapCategory(rs),
+                new Price(rs.getDouble(PRICE)),
+                rs.getString(IMAGE_ID));
     }
 
     private Title mapTitle(ResultSet rs) throws SQLException {
-        Map<Locale, String> titleByLocale = new HashMap<>();
-        titleByLocale.put(getByCode(UA_CODE), rs.getString(UKR_TITLE));
-        titleByLocale.put(getByCode(EN_CODE), rs.getString(EN_TITLE));
-        titleByLocale.put(getByCode(RU_CODE), rs.getString(RU_TITLE));
-
-        return new Title(new StringI18N(titleByLocale));
+        return new Title(
+                StringI18N.builder()
+                        .add(getByCode(UA_CODE), rs.getString(UKR_TITLE))
+                        .add(getByCode(EN_CODE), rs.getString(EN_TITLE))
+                        .add(getByCode(RU_CODE), rs.getString(RU_TITLE))
+                        .build()
+        );
     }
 
     private Description mapDescription(ResultSet rs) throws SQLException {
-        Map<Locale, String> descriptionByLocale = new HashMap<>();
-        descriptionByLocale.put(getByCode(UA_CODE), rs.getString(UKR_DESCRIPTION));
-        descriptionByLocale.put(getByCode(EN_CODE), rs.getString(EN_DESCRIPTION));
-        descriptionByLocale.put(getByCode(RU_CODE), rs.getString(RU_DESCRIPTION));
-
-        return new Description(new StringI18N(descriptionByLocale));
+        return new Description(
+                StringI18N.builder()
+                        .add(getByCode(UA_CODE), rs.getString(UKR_DESCRIPTION))
+                        .add(getByCode(EN_CODE), rs.getString(EN_DESCRIPTION))
+                        .add(getByCode(RU_CODE), rs.getString(RU_DESCRIPTION))
+                        .build()
+        );
     }
 
     private Category mapCategory(ResultSet rs) throws SQLException {

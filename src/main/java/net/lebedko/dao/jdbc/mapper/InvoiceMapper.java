@@ -8,7 +8,6 @@ import net.lebedko.entity.user.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 import static java.util.Objects.nonNull;
 
@@ -38,13 +37,11 @@ public class InvoiceMapper implements Mapper<Invoice> {
 
     @Override
     public Invoice map(ResultSet rs) throws SQLException {
-        Long id = rs.getLong(ID);
-        User user = getUser(rs);
-        InvoiceState state = getState(rs);
-        Price price = new Price(rs.getDouble(PRICE));
-        LocalDateTime creation = rs.getTimestamp(CREATION).toLocalDateTime();
-
-        return new Invoice(id, user, state, price, creation);
+        return new Invoice(rs.getLong(ID),
+                getUser(rs),
+                getState(rs),
+                new Price(rs.getDouble(PRICE)),
+                rs.getTimestamp(CREATION).toLocalDateTime());
     }
 
     private InvoiceState getState(ResultSet rs) throws SQLException {

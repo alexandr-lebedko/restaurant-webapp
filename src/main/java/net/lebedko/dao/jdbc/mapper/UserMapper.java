@@ -16,34 +16,12 @@ public class UserMapper implements Mapper<User> {
 
     @Override
     public User map(ResultSet rs) throws SQLException {
-        return new User(getId(rs),
-                new FullName(getFirstName(rs), getLastName(rs)),
-                getEmailAddress(rs),
-                getPassword(rs),
-                getUserRole(rs));
-    }
-
-    private Long getId(ResultSet rs) throws SQLException {
-        return rs.getLong(ID);
-    }
-
-    private FirstName getFirstName(ResultSet rs) throws SQLException {
-        return new FirstName(rs.getString(FIRST_NAME));
-    }
-
-    private LastName getLastName(ResultSet rs) throws SQLException {
-        return new LastName(rs.getString(LAST_NAME));
-    }
-
-    private EmailAddress getEmailAddress(ResultSet rs) throws SQLException {
-        return new EmailAddress(rs.getString(EMAIL));
-    }
-
-    private Password getPassword(ResultSet rs) throws SQLException {
-        return Password.createPasswordFromHash(rs.getString(PASSWORD));
-    }
-
-    private UserRole getUserRole(ResultSet rs) throws SQLException {
-        return UserRole.valueOf(rs.getString(ROLE));
+        return new User(
+                rs.getLong(ID),
+                new FullName(new FirstName(rs.getString(FIRST_NAME)), new LastName(rs.getString(LAST_NAME))),
+                new EmailAddress(rs.getString(EMAIL)),
+                Password.createPasswordFromHash(rs.getString(PASSWORD)),
+                UserRole.valueOf(rs.getString(ROLE))
+        );
     }
 }

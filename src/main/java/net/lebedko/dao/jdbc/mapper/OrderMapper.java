@@ -7,7 +7,6 @@ import net.lebedko.entity.order.OrderState;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 import static java.util.Objects.nonNull;
 
@@ -33,16 +32,12 @@ public class OrderMapper implements Mapper<Order> {
 
     @Override
     public Order map(ResultSet rs) throws SQLException {
-        Long id = rs.getLong(ID);
-        Invoice invoice = getInvoice(rs);
-        OrderState state = getState(rs);
-        LocalDateTime creation = rs.getTimestamp(CREATION).toLocalDateTime();
-
-        return new Order(id, invoice, state, creation);
-    }
-
-    private OrderState getState(ResultSet rs) throws SQLException {
-        return OrderState.valueOf(rs.getString(STATE));
+        return new Order(
+                rs.getLong(ID),
+                getInvoice(rs),
+                OrderState.valueOf(rs.getString(STATE)),
+                rs.getTimestamp(CREATION).toLocalDateTime()
+        );
     }
 
     private Invoice getInvoice(ResultSet rs) throws SQLException {

@@ -15,19 +15,13 @@ public class CategoryMapper implements Mapper<Category> {
     private static final String EN_TITLE = "c_en_title";
     private static final String RU_TITLE = "c_ru_title";
 
-
     @Override
     public Category map(ResultSet rs) throws SQLException {
-        final long id = rs.getLong(CATEGORY_ID);
-
-        final String ukrTitle = rs.getString(UKR_TITLE);
-        final String enTitle = rs.getString(EN_TITLE);
-        final String ruTitle = rs.getString(RU_TITLE);
-        final StringI18N title = new StringI18N();
-        title.add(getByCode(UA_CODE), ukrTitle);
-        title.add(getByCode(EN_CODE), enTitle);
-        title.add(getByCode(RU_CODE), ruTitle);
-
-        return new Category(id, title);
+        return new Category(rs.getLong(CATEGORY_ID),
+                StringI18N.builder()
+                        .add(getByCode(UA_CODE), rs.getString(UKR_TITLE))
+                        .add(getByCode(EN_CODE), rs.getString(EN_TITLE))
+                        .add(getByCode(RU_CODE), rs.getString(RU_TITLE))
+                        .build());
     }
 }
