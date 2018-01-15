@@ -14,7 +14,7 @@ import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.item.Category;
 import net.lebedko.util.SupportedLocales;
 
-public class JdbcCategoryDao extends AbstractJdbcDao implements CategoryDao {
+public class JdbcCategoryDao implements CategoryDao {
     private static final String INSERT = QUERIES.getProperty("category.insert");
     private static final String GET_ALL = QUERIES.getProperty("category.getAll");
     private static final String UPDATE = QUERIES.getProperty("category.update");
@@ -22,8 +22,10 @@ public class JdbcCategoryDao extends AbstractJdbcDao implements CategoryDao {
     private static final String DELETE = QUERIES.getProperty("category.delete");
     private static final CategoryMapper MAPPER = new CategoryMapper();
 
+    private final QueryTemplate template;
+
     public JdbcCategoryDao(QueryTemplate template) {
-        super(template);
+        this.template = template;
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
 
-public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
+public class JdbcOrderDao implements OrderDao {
     private static final String INSERT_ORDER = QUERIES.getProperty("order.insertOrder");
     private static final String GET_BY_INVOICE = QUERIES.getProperty("order.getByInvoiceId");
     private static final String GET_BY_STATE = QUERIES.getProperty("order.getByState");
@@ -29,8 +29,10 @@ public class JdbcOrderDao extends AbstractJdbcDao implements OrderDao {
     private static final String COUNT_BY_USER = QUERIES.getProperty("order.countByUser");
     private static final String COUNT_BY_STATE = QUERIES.getProperty("order.countByState");
 
+    private final QueryTemplate template;
+
     public JdbcOrderDao(QueryTemplate template) {
-        super(template);
+        this.template = template;
     }
 
     @Override

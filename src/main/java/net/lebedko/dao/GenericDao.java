@@ -1,6 +1,11 @@
 package net.lebedko.dao;
 
+import java.util.Properties;
+
+import static net.lebedko.util.PropertyUtil.loadProperties;
+
 public interface GenericDao<T, ID> {
+    Properties QUERIES = loadProperties("sql-queries.properties");
 
     T insert(T entity);
 

@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
+public class JdbcInvoiceDao implements InvoiceDao {
     private static final String INSERT = QUERIES.getProperty("invoice.insert");
     private static final String UPDATE = QUERIES.getProperty("invoice.update");
     private static final String GET_BY_ID = QUERIES.getProperty("invoice.getById");
@@ -25,8 +25,10 @@ public class JdbcInvoiceDao extends AbstractJdbcDao implements InvoiceDao {
     private static final String COUNT_BY_STATE = QUERIES.getProperty("invoice.countByState");
     private static final String DELETE = QUERIES.getProperty("invoice.delete");
 
+    private final QueryTemplate template;
+
     public JdbcInvoiceDao(QueryTemplate template) {
-        super(template);
+        this.template = template;
     }
 
 

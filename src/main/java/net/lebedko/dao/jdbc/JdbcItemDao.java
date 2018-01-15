@@ -15,16 +15,17 @@ import static net.lebedko.util.SupportedLocales.EN_CODE;
 import static net.lebedko.util.SupportedLocales.RU_CODE;
 import static net.lebedko.util.SupportedLocales.UA_CODE;
 
-public class JdbcItemDao extends AbstractJdbcDao implements ItemDao {
+public class JdbcItemDao implements ItemDao {
     private static final String INSERT = QUERIES.getProperty("item.insert");
     private static final String UPDATE = QUERIES.getProperty("item.update");
-    private static final String DELETE= QUERIES.getProperty("item.delete");
+    private static final String DELETE = QUERIES.getProperty("item.delete");
     private static final String GET_BY_CATEGORY = QUERIES.getProperty("item.getByCategory");
     private static final String GET_BY_ID = QUERIES.getProperty("item.getById");
 
+    private final QueryTemplate template;
 
     public JdbcItemDao(QueryTemplate template) {
-        super(template);
+        this.template = template;
     }
 
     @Override

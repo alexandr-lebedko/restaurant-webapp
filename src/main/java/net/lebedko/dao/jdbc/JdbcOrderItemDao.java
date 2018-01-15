@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JdbcOrderItemDao extends AbstractJdbcDao implements OrderItemDao {
+public class JdbcOrderItemDao implements OrderItemDao {
     private static final String INSERT = QUERIES.getProperty("orderItem.insert");
     private static final String FIND_BY_ID = QUERIES.getProperty("orderItem.findById");
     private static final String UPDATE = QUERIES.getProperty("orderItem.update");
@@ -21,8 +21,10 @@ public class JdbcOrderItemDao extends AbstractJdbcDao implements OrderItemDao {
     private static final String GET_BY_ORDER = QUERIES.getProperty("orderItem.getByOrder");
     private static final String GET_BY_INVOICE = QUERIES.getProperty("orderItem.getByInvoice");
 
+    private final QueryTemplate template;
+
     public JdbcOrderItemDao(QueryTemplate template) {
-        super(template);
+        this.template = template;
     }
 
     @Override

@@ -9,13 +9,15 @@ import net.lebedko.entity.user.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JdbcUserDao extends AbstractJdbcDao implements UserDao {
+public class JdbcUserDao implements UserDao {
     private static final String FIND_BY_EMAIL = QUERIES.getProperty("user.getByEmail");
     private static final String INSERT = QUERIES.getProperty("user.insert");
     private static final UserMapper MAPPER = new UserMapper();
 
+    private QueryTemplate template;
+
     public JdbcUserDao(QueryTemplate template) {
-        super(template);
+        this.template = template;
     }
 
     @Override
@@ -37,5 +39,20 @@ public class JdbcUserDao extends AbstractJdbcDao implements UserDao {
         user.setId(template.insertAndReturnKey(INSERT, params));
 
         return user;
+    }
+
+    @Override
+    public User findById(Long aLong) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void update(User user) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void delete(Long aLong) {
+        throw new UnsupportedOperationException();
     }
 }
