@@ -30,61 +30,54 @@ public class JdbcItemDao implements ItemDao {
 
     @Override
     public Item insert(Item item) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, item.getTitle().getValue().get(UA_CODE));
-        params.put(2, item.getTitle().getValue().get(EN_CODE));
-        params.put(3, item.getTitle().getValue().get(RU_CODE));
-        params.put(4, item.getDescription().getValue().get(UA_CODE));
-        params.put(5, item.getDescription().getValue().get(EN_CODE));
-        params.put(6, item.getDescription().getValue().get(RU_CODE));
-        params.put(7, item.getPrice().getValue());
-        params.put(8, item.getCategory().getId());
-        params.put(9, item.getImageId());
+        Integer id = template.insertAndReturnKey(INSERT, new Object[]{
+                item.getTitle().getValue().get(UA_CODE),
+                item.getTitle().getValue().get(EN_CODE),
+                item.getTitle().getValue().get(RU_CODE),
+                item.getDescription().getValue().get(UA_CODE),
+                item.getDescription().getValue().get(EN_CODE),
+                item.getDescription().getValue().get(RU_CODE),
+                item.getPrice().getValue(),
+                item.getCategory().getId(),
+                item.getImageId()
+        });
 
-        long id = template.insertAndReturnKey(INSERT, params);
-        item.setId(id);
+        item.setId(id.longValue());
 
         return item;
     }
 
     @Override
     public void update(Item item) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, item.getTitle().getValue().get(UA_CODE));
-        params.put(2, item.getTitle().getValue().get(EN_CODE));
-        params.put(3, item.getTitle().getValue().get(RU_CODE));
-        params.put(4, item.getDescription().getValue().get(UA_CODE));
-        params.put(5, item.getDescription().getValue().get(EN_CODE));
-        params.put(6, item.getDescription().getValue().get(RU_CODE));
-        params.put(7, item.getPrice().getValue());
-        params.put(8, item.getCategory().getId());
-        params.put(9, item.getImageId());
-        params.put(10, item.getId());
-
-        template.update(UPDATE, params);
+        template.update(UPDATE,
+                item.getTitle().getValue().get(UA_CODE),
+                item.getTitle().getValue().get(EN_CODE),
+                item.getTitle().getValue().get(RU_CODE),
+                item.getDescription().getValue().get(UA_CODE),
+                item.getDescription().getValue().get(EN_CODE),
+                item.getDescription().getValue().get(RU_CODE),
+                item.getPrice().getValue(),
+                item.getCategory().getId(),
+                item.getImageId(),
+                item.getId());
     }
 
     @Override
     public Collection<Item> getByCategory(Category category) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, category.getId());
-
-        return template.queryAll(GET_BY_CATEGORY, params, new ItemMapper(category));
+        return template.queryAll(GET_BY_CATEGORY,
+                new Object[]{category.getId()},
+                new ItemMapper(category));
     }
 
     @Override
     public Item findById(Long id) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-
-        return template.queryOne(GET_BY_ID, params, new ItemMapper());
+        return template.queryOne(GET_BY_ID,
+                new Object[]{id},
+                new ItemMapper());
     }
 
     @Override
     public void delete(Long id) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-
-        template.update(DELETE, params);
+        template.update(DELETE, id);
     }
 }

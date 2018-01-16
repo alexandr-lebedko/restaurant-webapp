@@ -1,7 +1,5 @@
 package net.lebedko.dao.jdbc;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Collection;
 
 import static net.lebedko.util.SupportedLocales.EN_CODE;
@@ -30,42 +28,35 @@ public class JdbcCategoryDao implements CategoryDao {
 
     @Override
     public Category insert(Category category) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, category.getTitle().get(UA_CODE));
-        params.put(2, category.getTitle().get(EN_CODE));
-        params.put(3, category.getTitle().get(RU_CODE));
+        Integer id = template.insertAndReturnKey(INSERT, new Object[]{
+                category.getTitle().get(UA_CODE),
+                category.getTitle().get(EN_CODE),
+                category.getTitle().get(RU_CODE)});
 
-        Long id = template.insertAndReturnKey(INSERT, params);
-        category.setId(id);
+        category.setId(id.longValue());
 
         return category;
     }
 
     @Override
     public void update(Category category) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, category.getTitle().get(SupportedLocales.UA_CODE));
-        params.put(2, category.getTitle().get(SupportedLocales.EN_CODE));
-        params.put(3, category.getTitle().get(SupportedLocales.RU_CODE));
-        params.put(4, category.getId());
-
-        template.update(UPDATE, params);
+        template.update(UPDATE,
+                category.getTitle().get(SupportedLocales.UA_CODE),
+                category.getTitle().get(SupportedLocales.EN_CODE),
+                category.getTitle().get(SupportedLocales.RU_CODE),
+                category.getId());
     }
 
     @Override
     public void delete(Long id) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-
-        template.update(DELETE, params);
+        template.update(DELETE, id);
     }
 
     @Override
     public Category findById(Long id) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-
-        return template.queryOne(GET_BY_ID, params, MAPPER);
+        return template.queryOne(GET_BY_ID,
+                new Object[]{id},
+                MAPPER);
     }
 
     @Override

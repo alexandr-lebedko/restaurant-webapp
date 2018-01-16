@@ -21,24 +21,24 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public User findByEmail(EmailAddress email) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, email.toString());
+    public User insert(User user) {
+        Integer id = template.insertAndReturnKey(INSERT, new Object[]{
+                user.getRole().name(),
+                user.getEmail().toString(),
+                user.getFullName().getFirstName().toString(),
+                user.getFullName().getLastName().toString(),
+                user.getPassword().getPasswordHash()});
 
-        return template.queryOne(FIND_BY_EMAIL, params, MAPPER);
+        user.setId(id.longValue());
+
+        return user;
     }
 
     @Override
-    public User insert(User user) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, user.getRole().name());
-        params.put(2, user.getEmail().toString());
-        params.put(3, user.getFullName().getFirstName().toString());
-        params.put(4, user.getFullName().getLastName().toString());
-        params.put(5, user.getPassword().getPasswordHash());
-        user.setId(template.insertAndReturnKey(INSERT, params));
-
-        return user;
+    public User findByEmail(EmailAddress email) {
+        return template.queryOne(FIND_BY_EMAIL,
+                new Object[]{email.toString()},
+                MAPPER);
     }
 
     @Override

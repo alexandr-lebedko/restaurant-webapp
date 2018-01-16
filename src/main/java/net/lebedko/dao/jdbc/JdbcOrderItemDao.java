@@ -10,7 +10,10 @@ import net.lebedko.entity.order.OrderItem;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class JdbcOrderItemDao implements OrderItemDao {
     private static final String INSERT = QUERIES.getProperty("orderItem.insert");
@@ -29,80 +32,68 @@ public class JdbcOrderItemDao implements OrderItemDao {
 
     @Override
     public OrderItem insert(OrderItem item) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, item.getOrder().getId());
-        params.put(2, item.getItem().getId());
-        params.put(3, item.getQuantity());
-        Long id = template.insertAndReturnKey(INSERT, params);
+        Integer id = template.insertAndReturnKey(INSERT, new Object[]{
+                item.getOrder().getId(),
+                item.getItem().getId(),
+                item.getQuantity()});
 
-        return new OrderItem(id, item.getOrder(), item.getItem(), item.getQuantity());
+        return new OrderItem(id.longValue(), item.getOrder(), item.getItem(), item.getQuantity());
     }
 
     @Override
     public Collection<OrderItem> getByOrder(Order order) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, order.getId());
-
-        return template.queryAll(GET_BY_ORDER, params, new OrderItemMapper(order));
+        return template.queryAll(GET_BY_ORDER,
+                new Object[]{order.getId()},
+                new OrderItemMapper(order));
     }
 
     @Override
     public void update(OrderItem item) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, item.getOrder().getId());
-        params.put(2, item.getItem().getId());
-        params.put(3, item.getQuantity());
-        params.put(4, item.getId());
-
-        template.update(UPDATE, params);
+        template.update(UPDATE,
+                item.getOrder().getId(),
+                item.getItem().getId(),
+                item.getQuantity(),
+                item.getId());
     }
 
-    @Override
-    public void update(Collection<OrderItem> items) {
-        if (!items.isEmpty()) {
-            template.updateBatch(UPDATE, items, (item) -> {
-                Map<Integer, Object> params = new HashMap<>();
-                params.put(1, item.getOrder().getId());
-                params.put(2, item.getItem().getId());
-                params.put(3, item.getQuantity());
-                params.put(4, item.getId());
-                return params;
-            });
-        }
-    }
 
     @Override
     public Collection<OrderItem> getByInvoice(Invoice invoice) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, invoice.getId());
-
-        return template.queryAll(GET_BY_INVOICE, params, new OrderItemMapper(new OrderMapper(invoice)));
+        return template.queryAll(GET_BY_INVOICE,
+                new Object[]{invoice.getId()},
+                new OrderItemMapper(new OrderMapper(invoice)));
     }
 
     @Override
     public void deleteByOrder(Order order) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, order.getId());
+        template.update(DELETE_BY_ORDER, order.getId());
+    }
 
-        template.update(DELETE_BY_ORDER, params);
+    @Override
+    public void update(Collection<OrderItem> items) {
+        List<Object[]> params = items.stream()
+                .map(oi -> new Object[]{
+                        oi.getOrder().getId(),
+                        oi.getItem().getId(),
+                        oi.getQuantity(),
+                        oi.getId()})
+                .collect(Collectors.toList());
+
+        template.updateButch(UPDATE, params);
     }
 
     @Override
     public void delete(Collection<OrderItem> items) {
-        if (!items.isEmpty()) {
-            template.updateBatch(DELETE, items, (item) -> {
-                Map<Integer, Object> params = new HashMap<>();
-                params.put(1, item.getId());
-                return params;
-            });
-        }
+        List<Object[]> params = items.stream()
+                .map(oi -> new Object[]{oi.getId()})
+                .collect(Collectors.toList());
+
+        template.updateButch(DELETE, params);
     }
 
     @Override
     public void delete(Long id) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-        template.update(DELETE, params);
+        template.update(DELETE, id);
     }
 
     @Override
@@ -110,6 +101,8 @@ public class JdbcOrderItemDao implements OrderItemDao {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, id);
 
-        return template.queryOne(FIND_BY_ID, params, new OrderItemMapper());
+        return template.queryOne(FIND_BY_ID,
+                new Object[]{id},
+                new OrderItemMapper());
     }
 }

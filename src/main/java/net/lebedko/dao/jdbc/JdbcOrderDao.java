@@ -37,21 +37,19 @@ public class JdbcOrderDao implements OrderDao {
 
     @Override
     public Order insert(Order order) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, order.getInvoice().getId());
-        params.put(2, order.getState().name());
-        params.put(3, Timestamp.valueOf(order.getCreatedOn()));
+        Integer id = template.insertAndReturnKey(INSERT_ORDER, new Object[]{
+                order.getInvoice().getId(),
+                order.getState().name(),
+                Timestamp.valueOf(order.getCreatedOn())});
 
-        Long id = template.insertAndReturnKey(INSERT_ORDER, params);
-        return new Order(id, order.getInvoice(), order.getState(), order.getCreatedOn());
+        return new Order(id.longValue(), order.getInvoice(), order.getState(), order.getCreatedOn());
     }
 
     @Override
     public Collection<Order> getByInvoice(Invoice invoice) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, invoice.getId());
-
-        return template.queryAll(GET_BY_INVOICE, params, new OrderMapper(invoice));
+        return template.queryAll(GET_BY_INVOICE,
+                new Object[]{invoice.getId()},
+                new OrderMapper(invoice));
     }
 
     @Override
@@ -59,83 +57,75 @@ public class JdbcOrderDao implements OrderDao {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, state.name());
 
-        return template.queryAll(GET_BY_STATE, params, new OrderMapper());
+        return template.queryAll(GET_BY_STATE,
+                new Object[]{state.name()},
+                new OrderMapper());
     }
 
     @Override
     public Page<Order> getByState(OrderState state, Pageable pageable) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, state.name());
-        params.put(2, pageable.getPageSize());
-        params.put(3, pageable.getOffset());
+        final Collection<Order> orders = template.queryAll(
+                GET_PAGED_BY_STATE,
+                new Object[]{state.name(), pageable.getPageSize(), pageable.getOffset()},
+                new OrderMapper());
 
-        final Collection<Order> orders = template.queryAll(GET_PAGED_BY_STATE, params, new OrderMapper());
         final Integer total = countOrdersByState(state);
 
         return new Page<>(orders, total, pageable.getPageNumber());
     }
 
     private Integer countOrdersByState(OrderState state) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, state.name());
-
-        return template.queryOne(COUNT_BY_STATE, params, (rs) -> rs.getInt("total"));
+        return template.queryOne(
+                COUNT_BY_STATE,
+                new Object[]{state.name()},
+                (rs) -> rs.getInt("total"));
     }
 
     @Override
     public Page<Order> getByUser(User user, Pageable pageable) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, user.getId());
-        params.put(2, pageable.getPageSize());
-        params.put(3, pageable.getOffset());
+        final Collection<Order> orders = template.queryAll(
+                GET_PAGED_BY_USER,
+                new Object[]{user.getId(), pageable.getPageSize(), pageable.getOffset()},
+                new OrderMapper());
 
-        final Collection<Order> orders = template.queryAll(GET_PAGED_BY_USER, params, new OrderMapper());
         final Integer total = countOrdersByUser(user);
 
         return new Page<>(orders, total, pageable.getPageNumber());
     }
 
     private Integer countOrdersByUser(User user) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, user.getId());
-
-        return template.queryOne(COUNT_BY_USER, params, (rs) -> rs.getInt("total"));
+        return template.queryOne(
+                COUNT_BY_USER,
+                new Object[]{user.getId()},
+                (rs) -> rs.getInt("total"));
     }
 
     @Override
     public Order getByOrderIdAndUser(Long id, User user) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-        params.put(2, user.getId());
-
-        return template.queryOne(GET_BY_ID_AND_USER, params, new OrderMapper(new InvoiceMapper(user)));
+        return template.queryOne(GET_BY_ID_AND_USER,
+                new Object[]{id, user.getId()},
+                new OrderMapper(new InvoiceMapper(user)));
     }
 
     @Override
     public Order findById(Long id) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-
-        return template.queryOne(GET_BY_ID, params, new OrderMapper(new InvoiceMapper()));
+        return template.queryOne(GET_BY_ID,
+                new Object[]{id},
+                new OrderMapper(new InvoiceMapper()));
     }
 
     @Override
     public void update(Order order) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, order.getInvoice().getId());
-        params.put(2, order.getState().name());
-        params.put(3, order.getCreatedOn());
-        params.put(4, order.getId());
-
-        template.update(UPDATE, params);
+        template.update(UPDATE,
+                order.getInvoice().getId(),
+                order.getState().name(),
+                order.getCreatedOn(),
+                order.getId());
     }
 
     @Override
     public void delete(Long id) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-
-        template.update(DELETE, params);
+        template.update(DELETE, id);
     }
 }
 
