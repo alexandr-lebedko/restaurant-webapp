@@ -30,14 +30,10 @@ public class AdminModifyItemCommand extends AbstractAdminCommand {
     private ItemValidator itemValidator;
 
     public AdminModifyItemCommand(OrderService orderService, ItemService itemService, CategoryService categoryService) {
-        this(orderService, categoryService, itemService, new ItemValidator());
-    }
-
-    public AdminModifyItemCommand(OrderService orderService, CategoryService categoryService, ItemService itemService, ItemValidator itemValidator) {
         super(orderService);
         this.categoryService = categoryService;
         this.itemService = itemService;
-        this.itemValidator = itemValidator;
+        this.itemValidator = new ItemValidator();
     }
 
     @Override

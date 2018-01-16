@@ -1,10 +1,6 @@
 package net.lebedko.web.command.impl.admin;
 
-import net.lebedko.entity.general.Price;
-import net.lebedko.entity.item.Category;
-import net.lebedko.entity.item.Description;
 import net.lebedko.entity.item.Item;
-import net.lebedko.entity.item.Title;
 import net.lebedko.service.CategoryService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
@@ -34,19 +30,15 @@ public class AdminCreateItemCommand extends AbstractAdminCommand {
     private ImageValidator imageValidator;
 
     public AdminCreateItemCommand(OrderService orderService, ItemService itemService, CategoryService categoryService) {
-        this(orderService, itemService, categoryService, new ItemValidator(), new ImageValidator());
-    }
-
-    public AdminCreateItemCommand(OrderService orderService, ItemService itemService, CategoryService categoryService, ItemValidator itemValidator, ImageValidator imageValidator) {
         super(orderService);
         this.categoryService = categoryService;
         this.itemService = itemService;
-        this.itemValidator = itemValidator;
-        this.imageValidator = imageValidator;
+        this.itemValidator = new ItemValidator();
+        this.imageValidator = new ImageValidator();
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context){
+    protected IResponseAction _doExecute(IContext context) {
         final Errors errors = new Errors();
         final Item item = parseItem(context);
         final InputStream imageInput = context.getInputStream(Attribute.IMAGE);
@@ -77,11 +69,11 @@ public class AdminCreateItemCommand extends AbstractAdminCommand {
     }
 
     private Item parseItem(IContext context) {
-        Title title = CommandUtils.parseTitle(context);
-        Description description = CommandUtils.parseDescription(context);
-        Category category = categoryService.getById(CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), -1L));
-        Price price = CommandUtils.parsePrice(context);
-        return new Item(title, description, category, price, null);
+        return new Item(
+                CommandUtils.parseTitle(context),
+                CommandUtils.parseDescription(context),
+                categoryService.getById(CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), -1L)),
+                CommandUtils.parsePrice(context),
+                null);
     }
-
 }

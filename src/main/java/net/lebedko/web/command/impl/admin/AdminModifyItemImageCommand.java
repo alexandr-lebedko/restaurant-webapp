@@ -26,15 +26,10 @@ public class AdminModifyItemImageCommand extends AbstractAdminCommand {
     private ImageValidator imageValidator;
 
     public AdminModifyItemImageCommand(OrderService orderService, ItemService itemService, CategoryService categoryService) {
-        this(orderService, itemService, categoryService, new ImageValidator());
-    }
-
-    public AdminModifyItemImageCommand(OrderService orderService, ItemService itemService, CategoryService categoryService, ImageValidator imageValidator) {
         super(orderService);
         this.itemService = itemService;
         this.categoryService = categoryService;
-        this.imageValidator = imageValidator;
-
+        this.imageValidator = new ImageValidator();
     }
 
     @Override

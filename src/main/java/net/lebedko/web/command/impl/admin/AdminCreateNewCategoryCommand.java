@@ -24,15 +24,10 @@ public class AdminCreateNewCategoryCommand extends AbstractAdminCommand {
     private CategoryValidator categoryValidator;
 
     public AdminCreateNewCategoryCommand(OrderService orderService, CategoryService categoryService) {
-        this(orderService, categoryService, new CategoryValidator());
-    }
-
-    public AdminCreateNewCategoryCommand(OrderService orderService, CategoryService categoryService, CategoryValidator categoryValidator) {
         super(orderService);
         this.categoryService = categoryService;
-        this.categoryValidator = categoryValidator;
+        this.categoryValidator = new CategoryValidator();
     }
-
 
     @Override
     protected IResponseAction _doExecute(IContext context) {
