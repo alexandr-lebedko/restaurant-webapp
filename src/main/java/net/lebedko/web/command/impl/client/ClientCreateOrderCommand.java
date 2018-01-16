@@ -44,7 +44,7 @@ public class ClientCreateOrderCommand extends AbstractCommand {
                 .map(sessionBucket::getItem)
                 .collect(toList());
 
-        final List<Long> quantities = context.getRequestParameters(Attribute.ITEM_ID).stream()
+        final List<Long> quantities = context.getRequestParameters(Attribute.ORDER_ITEM_QUANTITY).stream()
                 .map(CommandUtils::parseToLong)
                 .collect(toList());
 
