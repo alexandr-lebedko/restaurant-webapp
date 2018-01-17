@@ -49,7 +49,7 @@
                     <li class="nav-item">
                         <a class="nav-link badged" href="${orders}">
                             <i class="fa fa-list-ul" aria-hidden="true"></i>
-                            <span class="badge">${sessionScope.get(Attribute.ORDERS_NUM)}</span>
+                            <span class="badge">${requestScope.get(Attribute.ORDERS_NUM)}</span>
                             <span><fmt:message key="orders"/></span>
                         </a>
                     </li>
