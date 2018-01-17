@@ -54,9 +54,6 @@ public class JdbcOrderDao implements OrderDao {
 
     @Override
     public Collection<Order> getByState(OrderState state) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, state.name());
-
         return template.queryAll(GET_BY_STATE,
                 new Object[]{state.name()},
                 new OrderMapper());
