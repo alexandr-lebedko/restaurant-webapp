@@ -21,12 +21,12 @@ public abstract class AbstractAdminCommand extends AbstractCommand {
     protected final IResponseAction doExecute(IContext context) {
         IResponseAction responseAction = _doExecute(context);
 
-        addOrderAndInvoiceStatistics(context);
+        addNewOrdersNumber(context);
 
         return responseAction;
     }
 
-    private void addOrderAndInvoiceStatistics(IContext context) {
+    private void addNewOrdersNumber(IContext context) {
         Collection<Order> unprocessedOrders = orderService.getByState(OrderState.NEW);
         if (!unprocessedOrders.isEmpty()) {
             context.addRequestAttribute(Attribute.ORDERS_NUM, unprocessedOrders.size());
