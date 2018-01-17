@@ -3,23 +3,14 @@ package net.lebedko.web.command.impl;
 import net.lebedko.web.command.IContext;
 import net.lebedko.web.validator.Errors;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
-import static java.util.Arrays.asList;
 import static java.util.Optional.ofNullable;
 
-/**
- * alexandr.lebedko : 12.06.2017
- */
 public class WebContext implements IContext {
     private HttpServletResponse response;
     private HttpServletRequest request;
@@ -37,11 +28,6 @@ public class WebContext implements IContext {
     @Override
     public void addRequestAttribute(String key, Object value) {
         request.setAttribute(key, value);
-    }
-
-    @Override
-    public String getRequestAttribute(String key) {
-        return (String) request.getAttribute(key);
     }
 
     @Override
@@ -72,16 +58,6 @@ public class WebContext implements IContext {
     @Override
     public void addErrors(Errors errors) {
         request.setAttribute("errors", errors);
-    }
-
-    @Override
-    public Locale getLocale() {
-        return request.getLocale();
-    }
-
-    @Override
-    public Part getPart(String name) throws IOException, ServletException {
-        return request.getPart(name);
     }
 
     @Override
