@@ -50,7 +50,7 @@ public class AdminModifyItemCommand extends AbstractAdminCommand {
                 return new RedirectAction(
                         QueryBuilder.base(URL.ADMIN_ITEMS)
                                 .addParam(Attribute.CATEGORY_ID, categoryId.toString())
-                                .toString()
+                                .build()
                 );
             }
         } catch (IllegalArgumentException e) {

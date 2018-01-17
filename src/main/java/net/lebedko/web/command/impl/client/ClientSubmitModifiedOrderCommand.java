@@ -27,6 +27,6 @@ public class ClientSubmitModifiedOrderCommand extends AbstractCommand {
         return new RedirectAction(
                 QueryBuilder.base(URL.CLIENT_ORDER)
                         .addParam(Attribute.ORDER_ID, orderId.toString())
-                        .toString());
+                        .build());
     }
 }

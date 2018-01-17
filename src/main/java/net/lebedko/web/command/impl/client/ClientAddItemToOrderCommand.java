@@ -32,7 +32,7 @@ public class ClientAddItemToOrderCommand extends AbstractCommand {
         return new RedirectAction(
                 QueryBuilder.base(URL.CLIENT_MENU)
                         .addParam(Attribute.CATEGORY_ID, Long.toString(item.getCategory().getId()))
-                        .toString()
+                        .build()
         );
     }
 

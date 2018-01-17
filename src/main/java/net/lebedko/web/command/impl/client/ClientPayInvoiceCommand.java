@@ -41,7 +41,7 @@ public class ClientPayInvoiceCommand extends AbstractCommand {
             return new RedirectAction(
                     QueryBuilder.base(URL.CLIENT_INVOICE)
                             .addParam(Attribute.INVOICE_ID, Long.toString(id))
-                            .toString());
+                            .build());
 
         } catch (IllegalStateException e) {
             final Errors errors = new Errors();

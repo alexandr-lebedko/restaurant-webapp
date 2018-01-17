@@ -15,7 +15,7 @@ public class URL {
     public static final String ADMIN_ORDERS = PREFIX + "admin/orders";
     public static final String ADMIN_MAIN = QueryBuilder.base(ADMIN_ORDERS)
             .addParam(Attribute.ORDER_STATE, OrderState.NEW.toString())
-            .toString();
+            .build();
     public static final String ADMIN_INVOICE = PREFIX + "admin/invoice";
     public static final String ADMIN_INVOICES = PREFIX + "admin/invoices";
     public static final String ADMIN_CATEGORIES = PREFIX + "admin/categories";

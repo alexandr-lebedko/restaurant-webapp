@@ -22,8 +22,7 @@ public class QueryBuilder {
         return this;
     }
 
-    @Override
-    public String toString() {
+    public String build(){
         return base.concat(params.toString());
     }
 

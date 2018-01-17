@@ -24,6 +24,6 @@ public class AdminProcessOrderCommand extends AbstractAdminCommand {
         return new RedirectAction(
                 QueryBuilder.base(URL.ADMIN_ORDER)
                         .addParam(Attribute.ORDER_ID, orderId.toString())
-                        .toString());
+                        .build());
     }
 }

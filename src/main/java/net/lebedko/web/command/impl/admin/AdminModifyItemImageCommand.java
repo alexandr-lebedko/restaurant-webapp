@@ -48,7 +48,7 @@ public class AdminModifyItemImageCommand extends AbstractAdminCommand {
             return new RedirectAction(
                     QueryBuilder.base(URL.ADMIN_ITEMS)
                             .addParam(Attribute.CATEGORY_ID, item.getCategory().getId().toString())
-                            .toString()
+                            .build()
             );
         }
 

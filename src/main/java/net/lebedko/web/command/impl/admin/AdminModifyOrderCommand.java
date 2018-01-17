@@ -40,7 +40,7 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
         return new RedirectAction(
                 QueryBuilder.base(URL.ADMIN_ORDER)
                         .addParam(Attribute.ORDER_ID, getOrderId(context).toString())
-                        .toString());
+                        .build());
     }
 
     private Long getOrderId(IContext context) {

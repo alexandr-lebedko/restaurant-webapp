@@ -23,6 +23,6 @@ public class AdminRejectOrderCommand extends AbstractAdminCommand {
         return new RedirectAction(
                 QueryBuilder.base(URL.ADMIN_ORDER)
                         .addParam(Attribute.ORDER_ID, id.toString())
-                        .toString());
+                        .build());
     }
 }
