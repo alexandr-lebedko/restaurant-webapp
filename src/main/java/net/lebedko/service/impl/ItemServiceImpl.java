@@ -44,8 +44,14 @@ public class ItemServiceImpl implements ItemService {
     public void update(Item item, InputStream image) {
         String imageId = fileService.saveImg(image);
         try {
+            fileService.deleteFile(item.getImageId());
             txManager.tx(() -> itemDao.update(
-                    new Item(item.getId(), item.getTitle(), item.getDescription(), item.getCategory(), item.getPrice(), imageId)));
+                    new Item(item.getId(),
+                            item.getTitle(),
+                            item.getDescription(),
+                            item.getCategory(),
+                            item.getPrice(),
+                            imageId)));
         } catch (RuntimeException e) {
             fileService.deleteFile(imageId);
             throw e;
