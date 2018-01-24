@@ -33,7 +33,7 @@ public class AdminModifyItemImageCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) {
+    protected IResponseAction doExecute(IContext context) {
         final Errors errors = new Errors();
 
         imageValidator.validate(context.getInputStream(Attribute.IMAGE_ID), errors);

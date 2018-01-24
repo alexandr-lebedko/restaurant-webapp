@@ -5,8 +5,8 @@ import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderItemService;
+import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
-import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.CommandUtils;
@@ -16,7 +16,7 @@ import java.util.Collection;
 
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
-public class ClientGetInvoiceCommand extends AbstractCommand {
+public class ClientGetInvoiceCommand implements ICommand {
     private IResponseAction INVOICE_FORWARD = new ForwardAction(PAGE.CLIENT_INVOICE);
 
     private InvoiceService invoiceService;
@@ -28,7 +28,7 @@ public class ClientGetInvoiceCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) {
+    public IResponseAction execute(IContext context) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.INVOICE_ID));
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
 

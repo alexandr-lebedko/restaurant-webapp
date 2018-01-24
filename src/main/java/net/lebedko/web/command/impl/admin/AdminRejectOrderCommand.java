@@ -16,7 +16,7 @@ public class AdminRejectOrderCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) {
+    protected IResponseAction doExecute(IContext context) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
         orderService.reject(id);
 

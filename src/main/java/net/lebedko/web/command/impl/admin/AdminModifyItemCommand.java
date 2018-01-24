@@ -19,10 +19,13 @@ import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.item.ItemValidator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class AdminModifyItemCommand extends AbstractAdminCommand {
+    private static final Logger LOG = LogManager.getLogger();
     private static final IResponseAction ITEMS_FORWARD = new ForwardAction(PAGE.ADMIN_ITEMS);
 
     private CategoryService categoryService;
@@ -37,7 +40,7 @@ public class AdminModifyItemCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) {
+    protected IResponseAction doExecute(IContext context) {
         final Long categoryId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID));
         final Item item = parseItem(context, categoryId);
         final Errors errors = new Errors();

@@ -5,8 +5,8 @@ import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderItemService;
+import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
-import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
@@ -17,10 +17,13 @@ import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.validator.Errors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
 
-public class ClientPayInvoiceCommand extends AbstractCommand {
+public class ClientPayInvoiceCommand implements ICommand{
+    private static final Logger LOG = LogManager.getLogger();
     private static final IResponseAction INVOICE_FORWARD = new ForwardAction(WebConstant.PAGE.CLIENT_INVOICE);
 
     private InvoiceService invoiceService;
@@ -32,7 +35,7 @@ public class ClientPayInvoiceCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) {
+    public IResponseAction execute(IContext context) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.INVOICE_ID), -1L);
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
 
@@ -40,7 +43,7 @@ public class ClientPayInvoiceCommand extends AbstractCommand {
             invoiceService.payInvoice(id, user);
             return new RedirectAction(
                     QueryBuilder.base(URL.CLIENT_INVOICE)
-                            .addParam(Attribute.INVOICE_ID, Long.toString(id))
+                            .addParam(Attribute.INVOICE_ID, id.toString())
                             .build());
 
         } catch (IllegalStateException e) {

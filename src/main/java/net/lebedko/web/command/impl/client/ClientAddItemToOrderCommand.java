@@ -3,8 +3,8 @@ package net.lebedko.web.command.impl.client;
 import net.lebedko.entity.item.Item;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderBucket;
+import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
-import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
@@ -14,7 +14,7 @@ import net.lebedko.web.util.constant.URL;
 
 import static java.util.Optional.ofNullable;
 
-public class ClientAddItemToOrderCommand extends AbstractCommand {
+public class ClientAddItemToOrderCommand implements ICommand{
     private ItemService itemService;
 
     public ClientAddItemToOrderCommand(ItemService itemService) {
@@ -22,7 +22,7 @@ public class ClientAddItemToOrderCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) {
+    public IResponseAction execute(IContext context) {
         final OrderBucket bucket = getOrderBucket(context);
         final Item item = getItem(context, bucket);
 

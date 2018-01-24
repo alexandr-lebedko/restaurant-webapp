@@ -16,7 +16,7 @@ public class AdminProcessOrderCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) {
+    protected IResponseAction doExecute(IContext context) {
         final Long orderId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
 
         orderService.process(orderId);

@@ -25,7 +25,7 @@ public class AdminGetInvoiceCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context){
+    protected IResponseAction doExecute(IContext context){
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.INVOICE_ID));
         final Invoice invoice = invoiceService.getInvoice(id);
         final Collection<Order> orders = orderService.getByInvoice(invoice);

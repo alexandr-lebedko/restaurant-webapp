@@ -6,8 +6,8 @@ import net.lebedko.entity.user.User;
 import net.lebedko.service.OrderBucket;
 import net.lebedko.service.OrderItemService;
 import net.lebedko.service.OrderService;
+import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
-import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
@@ -16,7 +16,7 @@ import net.lebedko.web.util.constant.URL;
 
 import java.util.Collection;
 
-public class ClientModifyOrderCommand extends AbstractCommand {
+public class ClientModifyOrderCommand implements ICommand{
     private static final IResponseAction CLIENT_ORDER_REDIRECT = new RedirectAction(URL.CLIENT_ORDER_FORM);
 
     private OrderService orderService;
@@ -28,7 +28,7 @@ public class ClientModifyOrderCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) {
+public IResponseAction execute(IContext context) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
 
         final User user = context.getSessionAttribute(User.class, Attribute.USER);

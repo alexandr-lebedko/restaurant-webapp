@@ -10,10 +10,13 @@ import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.WebConstant;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.NoSuchElementException;
 
 public class AdminGetOrdersCommand extends AbstractAdminCommand {
+    private static final Logger LOG = LogManager.getLogger();
     private static final IResponseAction ORDERS_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ORDERS);
 
     public AdminGetOrdersCommand(OrderService orderService) {
@@ -21,7 +24,7 @@ public class AdminGetOrdersCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) {
+    protected IResponseAction doExecute(IContext context) {
         final OrderState orderState = parseState(context);
         final Page<Order> ordersPage = orderService.getByState(orderState, CommandUtils.parsePageable(context));
 

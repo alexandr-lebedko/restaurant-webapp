@@ -10,12 +10,15 @@ import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.NoSuchElementException;
 
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class AdminGetInvoicesCommand extends AbstractAdminCommand {
+    private static final Logger LOG = LogManager.getLogger();
     private static final IResponseAction INVOICES_FORWARD = new ForwardAction(PAGE.ADMIN_INVOICES);
     private InvoiceService invoiceService;
 
@@ -25,7 +28,7 @@ public class AdminGetInvoicesCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context){
+    protected IResponseAction doExecute(IContext context){
         final InvoiceState state = parseState(context);
         final Page<Invoice> invoicesPage = invoiceService.getByState(state, CommandUtils.parsePageable(context));
 

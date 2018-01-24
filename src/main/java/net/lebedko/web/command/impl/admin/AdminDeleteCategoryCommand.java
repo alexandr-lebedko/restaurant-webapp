@@ -19,7 +19,7 @@ public class AdminDeleteCategoryCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context){
+    protected IResponseAction doExecute(IContext context){
         categoryService.delete(CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID)));
         return CATEGORIES_REDIRECT;
     }

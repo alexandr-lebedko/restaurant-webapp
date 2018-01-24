@@ -3,23 +3,24 @@ package net.lebedko.web.command.impl.admin;
 import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderState;
 import net.lebedko.service.OrderService;
+import net.lebedko.web.command.ICommand;
 import net.lebedko.web.command.IContext;
-import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.util.constant.Attribute;
 
 import java.util.Collection;
 
-public abstract class AbstractAdminCommand extends AbstractCommand {
+public abstract class AbstractAdminCommand implements ICommand{
     protected OrderService orderService;
 
     public AbstractAdminCommand(OrderService orderService) {
         this.orderService = orderService;
     }
 
+
     @Override
-    protected final IResponseAction doExecute(IContext context) {
-        IResponseAction responseAction = _doExecute(context);
+    public final IResponseAction execute(IContext context) {
+        IResponseAction responseAction = doExecute(context);
 
         addNewOrdersNumber(context);
 
@@ -34,5 +35,5 @@ public abstract class AbstractAdminCommand extends AbstractCommand {
     }
 
 
-    protected abstract IResponseAction _doExecute(IContext context);
+    protected abstract IResponseAction doExecute(IContext context);
 }

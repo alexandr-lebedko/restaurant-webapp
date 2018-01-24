@@ -32,7 +32,7 @@ public class AdminModifyOrderCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) {
+    protected IResponseAction doExecute(IContext context) {
         final Collection<OrderItem> modifiedOrderItems = parseOrderItems(context);
 
         orderService.modify(modifiedOrderItems);

@@ -29,7 +29,7 @@ public class AdminModifyCategoryCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) {
+    protected IResponseAction doExecute(IContext context) {
         final Category category = CommandUtils.parseCategory(context);
         final Errors errors = new Errors();
 

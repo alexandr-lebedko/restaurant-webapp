@@ -18,7 +18,7 @@ public class AdminGetItemFormCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) {
+    protected IResponseAction doExecute(IContext context) {
         context.addRequestAttribute(Attribute.CATEGORIES, categoryService.getAll());
         return ITEM_FORM_FORWARD;
     }

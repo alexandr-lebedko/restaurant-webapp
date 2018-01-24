@@ -16,12 +16,15 @@ import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.ImageValidator;
 import net.lebedko.web.validator.item.ItemValidator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
 
 import static net.lebedko.web.util.constant.WebConstant.*;
 
 public class AdminCreateItemCommand extends AbstractAdminCommand {
+    private static final Logger LOG = LogManager.getLogger();
     private static final IResponseAction ITEM_FORWARD = new ForwardAction(PAGE.ADMIN_ITEM_FORM);
 
     private CategoryService categoryService;
@@ -38,7 +41,7 @@ public class AdminCreateItemCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context) {
+    protected IResponseAction doExecute(IContext context) {
         final Errors errors = new Errors();
         final Item item = parseItem(context);
         final InputStream imageInput = context.getInputStream(Attribute.IMAGE);

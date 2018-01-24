@@ -19,7 +19,7 @@ public class AdminGetCategoriesCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction _doExecute(IContext context){
+    protected IResponseAction doExecute(IContext context){
         context.addRequestAttribute(Attribute.CATEGORIES, categoryService.getAll());
         return CATEGORIES_FORWARD;
     }

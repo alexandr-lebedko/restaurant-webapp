@@ -2,7 +2,6 @@ package net.lebedko.web.command.impl.auth;
 
 import net.lebedko.entity.user.User;
 import net.lebedko.service.UserService;
-import net.lebedko.web.command.impl.AbstractCommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.command.ICommand;
@@ -13,11 +12,14 @@ import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.user.UserValidator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static net.lebedko.web.util.constant.PageErrorNames.USER_EXISTS;
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
-public class SignUpPostCommand extends AbstractCommand implements ICommand {
+public class SignUpPostCommand implements ICommand {
+    private static final Logger LOG = LogManager.getLogger();
     private static final IResponseAction MAIN_REDIRECT = new RedirectAction(URL.CLIENT_MENU);
     private static final IResponseAction SIGN_UP_PAGE_FORWARD = new ForwardAction(PAGE.SIGN_UP);
 
@@ -30,7 +32,7 @@ public class SignUpPostCommand extends AbstractCommand implements ICommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context){
+    public IResponseAction execute(IContext context){
         final Errors errors = new Errors();
         final User user = CommandUtils.parseUser(context);
         userValidator.validate(user, errors);

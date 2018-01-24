@@ -5,7 +5,7 @@ import net.lebedko.entity.user.Password;
 import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserRole;
 import net.lebedko.service.UserService;
-import net.lebedko.web.command.impl.AbstractCommand;
+import net.lebedko.web.command.ICommand;
 import net.lebedko.web.response.ForwardAction;
 import net.lebedko.web.response.IResponseAction;
 import net.lebedko.web.response.RedirectAction;
@@ -20,7 +20,7 @@ import static net.lebedko.web.util.constant.PageErrorNames.USER_NOT_EXISTS;
 import static net.lebedko.web.util.constant.PageErrorNames.WRONG_PASSWORD;
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
-public class SignInPostCommand extends AbstractCommand {
+public class SignInPostCommand implements ICommand{
     private static final IResponseAction SIGN_IN_PAGE_FORWARD = new ForwardAction(PAGE.SIGN_IN);
     private static final IResponseAction CLIENT_MAIN_REDIRECT = new RedirectAction(URL.CLIENT_MENU);
     private static final IResponseAction ADMIN_MAIN_REDIRECT = new RedirectAction(URL.ADMIN_MAIN);
@@ -32,7 +32,7 @@ public class SignInPostCommand extends AbstractCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(final IContext context) {
+    public IResponseAction execute(final IContext context) {
         final Errors errors = new Errors();
 
         final Password password = CommandUtils.parsePassword(context);
