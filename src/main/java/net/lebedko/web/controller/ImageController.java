@@ -1,9 +1,7 @@
 package net.lebedko.web.controller;
 
-import net.lebedko.web.util.constant.Image;
+import net.lebedko.util.PropertyUtil;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,22 +10,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import static net.lebedko.web.util.constant.Image.DESTINATION_FOLDER;
 
-@WebServlet(urlPatterns = "/images/*",
-        initParams = @WebInitParam(name = "imagesFolder", value = DESTINATION_FOLDER))
+@WebServlet("/images/*")
 public class ImageController extends HttpServlet {
-    private String imagesFolder;
+    private String IMAGE_FOLDER = PropertyUtil.loadProperties("image/image.properties").getProperty("images.folder");
 
     @Override
-    public void init() {
-        this.imagesFolder = this.getInitParameter("imagesFolder");
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String filename = req.getPathInfo().substring(1);
-        File file = new File(new File(imagesFolder), filename);
+        File file = new File(new File(IMAGE_FOLDER), filename);
         resp.setHeader("Content-Type", getServletContext().getMimeType(filename));
         resp.setHeader("Content-Length", String.valueOf(file.length()));
         resp.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");

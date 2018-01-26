@@ -16,7 +16,7 @@ public interface ServiceFactory {
 
     UserService getUserService();
 
-    FileService getFileService();
+    ImageService getImageService();
 
     static ServiceFactory getServiceFactory() {
         return ServiceFactoryImpl.getInstance();

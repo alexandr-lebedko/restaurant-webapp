@@ -9,7 +9,7 @@ import net.lebedko.service.OrderService;
 import net.lebedko.service.UserService;
 import net.lebedko.service.OrderItemService;
 import net.lebedko.service.ServiceFactory;
-import net.lebedko.service.FileService;
+import net.lebedko.service.ImageService;
 
 public class ServiceFactoryImpl implements ServiceFactory {
     private static final ServiceFactory INSTANCE = new ServiceFactoryImpl();
@@ -24,15 +24,15 @@ public class ServiceFactoryImpl implements ServiceFactory {
     private OrderItemService orderItemService;
     private OrderService orderService;
     private InvoiceService invoiceService;
-    private FileService fileService;
+    private ImageService imageService;
 
     private ServiceFactoryImpl() {
         DaoFactory daoFactory = DaoFactory.getInstance();
         TransactionManager txManager = daoFactory.getTxManager();
 
-        this.fileService = new FileServiceImpl();
+        this.imageService = new ImageServiceImpl();
         this.userService = new UserServiceImpl(txManager, daoFactory.getUserDao());
-        this.itemService = new ItemServiceImpl(txManager, new FileServiceImpl(), daoFactory.getItemDao());
+        this.itemService = new ItemServiceImpl(txManager, new ImageServiceImpl(), daoFactory.getItemDao());
         this.categoryService = new CategoryServiceImpl(txManager, daoFactory.getCategoryDao());
         this.orderItemService = new OrderItemServiceImpl(txManager, daoFactory.getOrderItemDao());
         this.invoiceService = new InvoiceServiceImpl(txManager, daoFactory.getInvoiceDao());
@@ -72,7 +72,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     }
 
     @Override
-    public FileService getFileService() {
-        return fileService;
+    public ImageService getImageService() {
+        return imageService;
     }
 }

@@ -3,8 +3,8 @@ package net.lebedko.service;
 
 import java.io.InputStream;
 
-public interface FileService {
+public interface ImageService {
     String saveImg(InputStream input);
 
-    void deleteFile(String name);
+    void deleteImg(String name);
 }
