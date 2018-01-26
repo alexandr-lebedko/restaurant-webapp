@@ -2,7 +2,7 @@
 
 ## RESTAURANT WEB APP
 
-Task 21. System Restaurant. Customer makes an order from the Menu.
+System Restaurant. Customer makes an order from the Menu.
 Administrator confirms the Order and sends it to the kitchen for
 execution. Administrator provides an invoice. Customer effects the payment of an invoice.
 
