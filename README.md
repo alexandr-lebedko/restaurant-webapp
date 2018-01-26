@@ -32,10 +32,12 @@ execution. Administrator provides an invoice. Customer effects the payment of an
 
 ##
 
+#### Steps
+
 1. Clone or download project
-2. Create database(with any name) 
-3. In project's "META-INF/context.xml" specify your database url, username and password
-4. Import data to your database from resources/database/dump.sql
+2. Create new schema(with any name) 
+3. In project's "META-INF/context.xml" specify url to your schema, username and password
+4. Import tables and data to your schema from resources/database/dump.sql
 5. Create folder where loaded images will be stored and specify path to the folder in "resources/image/image.properties" 
 6. Copy content from "resources/image/init" to previously created folder 
 7. Package project with maven
