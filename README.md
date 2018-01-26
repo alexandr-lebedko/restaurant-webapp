@@ -32,7 +32,7 @@ execution. Administrator provides an invoice. Customer effects the payment of an
 
 ##
 
-1. Clone or download the project
+1. Clone or download project
 2. Create database(with any name) 
 3. In project's "META-INF/context.xml" specify your database url, username and password
 4. Import data to your database from resources/database/dump.sql
@@ -41,3 +41,5 @@ execution. Administrator provides an invoice. Customer effects the payment of an
 7. Package project with maven
 8. Put "restaurant.war" in "/webapps" folder of installed(and run) tomcat
 9. Go to "localhost:xxxx/restaurant"
+
+##
