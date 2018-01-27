@@ -3,8 +3,8 @@
 ## RESTAURANT WEB APP
 
 System Restaurant. Customer makes an order from the Menu.
-Administrator confirms the Order and sends it to the kitchen for
-execution. Administrator provides an invoice. Customer effects the payment of an invoice.
+Administrator confirms the Order and sends it to a kitchen for
+execution. Administrator provides an invoice. Customer effects payment of the invoice.
 
 ##
 
