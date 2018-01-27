@@ -1,8 +1,8 @@
 package net.lebedko.web.controller;
 
-import net.lebedko.web.response.IResponseAction;
-import net.lebedko.web.command.ICommand;
-import net.lebedko.web.command.ICommandFactory;
+import net.lebedko.web.response.ResponseAction;
+import net.lebedko.web.command.Command;
+import net.lebedko.web.command.CommandFactory;
 import net.lebedko.web.command.impl.WebContext;
 import net.lebedko.web.util.constant.URL;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 @MultipartConfig
 public class FrontController extends HttpServlet {
     private static final Logger LOG = LogManager.getLogger();
-    private static final ICommandFactory commandFactory = ICommandFactory.getCommandFactory();
+    private static final CommandFactory commandFactory = CommandFactory.getCommandFactory();
 
     @Override
     protected void service(final HttpServletRequest req,
@@ -30,8 +30,8 @@ public class FrontController extends HttpServlet {
             final String cmd = parseCommandName(req);
             LOG.info("REQUESTED CMD: " + cmd);
 
-            final ICommand command = commandFactory.getCommand(cmd);
-            final IResponseAction responseAction = command.execute(new WebContext(req, resp));
+            final Command command = commandFactory.getCommand(cmd);
+            final ResponseAction responseAction = command.execute(new WebContext(req, resp));
 
             responseAction.executeResponse(req, resp);
             LOG.info("CMD: " + cmd + " EXECUTED");

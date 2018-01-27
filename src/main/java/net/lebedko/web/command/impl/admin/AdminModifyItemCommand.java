@@ -8,9 +8,9 @@ import net.lebedko.entity.item.Title;
 import net.lebedko.service.CategoryService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
-import net.lebedko.web.command.IContext;
+import net.lebedko.web.command.Context;
 import net.lebedko.web.response.ForwardAction;
-import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.QueryBuilder;
@@ -26,7 +26,7 @@ import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class AdminModifyItemCommand extends AbstractAdminCommand {
     private static final Logger LOG = LogManager.getLogger();
-    private static final IResponseAction ITEMS_FORWARD = new ForwardAction(PAGE.ADMIN_ITEMS);
+    private static final ResponseAction ITEMS_FORWARD = new ForwardAction(PAGE.ADMIN_ITEMS);
 
     private CategoryService categoryService;
     private ItemService itemService;
@@ -40,27 +40,22 @@ public class AdminModifyItemCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) {
+    protected ResponseAction doExecute(Context context) {
         final Long categoryId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID));
         final Item item = parseItem(context, categoryId);
         final Errors errors = new Errors();
-
         itemValidator.validate(item, errors);
         try {
             if (!errors.hasErrors()) {
                 itemService.update(item);
-
-                return new RedirectAction(
-                        QueryBuilder.base(URL.ADMIN_ITEMS)
+                return new RedirectAction(QueryBuilder.base(URL.ADMIN_ITEMS)
                                 .addParam(Attribute.CATEGORY_ID, categoryId.toString())
-                                .build()
-                );
+                                .build());
             }
         } catch (IllegalArgumentException e) {
             LOG.error(e);
             errors.register("itemExists", PageErrorNames.ITEM_EXISTS);
         }
-
         context.addRequestAttribute(Attribute.CATEGORIES, categoryService.getAll());
         context.addRequestAttribute(Attribute.ITEMS, itemService.getByCategory(item.getCategory()));
         context.addRequestAttribute(Attribute.MODIFIED_ITEM, item);
@@ -68,7 +63,7 @@ public class AdminModifyItemCommand extends AbstractAdminCommand {
         return ITEMS_FORWARD;
     }
 
-    private Item parseItem(IContext context, Long categoryId) {
+    private Item parseItem(Context context, Long categoryId) {
         final Long itemId = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ITEM_ID));
         final Title title = CommandUtils.parseTitle(context);
         final Description description = CommandUtils.parseDescription(context);

@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * alexandr.lebedko : 12.06.2017
  */
-public class RedirectAction implements IResponseAction {
+public class RedirectAction implements ResponseAction {
     private static final Logger LOG = LogManager.getLogger();
     private String page;
 

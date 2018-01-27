@@ -5,7 +5,7 @@ import net.lebedko.web.validator.Errors;
 import java.io.InputStream;
 import java.util.List;
 
-public interface IContext {
+public interface Context {
 
     void addSessionAttribute(String key, Object value);
 

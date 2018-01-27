@@ -1,6 +1,6 @@
 package net.lebedko.service;
 
-import net.lebedko.service.impl.*;
+import net.lebedko.service.impl.ServiceFactoryImpl;
 
 public interface ServiceFactory {
 

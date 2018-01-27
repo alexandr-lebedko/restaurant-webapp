@@ -1,7 +1,6 @@
 package net.lebedko.dao;
 
-import net.lebedko.dao.jdbc.*;
-
+import net.lebedko.dao.jdbc.JdbcDaoFactory;
 
 public interface DaoFactory {
     ItemDao getItemDao();

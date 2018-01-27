@@ -3,10 +3,9 @@ package net.lebedko.web.validator.item;
 import net.lebedko.entity.item.Title;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.validator.Errors;
-import net.lebedko.web.validator.IValidator;
+import net.lebedko.web.validator.Validator;
 
-
-public class TitleValidator implements IValidator<Title> {
+public class TitleValidator implements Validator<Title> {
     private static final Integer MIN_SIZE = 2;
     private static final Integer MAX_SIZE = 50;
 
@@ -23,5 +22,4 @@ public class TitleValidator implements IValidator<Title> {
                 .anyMatch(length ->
                         (length < MIN_SIZE) || (length > MAX_SIZE));
     }
-
 }

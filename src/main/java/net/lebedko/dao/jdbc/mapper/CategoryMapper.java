@@ -7,7 +7,10 @@ import net.lebedko.entity.item.Category;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static net.lebedko.util.SupportedLocales.*;
+import static net.lebedko.util.SupportedLocales.UA_CODE;
+import static net.lebedko.util.SupportedLocales.RU_CODE;
+import static net.lebedko.util.SupportedLocales.EN_CODE;
+import static net.lebedko.util.SupportedLocales.getByCode;
 
 public class CategoryMapper implements Mapper<Category> {
     private static final String CATEGORY_ID = "c_id";

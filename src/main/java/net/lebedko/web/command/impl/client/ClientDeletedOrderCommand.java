@@ -2,16 +2,16 @@ package net.lebedko.web.command.impl.client;
 
 import net.lebedko.entity.user.User;
 import net.lebedko.service.OrderService;
-import net.lebedko.web.command.ICommand;
-import net.lebedko.web.command.IContext;
-import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.command.Command;
+import net.lebedko.web.command.Context;
+import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
-public class ClientDeletedOrderCommand implements ICommand {
-    private static final IResponseAction ORDERS_REDIRECT = new RedirectAction(URL.CLIENT_ORDERS);
+public class ClientDeletedOrderCommand implements Command {
+    private static final ResponseAction ORDERS_REDIRECT = new RedirectAction(URL.CLIENT_ORDERS);
     private OrderService orderService;
 
     public ClientDeletedOrderCommand(OrderService orderService) {
@@ -19,7 +19,7 @@ public class ClientDeletedOrderCommand implements ICommand {
     }
 
     @Override
-    public IResponseAction execute(IContext context) {
+    public ResponseAction execute(Context context) {
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
 

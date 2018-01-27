@@ -4,10 +4,8 @@ import net.lebedko.dao.UserDao;
 import net.lebedko.dao.jdbc.mapper.UserMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.user.EmailAddress;
-import net.lebedko.entity.user.*;
+import net.lebedko.entity.user.User;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class JdbcUserDao implements UserDao {
     private static final String FIND_BY_EMAIL = QUERIES.getProperty("user.getByEmail");

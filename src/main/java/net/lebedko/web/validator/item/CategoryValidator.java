@@ -3,9 +3,9 @@ package net.lebedko.web.validator.item;
 import net.lebedko.entity.item.Category;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.validator.Errors;
-import net.lebedko.web.validator.IValidator;
+import net.lebedko.web.validator.Validator;
 
-public class CategoryValidator implements IValidator<Category> {
+public class CategoryValidator implements Validator<Category> {
     private static final int MIN_TITLE_LENGTH = 2;
     private static final int MAX_TITLE_LENGTH = 25;
 

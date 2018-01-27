@@ -2,19 +2,15 @@ package net.lebedko.web.validator.user;
 
 import net.lebedko.entity.user.FullName;
 import net.lebedko.web.validator.Errors;
-import net.lebedko.web.validator.IValidator;
+import net.lebedko.web.validator.Validator;
 
-public class FullNameValidator implements IValidator<FullName> {
+public class FullNameValidator implements Validator<FullName> {
     private FirstNameValidator firstNameValidator;
     private LastNameValidator lastNameValidator;
 
     public FullNameValidator() {
-        this(new FirstNameValidator(), new LastNameValidator());
-    }
-
-    public FullNameValidator(FirstNameValidator firstNameValidator, LastNameValidator lastNameValidator) {
-        this.firstNameValidator = firstNameValidator;
-        this.lastNameValidator = lastNameValidator;
+        this.firstNameValidator = new FirstNameValidator();
+        this.lastNameValidator = new LastNameValidator();
     }
 
     @Override

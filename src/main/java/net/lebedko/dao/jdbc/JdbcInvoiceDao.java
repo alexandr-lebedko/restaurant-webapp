@@ -11,8 +11,6 @@ import net.lebedko.entity.user.User;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 public class JdbcInvoiceDao implements InvoiceDao {
     private static final String INSERT = QUERIES.getProperty("invoice.insert");
@@ -90,7 +88,7 @@ public class JdbcInvoiceDao implements InvoiceDao {
         return template.queryOne(
                 COUNT_BY_USER,
                 new Object[]{user.getId()},
-                (rs) -> rs.getInt("total"));
+                rs -> rs.getInt("total"));
     }
 
     @Override
@@ -108,7 +106,7 @@ public class JdbcInvoiceDao implements InvoiceDao {
         return template.queryOne(
                 COUNT_BY_STATE,
                 new Object[]{state.name()},
-                (rs) -> rs.getInt("total")
+                rs -> rs.getInt("total")
         );
     }
 

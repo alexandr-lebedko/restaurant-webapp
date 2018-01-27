@@ -10,7 +10,7 @@ import java.io.InputStream;
 import static java.util.Objects.isNull;
 import static net.lebedko.web.util.constant.PageErrorNames.INVALID_IMAGE;
 
-public class ImageValidator implements IValidator<InputStream> {
+public class ImageValidator implements Validator<InputStream> {
     private static final Logger LOG = LogManager.getLogger();
 
     @Override

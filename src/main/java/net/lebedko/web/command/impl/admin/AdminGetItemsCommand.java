@@ -4,9 +4,9 @@ import net.lebedko.entity.item.Category;
 import net.lebedko.service.CategoryService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
-import net.lebedko.web.command.IContext;
+import net.lebedko.web.command.Context;
 import net.lebedko.web.response.ForwardAction;
-import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.WebConstant;
@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 
 public class AdminGetItemsCommand extends AbstractAdminCommand {
-    private static final IResponseAction ITEMS_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ITEMS);
+    private static final ResponseAction ITEMS_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ITEMS);
     private static final Long DEFAULT_ID = 1L;
 
     private ItemService itemService;
@@ -28,7 +28,7 @@ public class AdminGetItemsCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) {
+    protected ResponseAction doExecute(Context context) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), DEFAULT_ID);
         final Collection<Category> categories = categoryService.getAll();
 

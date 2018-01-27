@@ -1,14 +1,11 @@
 package net.lebedko.dao.jdbc;
 
 import net.lebedko.dao.ItemDao;
-import net.lebedko.dao.exception.DataAccessException;
 import net.lebedko.dao.jdbc.mapper.ItemMapper;
 import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.item.Item;
 import net.lebedko.entity.item.Category;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Collection;
 
 import static net.lebedko.util.SupportedLocales.EN_CODE;

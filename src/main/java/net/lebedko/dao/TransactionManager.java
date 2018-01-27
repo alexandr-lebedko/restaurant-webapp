@@ -3,7 +3,7 @@ package net.lebedko.dao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 public abstract class TransactionManager {
 
@@ -15,18 +15,15 @@ public abstract class TransactionManager {
 
     protected abstract void commit();
 
-    public final <T> T tx(Callable<T> work) {
+    public final <T> T tx(Supplier<T> work) {
         try {
             begin();
-            T result = work.call();
+            T result = work.get();
             commit();
             return result;
         } catch (RuntimeException e) {
             rollback();
             throw e;
-        } catch (Exception e) {
-            rollback();
-            throw new RuntimeException(e);
         }
     }
 
@@ -38,9 +35,6 @@ public abstract class TransactionManager {
         } catch (RuntimeException e) {
             rollback();
             throw e;
-        } catch (Exception e) {
-            rollback();
-            throw new RuntimeException(e);
         }
     }
 }

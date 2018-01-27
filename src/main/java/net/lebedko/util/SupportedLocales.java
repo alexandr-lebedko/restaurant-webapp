@@ -1,7 +1,6 @@
 package net.lebedko.util;
 
 import java.util.Map;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -32,10 +31,6 @@ public final class SupportedLocales {
         return LOCALES.containsValue(locale);
     }
 
-    public static Map<String, Locale> getLocales() {
-        return LOCALES;
-    }
-
     public static Locale getByCode(String code) {
         return LOCALES.get(code);
     }
@@ -48,7 +43,4 @@ public final class SupportedLocales {
         return LOCALE_REQUEST_ATTRIBUTE_NAME;
     }
 
-    public static boolean containsSupportedLocales(Collection<Locale> locales) {
-        return locales.containsAll(LOCALES.values());
-    }
 }

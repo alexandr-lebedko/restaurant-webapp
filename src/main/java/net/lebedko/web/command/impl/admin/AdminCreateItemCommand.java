@@ -4,15 +4,16 @@ import net.lebedko.entity.item.Item;
 import net.lebedko.service.CategoryService;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderService;
-import net.lebedko.web.command.IContext;
+import net.lebedko.web.command.Context;
 import net.lebedko.web.response.ForwardAction;
-import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.util.constant.URL;
+import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.ImageValidator;
 import net.lebedko.web.validator.item.ItemValidator;
@@ -21,11 +22,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
 
-import static net.lebedko.web.util.constant.WebConstant.*;
 
 public class AdminCreateItemCommand extends AbstractAdminCommand {
     private static final Logger LOG = LogManager.getLogger();
-    private static final IResponseAction ITEM_FORWARD = new ForwardAction(PAGE.ADMIN_ITEM_FORM);
+    private static final ResponseAction ITEM_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ITEM_FORM);
 
     private CategoryService categoryService;
     private ItemService itemService;
@@ -41,7 +41,7 @@ public class AdminCreateItemCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context) {
+    protected ResponseAction doExecute(Context context) {
         final Errors errors = new Errors();
         final Item item = parseItem(context);
         final InputStream imageInput = context.getInputStream(Attribute.IMAGE);
@@ -52,26 +52,21 @@ public class AdminCreateItemCommand extends AbstractAdminCommand {
         if (!errors.hasErrors()) {
             try {
                 itemService.insert(item, imageInput);
-
-                return new RedirectAction(
-                        QueryBuilder.base(URL.ADMIN_ITEMS)
+                return new RedirectAction(QueryBuilder.base(URL.ADMIN_ITEMS)
                                 .addParam(Attribute.CATEGORY_ID, item.getCategory().getId().toString())
-                                .build()
-                );
-            } catch (IllegalArgumentException e) {
+                                .build());
+                } catch (IllegalArgumentException e) {
                 LOG.error("Item exists", e);
                 errors.register("itemExists", PageErrorNames.ITEM_EXISTS);
             }
         }
-
         context.addRequestAttribute(Attribute.CATEGORIES, categoryService.getAll());
         context.addRequestAttribute(Attribute.ITEM, item);
         context.addErrors(errors);
-
         return ITEM_FORWARD;
     }
 
-    private Item parseItem(IContext context) {
+    private Item parseItem(Context context) {
         return new Item(
                 CommandUtils.parseTitle(context),
                 CommandUtils.parseDescription(context),

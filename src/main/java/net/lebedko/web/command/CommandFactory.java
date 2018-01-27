@@ -2,11 +2,11 @@ package net.lebedko.web.command;
 
 import net.lebedko.web.command.impl.CommandFactoryImpl;
 
-public interface ICommandFactory {
+public interface CommandFactory {
 
-    ICommand getCommand(String cmd);
+    Command getCommand(String cmd);
 
-    static ICommandFactory getCommandFactory() {
+    static CommandFactory getCommandFactory() {
         return CommandFactoryImpl.getInstance();
     }
 }

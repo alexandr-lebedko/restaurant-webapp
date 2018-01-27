@@ -4,9 +4,9 @@ import net.lebedko.entity.item.Item;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.OrderBucket;
 import net.lebedko.service.OrderService;
-import net.lebedko.web.command.ICommand;
-import net.lebedko.web.command.IContext;
-import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.command.Command;
+import net.lebedko.web.command.Context;
+import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
@@ -16,8 +16,8 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class ClientCreateOrderCommand implements ICommand {
-    private static final IResponseAction ORDERS_REDIRECT = new RedirectAction(URL.CLIENT_ORDERS);
+public class ClientCreateOrderCommand implements Command {
+    private static final ResponseAction ORDERS_REDIRECT = new RedirectAction(URL.CLIENT_ORDERS);
     private OrderService orderService;
 
     public ClientCreateOrderCommand(OrderService orderService) {
@@ -25,7 +25,7 @@ public class ClientCreateOrderCommand implements ICommand {
     }
 
     @Override
-    public IResponseAction execute(IContext context) {
+    public ResponseAction execute(Context context) {
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
         final OrderBucket bucket = parseBucketForm(context);
 
@@ -36,7 +36,7 @@ public class ClientCreateOrderCommand implements ICommand {
     }
 
 
-    private OrderBucket parseBucketForm(IContext context) {
+    private OrderBucket parseBucketForm(Context context) {
         final OrderBucket sessionBucket = CommandUtils.getOrderBucketFromSession(context);
 
         final List<Item> items = context.getRequestParameters(Attribute.ITEM_ID).stream()

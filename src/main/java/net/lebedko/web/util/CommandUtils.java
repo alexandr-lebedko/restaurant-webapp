@@ -8,8 +8,7 @@ import net.lebedko.entity.item.Description;
 import net.lebedko.entity.item.Title;
 import net.lebedko.entity.user.*;
 import net.lebedko.service.OrderBucket;
-import net.lebedko.util.SupportedLocales;
-import net.lebedko.web.command.IContext;
+import net.lebedko.web.command.Context;
 import net.lebedko.web.util.constant.Attribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,7 +51,7 @@ public class CommandUtils {
                 .collect(Collectors.toList());
     }
 
-    public static Category parseCategory(IContext context) {
+    public static Category parseCategory(Context context) {
         Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), -1L);
         String uaTitleString = ofNullable(context.getRequestParameter(Attribute.TITLE_UA)).orElse("");
         String enTitleString = ofNullable(context.getRequestParameter(Attribute.TITLE_EN)).orElse("");
@@ -66,7 +65,7 @@ public class CommandUtils {
         return new Category(id, title);
     }
 
-    public static Title parseTitle(IContext context) {
+    public static Title parseTitle(Context context) {
         return new Title(
                 StringI18N.builder()
                         .add(getByCode(UA_CODE), ofNullable(context.getRequestParameter(Attribute.TITLE_UA)).orElse(""))
@@ -75,7 +74,7 @@ public class CommandUtils {
                         .build());
     }
 
-    public static Description parseDescription(IContext context) {
+    public static Description parseDescription(Context context) {
         return new Description(
                 StringI18N.builder()
                         .add(getByCode(UA_CODE), ofNullable(context.getRequestParameter(Attribute.DESCRIPTION_UA)).orElse(""))
@@ -84,7 +83,7 @@ public class CommandUtils {
                         .build());
     }
 
-    public static Price parsePrice(IContext context) {
+    public static Price parsePrice(Context context) {
         Double value = -1d;
         try {
             value = Double.valueOf(context.getRequestParameter(Attribute.PRICE));
@@ -94,43 +93,43 @@ public class CommandUtils {
         return new Price(value);
     }
 
-    public static Password parsePassword(IContext context) {
+    public static Password parsePassword(Context context) {
         return ofNullable(context.getRequestParameter(Attribute.PASSWORD))
                 .map(Password::createPasswordFromString)
                 .orElse(Password.createPasswordFromString(""));
     }
 
-    public static EmailAddress parseEmail(IContext context) {
+    public static EmailAddress parseEmail(Context context) {
         return ofNullable(context.getRequestParameter(Attribute.EMAIL))
                 .map(EmailAddress::new)
                 .orElse(new EmailAddress(""));
     }
 
-    public static FirstName parseFirstName(IContext context) {
+    public static FirstName parseFirstName(Context context) {
         return ofNullable(context.getRequestParameter(Attribute.FIRST_NAME))
                 .map(FirstName::new)
                 .orElse(new FirstName(""));
     }
 
-    public static LastName parsLastName(IContext context) {
+    public static LastName parsLastName(Context context) {
         return ofNullable(context.getRequestParameter(Attribute.LAST_NAME))
                 .map(LastName::new)
                 .orElse(new LastName(""));
     }
 
-    public static User parseUser(IContext context) {
+    public static User parseUser(Context context) {
         return new User(new FullName(parseFirstName(context), parsLastName(context)),
                 parseEmail(context),
                 parsePassword(context),
                 UserRole.CLIENT);
     }
 
-    public static OrderBucket getOrderBucketFromSession(IContext context) {
+    public static OrderBucket getOrderBucketFromSession(Context context) {
         return ofNullable(context.getSessionAttribute(OrderBucket.class, Attribute.ORDER_BUCKET))
                 .orElseGet(OrderBucket::new);
     }
 
-    public static Pageable parsePageable(IContext context) {
+    public static Pageable parsePageable(Context context) {
         Integer pageNum = 1;
         try {
             Integer value = Math.abs(Integer.valueOf(context.getRequestParameter(Attribute.PAGE_NUM)));

@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * alexandr.lebedko : 12.06.2017
  */
-public class ForwardAction implements IResponseAction {
+public class ForwardAction implements ResponseAction {
     private static final Logger logger = LogManager.getLogger();
     private String page;
 

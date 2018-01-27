@@ -1,27 +1,28 @@
 package net.lebedko.dao.jdbc.transaction;
 
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class TransactionCounter {
     //value to push in stack when starting or joining transaction
     private static final Object CHIP = new Object();
 
-    private Stack<Object> chipStack = new Stack<>();
+    private Deque<Object> chipStack = new LinkedList<>();
 
 
-    public void pushTx() {
+    public void addTx() {
         chipStack.push(CHIP);
     }
 
-    public void popTx() {
-        if (chipStack.empty()) {
+    public void removeTx() {
+        if (chipStack.isEmpty()) {
             throw new IllegalStateException("Counter is empty!");
         }
         chipStack.pop();
     }
 
     public boolean isNestedTx() {
-        if (chipStack.empty()) {
+        if (chipStack.isEmpty()) {
             throw new IllegalStateException("Counter is empty!");
         }
         return chipStack.size() > 1;

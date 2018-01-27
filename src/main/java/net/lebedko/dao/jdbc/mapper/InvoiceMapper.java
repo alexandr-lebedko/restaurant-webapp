@@ -20,11 +20,11 @@ public class InvoiceMapper implements Mapper<Invoice> {
 
     private UserMapper userMapper;
     private User user;
-    private InvoiceState state;
+    private InvoiceState invoiceState;
 
-    public InvoiceMapper(User user, InvoiceState state) {
+    public InvoiceMapper(User user, InvoiceState invoiceState) {
         this.user = user;
-        this.state = state;
+        this.invoiceState = invoiceState;
     }
 
     public InvoiceMapper(User user) {
@@ -45,7 +45,7 @@ public class InvoiceMapper implements Mapper<Invoice> {
     }
 
     private InvoiceState getState(ResultSet rs) throws SQLException {
-        return nonNull(state) ? state : InvoiceState.valueOf(rs.getString(STATE));
+        return nonNull(invoiceState) ? invoiceState : InvoiceState.valueOf(rs.getString(STATE));
     }
 
     private User getUser(ResultSet rs) throws SQLException {

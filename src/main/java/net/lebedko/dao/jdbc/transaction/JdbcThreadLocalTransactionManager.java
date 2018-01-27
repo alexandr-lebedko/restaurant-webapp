@@ -35,7 +35,7 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
             }
         }
 
-        transactionCounter.get().pushTx();
+        transactionCounter.get().addTx();
 
         LOG.debug("Begin transaction method executed");
     }
@@ -73,7 +73,7 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
                 cleanUp();
             }
         } else {
-            transactionCounter.get().popTx();
+            transactionCounter.get().removeTx();
             LOG.debug("Committing of nested transaction amended");
         }
 

@@ -4,9 +4,9 @@ package net.lebedko.web.validator.item;
 import net.lebedko.entity.general.Price;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.validator.Errors;
-import net.lebedko.web.validator.IValidator;
+import net.lebedko.web.validator.Validator;
 
-public class PriceValidator implements IValidator<Price> {
+public class PriceValidator implements Validator<Price> {
     private static final Double MIN_VALUE = 0d;
 
     @Override

@@ -4,10 +4,10 @@ import net.lebedko.entity.item.Category;
 import net.lebedko.entity.item.Item;
 import net.lebedko.service.CategoryService;
 import net.lebedko.service.ItemService;
-import net.lebedko.web.command.ICommand;
-import net.lebedko.web.command.IContext;
+import net.lebedko.web.command.Command;
+import net.lebedko.web.command.Context;
 import net.lebedko.web.response.ForwardAction;
-import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 
@@ -16,8 +16,8 @@ import java.util.NoSuchElementException;
 
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
-public class ClientGetMenuCommand implements ICommand {
-private static final IResponseAction MENU_FORWARD = new ForwardAction(PAGE.CLIENT_MENU);
+public class ClientGetMenuCommand implements Command {
+private static final ResponseAction MENU_FORWARD = new ForwardAction(PAGE.CLIENT_MENU);
     private static final Long DEFAULT_CATEGORY = 1L;
 
     private CategoryService categoryService;
@@ -30,7 +30,7 @@ private static final IResponseAction MENU_FORWARD = new ForwardAction(PAGE.CLIEN
     }
 
     @Override
-    public IResponseAction execute(IContext context) {
+    public ResponseAction execute(Context context) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.CATEGORY_ID), DEFAULT_CATEGORY);
 
         final Collection<Category> categories = categoryService.getAll();

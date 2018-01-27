@@ -1,10 +1,9 @@
 package net.lebedko.web.validator;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
-/**
- * alexandr.lebedko : 21.06.2017
- */
 public class Errors {
 
     private Map<String, String> errorsMap = new LinkedHashMap<>();

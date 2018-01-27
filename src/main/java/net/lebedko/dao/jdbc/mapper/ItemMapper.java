@@ -3,13 +3,19 @@ package net.lebedko.dao.jdbc.mapper;
 import net.lebedko.dao.jdbc.template.Mapper;
 import net.lebedko.entity.general.Price;
 import net.lebedko.entity.general.StringI18N;
-import net.lebedko.entity.item.*;
+import net.lebedko.entity.item.Category;
+import net.lebedko.entity.item.Description;
+import net.lebedko.entity.item.Item;
+import net.lebedko.entity.item.Title;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static java.util.Objects.nonNull;
-import static net.lebedko.util.SupportedLocales.*;
+import static net.lebedko.util.SupportedLocales.RU_CODE;
+import static net.lebedko.util.SupportedLocales.EN_CODE;
+import static net.lebedko.util.SupportedLocales.UA_CODE;
+import static net.lebedko.util.SupportedLocales.getByCode;
 
 public class ItemMapper implements Mapper<Item> {
 

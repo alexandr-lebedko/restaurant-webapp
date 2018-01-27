@@ -12,7 +12,7 @@ public class StringI18N {
     public StringI18N() {
     }
 
-    public StringI18N(Map<Locale, String> stringsToLocale) {
+    private StringI18N(Map<Locale, String> stringsToLocale) {
         this.stringsToLocale = new HashMap<>(stringsToLocale);
     }
 

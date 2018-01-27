@@ -5,10 +5,10 @@ import net.lebedko.entity.order.OrderItem;
 import net.lebedko.entity.user.User;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderItemService;
-import net.lebedko.web.command.ICommand;
-import net.lebedko.web.command.IContext;
+import net.lebedko.web.command.Command;
+import net.lebedko.web.command.Context;
 import net.lebedko.web.response.ForwardAction;
-import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.QueryBuilder;
@@ -22,9 +22,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
 
-public class ClientPayInvoiceCommand implements ICommand{
+public class ClientPayInvoiceCommand implements Command {
     private static final Logger LOG = LogManager.getLogger();
-    private static final IResponseAction INVOICE_FORWARD = new ForwardAction(WebConstant.PAGE.CLIENT_INVOICE);
+    private static final ResponseAction INVOICE_FORWARD = new ForwardAction(WebConstant.PAGE.CLIENT_INVOICE);
 
     private InvoiceService invoiceService;
     private OrderItemService orderItemService;
@@ -35,7 +35,7 @@ public class ClientPayInvoiceCommand implements ICommand{
     }
 
     @Override
-    public IResponseAction execute(IContext context) {
+    public ResponseAction execute(Context context) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.INVOICE_ID), -1L);
         final User user = context.getSessionAttribute(User.class, Attribute.USER);
 

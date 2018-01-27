@@ -1,6 +1,6 @@
 package net.lebedko.web.command.impl;
 
-import net.lebedko.web.command.IContext;
+import net.lebedko.web.command.Context;
 import net.lebedko.web.validator.Errors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import static java.util.Optional.ofNullable;
 
-public class WebContext implements IContext {
+public class WebContext implements Context {
     private HttpServletResponse response;
     private HttpServletRequest request;
 

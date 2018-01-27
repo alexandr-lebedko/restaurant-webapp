@@ -5,9 +5,9 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.service.InvoiceService;
 import net.lebedko.service.OrderService;
-import net.lebedko.web.command.IContext;
+import net.lebedko.web.command.Context;
 import net.lebedko.web.response.ForwardAction;
-import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.constant.Attribute;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +19,7 @@ import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class AdminGetInvoicesCommand extends AbstractAdminCommand {
     private static final Logger LOG = LogManager.getLogger();
-    private static final IResponseAction INVOICES_FORWARD = new ForwardAction(PAGE.ADMIN_INVOICES);
+    private static final ResponseAction INVOICES_FORWARD = new ForwardAction(PAGE.ADMIN_INVOICES);
     private InvoiceService invoiceService;
 
     public AdminGetInvoicesCommand(OrderService orderService, InvoiceService invoiceService) {
@@ -28,7 +28,7 @@ public class AdminGetInvoicesCommand extends AbstractAdminCommand {
     }
 
     @Override
-    protected IResponseAction doExecute(IContext context){
+    protected ResponseAction doExecute(Context context){
         final InvoiceState state = parseState(context);
         final Page<Invoice> invoicesPage = invoiceService.getByState(state, CommandUtils.parsePageable(context));
 
@@ -38,7 +38,7 @@ public class AdminGetInvoicesCommand extends AbstractAdminCommand {
         return INVOICES_FORWARD;
     }
 
-    private InvoiceState parseState(IContext context) {
+    private InvoiceState parseState(Context context) {
         try {
             return InvoiceState.valueOf(context.getRequestParameter(Attribute.INVOICE_STATE));
         } catch (IllegalArgumentException | NullPointerException e) {

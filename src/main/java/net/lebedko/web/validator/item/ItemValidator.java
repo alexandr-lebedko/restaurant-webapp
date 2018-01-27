@@ -2,9 +2,9 @@ package net.lebedko.web.validator.item;
 
 import net.lebedko.entity.item.Item;
 import net.lebedko.web.validator.Errors;
-import net.lebedko.web.validator.IValidator;
+import net.lebedko.web.validator.Validator;
 
-public class ItemValidator implements IValidator<Item> {
+public class ItemValidator implements Validator<Item> {
     private TitleValidator titleValidator;
     private DescriptionValidator descriptionValidator;
     private PriceValidator priceValidator;

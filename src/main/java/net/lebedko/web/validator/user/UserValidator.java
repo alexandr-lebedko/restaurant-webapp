@@ -2,22 +2,17 @@ package net.lebedko.web.validator.user;
 
 import net.lebedko.entity.user.User;
 import net.lebedko.web.validator.Errors;
-import net.lebedko.web.validator.IValidator;
+import net.lebedko.web.validator.Validator;
 
-
-public class UserValidator implements IValidator<User> {
+public class UserValidator implements Validator<User> {
     private FullNameValidator fullNameValidator;
     private EmailAddressValidator emailAddressValidator;
     private PasswordValidator passwordValidator;
 
     public UserValidator() {
-        this(new FullNameValidator(), new EmailAddressValidator(), new PasswordValidator());
-    }
-
-    public UserValidator(FullNameValidator fullNameValidator, EmailAddressValidator emailAddressValidator, PasswordValidator passwordValidator) {
-        this.fullNameValidator = fullNameValidator;
-        this.emailAddressValidator = emailAddressValidator;
-        this.passwordValidator = passwordValidator;
+        this.fullNameValidator = new FullNameValidator();
+        this.emailAddressValidator =  new EmailAddressValidator();
+        this.passwordValidator = new PasswordValidator();
     }
 
     @Override

@@ -1,28 +1,27 @@
 package net.lebedko.web.command.impl;
 
-import net.lebedko.service.*;
-import net.lebedko.web.command.ICommand;
-import net.lebedko.web.command.ICommandFactory;
-import net.lebedko.web.command.impl.admin.*;
-import net.lebedko.web.command.impl.auth.*;
-import net.lebedko.web.command.impl.client.*;
-import net.lebedko.web.validator.user.UserValidator;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static java.util.Optional.ofNullable;
+import net.lebedko.service.*;
+import net.lebedko.web.command.*;
+import net.lebedko.web.command.impl.client.*;
+import net.lebedko.web.command.impl.admin.*;
+import net.lebedko.web.command.impl.auth.*;
+import net.lebedko.web.validator.user.UserValidator;
+
 import static net.lebedko.web.util.constant.WebConstant.COMMAND.*;
+import static java.util.Optional.ofNullable;
 
-public class CommandFactoryImpl implements ICommandFactory {
-    private static final ICommandFactory INSTANCE = new CommandFactoryImpl();
+public class CommandFactoryImpl implements CommandFactory {
+    private static final CommandFactory INSTANCE = new CommandFactoryImpl();
 
-    public static ICommandFactory getInstance() {
+    public static CommandFactory getInstance() {
         return INSTANCE;
     }
 
-    private Map<String, ICommand> commandMap = new HashMap<>();
+    private Map<String, Command> commandMap = new HashMap<>();
 
     private CommandFactoryImpl() {
         final ServiceFactory serviceFactory = ServiceFactory.getServiceFactory();
@@ -72,7 +71,7 @@ public class CommandFactoryImpl implements ICommandFactory {
     }
 
     @Override
-    public ICommand getCommand(String cmd) {
+    public Command getCommand(String cmd) {
         return ofNullable(commandMap.get(cmd))
                 .orElseThrow(NoSuchElementException::new);
     }

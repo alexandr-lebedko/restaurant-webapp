@@ -8,6 +8,6 @@ import java.io.IOException;
 /**
  * alexandr.lebedko : 12.06.2017
  */
-public interface IResponseAction {
+public interface ResponseAction {
     void executeResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }

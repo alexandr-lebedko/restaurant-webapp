@@ -3,9 +3,9 @@ package net.lebedko.web.command.impl.client;
 import net.lebedko.entity.item.Item;
 import net.lebedko.service.ItemService;
 import net.lebedko.service.OrderBucket;
-import net.lebedko.web.command.ICommand;
-import net.lebedko.web.command.IContext;
-import net.lebedko.web.response.IResponseAction;
+import net.lebedko.web.command.Command;
+import net.lebedko.web.command.Context;
+import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.response.RedirectAction;
 import net.lebedko.web.util.CommandUtils;
 import net.lebedko.web.util.QueryBuilder;
@@ -14,7 +14,7 @@ import net.lebedko.web.util.constant.URL;
 
 import static java.util.Optional.ofNullable;
 
-public class ClientAddItemToOrderCommand implements ICommand{
+public class ClientAddItemToOrderCommand implements Command {
     private ItemService itemService;
 
     public ClientAddItemToOrderCommand(ItemService itemService) {
@@ -22,7 +22,7 @@ public class ClientAddItemToOrderCommand implements ICommand{
     }
 
     @Override
-    public IResponseAction execute(IContext context) {
+    public ResponseAction execute(Context context) {
         final OrderBucket bucket = getOrderBucket(context);
         final Item item = getItem(context, bucket);
 
@@ -36,13 +36,13 @@ public class ClientAddItemToOrderCommand implements ICommand{
         );
     }
 
-    private Item getItem(IContext context, OrderBucket bucket) {
+    private Item getItem(Context context, OrderBucket bucket) {
         final Long id = CommandUtils.parseToLong(context.getRequestParameter(Attribute.ITEM_ID));
         return ofNullable(bucket.getItem(id))
                 .orElse(itemService.get(id));
     }
 
-    private OrderBucket getOrderBucket(IContext context) {
+    private OrderBucket getOrderBucket(Context context) {
         return ofNullable(context.getSessionAttribute(OrderBucket.class, Attribute.ORDER_BUCKET))
                 .orElse(new OrderBucket());
     }

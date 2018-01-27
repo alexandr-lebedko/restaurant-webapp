@@ -1,6 +1,5 @@
 package net.lebedko.service;
 
-
 import java.io.InputStream;
 
 public interface ImageService {

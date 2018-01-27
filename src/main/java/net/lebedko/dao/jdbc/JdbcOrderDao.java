@@ -13,8 +13,6 @@ import net.lebedko.entity.user.User;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Map;
-import java.util.HashMap;
 
 public class JdbcOrderDao implements OrderDao {
     private static final String INSERT_ORDER = QUERIES.getProperty("order.insertOrder");
@@ -75,7 +73,7 @@ public class JdbcOrderDao implements OrderDao {
         return template.queryOne(
                 COUNT_BY_STATE,
                 new Object[]{state.name()},
-                (rs) -> rs.getInt("total"));
+                rs -> rs.getInt("total"));
     }
 
     @Override
@@ -94,7 +92,7 @@ public class JdbcOrderDao implements OrderDao {
         return template.queryOne(
                 COUNT_BY_USER,
                 new Object[]{user.getId()},
-                (rs) -> rs.getInt("total"));
+                rs -> rs.getInt("total"));
     }
 
     @Override
