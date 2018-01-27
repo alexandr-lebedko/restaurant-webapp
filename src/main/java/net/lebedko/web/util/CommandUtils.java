@@ -144,7 +144,7 @@ public class CommandUtils {
                 pageNum = value;
             }
         } catch (NumberFormatException | NullPointerException e) {
-            LOG.error("Page num parse error ", e);
+            LOG.error("Page num not specified. Setting default page num: " +pageNum);
         }
         return new Pageable(pageNum);
     }
