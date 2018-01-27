@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-//TODO :: REFACTOR TO STATE PATTER
 public final class JdbcThreadLocalTransactionManager extends TransactionManager {
     private static final ThreadLocal<TransactionCounter> transactionCounter = new ThreadLocal<>();
     private final ThreadLocalConnectionProvider connectionProvider;
@@ -20,7 +19,7 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
     }
 
     @Override
-    protected void begin() throws DataAccessException {
+    protected void begin() {
         LOG.debug("Begin transaction invoked");
 
         if (isNull(transactionCounter.get())) {
@@ -41,7 +40,7 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
     }
 
     @Override
-    protected void rollback() throws DataAccessException {
+    protected void rollback() {
         LOG.debug("Transaction rollback invoked");
         if (nonNull(transactionCounter.get())) {
             try {
@@ -59,7 +58,7 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
     }
 
     @Override
-    protected void commit() throws DataAccessException {
+    protected void commit() {
         LOG.debug("Commit method invoked");
 
         if (!transactionCounter.get().isNestedTx()) {
@@ -76,11 +75,9 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
             transactionCounter.get().removeTx();
             LOG.debug("Committing of nested transaction amended");
         }
-
-
     }
 
-    private void cleanUp() throws DataAccessException {
+    private void cleanUp() {
         LOG.debug("Cleaning up thread local resources: TransactionCounter and ThreadLocalConnectionProvider");
         try {
             LOG.debug("Closing connection");
