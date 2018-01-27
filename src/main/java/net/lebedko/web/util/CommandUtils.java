@@ -6,7 +6,13 @@ import net.lebedko.entity.general.StringI18N;
 import net.lebedko.entity.item.Category;
 import net.lebedko.entity.item.Description;
 import net.lebedko.entity.item.Title;
-import net.lebedko.entity.user.*;
+import net.lebedko.entity.user.EmailAddress;
+import net.lebedko.entity.user.FirstName;
+import net.lebedko.entity.user.FullName;
+import net.lebedko.entity.user.LastName;
+import net.lebedko.entity.user.Password;
+import net.lebedko.entity.user.User;
+import net.lebedko.entity.user.UserRole;
 import net.lebedko.service.OrderBucket;
 import net.lebedko.web.command.Context;
 import net.lebedko.web.util.constant.Attribute;
@@ -17,9 +23,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
-import static net.lebedko.util.SupportedLocales.*;
+import static net.lebedko.util.SupportedLocales.EN_CODE;
+import static net.lebedko.util.SupportedLocales.RU_CODE;
+import static net.lebedko.util.SupportedLocales.UA_CODE;
 import static net.lebedko.util.SupportedLocales.getByCode;
-
 
 public class CommandUtils {
     private static final Logger LOG = LogManager.getLogger();
@@ -142,5 +149,3 @@ public class CommandUtils {
         return new Pageable(pageNum);
     }
 }
-
-

@@ -1,23 +1,27 @@
 package net.lebedko.web.filter;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
 import static java.util.Objects.nonNull;
-import static net.lebedko.util.SupportedLocales.*;
+import static net.lebedko.util.SupportedLocales.LOCALE_SESSION_ATTRIBUTE_NAME;
+import static net.lebedko.util.SupportedLocales.getByCode;
+import static net.lebedko.util.SupportedLocales.getDefaultLocale;
+import static net.lebedko.util.SupportedLocales.getLocaleRequestAttributeName;
+import static net.lebedko.util.SupportedLocales.getLocaleSessionAttributeName;
+import static net.lebedko.util.SupportedLocales.isSupported;
 
 @WebFilter("/*")
-public class LocaleFilter implements Filter {
+public class LocaleFilter extends AbstractFilter {
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-
-        updateLocale(httpServletRequest);
-
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        updateLocale(request);
         chain.doFilter(request, response);
     }
 
@@ -36,17 +40,10 @@ public class LocaleFilter implements Filter {
                 return (Locale) localeSessionAttribute;
             }
         }
+
         if (isSupported(locale)) {
             return locale;
         }
         return getDefaultLocale();
-    }
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
-
-    @Override
-    public void destroy() {
     }
 }

@@ -38,12 +38,10 @@ public class ClientCreateOrderCommand implements Command {
 
     private OrderBucket parseBucketForm(Context context) {
         final OrderBucket sessionBucket = CommandUtils.getOrderBucketFromSession(context);
-
         final List<Item> items = context.getRequestParameters(Attribute.ITEM_ID).stream()
                 .map(CommandUtils::parseToLong)
                 .map(sessionBucket::getItem)
                 .collect(toList());
-
         final List<Long> quantities = context.getRequestParameters(Attribute.ORDER_ITEM_QUANTITY).stream()
                 .map(CommandUtils::parseToLong)
                 .collect(toList());

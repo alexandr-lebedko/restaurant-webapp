@@ -5,8 +5,11 @@ public final class WebConstant {
     }
 
     public static final class PAGE {
-        public final static String PREFIX = "/WEB-INF/views/";
-        public final static String SUFFIX = ".jsp";
+        private PAGE() {
+        }
+
+        private static final String PREFIX = "/WEB-INF/views/";
+        private static final String SUFFIX = ".jsp";
 
         public static final String SIGN_IN = PREFIX + "signIn" + SUFFIX;
         public static final String SIGN_UP = PREFIX + "signUp" + SUFFIX;
@@ -28,8 +31,11 @@ public final class WebConstant {
     }
 
     public static final class COMMAND {
-        public static final String GET_PREFIX = "GET:";
-        public static final String POST_PREFIX = "POST:";
+        private COMMAND() {
+        }
+
+        private static final String GET_PREFIX = "GET:";
+        private static final String POST_PREFIX = "POST:";
 
         public static final String GET_SIGN_IN = GET_PREFIX + URL.SIGN_IN;
         public static final String GET_SIGN_UP = GET_PREFIX + URL.SIGN_UP;
@@ -68,5 +74,4 @@ public final class WebConstant {
         public static final String CLIENT_CREATE_ORDER = POST_PREFIX + URL.CLIENT_ORDER_FORM;
         public static final String CLIENT_CLEAR_ORDER_BUCKET = POST_PREFIX + URL.CLIENT_CLEAR_ORDER_BUCKET;
     }
-
 }

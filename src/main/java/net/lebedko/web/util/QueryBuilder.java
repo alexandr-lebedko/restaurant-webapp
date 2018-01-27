@@ -18,7 +18,6 @@ public class QueryBuilder {
         params.append(name)
                 .append("=")
                 .append(value);
-
         return this;
     }
 
@@ -30,4 +29,3 @@ public class QueryBuilder {
         return new QueryBuilder(base);
     }
 }
-

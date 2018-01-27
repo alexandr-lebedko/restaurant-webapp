@@ -5,7 +5,9 @@ import net.lebedko.entity.user.UserRole;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 
-import javax.servlet.*;
+import javax.servlet.FilterConfig;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
@@ -15,23 +17,18 @@ import java.util.regex.Pattern;
 
 import static net.lebedko.web.filter.AuthenticationFilter.isAuthenticated;
 
-/**
- * alexandr.lebedko : 08.09.2017.
- */
-
 @WebFilter(urlPatterns = {"/app/admin/*", "/app/client/*"},
         initParams = {
                 @WebInitParam(name = "adminUrlRegex", value = ".+\\/admin\\/.+"),
                 @WebInitParam(name = "clientUrlRegex", value = ".+\\/client\\/.+")
-        })
+        }
+)
 public class AuthorizationFilter extends AbstractFilter {
-
     private Pattern adminPattern;
     private Pattern clientPattern;
 
-
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         adminPattern = Pattern.compile(filterConfig.getInitParameter("adminUrlRegex"));
         clientPattern = Pattern.compile(filterConfig.getInitParameter("clientUrlRegex"));
     }
@@ -58,7 +55,6 @@ public class AuthorizationFilter extends AbstractFilter {
 
     private void redirectToAdminMain(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect(request.getContextPath() + URL.ADMIN_MAIN);
-
     }
 
     private void redirectToClientMain(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -66,11 +62,11 @@ public class AuthorizationFilter extends AbstractFilter {
     }
 
     private boolean isAdmin(HttpServletRequest request) {
-        return UserRole.ADMIN == ((User)request.getSession().getAttribute(Attribute.USER)).getRole();
+        return UserRole.ADMIN == ((User) request.getSession().getAttribute(Attribute.USER)).getRole();
     }
 
     private boolean isClient(HttpServletRequest request) {
-        return UserRole.CLIENT == ((User)request.getSession().getAttribute(Attribute.USER)).getRole();
+        return UserRole.CLIENT == ((User) request.getSession().getAttribute(Attribute.USER)).getRole();
     }
 
     private boolean isToAdminPages(HttpServletRequest request) {

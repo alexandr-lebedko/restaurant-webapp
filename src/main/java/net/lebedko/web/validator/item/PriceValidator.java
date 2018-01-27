@@ -1,6 +1,5 @@
 package net.lebedko.web.validator.item;
 
-
 import net.lebedko.entity.general.Price;
 import net.lebedko.web.util.constant.PageErrorNames;
 import net.lebedko.web.validator.Errors;

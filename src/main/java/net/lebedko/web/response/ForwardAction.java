@@ -8,11 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * alexandr.lebedko : 12.06.2017
- */
 public class ForwardAction implements ResponseAction {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOG = LogManager.getLogger();
     private String page;
 
     public ForwardAction(String page) {
@@ -21,7 +18,7 @@ public class ForwardAction implements ResponseAction {
 
     @Override
     public void executeResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("Forwarding request to: " + page);
+        LOG.info("Forwarding request to: " + page);
         request.getRequestDispatcher(page).forward(request, response);
     }
 }

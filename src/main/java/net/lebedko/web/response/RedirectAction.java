@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * alexandr.lebedko : 12.06.2017
- */
 public class RedirectAction implements ResponseAction {
     private static final Logger LOG = LogManager.getLogger();
     private String page;

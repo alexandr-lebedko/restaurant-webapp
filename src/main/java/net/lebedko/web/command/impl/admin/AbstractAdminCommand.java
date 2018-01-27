@@ -20,9 +20,7 @@ public abstract class AbstractAdminCommand implements Command {
     @Override
     public final ResponseAction execute(Context context) {
         ResponseAction responseAction = doExecute(context);
-
         addNewOrdersNumber(context);
-
         return responseAction;
     }
 

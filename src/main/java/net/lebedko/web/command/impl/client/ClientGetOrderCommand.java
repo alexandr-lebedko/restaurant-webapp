@@ -30,10 +30,8 @@ public class ClientGetOrderCommand implements Command {
     public ResponseAction execute(Context context) {
         final Long orderId =CommandUtils.parseToLong(context.getRequestParameter(Attribute.ORDER_ID));
         final User user =  context.getSessionAttribute(User.class, Attribute.USER);
-
         final Order order = orderService.getByUserAndId(orderId, user);
         final Collection<OrderItem> orderItems = orderItemService.getOrderItems(order);
-
         context.addRequestAttribute(Attribute.ORDER, order);
         context.addRequestAttribute(Attribute.ORDER_ITEMS, orderItems);
         return ORDER_FORWARD;

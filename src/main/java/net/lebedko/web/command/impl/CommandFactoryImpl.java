@@ -75,5 +75,4 @@ public class CommandFactoryImpl implements CommandFactory {
         return ofNullable(commandMap.get(cmd))
                 .orElseThrow(NoSuchElementException::new);
     }
-
 }

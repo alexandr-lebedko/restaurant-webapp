@@ -17,7 +17,7 @@ import java.util.Collection;
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
 public class ClientGetInvoiceCommand implements Command {
-    private ResponseAction INVOICE_FORWARD = new ForwardAction(PAGE.CLIENT_INVOICE);
+    private static final ResponseAction INVOICE_FORWARD = new ForwardAction(PAGE.CLIENT_INVOICE);
 
     private InvoiceService invoiceService;
     private OrderItemService orderItemService;

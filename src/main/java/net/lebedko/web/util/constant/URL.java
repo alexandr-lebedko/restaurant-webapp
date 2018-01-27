@@ -4,6 +4,8 @@ import net.lebedko.entity.order.OrderState;
 import net.lebedko.web.util.QueryBuilder;
 
 public class URL {
+    private URL() {
+    }
 
     public static final String CONTROLLER_NAME = "app";
     public static final String IMAGE_CONTROLLER = "images";
@@ -51,5 +53,4 @@ public class URL {
 
     public static final String SIGN_UP_IMG = "/img/restaurant_pickup1600.png";
     public static final String SIGN_IN_IMG = "/img/restaurant1600.png";
-
 }

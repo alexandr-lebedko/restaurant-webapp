@@ -43,13 +43,12 @@ public class AdminModifyItemImageCommand extends AbstractAdminCommand {
         if (!errors.hasErrors()) {
             itemService.update(item, imageStream);
             return new RedirectAction(QueryBuilder.base(URL.ADMIN_ITEMS)
-                            .addParam(Attribute.CATEGORY_ID, item.getCategory().getId().toString())
-                            .build());
+                    .addParam(Attribute.CATEGORY_ID, item.getCategory().getId().toString())
+                    .build());
         }
         context.addRequestAttribute(Attribute.CATEGORIES, categoryService.getAll());
         context.addRequestAttribute(Attribute.ITEMS, itemService.getByCategory(item.getCategory()));
         context.addRequestAttribute(Attribute.IMAGE_ERRORS, errors);
         return ITEMS_FORWARD;
     }
-
 }

@@ -14,7 +14,6 @@ import java.util.Collection;
 
 import static net.lebedko.web.util.constant.WebConstant.PAGE;
 
-
 public class AdminGetInvoiceCommand extends AbstractAdminCommand {
     private static final ResponseAction INVOICE_FORWARD = new ForwardAction(PAGE.ADMIN_INVOICE);
     private InvoiceService invoiceService;

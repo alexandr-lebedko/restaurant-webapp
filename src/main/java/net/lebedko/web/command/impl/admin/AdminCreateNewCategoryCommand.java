@@ -15,7 +15,6 @@ import net.lebedko.web.util.constant.WebConstant;
 import net.lebedko.web.validator.Errors;
 import net.lebedko.web.validator.item.CategoryValidator;
 
-
 public class AdminCreateNewCategoryCommand extends AbstractAdminCommand {
     private static final ResponseAction CATEGORIES_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_CATEGORIES);
     private static final ResponseAction CATEGORIES_REDIRECT = new RedirectAction(URL.ADMIN_CATEGORIES);

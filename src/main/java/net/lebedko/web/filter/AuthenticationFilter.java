@@ -1,9 +1,7 @@
 package net.lebedko.web.filter;
 
-import net.lebedko.entity.order.OrderState;
 import net.lebedko.entity.user.User;
 import net.lebedko.entity.user.UserRole;
-import net.lebedko.web.util.QueryBuilder;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.URL;
 import org.apache.logging.log4j.LogManager;
@@ -29,7 +27,6 @@ public class AuthenticationFilter extends AbstractFilter {
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-
         if (isAuthenticated(request)) {
             LOG.debug("USER AUTHENTICATED, REDIRECTING TO MAIN PAGE");
             redirectToMainPage(request, response);
@@ -39,18 +36,15 @@ public class AuthenticationFilter extends AbstractFilter {
         }
     }
 
-    public static boolean isAuthenticated(HttpServletRequest request) {
+    static boolean isAuthenticated(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-
         if (isNull(session))
             return false;
-
         return nonNull(request.getSession().getAttribute(Attribute.USER));
     }
 
     private void redirectToMainPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserRole role = ((User) (request.getSession().getAttribute(Attribute.USER))).getRole();
-
         if (role == UserRole.ADMIN) {
             LOG.debug("REDIRECTING TO ADMIN MAIN PAGE");
             response.sendRedirect(request.getContextPath() + URL.ADMIN_MAIN);

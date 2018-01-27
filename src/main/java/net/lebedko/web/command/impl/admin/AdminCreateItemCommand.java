@@ -22,7 +22,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
 
-
 public class AdminCreateItemCommand extends AbstractAdminCommand {
     private static final Logger LOG = LogManager.getLogger();
     private static final ResponseAction ITEM_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_ITEM_FORM);

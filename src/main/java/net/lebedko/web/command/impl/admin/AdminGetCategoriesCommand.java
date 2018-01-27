@@ -8,7 +8,6 @@ import net.lebedko.web.response.ResponseAction;
 import net.lebedko.web.util.constant.Attribute;
 import net.lebedko.web.util.constant.WebConstant;
 
-
 public class AdminGetCategoriesCommand extends AbstractAdminCommand {
     private ResponseAction CATEGORIES_FORWARD = new ForwardAction(WebConstant.PAGE.ADMIN_CATEGORIES);
     private CategoryService categoryService;

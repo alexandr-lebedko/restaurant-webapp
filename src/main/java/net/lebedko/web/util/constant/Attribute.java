@@ -1,7 +1,6 @@
 package net.lebedko.web.util.constant;
 
 public class Attribute {
-
     private Attribute() {
     }
 
