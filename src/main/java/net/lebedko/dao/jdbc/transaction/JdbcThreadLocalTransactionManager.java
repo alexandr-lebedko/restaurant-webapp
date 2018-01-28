@@ -20,8 +20,6 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
 
     @Override
     protected void begin() {
-        LOG.debug("Begin transaction invoked");
-
         if (isNull(transactionCounter.get())) {
             transactionCounter.set(new TransactionCounter());
             try {
@@ -33,15 +31,12 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
                 throw new DataAccessException(e);
             }
         }
-
         transactionCounter.get().addTx();
-
         LOG.debug("Begin transaction method executed");
     }
 
     @Override
     protected void rollback() {
-        LOG.debug("Transaction rollback invoked");
         if (nonNull(transactionCounter.get())) {
             try {
                 connectionProvider.getConnection().rollback();
@@ -52,15 +47,11 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
                 cleanUp();
             }
             LOG.debug("Transaction rollback executed");
-        } else {
-            LOG.debug("Transaction rollback was executed earlier");
         }
     }
 
     @Override
     protected void commit() {
-        LOG.debug("Commit method invoked");
-
         if (!transactionCounter.get().isNestedTx()) {
             try {
                 connectionProvider.getConnection().commit();
@@ -80,9 +71,9 @@ public final class JdbcThreadLocalTransactionManager extends TransactionManager 
     private void cleanUp() {
         LOG.debug("Cleaning up thread local resources: TransactionCounter and ThreadLocalConnectionProvider");
         try {
-            LOG.debug("Closing connection");
             connectionProvider.getConnection().setAutoCommit(true);
             connectionProvider.getConnection().close();
+            LOG.debug("Closing connection");
         } catch (SQLException e) {
             throw new DataAccessException("Failed to close connection");
         }
