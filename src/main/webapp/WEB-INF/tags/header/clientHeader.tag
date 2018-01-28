@@ -1,4 +1,4 @@
-<%@tag description="Header for unauthenticated user" pageEncoding="utf-8" %>
+<%@tag description="Header for client" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ tag import="net.lebedko.web.util.constant.URL" %>
