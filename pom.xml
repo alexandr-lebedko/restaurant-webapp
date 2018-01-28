@@ -9,49 +9,60 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.targets>1.8</maven.compiler.targets>
-        <servlet-version>3.1.0</servlet-version>
-        <jsp-version>2.3.1</jsp-version>
-        <jstl-version>1.2</jstl-version>
-        <mysql-version>5.1.39</mysql-version>
-        <log4j-version>2.8.2</log4j-version>
-        <junit-version>4.12</junit-version>
-        <dbunit-version>2.5.4</dbunit-version>
-        <mockito-version>1.9.5</mockito-version>
+        <java.version>1.8</java.version>
+        <maven.compiler.version>3.6.0</maven.compiler.version>
+        <servlet.version>3.1.0</servlet.version>
+        <jsp.version>2.3.1</jsp.version>
+        <jstl.version>1.2</jstl.version>
+        <mysql.version>5.1.39</mysql.version>
+        <log4j.version>2.8.2</log4j.version>
+        <junit.version>4.12</junit.version>
+        <dbunit.version>2.5.4</dbunit.version>
+        <mockito.version>1.9.5</mockito.version>
     </properties>
+
     <build>
         <finalName>restaurant</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
-
     <dependencies>
 
         <!--servlet-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet-version}</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>${jsp-version}</version>
+            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-            <version>${jstl-version}</version>
+            <version>${jstl.version}</version>
         </dependency>
 
         <!--database-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-version}</version>
+            <version>${mysql.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -59,33 +70,33 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>${log4j-version}</version>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${log4j-version}</version>
+            <version>${log4j.version}</version>
         </dependency>
 
         <!--test-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit-version}</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>${mockito-version}</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
-            <version>${dbunit-version}</version>
+            <version>${dbunit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
