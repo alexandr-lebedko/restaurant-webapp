@@ -8,7 +8,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<t:page pageUrl="${pageUrl}">
+<t:page>
     <div class="container main-content">
         <div class="row justify-content-between">
             <div class="col-lg-3">

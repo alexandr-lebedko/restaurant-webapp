@@ -8,7 +8,7 @@
 <fmt:setLocale value="${lang}"/>
 <fmt:setBundle basename="localization"/>
 
-<t:page pageUrl="${URL.SIGN_IN}">
+<t:page>
     <div class="container main-content">
         <div class="row justify-content-between">
             <div id="image-area" class="col-lg-4">
