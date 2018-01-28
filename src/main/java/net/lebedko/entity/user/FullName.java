@@ -38,5 +38,4 @@ public class FullName {
     public String toString() {
         return firstName + " " + lastName;
     }
-
 }

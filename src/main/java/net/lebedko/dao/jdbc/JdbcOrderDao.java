@@ -82,9 +82,7 @@ public class JdbcOrderDao implements OrderDao {
                 GET_PAGED_BY_USER,
                 new Object[]{user.getId(), pageable.getPageSize(), pageable.getOffset()},
                 new OrderMapper());
-
         final Integer total = countOrdersByUser(user);
-
         return new Page<>(orders, total, pageable.getPageNumber());
     }
 
@@ -123,4 +121,3 @@ public class JdbcOrderDao implements OrderDao {
         template.update(DELETE, id);
     }
 }
-

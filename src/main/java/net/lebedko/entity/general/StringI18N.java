@@ -85,7 +85,5 @@ public class StringI18N {
         public StringI18N build() {
             return new StringI18N(localeToString);
         }
-
-
     }
 }

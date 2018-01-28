@@ -40,5 +40,4 @@ public class CategoryServiceImpl implements CategoryService {
     public Category getById(Long id) {
         return txManager.tx(() -> categoryDao.findById(id));
     }
-
 }

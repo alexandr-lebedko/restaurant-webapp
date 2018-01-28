@@ -29,7 +29,6 @@ public class JdbcInvoiceDao implements InvoiceDao {
         this.template = template;
     }
 
-
     @Override
     public Invoice insert(Invoice invoice) {
         Object[] params = {
@@ -39,7 +38,6 @@ public class JdbcInvoiceDao implements InvoiceDao {
                 Timestamp.valueOf(invoice.getCreatedOn())
         };
         Integer id = template.insertAndReturnKey(INSERT, params);
-
         return new Invoice(id.longValue(),
                 invoice.getUser(),
                 invoice.getState(),
@@ -98,7 +96,6 @@ public class JdbcInvoiceDao implements InvoiceDao {
                 new Object[]{state.name(), pageable.getPageSize(), pageable.getOffset()},
                 new InvoiceMapper());
         Integer total = countInvoicesByUser(state);
-
         return new Page<>(invoices, total, pageable.getPageNumber());
     }
 
@@ -106,8 +103,7 @@ public class JdbcInvoiceDao implements InvoiceDao {
         return template.queryOne(
                 COUNT_BY_STATE,
                 new Object[]{state.name()},
-                rs -> rs.getInt("total")
-        );
+                rs -> rs.getInt("total"));
     }
 
     @Override

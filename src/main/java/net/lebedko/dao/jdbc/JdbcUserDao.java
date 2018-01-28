@@ -6,7 +6,6 @@ import net.lebedko.dao.jdbc.template.QueryTemplate;
 import net.lebedko.entity.user.EmailAddress;
 import net.lebedko.entity.user.User;
 
-
 public class JdbcUserDao implements UserDao {
     private static final String FIND_BY_EMAIL = QUERIES.getProperty("user.getByEmail");
     private static final String INSERT = QUERIES.getProperty("user.insert");
@@ -26,9 +25,7 @@ public class JdbcUserDao implements UserDao {
                 user.getFullName().getFirstName().toString(),
                 user.getFullName().getLastName().toString(),
                 user.getPassword().getPasswordHash()});
-
         user.setId(id.longValue());
-
         return user;
     }
 

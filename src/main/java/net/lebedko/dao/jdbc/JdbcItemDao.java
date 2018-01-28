@@ -36,11 +36,8 @@ public class JdbcItemDao implements ItemDao {
                 item.getDescription().getValue().get(RU_CODE),
                 item.getPrice().getValue(),
                 item.getCategory().getId(),
-                item.getImageId()
-        });
-
+                item.getImageId()});
         item.setId(id.longValue());
-
         return item;
     }
 

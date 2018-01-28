@@ -6,7 +6,6 @@ import net.lebedko.entity.invoice.Invoice;
 import net.lebedko.entity.invoice.InvoiceState;
 import net.lebedko.entity.user.User;
 
-
 public interface InvoiceDao extends GenericDao<Invoice, Long> {
 
     Invoice getByUserAndState(User user, InvoiceState state);

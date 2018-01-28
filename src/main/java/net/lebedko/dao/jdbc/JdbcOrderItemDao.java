@@ -9,9 +9,7 @@ import net.lebedko.entity.order.Order;
 import net.lebedko.entity.order.OrderItem;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class JdbcOrderItemDao implements OrderItemDao {
@@ -35,7 +33,6 @@ public class JdbcOrderItemDao implements OrderItemDao {
                 item.getOrder().getId(),
                 item.getItem().getId(),
                 item.getQuantity()});
-
         return new OrderItem(id.longValue(), item.getOrder(), item.getItem(), item.getQuantity());
     }
 
@@ -77,7 +74,6 @@ public class JdbcOrderItemDao implements OrderItemDao {
                         oi.getQuantity(),
                         oi.getId()})
                 .collect(Collectors.toList());
-
         template.updateButch(UPDATE, params);
     }
 
@@ -86,7 +82,6 @@ public class JdbcOrderItemDao implements OrderItemDao {
         List<Object[]> params = items.stream()
                 .map(oi -> new Object[]{oi.getId()})
                 .collect(Collectors.toList());
-
         template.updateButch(DELETE, params);
     }
 
@@ -97,9 +92,6 @@ public class JdbcOrderItemDao implements OrderItemDao {
 
     @Override
     public OrderItem findById(Long id) {
-        Map<Integer, Object> params = new HashMap<>();
-        params.put(1, id);
-
         return template.queryOne(FIND_BY_ID,
                 new Object[]{id},
                 new OrderItemMapper());

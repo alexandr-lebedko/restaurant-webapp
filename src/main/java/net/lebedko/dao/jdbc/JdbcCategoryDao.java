@@ -63,5 +63,4 @@ public class JdbcCategoryDao implements CategoryDao {
     public Collection<Category> getAll() {
         return template.queryAll(GET_ALL, MAPPER);
     }
-
 }

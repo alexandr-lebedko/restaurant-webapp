@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
-
 public class User{
     private Long id;
     private FullName fullName;

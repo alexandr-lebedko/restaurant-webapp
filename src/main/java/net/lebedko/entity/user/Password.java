@@ -23,7 +23,6 @@ public class Password {
                 .map(StringI18N::removeExtraSpaces)
                 .map(String::trim)
                 .orElse(null);
-
         this.passwordHash = passwordHash;
     }
 
