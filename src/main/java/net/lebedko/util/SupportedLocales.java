@@ -12,12 +12,12 @@ public final class SupportedLocales {
     public static final String LOCALE_SESSION_ATTRIBUTE_NAME = "lang";
     public static final String LOCALE_REQUEST_ATTRIBUTE_NAME = "lang";
     private static final Map<String, Locale> LOCALES = new HashMap<>();
-    private static final Locale DEFAULT_LOCALE = new Locale(RU_CODE);
+    private static final Locale DEFAULT_LOCALE = new Locale(EN_CODE);
 
     static {
-        LOCALES.put(EN_CODE, Locale.ENGLISH);
+        LOCALES.put(EN_CODE, DEFAULT_LOCALE);
         LOCALES.put(UA_CODE, new Locale(UA_CODE));
-        LOCALES.put(RU_CODE, DEFAULT_LOCALE);
+        LOCALES.put(RU_CODE, new Locale(RU_CODE));
     }
 
     private SupportedLocales() {
